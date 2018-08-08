@@ -1,5 +1,7 @@
 package structures;
 
+import exceptions.StackOverflowException;
+
 public class BinaryTree {
 	
 	public BinaryTree left;
@@ -11,7 +13,14 @@ public class BinaryTree {
 		this.right = null;
 	}
 	
-	public BinaryTree(BinaryTree left, BinaryTree right) {
+	public BinaryTree(String value) {
+		this.value = value;
+		this.left = null;
+		this.right = null;
+	}
+	
+	public BinaryTree(String value, BinaryTree left, BinaryTree right) {
+		this.value = value;
 		this.left = left;
 		this.right = right;
 	}
@@ -35,11 +44,31 @@ public class BinaryTree {
 		return number + 1;
 	}
 	
-	public static void main(String[] args) {
+	public Stack<String> traverse() throws StackOverflowException {
+		Stack<String> order = new Stack<String>(this.countNodes());
+		order = traverseHelper(this,order);
+		return order;
+	}
+	
+	private static Stack<String> traverseHelper(BinaryTree tree, Stack<String> order) throws StackOverflowException {
+		if(tree == null) {
+			return order;
+		} else {
+			order = traverseHelper(tree.left, order);
+			order = traverseHelper(tree.right, order);
+			order.push(tree.value);
+			return order;
+		}
+		
+	}
+	
+	public static void main(String[] args) throws StackOverflowException {
 		BinaryTree t = new BinaryTree();
-		t.left = new BinaryTree();
+		t.setValue("+");
+		t.left = new BinaryTree("6");
+		t.right = new BinaryTree("3");
 		//t.right = new BinaryTree();
-		System.out.println(t.countNodes());
+		System.out.println(t.traverse());
 		
 	}
 	
