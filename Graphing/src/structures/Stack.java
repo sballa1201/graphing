@@ -36,5 +36,14 @@ public class Stack<T> {
 			return pop;
 		}
 	}
+	
+	@Override
+	public String toString() {
+		String out = "";
+		for(T i : stack) {
+			out = out + i.toString() + ", ";
+		}
+		return out;
+	}
 
 }
