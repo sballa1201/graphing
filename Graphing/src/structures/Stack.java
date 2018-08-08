@@ -1,8 +1,8 @@
 package structures;
 
-import java.util.ArrayList;
 
-import exceptions.*;
+import exceptions.StackOverflowException;
+import exceptions.StackUnderflowException;
 
 public class Stack<T> {
 
@@ -28,7 +28,7 @@ public class Stack<T> {
 	
 	public T pop() throws StackUnderflowException {
 		if(this.pointer < 0) {
-			throw new StackUnderflowException("STack has no items for you to pop");
+			throw new StackUnderflowException("Stack has no items for you to pop");
 		} else {
 			T pop = this.stack[this.pointer];
 			this.pointer--;
