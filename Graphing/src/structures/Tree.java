@@ -9,7 +9,6 @@ public class Tree {
 	public Tree() {
 		this.left = null;
 		this.right = null;
-		
 	}
 	
 	public String getValue() {
