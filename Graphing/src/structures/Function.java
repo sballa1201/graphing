@@ -24,21 +24,32 @@ public class Function {
 		Stack<Double> numStack = new Stack<Double>(this.postFixStack.getHeight());
 		for(int i=subStack.getHeight(); i>0 ;i--) {
 			String pop = subStack.pop();
+			double a,b;
 			switch(pop) {
 			case "+":
-				numStack.push(numStack.pop() + numStack.pop());
+				b = numStack.pop();
+				a = numStack.pop();
+				numStack.push(a+b);
 				break;
 			case "-":
-				numStack.push(numStack.pop() - numStack.pop());
+				b = numStack.pop();
+				a = numStack.pop();
+				numStack.push(a-b);
 				break;
 			case "*":
-				numStack.push(numStack.pop() * numStack.pop());
+				b = numStack.pop();
+				a = numStack.pop();
+				numStack.push(a*b);
 				break;
 			case "/":
-				numStack.push(numStack.pop() / numStack.pop());
+				b = numStack.pop();
+				a = numStack.pop();
+				numStack.push(a/b);
 				break;
 			case "^":
-				numStack.push(Math.pow(numStack.pop(),  numStack.pop()));
+				b = numStack.pop();
+				a = numStack.pop();
+				numStack.push(Math.pow(a,b));
 				break;
 			default:
 				numStack.push(Double.valueOf(pop));
