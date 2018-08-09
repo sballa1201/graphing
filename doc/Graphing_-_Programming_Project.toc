@@ -1,9 +1,0 @@
-\contentsline {section}{\numberline {1}Decomposition}{2}{section.1}
-\contentsline {subsection}{\numberline {1.1}The Input}{2}{subsection.1.1}
-\contentsline {subsubsection}{\numberline {1.1.1}User Interface}{2}{subsubsection.1.1.1}
-\contentsline {subsubsection}{\numberline {1.1.2}Function Class}{2}{subsubsection.1.1.2}
-\contentsline {subsubsubsection}{\numberline {1.1.2.1}Binary Trees}{3}{subsubsubsection.1.1.2.1}
-\contentsline {subsubsubsection}{\numberline {1.1.2.2}Stack Based Programming}{5}{subsubsubsection.1.1.2.2}
-\contentsline {subsubsubsection}{\numberline {1.1.2.3}Analysis of the two Methods}{7}{subsubsubsection.1.1.2.3}
-\contentsline {subsubsubsection}{\numberline {1.1.2.4}Implementing Stacks and Trees}{8}{subsubsubsection.1.1.2.4}
-\contentsline {subsubsubsection}{\numberline {1.1.2.5}Parsing Algorithm}{9}{subsubsubsection.1.1.2.5}
