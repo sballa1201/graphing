@@ -1,6 +1,12 @@
 package structures;
 
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import exceptions.StackOverflowException;
 import exceptions.StackUnderflowException;
 
@@ -11,9 +17,23 @@ public class Stack<T> {
 	private int pointer = -1;
 	private T[] stack;
 	
+	@SuppressWarnings("unchecked")
 	public Stack(int maxHeight) {
 		this.maxHeight = maxHeight;
 		this.stack = (T[]) new Object[this.maxHeight];		
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Stack(Stack<T> copy){
+		
+		this.pointer = copy.pointer;
+		this.height = copy.height;
+		this.maxHeight = copy.maxHeight;
+		this.stack = (T[]) new Object[this.maxHeight];
+		for(int i=0; i<this.height; i++) {
+			this.stack[i] = copy.stack[i];
+			System.out.println(this.stack[i]);
+		}
 	}
 	
 	public void push(T push) throws StackOverflowException {
@@ -68,24 +88,24 @@ public class Stack<T> {
 		if(this.isEmpty()) {
 			return "Stack is Empty";
 		} else {
-			String out = "";
-			for(T i : stack) {
-				out = out + i.toString() + ", ";
+			String out = "[" + this.stack[this.pointer] + "]";
+			for(int i=this.pointer-1; i>=0; i--) {
+				out = out + ", " + this.stack[i].toString() ;
 			}
-			return out.substring(0, out.length() - 2);
+			return out;
 		}
 	}
 	
 	
 	public static void main(String[] args) throws StackOverflowException, StackUnderflowException {
-		Stack<Integer> stack = new Stack<Integer>(3);
-		stack.push(1);
-		stack.push(2);
-		stack.push(3);
-		System.out.println(stack);
-		stack.reverse();
-		System.out.println(stack);
-		System.out.println(new Stack(3));
+		Stack<String> s1 = new Stack<String>(4);
+		s1.push("1");
+		s1.push("2");
+		s1.push("3");
+		Stack<String> s2 = new Stack<String>(s1);
+		s2.push("4");
+		System.out.println(s1);
+		System.out.println(s2);
 		
 	}
 
