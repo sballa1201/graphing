@@ -37,14 +37,6 @@ public class Stack<T> {
 		}
 	}
 	
-	public boolean isEmpty() {
-		if(this.height == 0) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
 	public void reverse() throws StackOverflowException, StackUnderflowException {
 		Stack<T> reverse = new Stack<T>(this.height);
 		for(int i=this.height; i>0 ;i--) {
@@ -57,6 +49,19 @@ public class Stack<T> {
 		
 		
 	}
+
+	public boolean isEmpty() {
+		if(this.height == 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public int getHeight() {
+		return height;
+	}
+
 	
 	@Override
 	public String toString() {
@@ -70,6 +75,7 @@ public class Stack<T> {
 			return out.substring(0, out.length() - 2);
 		}
 	}
+	
 	
 	public static void main(String[] args) throws StackOverflowException, StackUnderflowException {
 		Stack<Integer> stack = new Stack<Integer>(3);
