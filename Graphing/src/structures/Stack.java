@@ -37,13 +37,50 @@ public class Stack<T> {
 		}
 	}
 	
+	public boolean isEmpty() {
+		if(this.height == 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public void reverse() throws StackOverflowException, StackUnderflowException {
+		Stack<T> reverse = new Stack<T>(this.height);
+		for(int i=this.height; i>0 ;i--) {
+			reverse.push(this.pop());
+		}
+		
+		this.stack = reverse.stack;
+		this.pointer = reverse.pointer;
+		this.height = reverse.height;
+		
+		
+	}
+	
 	@Override
 	public String toString() {
-		String out = "";
-		for(T i : stack) {
-			out = out + i.toString() + ", ";
+		if(this.isEmpty()) {
+			return "Stack is Empty";
+		} else {
+			String out = "";
+			for(T i : stack) {
+				out = out + i.toString() + ", ";
+			}
+			return out.substring(0, out.length() - 2);
 		}
-		return out;
+	}
+	
+	public static void main(String[] args) throws StackOverflowException, StackUnderflowException {
+		Stack<Integer> stack = new Stack<Integer>(3);
+		stack.push(1);
+		stack.push(2);
+		stack.push(3);
+		System.out.println(stack);
+		stack.reverse();
+		System.out.println(stack);
+		System.out.println(new Stack(3));
+		
 	}
 
 }
