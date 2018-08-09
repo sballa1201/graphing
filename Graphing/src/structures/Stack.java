@@ -32,7 +32,6 @@ public class Stack<T> {
 		this.stack = (T[]) new Object[this.maxHeight];
 		for(int i=0; i<this.height; i++) {
 			this.stack[i] = copy.stack[i];
-			System.out.println(this.stack[i]);
 		}
 	}
 	
