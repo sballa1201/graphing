@@ -103,7 +103,7 @@ public double evaluate(double x) {
 \end{minted}
 The problem with using scripts is that they are take a huge hit on performance as you are effectively creating a virtual machine during your program. Especially in Java where a VM is used to run your programs, creating a VM inside a VM is not very effiecient. We will be making upto 2000 evaluate calls during one render, and therefore we will need to be as effiecient as possible. While the first method is harder to implement, it will have better performance, and it will be easier to debug as we are not using external tools.
 \newpage
-\subsubsection{Function Class}
+\subsubsection{Function Class}	\label{funcClass}
 Our Function class will contain two main methods:
 \begin{itemize}
 	\item Parse - This method will convert the user's input into a data structure that we can use to evaluate. This data structure will be stored as a private attribute.
@@ -192,7 +192,7 @@ The recursive tree for this is exactly the same as the original tree that we sta
 This is significant as this means that the number of recursive calls made is the number of edges, which is $n-1$ where $n$ is the total number of operands and operators combined.
 \newpage
 \subsubsubsection{Stack Based Programming}
-Stack Based Programming is all about using a stack data structure, and manipulating the items within it to get the desired result. Firstly we have to convert our \textit{Infix Notation} into \textit{Reverse Polish Notation}. Infix notation is the ``normal'' way of writing algebra, where the operator is inbetween its operands. Reverse Polish notation or Postfix notation is where the operator is after its operands. For example $4 + 3$ in infix notation would be $4\quad 3\quad +$ in postfix notation. To evaluate this expression we add each individual operator/value, from left to right, one by one, to a stack. If the value is an operator then it pops however many inputs it would normally take off the stack, perform the operation, on the values we just popped off, and then add that new value back to the stack. For example if we take the infix expression,
+Stack Based Programming is all about using a stack data structure, and manipulating the items within it to get the desired result. Firstly we have to convert our \textit{Infix Notation} into \textit{Reverse Polish Notation}. Infix notation is the ``normal'' way of writing algebra, where the operator is inbetween its operands. Reverse Polish notation or Postfix notation is where the operator is after its operands. The advantage of this notation is that no brackets are required. For example $4 + 3$ in infix notation would be $4\quad 3\quad +$ in postfix notation. To evaluate this expression we push each individual operator/value, from left to right, one by one, to a stack. If the value is an operator then it pops however many inputs it would normally take off the stack, perform the operation, on the values we just popped off, and then add that new value back to the stack. For example if we take the infix expression,
 \[(((6*(8-3)/3)) / 2) + 1\]
 we can convert this to the equivalent postfix expression,
 \[6\quad 8\quad 3 \quad - \quad * \quad 3 \quad / \quad 2 \quad / \quad 1 \quad +\]
@@ -280,12 +280,12 @@ Now when doing post-order depth-first traversal, we jump between the memory loca
 2 & 3 & 1 & 5 & 6 & 4 & 0 \\
 x & 4 & + & x & 3 & - & *
  \end{bmatrix}\]
-This is horribly ineffiecient because our stride is not consistent. This is unlike our stack based version, where we always have a stride of $1$, no matter what. While this is not that big of a problem for one evaluate call, when $2000$ evaluate calls are made, this makes a massive impact. We could, in theory, modify the order that we store our tree into one which is effiecient when doing a depth-first traversal but this is what we did when we converted our tree into post-fix notation. Therefore using stacks to process input is best for performance even though, the initial parsing takes longer. However this does not mean that we are not going to consider binary trees. This is because we need binary trees to initially parse our infix expression, therefore we will use stacks with binary trees to parse our user input. We need to inplement trees and stacks in C++ before we can start parsing our infix expression.
+This is horribly ineffiecient because our stride is not consistent. This is unlike our stack based version, where we always have a stride of $1$, no matter what. While this is not that big of a problem for one evaluate call, when $2000$ evaluate calls are made, this makes a massive impact. We could, in theory, modify the order that we store our tree into one which is effiecient when doing a depth-first traversal but this is what we did when we converted our tree into post-fix notation. Therefore using stacks to process input is best for performance even though, the initial parsing takes longer. However this does not mean that we are not going to consider binary trees. This is because we need binary trees to initially parse our infix expression, therefore we will use stacks with binary trees to parse our user input. We need to inplement trees and stacks in Java before we can start parsing our infix expression.
 \newpage
 \subsubsubsection{Implementing Stacks and Trees}
 Since stacks and queues are a prerequistite to our function class, we will design, implement and test them now.\\
 Our stack does not need to become infinitely big, as the size of the stack, as discussed in the last section, is $m$ where $m$ is the number of operands. Therefore we can initialize an array of size $m$ and manipulate the array to make it act like a stack.\\
-Our binary tree will be quite simple, containing only the bare minimum of what our binary tree needs, with an added traversal function which returns the post-order depth-first traversal of the tree. For simplicity we will use a private static helper function, which will take a tree and list as parameter. The list will be passed by reference. This is because we want to retain this list through recursive calls and doing this without passing by reference will require declaring an attribute inside our class, which is not very consistent because this attribute will not always be up-to-date. Also we will make our left and right tree attributes public. While this may be considered bad practice, using getters and setters with a recursively defined structure is complicated and accessing an element 3 levels deep in a tree is simpler if we use public attributes (e.g.\ tree.left.left.getValue() instead of tree.getLeft().getLeft().getValue()).\\
+Our binary tree will be quite simple, containing only the bare minimum of what our binary tree needs, with an added traversal function which returns the post-order depth-first traversal of the tree. For simplicity we will use a private static helper function, which will take a tree and list as parameter. This list which is passed will be edited and returned in every recursive call. Also we will make our left and right tree attributes public. This is because our root tree will be public, and as the left and right sub-trees are simply different copies of the root tree, it isn't consistent to make the right and left private while keeping the root tree public.\\
 \begin{figure}[h]
 \centering
 \begin{minipage}{.5\textwidth}
@@ -329,19 +329,21 @@ An important part of the parsing stage, is the ability to find the least signifi
 \begin{algorithm}[H]
 \caption{Least Significant Operator Position}
 \DontPrintSemicolon
-\Fn{leastSigOperator(String input)}{
+\Fn{leastSigOperatorPos(String input)}{
 	int parenthesis = 0 \;
-	int leastSigOperatorPos = -1 \tcc{stores the position of the least significant operator so far}\;
+	int leastSigOperatorPos = -1 \tcc{stores the position of the least significant operator so far}
 	int leastSigOpcode = 1000\;
-	String[] operators = [``+'',' ``-'', ``/'', `` * '', `` \^ ''] \tcc{stores each operator in order of incresing significance}\;
-	int currentOpcode \tcc{the current index of the operator in the array operators}\;
-	String currentChar\;
+	char[] operators = [``+'',' ``-'', ``/'', `` * '', `` \^ ''] \tcc{stores each operator in order of incresing significance}
+	int currentOpcode \tcc{the current index of the operator in the array operators}
+	char currentChar\;
 	\For{i=0 \KwTo (input.size - 1) \KwBy 1}{
 		currentChar = input[i]\;
 		\uIf {currentChar \KwIn operators} {
 			currentOpcode = operators.find(currentChar)\;
 			\uIf{(currentOpcode $\leq$ leastSigOpcode) \KwAnd (parenthesis $==$ 0)}{
 				leastSigOperatorPos = i\;
+				leastSigOpcode = currentOpcode \tcc{Update the least significant operator so far, as it is now the current character}
+				
 			}
 			 
 		}\uElseIf{currentChar == ``(''} {
@@ -353,7 +355,7 @@ An important part of the parsing stage, is the ability to find the least signifi
 	\KwRet leastSigOperatorPos\;
 }
 \end{algorithm}
-The function above assumes that there is no whitespace and that there are no brackets enclosing the entire expression (e.g.\ $(x-4)$). We can deal with our whitespace issue in our constructor\footnote{In our function class we will store the original input so we can show the user, therefore we do not need to remove whitespace here} however we need to make another function check for and remove any brackets surrounding an expression.
+The function above assumes that there is no whitespace and that there are no brackets enclosing the entire expression (e.g.\ $(x-4)$). We can deal with our whitespace issue in our constructor\footnote{In our function class we will store the original input so we can show the user, therefore we do not need to remove whitespace here} however we need to make another function check for and remove any brackets surrounding an expression. 
 \begin{algorithm}[H]
 \DontPrintSemicolon
 \caption{Check for and remove any Brackets surrounding an input}
@@ -361,7 +363,7 @@ The function above assumes that there is no whitespace and that there are no bra
 	Boolean done = False \;
 	\While{!done}{
 		done = True \;
-		\If{(input[0] == ``('') \KwAnd (input[input.size - 1] == ``)'')}{
+		\If{(input[0] == `(') \KwAnd (input[input.size - 1] == `)')}{
 			done = False \;
 			input = input.subString(1, input.size - 2)\;
 		}
@@ -370,7 +372,41 @@ The function above assumes that there is no whitespace and that there are no bra
 }
 \end{algorithm}
 \newpage
-
+However the above algorithm has some issues. For example if we have the expression $\frac{x+1}{x+2}$, this would be input as, $(x+1)/(x+2)$. Now if we apply our current algorithm which removes enclosing brackets we get $x+1)/(x+2$. This is completely wrong, as in this case we do not want to any remove brackets at all. The significant issue here is that we only want to remove the enclosing brackets, if they are \textit{\textbf{matching}}. To do this the following algorithm is more suited. This algorithm will also throw an exception if there are unequal number of opening and closing brackets. This is so that we can inform the user later of the error that they have made and so that we can kill the process instantly rather than letting this error have consequences later on (probably during the evaluation of a value).\\
+\begin{algorithm}[H]
+\DontPrintSemicolon
+\caption{Check for and remove any Matching Brackets surrounding an input}
+\Fn{checkBracket(String input)}{
+	Boolean done = False \;
+	\While{!done}{
+		done = True \;
+		\eIf{input[0] == `(' \KwAnd input[input.size - 1] == `)'}{
+			int countMatching = 1\;
+			\For{i=1 \KwTo (input.size - 2) \KwBy 1}{
+				\uIf(\tcc*[h]{if countMatching is 0, then the matching closing bracket has been found before the end therefore we return the input without modification}){countMatching == 0}{
+					\KwRet input\;
+				} \uElseIf{input[i] == `(' }{
+					countMatching++\tcc{If there is an opening bracket then we increment}
+				} \ElseIf{input[i] == `)'} {
+					countMatching--\;	{If there is an closing bracket then we decrement}
+				}
+			}
+			\uIf(\tcc*[h]{we haven't looped til the last character which is `)' , and therefore at this point countMatching would be 1 for a standard expression}){countMatching == 1}{
+				done = False\;
+				input = input.subString(1, input.size - 2)\;
+			}(\tcc*[h]{otherwise it is not a standard expression and there is something wrong}){
+				throw ``There is an unequal number of opening and closing brackets''\;
+			}
+		
+		} 
+		
+		
+	}
+	\KwRet input\;
+}
+\end{algorithm}
+\newpage
+Another important part of the parsing stage is to standardize the input. This is where we convert any inconsistencies discussed in section \ref{funcClass}  (\pageref{funcClass}).
 \newpage
 \begin{thebibliography}{9}
 
