@@ -1,5 +1,7 @@
 package structures;
 
+import java.lang.reflect.Array;
+
 import exceptions.StackOverflowException;
 import exceptions.StackUnderflowException;
 
@@ -9,13 +11,14 @@ public class Function {
 	private String parameter;
 	private String expression;
 	@SuppressWarnings("unused")
-	final private static String[] operators = {"+","-","*","/","^"}; 
+	
 	
 	
 	
 	public Function(String expression) {
-		this.expression = expression;
+		this.expression = expression.replace(" ", "");
 		this.parameter = "x";
+				
 	}
 	
 	public double evaluate(double x) throws StackUnderflowException, StackOverflowException {
@@ -74,12 +77,48 @@ public class Function {
 		return subStack;
 	}
 	
+	private static int leastSigOperatorPos(String input) {
+		int parenthesis = 0;
+		int leastSigOperatorPos = -1;
+		int leastSigOpcode = 1000;
+		//used a string to store the operators, as it is essentially a char array but with added utility, such as finding elements
+		final String operators = "+-*/^";
+		int currentOpcode;
+		
+		for(int i=0; i<input.length(); i++) {
+			char currentChar = input.charAt(i);
+			currentOpcode = operators.indexOf(currentChar);
+			if(currentOpcode>=0) {
+				if((currentOpcode <= leastSigOpcode) && (parenthesis == 0)) {
+					leastSigOperatorPos = i;
+					leastSigOpcode = currentOpcode;
+				}
+			} else if(currentChar == '(') {
+				parenthesis++;
+			} else if(currentChar == ')') {
+				parenthesis--;
+			}
+		}
+		return leastSigOperatorPos;
+	}
+	
+
+	
+	private static String checkBracket(String input) {
+		if((input.charAt(0) == '(') && (input.charAt(input.length()-1) == ')')) {
+			//used to be input = input.substring(0, input.length() - 2);
+			input = input.substring(1, input.length() - 1);
+		}
+		return input;
+	}
+	
 	@Override
 	public String toString() {
 		return this.expression;
 	}
 	
 	public static void main(String[] args) throws StackOverflowException, StackUnderflowException {
+		/*
 		Function f = new Function("4 + 3x");
 		Stack<String> s = new Stack<String>(6);
 		s.push("-");
@@ -92,7 +131,10 @@ public class Function {
 		for(int i=0; i<10; i++) {
 			System.out.println(i+" - "+f.evaluate(i));
 		}
-		
+		*/
+
+		//System.out.println(leastSigOperatorPos("3x*4^3+"));
+		System.out.println(checkBracket("(3x+2)"));
 	}
 
 }
