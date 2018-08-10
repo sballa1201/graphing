@@ -1,0 +1,381 @@
+\documentclass{article}
+
+\usepackage{fullpage}
+\usepackage{wrapfig}
+
+\usepackage[pdftex]{graphicx}
+\DeclareGraphicsRule{*}{mps}{*}{}
+
+
+
+
+\usepackage{amssymb}
+\usepackage{tensor}
+\usepackage{array}
+\usepackage{float}
+\usepackage{titlesec}
+\usepackage{amsmath}
+\usepackage{cancel}
+\usepackage{commath}
+\usepackage{qtree}
+\usepackage[boxruled,linesnumbered]{algorithm2e}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{minted}
+\usemintedstyle{colorful}
+
+\usepackage{hyperref}
+
+
+
+\author{Shashi Balla}
+\title{Graphing - Programming Project}
+
+\titleclass{\subsubsubsection}{straight}[\subsection]
+
+\newcounter{subsubsubsection}[subsubsection]
+\renewcommand\thesubsubsubsection{\thesubsubsection.\arabic{subsubsubsection}}
+
+\titleformat{\subsubsubsection}
+  {\normalfont\normalsize\bfseries}{\thesubsubsubsection}{1em}{}
+\titlespacing*{\subsubsubsection}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\makeatletter
+\def\toclevel@subsubsubsection{4}
+\def\l@subsubsubsection{\@dottedtocline{4}{7em}{4em}}
+\makeatother
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=2pt] (char) {#1};}
+}
+
+
+\makeatletter
+\g@addto@macro\bfseries{\boldmath}
+\makeatother
+
+\SetKw{KwBy}{by}
+\SetKw{KwTo}{to}
+\SetKw{KwAnd}{and}
+\SetKw{KwIs}{is}
+\SetKw{KwIn}{in}
+\SetKw{KwNull}{null}
+\SetKwProg{Fn}{function}{:}{end function}
+
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+\newpage
+\section{Decomposition}
+We can break this project into 2 major portions which can be handled separately until the very end:
+\begin{itemize}
+	\item The Input - This includes parsing the user's inputted functions and storing it in a format which we can then use for the second portion.
+	\item The Output - This is simply drawing the inputted functions onto the screen using the OpenGL API and adding some other bits such as intersections axes etc.
+\end{itemize}
+There is also the User Interface, but this is quite small compared to these two portions.
+\subsection{The Input}
+The Input consists of the Functions that the user inputs. We can create a standardized class called ``function''  which will allow us to deal with it independently. Our output will only require us to input a value, $x$, and return a value, $y$, and we can include a function within this class which allows to do this.
+\subsubsection{User Interface}
+
+\subsubsection{Function Class}
+Our Function class will contain two main methods:
+\begin{itemize}
+	\item Parse - This method will convert the user's input into a data structure that we can use to evaluate. This data structure will be stored as a private attribute.
+	\item Evaluate - This method will take a value of $x$ and input it into our function and return the value $f(x)$.
+\end{itemize}
+Our class will contain more methods and attributes later (colour of the line, roots, turning points etc.) but these can be considered later as these are quite small parts.
+There are two ways to parse an mathematical input and convert it into a structure that we can then manipulate and use. These are:
+\begin{itemize}
+	\item Binary Trees
+	\item Stack Based Programming
+\end{itemize}
+As a side note, there are some nuances when we write functions that make it difficult for a computer to process and we have to remember when we implement this. For example, if we have $3x$, we actually mean $3*x$. Similarly if we have $(x-2)(2-x)$ we actually mean $(x-2)*(2-x)$. It is important that we remove these inconsistencies before we properly convert our input into a structure. It is also important that we strip away all whitespace before we start as this will allow our input to be more consistent. Here is a list of all these inconsistencies that we need to remove:
+\begin{itemize}
+	\item Any instance of $ax$ where $a \in  \mathbb{R} : a \neq 0$ is to be converted to $a*x$.\footnote{For example $4x$ is to be converted to $4*x$}
+	\item Any instance of $(f(x))(g(x))$ is to be converted to $(f(x))*(g(x))$.\footnote{For example $(x+4)(x-3)$ is to be converted to $(x+4)*(x-3)$}
+	\item Any instance of $!-f(x)$ where $!$ is to be any operator (e.g. $*$ or $/$) is to be converted to $! (-f(x))$.\footnote{If there is a negate symbol next to another operator, we need to make sure that the negate symbol is not treated as an operator (even though we treat it like an operator in certain situations in the next step)}
+	\item Any instance of $-f(x)$ at the start or next to an opening bracket is to be converted to $0 - f(x)$.\footnote{Both these expressions are equivalent but the second allows us to reduce ambiguity if there is a negate symbol at the start of an expression e.g.\ $-x + 4$ would be treated as $0 - x + 4$ and $(-x)$ is $0-x$.}.
+\end{itemize}
+\newpage
+\subsubsubsection{Binary Trees}
+The second stage that a compiler goes through is called Syntax Analysis and this is where the code is transformed into an Abstract Syntax Tree.  What we are trying to achieve is very similar to that (albeit on a smaller scale). If we take a function $f(x) = x + 4$, this would be transformed into the binary tree:\\
+\par
+\Tree[.+ 4 x ]
+\bigskip \\
+If we take something more complicated such as $f(x) = (x+4)(x-3)$, we need to first remove consistencies as discussed at the start of this section. Therefore the function would become $f(x) = (x+4)*(x-3)$. Now when we convert this into a syntax tree, we find the least significant operator (the operation we would do last), make it our root node and split the parameters that it is operating and make those parameters the child nodes of the root node. Here $*$ is the least significant operator and $x+4$ and $x-3$ become the child nodes.\\
+\par
+\Tree[.* (x+4) (x-3) ]
+\bigskip \\
+We can then repeat what we did above on the child nodes. In $x+4$, $+$ is the least significant operator and in  In $x-3$, $-$ is the least significant operator. Therefore we now get:\\
+\par
+\Tree[.* 
+		[.+ x 4 ]
+		[.- x 3 ] 
+]
+\bigskip \\
+We now stop as we cannot split this down any further. What we notice here is that only the bottommost nodes are actually values, the rest are operators. This is significant, because what we just did was a recursive algorithm, where we split each node down, until a node does not contain any operators.\\
+Now if we want to get $f(1)$, we simply replace every instance of $x$ with $1$ and then perform the recursive algorithm outlined below.\\
+\begin{algorithm}[H]
+\DontPrintSemicolon
+\caption{Evaluate: Binary Tree Version}
+\Fn{evaluate(\textrm{tree})}{
+	\eIf{tree.height = 0}
+	{\KwRet tree.root.value\;}
+	{\KwRet \textit{evaluate}(tree.leftsubtree) tree.root.value \textit{evaluate}(tree.leftsubtree)\;} 
+}
+\end{algorithm}
+This recursive algorithm has base case ``tree.height = 0'', which essentially checks if are at the bottom of our tree. We know that the bottommost nodes are actually values, therefore we can return this value as we cannot go deeper into our tree. Our recursive case is where we are not at the bottom of our tree. We know that at this point, the root node is an operator 
+\footnote{It is important to realize that tree.root.value is just an operator, and in theory we can simply just write it as shown above but in implementation this will require us to use if statements to check which operator it actually is as the operators will most likely be of data type string}. 
+Therefore we operate on the nodes below it.\\
+\newpage
+First let us replace every instance of $x$ with $1$.\\
+\par
+\Tree[.* 
+		[.+ 1 4 ]
+		[.- 1 3 ] 
+]
+\bigskip \\
+Now the root node has value ``+'', i.e.\ an operator therefore we take the left subtree which is,\\
+\par
+\Tree [.+ 1 4 ]
+\bigskip \\
+and again the root node is an operator so we take the left subtree again, which is $1$. This is not an operator, so we return this value, going back to our previous call which is, \\
+\par
+\Tree [.+ 1 4 ]
+\bigskip \\
+Now we take the right subtree, which is $4$. Again, this is not an operator so we return this value, going back to our previous call. Now we have \textbf{return} $1 + 4$, therefore we return $5$ to our previous call which is,\\
+\par
+\Tree[.* 
+		[.+ 1 4 ]
+		[.- 1 3 ] 
+]
+\bigskip \\
+We now repeat the process for the right subtree,\\
+\par
+\Tree[.- 1 3 ]
+\bigskip \\
+which returns $-2$. We then go back to our original call to get $5 * -2$ which returns $-10$.\\
+The recursive tree for this is exactly the same as the original tree that we started with.\\
+\par
+\Tree[.* 
+		[.+ 1 4 ]
+		[.- 1 3 ] 
+]
+\bigskip \\
+This is significant as this means that the number of recursive calls made is the number of edges, which is $n-1$ where $n$ is the total number of operands and operators combined.
+\newpage
+\subsubsubsection{Stack Based Programming}
+Stack Based Programming is all about using a stack data structure, and manipulating the items within it to get the desired result. Firstly we have to convert our \textit{Infix Notation} into \textit{Reverse Polish Notation}. Infix notation is the ``normal'' way of writing algebra, where the operator is inbetween its operands. Reverse Polish notation or Postfix notation is where the operator is after its operands. For example $4 + 3$ in infix notation would be $4\quad 3\quad +$ in postfix notation. To evaluate this expression we add each individual operator/value, from left to right, one by one, to a stack. If the value is an operator then it pops however many inputs it would normally take off the stack, perform the operation, on the values we just popped off, and then add that new value back to the stack. For example if we take the infix expression,
+\[(((6*(8-3)/3)) / 2) + 1\]
+we can convert this to the equivalent postfix expression,
+\[6\quad 8\quad 3 \quad - \quad * \quad 3 \quad / \quad 2 \quad / \quad 1 \quad +\]
+The way we get this is by looking for the least significant operator (the one we would consider last) and putting it to the end. We then take the operands of the operator which just removed, and repeat until we are left with only values.  This seems very similar to the binary tree solution. In fact, if we convert this into a binary tree,\\
+\par
+\Tree [.+ [./ 		[./  
+						[.* 6 [.- 8 3 ] ] 
+						3 ]
+			 		2 ]
+		[1 ]
+		 ]
+\bigskip \\
+and if we then perform post-order depth traversal. So first we go all the way down the left hand side of the tree to get $6$. We then visit its sibling, $-$, which has more children. So we visit $8$, $3$ then $-$. So far we have
+\[6\quad 8\quad 3 \quad -\]
+We then move up to $*$ and add this to our list. We then visit its sibling $3$ and add this to our list. We have now got
+\[6\quad 8\quad 3 \quad - \quad * \quad 3\]
+We then go up to $/$ and add this to our list. We then visit its sibling $2$ and add this to our list. We have now got
+\[6\quad 8\quad 3 \quad - \quad * \quad 3 \quad / \quad 2\]
+We then go up to $/$ and add this to our list. We then visit its sibling $1$ and add this to our list. We then go up to the root node, $+$, and add this to our list. Finally we have,
+\[6\quad 8\quad 3 \quad - \quad * \quad 3 \quad / \quad 2 \quad / \quad 1 \quad +\]
+This is identical to our post-fix notation. This is important as later on we can abuse this fact to make our solution as effiecient as possible.\\
+Now if we start to evaluate this expression we get,
+\[
+\begin{bmatrix} 6 \end{bmatrix} \quad
+\begin{bmatrix} 8 \\ 6 \end{bmatrix} \quad
+\begin{bmatrix} 3 \\ 8 \\ 6 \end{bmatrix}\]
+we have reached an operator, $-$, so we now pop 2 items of the stack, $3$ and $8$, and perform the operation, $8-3=5$. We now push this value onto the top off the stack and resume our evaluation.
+\[\begin{bmatrix} 5 \\ 6\end{bmatrix}\]
+Again we have reached a operator so we repeat what we did before. Take $5$ and $6$ off the stack, push $5*6 = 30$ onto the stack.
+\[\begin{bmatrix} 30 \end{bmatrix}
+\begin{bmatrix} 3 \\ 30\end{bmatrix}\]
+Take $3$ and $30$ off the stack, push $30 / 3 = 10$ onto the stack.
+\[\begin{bmatrix} 10 \end{bmatrix} \quad
+\begin{bmatrix} 2 \\ 10 \end{bmatrix}\]
+Take $2$ and $10$ off the stack, push $10/2 = 5$ onto the stack.
+\[\begin{bmatrix} 5 \end{bmatrix} \quad
+\begin{bmatrix} 1 \\ 5 \end{bmatrix}\]
+Finally Take $1$ and $5$ off the stack, push $5 + 1 = 6$ onto the stack. We are left with 6 and have now got our answer. Just like with the binary trees, if we have an unknown $x$, we can simply replace the x with a value when we want. The algorithm to evaluate post-fix notation is shown below,\\
+\begin{algorithm}[H]
+\DontPrintSemicolon
+\caption{Evaluate: Stack Based Version}
+\Fn{evaluate(list)}{
+	Stack stack\;
+	Array temp\;
+	Real out \;
+	Real x \;
+	\ForEach{i in list}{
+		\eIf{i \KwIs an operator}{
+			pop = i.numberOfInputs\;
+			temp = new Array[pop]\;
+			\For{j=0  \KwTo pop \KwBy 1}{
+				temp[j] = stack.pop()\;
+			}
+			x = i.input(temp[1],temp[2],...,temp[n])\;
+			stack.push(x)\;
+		}{
+			stack.push(i)\;
+		}
+	}
+	out = stack.pop()\;
+	\KwRet out\;
+}
+\end{algorithm}
+Here we are treating the operator to be an object for simplicity. In practice, all these values will be of data type String, therefore we will probably use some sort of selection contruct, either \textit{if} or \textit{switch-case} statements, to determine if $i$ is an operator and if it is, which one is it.
+\newpage
+\subsubsubsection{Analysis of the two Methods}
+When inititially parsing the infix expression $f(x)$, the binary tree version will have time complexity $O(n)$ where $n$ is the number of operators ($n$ will be the number of operators, and $m$ will be the number of operands in $f(x)$) in $f(x)$. The stack based version will convert the infix expression into a binary tree, and then perform depth-first traversal to convert the tree into post-fix. Depth-first traversal has a time complexity of $O(m+n)$ (every traversal visits every node, and there are $n+m$ nodes). This means that to initially parse the infix expression, the binary tree version has a smaller time complexity.\\
+When evaluating $f(x)$ for a specific value of $x$, both versions have a time complexity of $O(m+n)$. This is because the binary tree version visits every node, $m+n$ (what we do is essentially post-order depth-first traversal but applying an operation each time), and the stack based version has $m+n$ items in the list that it goes through. Here we are assuming that each operation between operands takes equal time. This is a reasonable assumption to make because we are comparing two algorithms and they have the same input, $f(x)$, therefore we can remove the steps that it takes to complete the operations.\\
+Now from a pure time complexity point of view, we can say that the binary tree version is better as the initial parsing is quicker. However when it comes to space complexity this is not true. When evaluating $f(x)$, the binary tree version uses a lot more memory because it creates subtrees every time it calls a recursive function. On the otherhand, with the stack based version, the maximum space that could be occupied is $(m+n) + m)$. $(m+n)$ is the size of the orignal list that we pull values from, and $m$ is the maximum size our stack could ever get (we never add an operator to the stack). From a memory point of view a binary tree is not very effieciently stored. Most languages don't have a binary tree construct, and implementing your own with primitive arrays (each child is an array) is ineffiecient. For example the binary tree,\\
+\par
+\Tree[.* 
+		[.+ x 4 ]
+		[.- x 3 ] 
+]
+\bigskip \\
+would be represented as (actual implementation would have pointers),
+\[[* [+ [x,4] ],[- [x,3] ] ]\]
+If we then stored this in contiguous memory,
+\[\begin{bmatrix}
+0 & 1 & 2 & 3 & 4 & 5 & 6 \\
+* & + & x & 4 & - & x & 3
+ \end{bmatrix}\]
+Now when doing post-order depth-first traversal, we jump between the memory locations,
+\[\begin{bmatrix}
+2 & 3 & 1 & 5 & 6 & 4 & 0 \\
+x & 4 & + & x & 3 & - & *
+ \end{bmatrix}\]
+This is horribly ineffiecient because our stride is not consistent. This is unlike our stack based version, where we always have a stride of $1$, no matter what. While this is not that big of a problem for one evaluate call, when $2000$ evaluate calls are made, this makes a massive impact. We could, in theory, modify the order that we store our tree into one which is effiecient when doing a depth-first traversal but this is what we did when we converted our tree into post-fix notation. Therefore using stacks to process input is best for performance even though, the initial parsing takes longer. However this does not mean that we are not going to consider binary trees. This is because we need binary trees to initially parse our infix expression, therefore we will use stacks with binary trees to parse our user input. We need to inplement trees and stacks in C++ before we can start parsing our infix expression.
+\newpage
+\subsubsubsection{Implementing Stacks and Trees}
+Since stacks and queues are a prerequistite to our function class, we will design, implement and test them now.\\
+Our stack does not need to become infinitely big, as the size of the stack, as discussed in the last section, is $m$ where $m$ is the number of operands. Therefore we can initialize an array of size $m$ and manipulate the array to make it act like a stack.\\
+Our binary tree will be quite simple, containing only the bare minimum of what our binary tree needs, with an added traversal function which returns the post-order depth-first traversal of the tree. For simplicity we will use a private static helper function, which will take a tree and list as parameter. The list will be passed by reference. This is because we want to retain this list through recursive calls and doing this without passing by reference will require declaring an attribute inside our class, which is not very consistent because this attribute will not always be up-to-date. Also we will make our left and right tree attributes public. While this may be considered bad practice, using getters and setters with a recursively defined structure is complicated and accessing an element 3 levels deep in a tree is simpler if we use public attributes (e.g.\ tree.left.left.getValue() instead of tree.getLeft().getLeft().getValue()).\\
+\begin{figure}[h]
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.4\linewidth]{Class/stack.1}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.6\linewidth]{Class/tree.1}
+\end{minipage}
+\caption{Class Diagrams}
+\end{figure}
+\\
+\begin{algorithm}[H]
+\caption{Post-Order Depth-First Traversal Helper}
+\DontPrintSemicolon
+\Fn{traverseHelper(Tree tree,List \&order)}{
+	\eIf{tree == \KwNull}{
+		\KwRet; 
+	}{
+		traverse(tree.left,order)\;
+		traverse(root.right,order)\;
+		list.add(root.data)\;
+	}
+	\KwRet list\;
+}
+\end{algorithm}
+\begin{algorithm}[H]
+\caption{Post-Order Depth-First Traversal}
+\DontPrintSemicolon
+\Fn{traverse()}{
+	List order\;
+	traverseHelper(this,order)\;
+	\KwRet order\;
+}
+\end{algorithm}
+
+\newpage
+\subsubsubsection{Parsing Algorithm}
+An important part of the parsing stage, is the ability to find the least significant operator within an expression.
+\begin{algorithm}[H]
+\caption{Least Significant Operator Position}
+\DontPrintSemicolon
+\Fn{leastSigOperator(String input)}{
+	int parenthesis = 0 \;
+	int leastSigOperatorPos = -1 \tcc{stores the position of the least significant operator so far}\;
+	int leastSigOpcode = 1000\;
+	String[] operators = [``+'',' ``-'', ``/'', `` * '', `` \^ ''] \tcc{stores each operator in order of incresing significance}\;
+	int currentOpcode \tcc{the current index of the operator in the array operators}\;
+	String currentChar\;
+	\For{i=0 \KwTo (input.size - 1) \KwBy 1}{
+		currentChar = input[i]\;
+		\uIf {currentChar \KwIn operators} {
+			currentOpcode = operators.find(currentChar)\;
+			\uIf{(currentOpcode $\leq$ leastSigOpcode) \KwAnd (parenthesis $==$ 0)}{
+				leastSigOperatorPos = i\;
+			}
+			 
+		}\uElseIf{currentChar == ``(''} {
+			parenthesis$++$\;		
+		}\ElseIf{currentChar == ``)''} {
+			parenthesis$--$\;		
+		}
+	}
+	\KwRet leastSigOperatorPos\;
+}
+\end{algorithm}
+The function above assumes that there is no whitespace and that there are no brackets enclosing the entire expression (e.g.\ $(x-4)$). We can deal with our whitespace issue in our constructor\footnote{In our function class we will store the original input so we can show the user, therefore we do not need to remove whitespace here} however we need to make another function check for and remove any brackets surrounding an expression.
+\begin{algorithm}[H]
+\DontPrintSemicolon
+\caption{Check for and remove any Brackets surrounding an input}
+\Fn{checkBracket(String input)}{
+	Boolean done = False \;
+	\While{!done}{
+		done = True \;
+		\If{(input[0] == ``('') \KwAnd (input[input.size - 1] == ``)'')}{
+			done = False \;
+			input = input.subString(1, input.size - 2)\;
+		}
+	}
+	\KwRet input\;
+}
+\end{algorithm}
+\newpage
+\begin{minted}{java}
+import numpy
+ 
+public void incmatrix(genl1,genl2) {
+    m = len(genl1)
+    n = len(genl2)
+    M = None //to become the incidence matrix
+    VT = np.zeros((n*m,1), int)  //dummy variable
+ 
+    //compute the bitwise xor matrix
+    M1 = bitxormatrix(genl1)
+    M2 = np.triu(bitxormatrix(genl2),1)
+}
+...
+\end{minted}
+\newpage
+\begin{thebibliography}{9}
+
+\bibitem{insert}
+ insert something
+
+
+
+
+\end{thebibliography}
+
+
+
+\end{document}
