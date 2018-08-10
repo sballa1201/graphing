@@ -1,7 +1,5 @@
 package structures;
 
-import java.lang.reflect.Array;
-
 import exceptions.StackOverflowException;
 import exceptions.StackUnderflowException;
 
@@ -10,14 +8,17 @@ public class Function {
 	private Stack<String> postFixStack;
 	private String parameter;
 	private String expression;
-	@SuppressWarnings("unused")
 	
 	
 	
 	
-	public Function(String expression) {
+	public Function(String expression) throws StackOverflowException, StackUnderflowException {
 		this.expression = expression.replace(" ", "");
 		this.parameter = "x";
+		BinaryTree tree = createTree(this.expression);
+		this.postFixStack = tree.traverse();
+		//dont reverse stack at the start
+		this.postFixStack.reverse();
 				
 	}
 	
@@ -77,6 +78,22 @@ public class Function {
 		return subStack;
 	}
 	
+	private static BinaryTree createTree(String expression) {
+		expression = checkBracket(expression);
+		int leastSigOperatorPos = leastSigOperatorPos(expression);
+		if(leastSigOperatorPos == -1) {		//base case
+			return new BinaryTree(expression);
+		} else {
+			String operator = String.valueOf(expression.charAt(leastSigOperatorPos));
+			String a = expression.substring(0, leastSigOperatorPos);
+			String b = expression.substring(leastSigOperatorPos+1);
+			System.out.println(operator);
+			System.out.println(a);
+			System.out.println(b);
+			return new BinaryTree(operator,createTree(a),createTree(b));
+		}
+	}
+	
 	private static int leastSigOperatorPos(String input) {
 		int parenthesis = 0;
 		int leastSigOperatorPos = -1;
@@ -105,9 +122,14 @@ public class Function {
 
 	
 	private static String checkBracket(String input) {
-		if((input.charAt(0) == '(') && (input.charAt(input.length()-1) == ')')) {
-			//used to be input = input.substring(0, input.length() - 2);
-			input = input.substring(1, input.length() - 1);
+		boolean done = false;
+		while(!done) {
+			done = true;
+			if((input.charAt(0) == '(') && (input.charAt(input.length()-1) == ')')) {
+				//used to be input = input.substring(1, input.length() - 2);
+				input = input.substring(1, input.length() - 1);
+				done = false;
+			}
 		}
 		return input;
 	}
@@ -131,10 +153,14 @@ public class Function {
 		for(int i=0; i<10; i++) {
 			System.out.println(i+" - "+f.evaluate(i));
 		}
+		
 		*/
-
 		//System.out.println(leastSigOperatorPos("3x*4^3+"));
-		System.out.println(checkBracket("(3x+2)"));
+		System.out.println(checkBracket("(((3x+2)))"));
+		BinaryTree t = createTree("(x+1)/(x+2)");
+		Stack s = t.traverse();
+		s.reverse();
+		System.out.println(s);
 	}
 
 }
