@@ -118,6 +118,7 @@ There are two ways to parse an mathematical input and convert it into a structur
 As a side note, there are some nuances when we write functions that make it difficult for a computer to process and we have to remember when we implement this. For example, if we have $3x$, we actually mean $3*x$. Similarly if we have $(x-2)(2-x)$ we actually mean $(x-2)*(2-x)$. It is important that we remove these inconsistencies before we properly convert our input into a structure. It is also important that we strip away all whitespace before we start as this will allow our input to be more consistent. Here is a list of all these inconsistencies that we need to remove:
 \begin{itemize}
 	\item Any instance of $ax$ where $a \in  \mathbb{R} : a \neq 0$ is to be converted to $a*x$.\footnote{For example $4x$ is to be converted to $4*x$}
+	\item Any instance of $a($ and $)a$ where $a$ is not an operator, is to be converted to $a*($ and $)*a$ respectively..\footnote{For example $4(x+1)$ is to be converted to $4*(x+!)$}
 	\item Any instance of $(f(x))(g(x))$ is to be converted to $(f(x))*(g(x))$.\footnote{For example $(x+4)(x-3)$ is to be converted to $(x+4)*(x-3)$}
 	\item Any instance of $!-f(x)$ where $!$ is to be any operator (e.g. $*$ or $/$) is to be converted to $! (-f(x))$.\footnote{If there is a negate symbol next to another operator, we need to make sure that the negate symbol is not treated as an operator (even though we treat it like an operator in certain situations in the next step)}
 	\item Any instance of $-f(x)$ at the start or next to an opening bracket is to be converted to $0 - f(x)$.\footnote{Both these expressions are equivalent but the second allows us to reduce ambiguity if there is a negate symbol at the start of an expression e.g.\ $-x + 4$ would be treated as $0 - x + 4$ and $(-x)$ is $0-x$.}.
@@ -406,7 +407,22 @@ However the above algorithm has some issues. For example if we have the expressi
 }
 \end{algorithm}
 \newpage
-Another important part of the parsing stage is to standardize the input. This is where we convert any inconsistencies discussed in section \ref{funcClass}  (\pageref{funcClass}).
+Another important part of the parsing stage is to standardize the input. This is where we convert any inconsistencies discussed in section \ref{funcClass}  (\pageref{funcClass}). The easiest way to do this is to use RegEx. RegEx stands for regular expression and is a standardized form of pattern recognition in strings, usually used during syntax analysis during compilation of software. Many languages support regex in some form or another and Java is no exception. These were our 5 inconsistencies that we needed to fix:
+\begin{enumerate}
+	\item Any instance of $ax$ where $a \in  \mathbb{R} : a \neq 0$ is to be converted to $a*x$.
+	\item Any instance of $a($ and $)a$ where $a$ is not an operator, is to be converted to $a*($ and $)*a$ respectively.
+	\item Any instance of $(f(x))(g(x))$ is to be converted to $(f(x))*(g(x))$.
+	\item Any instance of $!-f(x)$ where $!$ is to be any operator (e.g. $*$ or $/$) is to be converted to $! (-f(x))$.
+	\item Any instance of $-f(x)$ at the start or next to an opening bracket is to be converted to $0 - f(x)$.
+\end{enumerate}
+For the first and second examples, we look around every instance of $x$, $($ or $)$ and if the adjacent characters are not operators or brackets then we replace with $*x$ or $x*$. Therefore we can combine the first and second examples to use two separate RegEx expressions to deal with the case where we have $x$ after and where we have $x$ before.\\
+The RegEx expression for the first case is
+``([\^{}\textbackslash+\textbackslash-\textbackslash*\textbackslash/\textbackslash(\textbackslash)\textbackslash\^{}])([\textbackslash(x])''
+with the replacement expression being ``\$1*\$2''. If we take the ReGex expression, it creates two capture groups ``\$1'' and ``\$2'' which are ``([\^{}\textbackslash+\textbackslash-\textbackslash*\textbackslash/\textbackslash(\textbackslash)\textbackslash\^{}])'' and ``([\textbackslash(x])'' respectively. A capture group stores a set of characters for each match that is made, so that we can perform actions on it later. The first capture group checks if the first character, in the substring that is currently being checked, is not any of the operators or brackets\footnote{the reason there are so many backslashes is because a lot of the operators are actually key characters in RegEx and a blackslash signifies to treat the next character as a pure character}. The not is signified by the first \^{}. The second capture group checks if the second character, in the substring that is currently being checked, is an $x$ or a (. If both capture groups return true then a match is found and the match is replaced with ``\$1*\$2'' where ``\$1'' is the first capture group, ``\$2'' is the second capture group and the * asterisk between them signifying the multiply.\\
+The RegEx expression for the second case is
+``([\textbackslash)x])([\^{}\textbackslash+\textbackslash-\textbackslash*\textbackslash/\textbackslash(\textbackslash)\textbackslash\^{}])''
+with the replacement expression being ``\$1*\$2'' again. This expression does the same as the first but checks for the reverse order i.e.\ $xa$ and instead checks for a ) instead of ( as we are checking the back of a substring instead of the start.
+
 \newpage
 \begin{thebibliography}{9}
 

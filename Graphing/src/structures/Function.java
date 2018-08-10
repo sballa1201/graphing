@@ -94,8 +94,7 @@ public class Function {
 			return new BinaryTree(operator,createTree(a),createTree(b));
 		}
 	}
-	
-	private static int leastSigOperatorPos(String input) {
+		private static int leastSigOperatorPos(String input) {
 		int parenthesis = 0;
 		int leastSigOperatorPos = -1;
 		int leastSigOpcode = 1000;
