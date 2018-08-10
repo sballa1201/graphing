@@ -81,9 +81,28 @@ We can break this project into 2 major portions which can be handled separately 
 \end{itemize}
 There is also the User Interface, but this is quite small compared to these two portions.
 \subsection{The Input}
-The Input consists of the Functions that the user inputs. We can create a standardized class called ``function''  which will allow us to deal with it independently. Our output will only require us to input a value, $x$, and return a value, $y$, and we can include a function within this class which allows to do this.
-\subsubsection{User Interface}
-
+The Input consists of the Functions that the user inputs. We can create a standardized class called ``function''  which will allow us to deal with it independently. Our output will only require us to input a value, $x$, and return a value, $y$, and we can include a function within this class which allows to do this. There are two ways we can parse our input:
+\begin{itemize}
+	\item We can convert the input into a data structure, which we can then use to evaluate a value $x$.
+	\item We can convert the input into its equivalant in a scripting language, such as lua, and then use the scripting language to evaluate a value $x$.
+\end{itemize}
+An example of the second in Java is shown below:
+\begin{minted}{java}
+import org.luaj.vm2.*;
+import org.luaj.vm2.lib.jme.*;
+public double evaluate(double x) {
+   	ScriptEngineManager mgr = new ScriptEngineManager();
+	ScriptEngine e = mgr.getEngineByName("luaj");
+	e.put("x", x);
+	e.eval("y = math.sqrt(x)");	//here we are square rooting x and returning it, 
+//but for the general case, we would look for all special cases and
+//convert it into something lua can interpret
+//e.g. ``x^2'' becomes ``math.pow(x,2)''
+	return e.get("y");	
+}
+\end{minted}
+The problem with using scripts is that they are take a huge hit on performance as you are effectively creating a virtual machine during your program. Especially in Java where a VM is used to run your programs, creating a VM inside a VM is not very effiecient. We will be making upto 2000 evaluate calls during one render, and therefore we will need to be as effiecient as possible. While the first method is harder to implement, it will have better performance, and it will be easier to debug as we are not using external tools.
+\newpage
 \subsubsection{Function Class}
 Our Function class will contain two main methods:
 \begin{itemize}
@@ -104,6 +123,7 @@ As a side note, there are some nuances when we write functions that make it diff
 	\item Any instance of $-f(x)$ at the start or next to an opening bracket is to be converted to $0 - f(x)$.\footnote{Both these expressions are equivalent but the second allows us to reduce ambiguity if there is a negate symbol at the start of an expression e.g.\ $-x + 4$ would be treated as $0 - x + 4$ and $(-x)$ is $0-x$.}.
 \end{itemize}
 \newpage
+
 \subsubsubsection{Binary Trees}
 The second stage that a compiler goes through is called Syntax Analysis and this is where the code is transformed into an Abstract Syntax Tree.  What we are trying to achieve is very similar to that (albeit on a smaller scale). If we take a function $f(x) = x + 4$, this would be transformed into the binary tree:\\
 \par
@@ -350,21 +370,7 @@ The function above assumes that there is no whitespace and that there are no bra
 }
 \end{algorithm}
 \newpage
-\begin{minted}{java}
-import numpy
- 
-public void incmatrix(genl1,genl2) {
-    m = len(genl1)
-    n = len(genl2)
-    M = None //to become the incidence matrix
-    VT = np.zeros((n*m,1), int)  //dummy variable
- 
-    //compute the bitwise xor matrix
-    M1 = bitxormatrix(genl1)
-    M2 = np.triu(bitxormatrix(genl2),1)
-}
-...
-\end{minted}
+
 \newpage
 \begin{thebibliography}{9}
 

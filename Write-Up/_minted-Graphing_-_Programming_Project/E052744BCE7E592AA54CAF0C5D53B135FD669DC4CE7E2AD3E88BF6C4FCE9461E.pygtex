@@ -1,0 +1,14 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{org.luaj.vm2.*}\PYG{o}{;}
+\PYG{k+kn}{import} \PYG{n+nn}{org.luaj.vm2.lib.jme.*}\PYG{o}{;}
+\PYG{k+kd}{public} \PYG{k+kt}{double} \PYG{n+nf}{evaluate}\PYG{o}{(}\PYG{k+kt}{double} \PYG{n}{x}\PYG{o}{)} \PYG{o}{\PYGZob{}}
+   	\PYG{n}{ScriptEngineManager} \PYG{n}{mgr} \PYG{o}{=} \PYG{k}{new} \PYG{n}{ScriptEngineManager}\PYG{o}{();}
+	\PYG{n}{ScriptEngine} \PYG{n}{e} \PYG{o}{=} \PYG{n}{mgr}\PYG{o}{.}\PYG{n+na}{getEngineByName}\PYG{o}{(}\PYG{l+s}{\PYGZdq{}luaj\PYGZdq{}}\PYG{o}{);}
+	\PYG{n}{e}\PYG{o}{.}\PYG{n+na}{put}\PYG{o}{(}\PYG{l+s}{\PYGZdq{}x\PYGZdq{}}\PYG{o}{,} \PYG{n}{x}\PYG{o}{);}
+	\PYG{n}{e}\PYG{o}{.}\PYG{n+na}{eval}\PYG{o}{(}\PYG{l+s}{\PYGZdq{}y = math.sqrt(x)\PYGZdq{}}\PYG{o}{);}	\PYG{c+c1}{//here we are square rooting x and returning it,}
+\PYG{c+c1}{//but for the general case, we would look for all special cases and}
+\PYG{c+c1}{//convert it into something lua can interpret}
+\PYG{c+c1}{//e.g. ``x\PYGZca{}2\PYGZsq{}\PYGZsq{} becomes ``math.pow(x,2)\PYGZsq{}\PYGZsq{}}
+	\PYG{k}{return} \PYG{n}{e}\PYG{o}{.}\PYG{n+na}{get}\PYG{o}{(}\PYG{l+s}{\PYGZdq{}y\PYGZdq{}}\PYG{o}{);}
+\PYG{o}{\PYGZcb{}}
+\end{Verbatim}
