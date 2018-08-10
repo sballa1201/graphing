@@ -2,6 +2,7 @@ package structures;
 
 import exceptions.StackOverflowException;
 import exceptions.StackUnderflowException;
+import exceptions.UnequalBracketsException;
 
 public class Function {
 	
@@ -12,7 +13,7 @@ public class Function {
 	
 	
 	
-	public Function(String expression) throws StackOverflowException, StackUnderflowException {
+	public Function(String expression) throws StackOverflowException, StackUnderflowException, UnequalBracketsException {
 		this.expression = expression.replace(" ", "");
 		this.parameter = "x";
 		BinaryTree tree = createTree(this.expression);
@@ -78,7 +79,7 @@ public class Function {
 		return subStack;
 	}
 	
-	private static BinaryTree createTree(String expression) {
+	private static BinaryTree createTree(String expression) throws UnequalBracketsException {
 		expression = checkBracket(expression);
 		int leastSigOperatorPos = leastSigOperatorPos(expression);
 		if(leastSigOperatorPos == -1) {		//base case
@@ -121,14 +122,29 @@ public class Function {
 	
 
 	
-	private static String checkBracket(String input) {
+	private static String checkBracket(String input) throws UnequalBracketsException {
 		boolean done = false;
 		while(!done) {
 			done = true;
 			if((input.charAt(0) == '(') && (input.charAt(input.length()-1) == ')')) {
-				//used to be input = input.substring(1, input.length() - 2);
-				input = input.substring(1, input.length() - 1);
-				done = false;
+				int countMatching = 1;
+				for(int i=1; i<input.length() - 1; i++) {
+					if (countMatching == 0) {
+						return input;
+					} else if(input.charAt(i) == '(') {
+						countMatching++;
+					} else if(input.charAt(i) == ')') {
+						countMatching--;
+					}
+					
+				}
+				if(countMatching == 1) {
+					input = input.substring(1, input.length() - 1);
+					done = false;
+				} else {
+					throw new UnequalBracketsException(input);
+				}
+				
 			}
 		}
 		return input;
@@ -139,7 +155,7 @@ public class Function {
 		return this.expression;
 	}
 	
-	public static void main(String[] args) throws StackOverflowException, StackUnderflowException {
+	public static void main(String[] args) throws StackOverflowException, StackUnderflowException, UnequalBracketsException {
 		/*
 		Function f = new Function("4 + 3x");
 		Stack<String> s = new Stack<String>(6);
@@ -157,7 +173,7 @@ public class Function {
 		*/
 		//System.out.println(leastSigOperatorPos("3x*4^3+"));
 		System.out.println(checkBracket("(((3x+2)))"));
-		BinaryTree t = createTree("(x+1)/(x+2)");
+		BinaryTree t = createTree("((((x+6))+1)/(x+2))");
 		Stack s = t.traverse();
 		s.reverse();
 		System.out.println(s);
