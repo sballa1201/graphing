@@ -14,7 +14,7 @@ public class Function {
 	
 	
 	public Function(String expression) throws StackOverflowException, StackUnderflowException, UnequalBracketsException {
-		this.expression = expression.replace(" ", "");
+		this.expression = standardize(expression);
 		this.parameter = "x";
 		BinaryTree tree = createTree(this.expression);
 		this.postFixStack = tree.traverse();
@@ -25,6 +25,7 @@ public class Function {
 	
 	public double evaluate(double x) throws StackUnderflowException, StackOverflowException {
 		Stack<String> subStack = substitute(x);
+		System.out.println(subStack);
 		//System.out.println(subStack);
 		Stack<Double> numStack = new Stack<Double>(this.postFixStack.getHeight());
 		for(int i=subStack.getHeight(); i>0 ;i--) {
@@ -69,8 +70,8 @@ public class Function {
 		Stack<String> copy = new Stack<String>(this.postFixStack);
 		Stack<String> subStack = new Stack<String>(this.postFixStack.getHeight());
 		for(int i=copy.getHeight(); i>0 ;i--) {
-			String pop = copy.pop();
-			if(pop == this.parameter) {
+			String pop = copy.pop();			
+			if(pop.equals(this.parameter)) {
 				pop = Double.toString(x);
 			} 
 			subStack.push(pop);
@@ -88,9 +89,9 @@ public class Function {
 			String operator = String.valueOf(expression.charAt(leastSigOperatorPos));
 			String a = expression.substring(0, leastSigOperatorPos);
 			String b = expression.substring(leastSigOperatorPos+1);
-			System.out.println(operator);
-			System.out.println(a);
-			System.out.println(b);
+			//System.out.println(operator);
+			//System.out.println(a);
+			//System.out.println(b);
 			return new BinaryTree(operator,createTree(a),createTree(b));
 		}
 	}
@@ -149,6 +150,16 @@ public class Function {
 		return input;
 	}
 	
+	private static String standardize(String expression) {
+		expression = expression.replace(" ", "");
+		expression = expression.replaceAll("([^\\+\\-\\*\\/\\(\\)\\^])([\\(x])" , "$1*$2");
+		expression = expression.replaceAll("([\\)x])([^\\+\\-\\*\\/\\(\\)\\^])", "$1*$2");
+		expression = expression.replaceAll("\\)\\(", ")*(");
+		expression = expression.replaceAll("([\\+\\-\\*\\/\\^])-([^\\+\\-\\*\\/\\(\\)\\^]*)", "$1(-$2)");
+		expression = expression.replaceAll("(^|\\()-","$10-");
+		return expression;
+	}
+	
 	@Override
 	public String toString() {
 		return this.expression;
@@ -168,14 +179,13 @@ public class Function {
 		for(int i=0; i<10; i++) {
 			System.out.println(i+" - "+f.evaluate(i));
 		}
-		
 		*/
+		
 		//System.out.println(leastSigOperatorPos("3x*4^3+"));
-		System.out.println(checkBracket("(((3x+2)))"));
-		BinaryTree t = createTree("((((x+6))+1)/(x+2))");
-		Stack s = t.traverse();
-		s.reverse();
-		System.out.println(s);
+		String e = "3^x";
+		Function f = new Function(e);
+		System.out.println(f.parameter);
+		System.out.println(f.evaluate(10));
 	}
 
 }
