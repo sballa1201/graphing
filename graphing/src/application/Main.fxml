@@ -33,7 +33,7 @@
    <center>
       <Pane fx:id="canvasPane" prefHeight="200.0" prefWidth="666.0" BorderPane.alignment="CENTER">
          <children>
-            <Canvas fx:id="canvas" height="200.0" onMouseEntered="#draw" width="200.0">
+            <Canvas fx:id="canvas" height="200.0" width="200.0">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor>

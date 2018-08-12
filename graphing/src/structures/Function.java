@@ -25,7 +25,6 @@ public class Function {
 	
 	public double evaluate(double x) throws StackUnderflowException, StackOverflowException {
 		Stack<String> subStack = substitute(x);
-		System.out.println(subStack);
 		//System.out.println(subStack);
 		Stack<Double> numStack = new Stack<Double>(this.postFixStack.getHeight());
 		for(int i=subStack.getHeight(); i>0 ;i--) {
