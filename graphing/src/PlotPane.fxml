@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.layout.Pane?>
+
+
+<Pane fx:id="plotPane" prefHeight="200.0" prefWidth="666.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="application.PlotPaneController">
+   <children>
+      <Canvas fx:id="canvas" height="200.0" width="200.0" />
+   </children>
+</Pane>

@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
 
-<BorderPane prefHeight="590.0" prefWidth="870.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
+<BorderPane fx:id="rootPane" prefHeight="590.0" prefWidth="870.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -30,14 +27,4 @@
         </menus>
       </MenuBar>
    </top>
-   <center>
-      <Pane fx:id="canvasPane" prefHeight="200.0" prefWidth="666.0" BorderPane.alignment="CENTER">
-         <children>
-            <Canvas fx:id="canvas" height="200.0" width="200.0">
-               <cursor>
-                  <Cursor fx:constant="DEFAULT" />
-               </cursor>
-            </Canvas>
-         </children></Pane>
-   </center>
 </BorderPane>
