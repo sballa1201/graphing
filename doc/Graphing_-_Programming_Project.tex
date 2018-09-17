@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass{report}
 
 \usepackage{fullpage}
 \usepackage{wrapfig}
@@ -21,8 +21,37 @@
 \usepackage[boxruled,linesnumbered]{algorithm2e}
 \usepackage{caption}
 \usepackage{subcaption}
-\usepackage{minted}
-\usemintedstyle{colorful}
+%\usepackage{minted}
+%\usemintedstyle{colorful}
+\usepackage{color}
+
+\usepackage{listings}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+ 
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+ 
+\lstset{style=mystyle}
 
 \usepackage{hyperref}
 
@@ -73,6 +102,8 @@
 
 \tableofcontents
 \newpage
+\part{Prototype 1}
+\chapter{Design}
 \section{Decomposition}
 We can break this project into 2 major portions which can be handled separately until the very end:
 \begin{itemize}
@@ -86,8 +117,8 @@ The Input consists of the Functions that the user inputs. We can create a standa
 	\item We can convert the input into a data structure, which we can then use to evaluate a value $x$.
 	\item We can convert the input into its equivalant in a scripting language, such as lua, and then use the scripting language to evaluate a value $x$.
 \end{itemize}
-An example of the second in Java is shown below:
-\begin{minted}{java}
+
+\begin{lstlisting}[language=Java]
 import org.luaj.vm2.*;
 import org.luaj.vm2.lib.jme.*;
 public double evaluate(double x) {
@@ -100,7 +131,8 @@ public double evaluate(double x) {
 //e.g. ``x^2'' becomes ``math.pow(x,2)''
 	return e.get("y");	
 }
-\end{minted}
+\end{lstlisting}
+
 The problem with using scripts is that they are take a huge hit on performance as you are effectively creating a virtual machine during your program. Especially in Java where a VM is used to run your programs, creating a VM inside a VM is not very effiecient. We will be making upto 2000 evaluate calls during one render, and therefore we will need to be as effiecient as possible. While the first method is harder to implement, it will have better performance, and it will be easier to debug as we are not using external tools.
 \newpage
 \subsubsection{Function Class}	\label{funcClass}
@@ -257,6 +289,7 @@ Finally Take $1$ and $5$ off the stack, push $5 + 1 = 6$ onto the stack. We are 
 	\KwRet out\;
 }
 \end{algorithm}
+
 Here we are treating the operator to be an object for simplicity. In practice, all these values will be of data type String, therefore we will probably use some sort of selection contruct, either \textit{if} or \textit{switch-case} statements, to determine if $i$ is an operator and if it is, which one is it.
 \newpage
 \subsubsubsection{Analysis of the two Methods}

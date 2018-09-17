@@ -11,6 +11,6 @@ beginfig(1);
 	"-String value",
 	);
     drawObject(A);
-	draw A.sw+(13,1.5) -- A.se+(-4,1.5);
+	draw A.sw+(13,4.5) -- A.se+(-4,4.5);
 endfig;
 end
