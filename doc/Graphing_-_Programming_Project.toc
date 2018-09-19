@@ -1,10 +1,11 @@
-\contentsline {part}{I\hspace {1em}Prototype 1}{2}{part.1}
-\contentsline {chapter}{\numberline {1}Design}{3}{chapter.1}
-\contentsline {section}{\numberline {1.1}Decomposition}{3}{section.1.1}
-\contentsline {subsection}{\numberline {1.1.1}The Input}{3}{subsection.1.1.1}
-\contentsline {subsubsection}{\numberline {1.1.1.1}Function Class}{5}{subsubsection.1.1.1.1}
-\contentsline {subsubsubsection}{\numberline {1.1.1.1.1}Binary Trees}{6}{subsubsubsection.1.1.1.1.1}
-\contentsline {subsubsubsection}{\numberline {1.1.1.1.2}Stack Based Programming}{8}{subsubsubsection.1.1.1.1.2}
-\contentsline {subsubsubsection}{\numberline {1.1.1.1.3}Analysis of the two Methods}{10}{subsubsubsection.1.1.1.1.3}
-\contentsline {subsubsubsection}{\numberline {1.1.1.1.4}Implementing Stacks and Trees}{11}{subsubsubsection.1.1.1.1.4}
-\contentsline {subsubsubsection}{\numberline {1.1.1.1.5}Parsing Algorithm}{12}{subsubsubsection.1.1.1.1.5}
+\contentsline {part}{I\hspace {1em}Analysis}{2}{part.1}
+\contentsline {part}{II\hspace {1em}Prototype 1}{3}{part.2}
+\contentsline {chapter}{\numberline {1}Design}{4}{chapter.1}
+\contentsline {section}{\numberline {1.1}Decomposition}{4}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}The Input}{4}{subsection.1.1.1}
+\contentsline {subsubsection}{\numberline {1.1.1.1}Function Class}{6}{subsubsection.1.1.1.1}
+\contentsline {subsubsubsection}{\numberline {1.1.1.1.1}Binary Trees}{7}{subsubsubsection.1.1.1.1.1}
+\contentsline {subsubsubsection}{\numberline {1.1.1.1.2}Stack Based Programming}{9}{subsubsubsection.1.1.1.1.2}
+\contentsline {subsubsubsection}{\numberline {1.1.1.1.3}Analysis of the two Methods}{11}{subsubsubsection.1.1.1.1.3}
+\contentsline {subsubsubsection}{\numberline {1.1.1.1.4}Implementing Stacks and Trees}{12}{subsubsubsection.1.1.1.1.4}
+\contentsline {subsubsubsection}{\numberline {1.1.1.1.5}Parsing Algorithm}{13}{subsubsubsection.1.1.1.1.5}

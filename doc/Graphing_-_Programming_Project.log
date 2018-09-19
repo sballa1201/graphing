@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350) (preloaded format=pdflatex 2018.1.31)  12 SEP 2018 10:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350) (preloaded format=pdflatex 2018.1.31)  17 SEP 2018 10:20
 entering extended mode
 **./Graphing_-_Programming_Project.tex
 (Graphing_-_Programming_Project.tex
@@ -619,120 +619,133 @@ l.104 \newpage
 
 ] [2
 
+] [3
+
 ]
 Chapter 1.
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 110.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 116.
 
 (D:\LaTex\MikTek\texmfs\install\tex\latex\base\omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 110.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 116.
 
 (D:\LaTex\MikTek\texmfs\install\tex\latex\listings\lstlang1.sty
 File: lstlang1.sty 2018/09/02 1.7 listings language file
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <8> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 122.
- [3
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 128.
+ [4
 
-] [4]
-[5]
-Underfull \hbox (badness 10000) in paragraph at lines 161--162
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 163--166
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 167--170
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 187--190
-
- []
-
+] [5]
 [6]
-Underfull \hbox (badness 10000) in paragraph at lines 191--192
+Underfull \hbox (badness 10000) in paragraph at lines 167--168
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 193--199
+Underfull \hbox (badness 10000) in paragraph at lines 169--172
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 200--203
+Underfull \hbox (badness 10000) in paragraph at lines 173--176
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 204--207
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 208--214
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 215--219
+Underfull \hbox (badness 10000) in paragraph at lines 193--196
 
  []
 
 [7]
-Underfull \hbox (badness 10000) in paragraph at lines 231--233
+Underfull \hbox (badness 10000) in paragraph at lines 197--198
 
  []
 
-[8] [9]
-Underfull \hbox (badness 10000) in paragraph at lines 296--299
+
+Underfull \hbox (badness 10000) in paragraph at lines 199--205
 
  []
 
-[10]
+
+Underfull \hbox (badness 10000) in paragraph at lines 206--209
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 210--213
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 214--220
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 221--225
+
+ []
+
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 237--239
+
+ []
+
+[9] [10]
+Underfull \hbox (badness 10000) in paragraph at lines 302--305
+
+ []
+
+[11]
 File: Class/stack.1 Graphic file (type mps)
  [MP to PDF] (Class/stack.1)
 File: Class/tree.1 Graphic file (type mps)
- [MP to PDF] (Class/tree.1) [11] [12] [13]
-Underfull \hbox (badness 10000) in paragraph at lines 455--467
+ [MP to PDF] (Class/tree.1) [12] [13] [14]
+Underfull \hbox (badness 10000) in paragraph at lines 461--473
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 455--467
+Underfull \hbox (badness 10000) in paragraph at lines 461--473
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 455--467
+Underfull \hbox (badness 10000) in paragraph at lines 461--473
 
  []
 
-[14]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 480.
- [15
+[15]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 486.
+ [16
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 480.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 486.
  (Graphing_-_Programming_Project.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 480.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 480.
-Package rerunfilecheck Info: File `Graphing_-_Programming_Project.out' has not 
-changed.
-(rerunfilecheck)             Checksum: 8610FE4AD940BD41102A2A4CBD0822AA;775.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 480.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 486.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 486.
+
+
+Package rerunfilecheck Warning: File `Graphing_-_Programming_Project.out' has c
+hanged.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `Graphing_-_Programming_Project.out'
+:
+(rerunfilecheck)             Before: 8610FE4AD940BD41102A2A4CBD0822AA;775
+(rerunfilecheck)             After:  1169B1BEC30A5AB637F098FE6A660576;821.
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 486.
  ) 
 Here is how much of TeX's memory you used:
- 10608 strings out of 495222
- 156748 string characters out of 3181687
+ 10610 strings out of 495222
+ 156761 string characters out of 3181687
  484620 words of memory out of 3000000
  13566 multiletter control sequences out of 15000+200000
  17115 words of font info for 61 fonts, out of 3000000 for 9000
@@ -759,9 +772,9 @@ s/type1/public/amsfonts/cm/cmti10.pfb><D:/LaTex/MikTek/texmfs/install/fonts/typ
 e1/public/amsfonts/cm/cmtt10.pfb><D:/LaTex/MikTek/texmfs/install/fonts/type1/pu
 blic/amsfonts/symbols/msbm10.pfb><D:/LaTex/MikTek/texmfs/install/fonts/type1/ur
 w/times/utmr8a.pfb>
-Output written on Graphing_-_Programming_Project.pdf (16 pages, 310506 bytes).
+Output written on Graphing_-_Programming_Project.pdf (17 pages, 311518 bytes).
 PDF statistics:
- 400 PDF objects out of 1000 (max. 8388607)
- 172 named destinations out of 1000 (max. 500000)
+ 405 PDF objects out of 1000 (max. 8388607)
+ 174 named destinations out of 1000 (max. 500000)
  81 words of extra memory for PDF output out of 10000 (max. 10000000)
 
