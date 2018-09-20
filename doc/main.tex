@@ -1,0 +1,140 @@
+\makeatletter
+\providecommand*{\input@path}{{..}}
+\g@addto@macro\input@path{{..}}
+\makeatother
+
+
+\documentclass{report}
+
+\usepackage{fullpage}
+\usepackage{wrapfig}
+
+\usepackage[pdftex]{graphicx}
+\DeclareGraphicsRule{*}{mps}{*}{}
+
+\usepackage{subfiles}
+
+
+
+\usepackage{amssymb}
+\usepackage{tensor}
+\usepackage{array}
+\usepackage{float}
+\usepackage{titlesec}
+\usepackage{amsmath}
+\usepackage{cancel}
+\usepackage{commath}
+\usepackage{qtree}
+\usepackage[boxruled,linesnumbered]{algorithm2e}
+\usepackage{caption}
+\usepackage{subcaption}
+%\usepackage{minted}
+%\usemintedstyle{colorful}
+\usepackage{color}
+
+\usepackage{listings}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+ 
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+ 
+\lstset{style=mystyle}
+
+\usepackage{hyperref}
+
+
+
+\author{Shashi Balla}
+\title{Graphing - Programming Project}
+
+\titleclass{\subsubsubsection}{straight}[\subsection]
+
+\newcounter{subsubsubsection}[subsubsection]
+\renewcommand\thesubsubsubsection{\thesubsubsection.\arabic{subsubsubsection}}
+
+\titleformat{\subsubsubsection}
+  {\normalfont\normalsize\bfseries}{\thesubsubsubsection}{1em}{}
+\titlespacing*{\subsubsubsection}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\makeatletter
+\def\toclevel@subsubsubsection{4}
+\def\l@subsubsubsection{\@dottedtocline{4}{7em}{4em}}
+\makeatother
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=2pt] (char) {#1};}
+}
+
+
+\makeatletter
+\g@addto@macro\bfseries{\boldmath}
+\makeatother
+
+\makeatletter
+\providecommand*{\input@path}{{..}}
+\g@addto@macro\input@path{{..}}% append % if you cant override it
+\makeatother
+
+\SetKw{KwBy}{by}
+\SetKw{KwTo}{to}
+\SetKw{KwAnd}{and}
+\SetKw{KwIs}{is}
+\SetKw{KwIn}{in}
+\SetKw{KwNull}{null}
+\SetKwProg{Fn}{function}{:}{end function}
+
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+\newpage
+
+\subfile{subfiles/Prototype-I/Prototype-I}
+	\subfile{subfiles/Prototype-I/Design/Design}
+		\subfile{subfiles/Prototype-I/Design/Function-Class/Function-Class}
+			\subfile{subfiles/Prototype-I/Design/Function-Class/Binary-Trees/Binary-Trees}
+			\subfile{subfiles/Prototype-I/Design/Function-Class/Stack-Based-Programming/Stack-Based-Programming}
+			\subfile{subfiles/Prototype-I/Design/Function-Class/Analysis-of-the-two-Methods/Analysis-of-the-two-Methods}
+			\subfile{subfiles/Prototype-I/Design/Function-Class/Implementing-Stacks-and-Trees/Implementing-Stacks-and-Trees}
+			\subfile{subfiles/Prototype-I/Design/Function-Class/Parsing-Algorithm/Parsing-Algorithm}
+
+
+\begin{thebibliography}{9}
+
+\bibitem{insert}
+ insert something
+
+
+
+
+\end{thebibliography}
+
+
+
+\end{document}

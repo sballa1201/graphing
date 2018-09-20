@@ -1,0 +1,73 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+
+\subsubsection{Stack Based Programming}
+Stack Based Programming is all about using a stack data structure, and manipulating the items within it to get the desired result. Firstly we have to convert our \textit{Infix Notation} into \textit{Reverse Polish Notation}. Infix notation is the ``normal'' way of writing algebra, where the operator is inbetween its operands. Reverse Polish notation or Postfix notation is where the operator is after its operands. The advantage of this notation is that no brackets are required. For example $4 + 3$ in infix notation would be $4\quad 3\quad +$ in postfix notation. To evaluate this expression we push each individual operator/value, from left to right, one by one, to a stack. If the value is an operator then it pops however many inputs it would normally take off the stack, perform the operation, on the values we just popped off, and then add that new value back to the stack. For example if we take the infix expression,
+\[(((6*(8-3)/3)) / 2) + 1\]
+we can convert this to the equivalent postfix expression,
+\[6\quad 8\quad 3 \quad - \quad * \quad 3 \quad / \quad 2 \quad / \quad 1 \quad +\]
+The way we get this is by looking for the least significant operator (the one we would consider last) and putting it to the end. We then take the operands of the operator which just removed, and repeat until we are left with only values.  This seems very similar to the binary tree solution. In fact, if we convert this into a binary tree,\\
+\par
+\Tree [.+ [./ 		[./  
+						[.* 6 [.- 8 3 ] ] 
+						3 ]
+			 		2 ]
+		[1 ]
+		 ]
+\bigskip \\
+and if we then perform post-order depth traversal. So first we go all the way down the left hand side of the tree to get $6$. We then visit its sibling, $-$, which has more children. So we visit $8$, $3$ then $-$. So far we have
+\[6\quad 8\quad 3 \quad -\]
+We then move up to $*$ and add this to our list. We then visit its sibling $3$ and add this to our list. We have now got
+\[6\quad 8\quad 3 \quad - \quad * \quad 3\]
+We then go up to $/$ and add this to our list. We then visit its sibling $2$ and add this to our list. We have now got
+\[6\quad 8\quad 3 \quad - \quad * \quad 3 \quad / \quad 2\]
+We then go up to $/$ and add this to our list. We then visit its sibling $1$ and add this to our list. We then go up to the root node, $+$, and add this to our list. Finally we have,
+\[6\quad 8\quad 3 \quad - \quad * \quad 3 \quad / \quad 2 \quad / \quad 1 \quad +\]
+This is identical to our post-fix notation. This is important as later on we can abuse this fact to make our solution as effiecient as possible.\\
+Now if we start to evaluate this expression we get,
+\[
+\begin{bmatrix} 6 \end{bmatrix} \quad
+\begin{bmatrix} 8 \\ 6 \end{bmatrix} \quad
+\begin{bmatrix} 3 \\ 8 \\ 6 \end{bmatrix}\]
+we have reached an operator, $-$, so we now pop 2 items of the stack, $3$ and $8$, and perform the operation, $8-3=5$. We now push this value onto the top off the stack and resume our evaluation.
+\[\begin{bmatrix} 5 \\ 6\end{bmatrix}\]
+Again we have reached a operator so we repeat what we did before. Take $5$ and $6$ off the stack, push $5*6 = 30$ onto the stack.
+\[\begin{bmatrix} 30 \end{bmatrix}
+\begin{bmatrix} 3 \\ 30\end{bmatrix}\]
+Take $3$ and $30$ off the stack, push $30 / 3 = 10$ onto the stack.
+\[\begin{bmatrix} 10 \end{bmatrix} \quad
+\begin{bmatrix} 2 \\ 10 \end{bmatrix}\]
+Take $2$ and $10$ off the stack, push $10/2 = 5$ onto the stack.
+\[\begin{bmatrix} 5 \end{bmatrix} \quad
+\begin{bmatrix} 1 \\ 5 \end{bmatrix}\]
+Finally Take $1$ and $5$ off the stack, push $5 + 1 = 6$ onto the stack. We are left with 6 and have now got our answer. Just like with the binary trees, if we have an unknown $x$, we can simply replace the x with a value when we want. The algorithm to evaluate post-fix notation is shown below,\\
+\begin{algorithm}[H]
+\DontPrintSemicolon
+\caption{Evaluate: Stack Based Version}
+\Fn{evaluate(list)}{
+	Stack stack\;
+	Array temp\;
+	Real out \;
+	Real x \;
+	\ForEach{i in list}{
+		\eIf{i \KwIs an operator}{
+			pop = i.numberOfInputs\;
+			temp = new Array[pop]\;
+			\For{j=0  \KwTo pop \KwBy 1}{
+				temp[j] = stack.pop()\;
+			}
+			x = i.input(temp[1],temp[2],...,temp[n])\;
+			stack.push(x)\;
+		}{
+			stack.push(i)\;
+		}
+	}
+	out = stack.pop()\;
+	\KwRet out\;
+}
+\end{algorithm}
+
+Here we are treating the operator to be an object for simplicity. In practice, all these values will be of data type String, therefore we will probably use some sort of selection contruct, either \textit{if} or \textit{switch-case} statements, to determine if $i$ is an operator and if it is, which one is it.
+\newpage
+
+\end{document}

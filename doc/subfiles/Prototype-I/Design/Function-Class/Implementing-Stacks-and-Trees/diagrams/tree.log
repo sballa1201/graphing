@@ -1,0 +1,45 @@
+This is MetaPost, version 1.9991 (TeX Live 2016/Debian) (kpathsea version 6.2.2)  1 AUG 2018 11:36
+**tree.mp
+(/usr/share/texlive/texmf-dist/metapost/base/mpost.mp
+(/usr/share/texlive/texmf-dist/metapost/base/plain.mp
+Preloading the plain mem file, version 1.005) ) (./tree.mp
+(/home/pi/texmf/metapost/metauml/metauml.mp
+(/home/pi/texmf/metapost/metauml/util_infrastructure.mp
+(/home/pi/texmf/metapost/metauml/util_log.mp))
+(/home/pi/texmf/metapost/metauml/util_object.mp)
+(/home/pi/texmf/metapost/metauml/util_commons.mp)
+(/home/pi/texmf/metapost/metauml/util_margins.mp)
+(/home/pi/texmf/metapost/metauml/util_picture.mp
+(/usr/share/texlive/texmf-dist/metapost/base/boxes.mp))
+(/home/pi/texmf/metapost/metauml/util_group.mp)
+(/home/pi/texmf/metapost/metauml/util_picture_stack.mp)
+(/home/pi/texmf/metapost/metauml/util_positioning.mp)
+(/home/pi/texmf/metapost/metauml/util_shade.mp)
+(/home/pi/texmf/metapost/metauml/metauml_base.mp)
+(/home/pi/texmf/metapost/metauml/metauml_links.mp)
+(/home/pi/texmf/metapost/metauml/metauml_paths.mp)
+(/home/pi/texmf/metapost/metauml/metauml_note.mp
+(/home/pi/texmf/metapost/metauml/metauml_defaults.mp))
+(/home/pi/texmf/metapost/metauml/metauml_stereotype.mp)
+(/home/pi/texmf/metapost/metauml/metauml_class_clipart.mp)
+(/home/pi/texmf/metapost/metauml/metauml_class.mp)
+(/home/pi/texmf/metapost/metauml/metauml_instance.mp)
+(/home/pi/texmf/metapost/metauml/metauml_class_relations.mp)
+(/home/pi/texmf/metapost/metauml/metauml_class_assoc.mp)
+(/home/pi/texmf/metapost/metauml/metauml_package.mp)
+(/home/pi/texmf/metapost/metauml/metauml_package_relations.mp)
+(/home/pi/texmf/metapost/metauml/metauml_behavioral_common.mp)
+(/home/pi/texmf/metapost/metauml/metauml_activity.mp)
+(/home/pi/texmf/metapost/metauml/metauml_state.mp)
+(/home/pi/texmf/metapost/metauml/metauml_usecase_clipart.mp)
+(/home/pi/texmf/metapost/metauml/metauml_usecase.mp)
+(/home/pi/texmf/metapost/metauml/metauml_behavioral_common.mp)
+(/home/pi/texmf/metapost/metauml/metauml_activity.mp)
+(/home/pi/texmf/metapost/metauml/metauml_state.mp)
+(/home/pi/texmf/metapost/metauml/metauml_usecase_clipart.mp)
+(/home/pi/texmf/metapost/metauml/metauml_usecase.mp)
+(/home/pi/texmf/metapost/metauml/metauml_component.mp)
+(/home/pi/texmf/metapost/metauml/metauml_component_relations.mp)
+(/home/pi/texmf/metapost/metauml/metauml_templates.mp)) [1] )
+1 output file written: tree.1
+

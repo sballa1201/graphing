@@ -1,0 +1,31 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+
+\section{The Input}
+The Input consists of the Functions that the user inputs. We can create a standardized class called ``function''  which will allow us to deal with it independently. Our output will only require us to input a value, $x$, and return a value, $y$, and we can include a function within this class which allows to do this. There are two ways we can parse our input:
+\begin{itemize}
+	\item We can convert the input into a data structure, which we can then use to evaluate a value $x$.
+	\item We can convert the input into its equivalant in a scripting language, such as lua, and then use the scripting language to evaluate a value $x$.
+\end{itemize}
+
+\begin{lstlisting}[language=Java]
+import org.luaj.vm2.*;
+import org.luaj.vm2.lib.jme.*;
+public double evaluate(double x) {
+   	ScriptEngineManager mgr = new ScriptEngineManager();
+	ScriptEngine e = mgr.getEngineByName("luaj");
+	e.put("x", x);
+	e.eval("y = math.sqrt(x)");	//here we are square rooting x and returning it, 
+//but for the general case, we would look for all special cases and
+//convert it into something lua can interpret
+//e.g. ``x^2'' becomes ``math.pow(x,2)''
+	return e.get("y");	
+}
+\end{lstlisting}
+
+The problem with using scripts is that they are take a huge hit on performance as you are effectively creating a virtual machine during your program. Especially in Java where a VM is used to run your programs, creating a VM inside a VM is not very effiecient. We will be making upto 2000 evaluate calls during one render, and therefore we will need to be as effiecient as possible. While the first method is harder to implement, it will have better performance, and it will be easier to debug as we are not using external tools.
+\newpage
+
+\subfile{Function Class/Function Class}
+
+\end{document}
