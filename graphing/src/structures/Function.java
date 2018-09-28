@@ -159,6 +159,67 @@ public class Function {
 		return expression;
 	}
 	
+	
+	private double bisection(double a, double b, int iterations) throws StackUnderflowException, StackOverflowException {
+		if((this.evaluate(a) > 0 && this.evaluate(b) < 0) || (this.evaluate(b) > 0 && this.evaluate(a) < 0)) {
+			double c = 0;
+			for(int i=0; i<iterations; i++) {
+				c = (a+b)/2;
+				double fA = this.evaluate(a);
+				double fC = this.evaluate(c);
+				
+				if(fC < 0) {
+					if(fA > 0) {
+						b = c;
+					} else {
+						a = c;
+					}
+				} else {
+					if(fA > 0) {
+						a = c;
+					} else {
+						b = c;
+					}
+				}
+							
+			}
+			return c;
+		} else {
+			return Double.NaN;
+		}
+	}
+	
+	private double falsePositive(double a, double b, int iterations) throws StackUnderflowException, StackOverflowException {
+		if((this.evaluate(a) > 0 && this.evaluate(b) < 0) || (this.evaluate(b) > 0 && this.evaluate(a) < 0)) {
+			double c = 0;
+			for(int i=0; i<iterations; i++) {
+				
+				double fA = this.evaluate(a);
+				double fB = this.evaluate(b);
+				double fC = this.evaluate(c);
+				
+				c = (a*fB - b*fA)/(fB-fA);
+				if(fC < 0) {
+					if(fA > 0) {
+						b = c;
+					} else {
+						a = c;
+					}
+				} else {
+					if(fA > 0) {
+						a = c;
+					} else {
+						b = c;
+					}
+				}
+			}
+			return c;
+		} else {
+			return Double.NaN;
+		}
+	}
+	
+	
 	@Override
 	public String toString() {
 		return this.expression;
@@ -181,10 +242,12 @@ public class Function {
 		*/
 		
 		//System.out.println(leastSigOperatorPos("3x*4^3+"));
-		String e = "3^x";
+		String e = "x^7 + x^3 - 1";
 		Function f = new Function(e);
-		System.out.println(f.parameter);
-		System.out.println(f.evaluate(10));
+		System.out.println(f.bisection(0,2,1000));
+		System.out.println(f.falsePositive(0,2,1000));
+		
+		
 	}
 
 }

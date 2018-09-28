@@ -47,11 +47,9 @@ public class PlotPaneController implements Initializable {
 		canvas.widthProperty().bind(plotPane.widthProperty());
 		try {
 			//Function f = new Function("x^2");
-			Function g = new Function("x^2+x");
-			Function f = new Function("0");
+			Function g = new Function("x^7+x^3-1");
 			//this.functions.add(f);
 			MainController.functions.add(g);
-			MainController.functions.add(f);
 			
 		} catch (StackOverflowException | StackUnderflowException | UnequalBracketsException e) {
 			e.printStackTrace();
@@ -106,6 +104,7 @@ public class PlotPaneController implements Initializable {
 		x2 = this.maxX;
 		y2 = f.evaluate(x2);
 		gc.strokeLine(this.convertX(x1), this.convertY(y1), this.convertX(x2), this.convertY(y2));
+		this.drawAxes();
 	}
 	
 	private void drawFunction(Function f) throws StackUnderflowException, StackOverflowException {
@@ -119,7 +118,8 @@ public class PlotPaneController implements Initializable {
 	
 	//TODO
 	private void drawAxes() {
-		
+		gc.strokeLine(this.convertX(this.minX), this.convertY(0), this.convertX(this.maxX), this.convertY(0));
+		gc.strokeLine(this.convertX(0), this.convertY(this.minX), this.convertX(0), this.convertY(this.maxX));
 	}
 	
 	private void updatePixelWorth() {
