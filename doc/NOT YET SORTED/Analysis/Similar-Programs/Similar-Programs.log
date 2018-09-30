@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2018.9.25)  30 SEP 2018 21:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2018.9.25)  30 SEP 2018 21:12
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
-**Implementing-Stacks-and-Trees.tex
-(./Implementing-Stacks-and-Trees.tex
+**Similar-Programs.tex
+(./Similar-Programs.tex
 LaTeX2e <2017/01/01> patch level 3
 Babel <3.9r> and hyphenation patterns for 3 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/subfiles/subfiles.cls
@@ -14,9 +14,8 @@ Package: verbatim 2014/10/28 v1.5q LaTeX2e package for verbatim enhancements
 \verbatim@line=\toks15
 \verbatim@in@stream=\read1
 )
-Preamble taken from file `../../../../../main.tex'
-(../../../../../main.tex
-(/usr/share/texlive/texmf-dist/tex/latex/base/report.cls
+Preamble taken from file `../../../main.tex'
+(../../../main.tex (/usr/share/texlive/texmf-dist/tex/latex/base/report.cls
 Document Class: report 2014/09/29 v1.4h Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
 File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
@@ -547,37 +546,83 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \c@subsubsubsection=\count134
 ))
-(./Implementing-Stacks-and-Trees.aux)
-\openout1 = `Implementing-Stacks-and-Trees.aux'.
+(/usr/share/texlive/texmf-dist/tex/latex/adjustbox/adjustbox.sty
+Package: adjustbox 2012/05/21 v1.0 Adjusting TeX boxes (trim, clip, ...)
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
+(/usr/share/texlive/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
+
+(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+\XKV@toks=\toks37
+\XKV@tempa@toks=\toks38
+)
+\XKV@depth=\count135
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+))
+(/usr/share/texlive/texmf-dist/tex/latex/adjustbox/adjcalc.sty
+Package: adjcalc 2012/05/16 v1.1 Provides advanced setlength with multiple back
+-ends (calc, etex, pgfmath)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/adjustbox/trimclip.sty
+Package: trimclip 2012/05/16 v1.0 Trim and clip general TeX material
+
+(/usr/share/texlive/texmf-dist/tex/latex/collectbox/collectbox.sty
+Package: collectbox 2012/05/17 v0.4b Collect macro arguments as boxes
+\collectedbox=\box65
+)
+\tc@llx=\dimen147
+\tc@lly=\dimen148
+\tc@urx=\dimen149
+\tc@ury=\dimen150
+Package trimclip Info: Using driver 'tc-pdftex.def'.
+
+(/usr/share/texlive/texmf-dist/tex/latex/adjustbox/tc-pdftex.def
+File: tc-pdftex.def 2012/05/13 v1.0 Clipping driver for pdftex
+))
+\adjbox@Width=\dimen151
+\adjbox@Height=\dimen152
+\adjbox@Depth=\dimen153
+\adjbox@Totalheight=\dimen154
+
+(/usr/share/texlive/texmf-dist/tex/latex/varwidth/varwidth.sty
+Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
+\@vwid@box=\box66
+\sift@deathcycles=\count136
+\@vwid@loff=\dimen155
+\@vwid@roff=\dimen156
+))
+(./Similar-Programs.aux)
+\openout1 = `Similar-Programs.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count135
-\scratchdimen=\dimen147
-\scratchbox=\box65
-\nofMPsegments=\count136
-\nofMParguments=\count137
-\everyMPshowfont=\toks37
-\MPscratchCnt=\count138
-\MPscratchDim=\dimen148
-\MPnumerator=\count139
-\makeMPintoPDFobject=\count140
-\everyMPtoPDFconversion=\toks38
+\scratchcounter=\count137
+\scratchdimen=\dimen157
+\scratchbox=\box67
+\nofMPsegments=\count138
+\nofMParguments=\count139
+\everyMPshowfont=\toks39
+\MPscratchCnt=\count140
+\MPscratchDim=\dimen158
+\MPnumerator=\count141
+\makeMPintoPDFobject=\count142
+\everyMPtoPDFconversion=\toks40
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -599,9 +644,9 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\c@lstlisting=\count141
-\AtBeginShipoutBox=\box66
-Package hyperref Info: Link coloring OFF on input line 13.
+\c@lstlisting=\count143
+\AtBeginShipoutBox=\box68
+Package hyperref Info: Link coloring OFF on input line 4.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -609,61 +654,103 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count142
+\c@section@level=\count144
 )
-LaTeX Info: Redefining \ref on input line 13.
-LaTeX Info: Redefining \pageref on input line 13.
-LaTeX Info: Redefining \nameref on input line 13.
+LaTeX Info: Redefining \ref on input line 4.
+LaTeX Info: Redefining \pageref on input line 4.
+LaTeX Info: Redefining \nameref on input line 4.
 
-(./Implementing-Stacks-and-Trees.out) (./Implementing-Stacks-and-Trees.out)
+(./Similar-Programs.out) (./Similar-Programs.out)
 \@outlinefile=\write3
-\openout3 = `Implementing-Stacks-and-Trees.out'.
+\openout3 = `Similar-Programs.out'.
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 15.
 
+Chapter 1.
+LaTeX Font Info:    Try loading font information for U+msa on input line 5.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 15.
+LaTeX Font Info:    Try loading font information for U+msb on input line 5.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-File: diagrams/stack.1 Graphic file (type mps)
- [MP to PDF]
-(./diagrams/stack.1)
-File: diagrams/tree.1 Graphic file (type mps)
- [MP to PDF] (./diagrams/tree.1) [1
+<images/desmosDemo.jpg, id=24, 1283.79625pt x 529.98pt>
+File: images/desmosDemo.jpg Graphic file (type jpg)
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 58.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 58.
- (./Implementing-Stacks-and-Trees.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 58.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 58.
-Package rerunfilecheck Info: File `Implementing-Stacks-and-Trees.out' has not c
-hanged.
-(rerunfilecheck)             Checksum: C8958BC02A50F35536ED9B3EFA0629B7;76.
+<use images/desmosDemo.jpg>
+Package pdftex.def Info: images/desmosDemo.jpg used on input line 18.
+(pdftex.def)             Requested size: 469.75502pt x 193.92224pt.
+
+<images/desmosMobile.jpg, id=25, 722.7pt x 304.13625pt>
+File: images/desmosMobile.jpg Graphic file (type jpg)
+
+<use images/desmosMobile.jpg>
+Package pdftex.def Info: images/desmosMobile.jpg used on input line 22.
+(pdftex.def)             Requested size: 164.41711pt x 69.18878pt.
+ [1
+
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./images/desmosDemo.jpg>]
+<images/geogebraFunc.png, id=37, 1284.8pt x 659.46375pt>
+File: images/geogebraFunc.png Graphic file (type png)
+
+<use images/geogebraFunc.png>
+Package pdftex.def Info: images/geogebraFunc.png used on input line 43.
+(pdftex.def)             Requested size: 361.71336pt x 185.65485pt.
+ [2 <./images/desmosMobile.jpg> <./images/geogebraFunc.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 52--54
+
+ []
+
+<images/octavePlot.png, id=47, 416.55624pt x 525.965pt>
+File: images/octavePlot.png Graphic file (type png)
+
+<use images/octavePlot.png>
+Package pdftex.def Info: images/octavePlot.png used on input line 69.
+(pdftex.def)             Requested size: 98.64912pt x 124.55682pt.
+
+<images/matlabMesh.png, id=49, 513.92pt x 513.92pt>
+File: images/matlabMesh.png Graphic file (type png)
+
+<use images/matlabMesh.png>
+Package pdftex.def Info: images/matlabMesh.png used on input line 75.
+(pdftex.def)             Requested size: 91.6023pt x 91.5998pt.
+ [3 <./images/octavePlot.png> <./images/matlabMesh.png>]
+File: diagrams/UI.mps Graphic file (type mps)
+ [MP to PDF] (./diagrams/UI.mps)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 100.
+ [4]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 100.
+ (./Similar-Programs.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 100.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 100.
+Package rerunfilecheck Info: File `Similar-Programs.out' has not changed.
+(rerunfilecheck)             Checksum: EDD3AC4D10240848644A511A310EB9D5;269.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
  ) 
 Here is how much of TeX's memory you used:
- 10296 strings out of 494945
- 152879 string characters out of 6181032
- 260640 words of memory out of 5000000
- 13409 multiletter control sequences out of 15000+600000
- 9520 words of font info for 33 fonts, out of 8000000 for 9000
+ 11047 strings out of 494945
+ 164497 string characters out of 6181032
+ 309094 words of memory out of 5000000
+ 14128 multiletter control sequences out of 15000+600000
+ 10258 words of font info for 40 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 45i,16n,40p,702b,499s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/tim
-es/utmr8a.pfb>
-Output written on Implementing-Stacks-and-Trees.pdf (1 page, 77823 bytes).
+ 45i,9n,77p,542b,526s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmsy10.pfb>
+Output written on Similar-Programs.pdf (4 pages, 561593 bytes).
 PDF statistics:
- 67 PDF objects out of 1000 (max. 8388607)
- 57 compressed objects within 1 object stream
- 23 named destinations out of 1000 (max. 500000)
- 9 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 99 PDF objects out of 1000 (max. 8388607)
+ 78 compressed objects within 1 object stream
+ 20 named destinations out of 1000 (max. 500000)
+ 66 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2018.8.9)  24 SEP 2018 18:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2018.9.25)  30 SEP 2018 20:56
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -388,6 +388,9 @@ Package: subcaption 2016/05/22 v1.1-161 Sub-captions (AR)
 \c@subfigure=\count114
 \c@subtable=\count115
 )
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/lscape.sty
+Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
+)
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
 Package: color 2016/07/10 v1.1e Standard LaTeX Color (DPC)
 
@@ -537,24 +540,24 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \c@subsubsubsection=\count134
 
-(./main.aux)
+No file main.aux.
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 112.
-LaTeX Font Info:    ... okay on input line 112.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 112.
-LaTeX Font Info:    ... okay on input line 112.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 112.
-LaTeX Font Info:    ... okay on input line 112.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 112.
-LaTeX Font Info:    ... okay on input line 112.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 112.
-LaTeX Font Info:    ... okay on input line 112.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 112.
-LaTeX Font Info:    ... okay on input line 112.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 112.
-LaTeX Font Info:    ... okay on input line 112.
- (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count135
 \scratchdimen=\dimen147
@@ -590,7 +593,7 @@ Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count141
 \AtBeginShipoutBox=\box66
-Package hyperref Info: Link coloring OFF on input line 112.
+Package hyperref Info: Link coloring OFF on input line 123.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -600,26 +603,24 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count142
 )
-LaTeX Info: Redefining \ref on input line 112.
-LaTeX Info: Redefining \pageref on input line 112.
-LaTeX Info: Redefining \nameref on input line 112.
-
-(./main.out) (./main.out)
+LaTeX Info: Redefining \ref on input line 123.
+LaTeX Info: Redefining \pageref on input line 123.
+LaTeX Info: Redefining \nameref on input line 123.
 \@outlinefile=\write3
 \openout3 = `main.out'.
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 114.
+LaTeX Font Info:    Try loading font information for U+msa on input line 125.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 114.
+LaTeX Font Info:    Try loading font information for U+msb on input line 125.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./main.toc)
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
@@ -627,7 +628,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.116 \newpage
+l.127 \newpage
                [1
 
 ] (./subfiles/Prototype-I/Prototype-I.tex [2
@@ -721,13 +722,25 @@ Underfull \hbox (badness 10000) in paragraph at lines 5--8
 [8])
 (./subfiles/Prototype-I/Design/Function-Class/Implementing-Stacks-and-Trees/Imp
 lementing-Stacks-and-Trees.tex
-File: diagrams/stack.1 Graphic file (type mps)
- [MP to PDF] (./diagrams/stack.1)
-File: diagrams/tree.1 Graphic file (type mps)
+File: subfiles/Prototype-I/Design/Function-Class/Implementing-Stacks-and-Trees/
+diagrams/stack.1 Graphic file (type mps)
  [MP to PDF]
-(./diagrams/tree.1) [9])
+(./subfiles/Prototype-I/Design/Function-Class/Implementing-Stacks-and-Trees/dia
+grams/stack.1)
+File: subfiles/Prototype-I/Design/Function-Class/Implementing-Stacks-and-Trees/
+diagrams/tree.1 Graphic file (type mps)
+ [MP to PDF]
+(./subfiles/Prototype-I/Design/Function-Class/Implementing-Stacks-and-Trees/dia
+grams/tree.1) [9])
 (./subfiles/Prototype-I/Design/Function-Class/Parsing-Algorithm/Parsing-Algorit
 hm.tex [10] [11]
+
+LaTeX Warning: Reference `funcClass' on page 12 undefined on input line 86.
+
+
+LaTeX Warning: Reference `funcClass' on page 12 undefined on input line 86.
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 98--110
 
  []
@@ -743,23 +756,36 @@ Underfull \hbox (badness 10000) in paragraph at lines 98--110
  []
 
 [12])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 140.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 151.
  [13
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 140.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 151.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 140.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 140.
-Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 2732935579D9BCEF0B461D41B91CEA5E;601.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 140.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 151.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 151.
+
+
+Package rerunfilecheck Warning: File `main.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `main.out':
+(rerunfilecheck)             Before: <no file>
+(rerunfilecheck)             After:  2732935579D9BCEF0B461D41B91CEA5E;601.
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 151.
  ) 
 Here is how much of TeX's memory you used:
- 10511 strings out of 494945
- 156240 string characters out of 6181033
- 268161 words of memory out of 5000000
- 13446 multiletter control sequences out of 15000+600000
+ 10508 strings out of 494945
+ 156768 string characters out of 6181032
+ 268158 words of memory out of 5000000
+ 13450 multiletter control sequences out of 15000+600000
  16510 words of font info for 59 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  47i,25n,44p,1348b,840s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -783,10 +809,10 @@ lic/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a
 .pfb>
-Output written on main.pdf (14 pages, 255132 bytes).
+Output written on main.pdf (14 pages, 253606 bytes).
 PDF statistics:
- 367 PDF objects out of 1000 (max. 8388607)
- 327 compressed objects within 4 object streams
+ 331 PDF objects out of 1000 (max. 8388607)
+ 292 compressed objects within 3 object streams
  155 named destinations out of 1000 (max. 500000)
- 65 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2018.9.25)  30 SEP 2018 21:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2018.9.25)  30 SEP 2018 19:57
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
-**Implementing-Stacks-and-Trees.tex
-(./Implementing-Stacks-and-Trees.tex
+**Interviews.tex
+(./Interviews.tex
 LaTeX2e <2017/01/01> patch level 3
 Babel <3.9r> and hyphenation patterns for 3 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/subfiles/subfiles.cls
@@ -14,9 +14,8 @@ Package: verbatim 2014/10/28 v1.5q LaTeX2e package for verbatim enhancements
 \verbatim@line=\toks15
 \verbatim@in@stream=\read1
 )
-Preamble taken from file `../../../../../main.tex'
-(../../../../../main.tex
-(/usr/share/texlive/texmf-dist/tex/latex/base/report.cls
+Preamble taken from file `../../../main.tex'
+(../../../main.tex (/usr/share/texlive/texmf-dist/tex/latex/base/report.cls
 Document Class: report 2014/09/29 v1.4h Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
 File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
@@ -547,37 +546,88 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \c@subsubsubsection=\count134
 ))
-(./Implementing-Stacks-and-Trees.aux)
-\openout1 = `Implementing-Stacks-and-Trees.aux'.
+(/usr/share/texlive/texmf-dist/tex/latex/tools/tabularx.sty
+Package: tabularx 2016/02/03 v2.11 `tabularx' package (DPC)
+\TX@col@width=\dimen147
+\TX@old@table=\dimen148
+\TX@old@col=\dimen149
+\TX@target=\dimen150
+\TX@delta=\dimen151
+\TX@cols=\count135
+\TX@ftn=\toks37
+)
+(/usr/share/texlive/texmf-dist/tex/latex/ms/ragged2e.sty
+Package: ragged2e 2009/05/21 v2.1 ragged2e Package (MS)
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
+(/usr/share/texlive/texmf-dist/tex/latex/ms/everysel.sty
+Package: everysel 2011/10/28 v1.2 EverySelectfont Package (MS)
+)
+\CenteringLeftskip=\skip145
+\RaggedLeftLeftskip=\skip146
+\RaggedRightLeftskip=\skip147
+\CenteringRightskip=\skip148
+\RaggedLeftRightskip=\skip149
+\RaggedRightRightskip=\skip150
+\CenteringParfillskip=\skip151
+\RaggedLeftParfillskip=\skip152
+\RaggedRightParfillskip=\skip153
+\JustifyingParfillskip=\skip154
+\CenteringParindent=\skip155
+\RaggedLeftParindent=\skip156
+\RaggedRightParindent=\skip157
+\JustifyingParindent=\skip158
+)
+(/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2016/04/27 v1.618033 publication quality tables
+\heavyrulewidth=\dimen152
+\lightrulewidth=\dimen153
+\cmidrulewidth=\dimen154
+\belowrulesep=\dimen155
+\belowbottomsep=\dimen156
+\aboverulesep=\dimen157
+\abovetopsep=\dimen158
+\cmidrulesep=\dimen159
+\cmidrulekern=\dimen160
+\defaultaddspace=\dimen161
+\@cmidla=\count136
+\@cmidlb=\count137
+\@aboverulesep=\dimen162
+\@belowrulesep=\dimen163
+\@thisruleclass=\count138
+\@lastruleclass=\count139
+\@thisrulewidth=\dimen164
+)
+(./Interviews.aux)
+\openout1 = `Interviews.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count135
-\scratchdimen=\dimen147
+\scratchcounter=\count140
+\scratchdimen=\dimen165
 \scratchbox=\box65
-\nofMPsegments=\count136
-\nofMParguments=\count137
-\everyMPshowfont=\toks37
-\MPscratchCnt=\count138
-\MPscratchDim=\dimen148
-\MPnumerator=\count139
-\makeMPintoPDFobject=\count140
-\everyMPtoPDFconversion=\toks38
+\nofMPsegments=\count141
+\nofMParguments=\count142
+\everyMPshowfont=\toks38
+\MPscratchCnt=\count143
+\MPscratchDim=\dimen166
+\MPnumerator=\count144
+\makeMPintoPDFobject=\count145
+\everyMPtoPDFconversion=\toks39
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -599,9 +649,9 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\c@lstlisting=\count141
+\c@lstlisting=\count146
 \AtBeginShipoutBox=\box66
-Package hyperref Info: Link coloring OFF on input line 13.
+Package hyperref Info: Link coloring OFF on input line 9.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -609,61 +659,71 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count142
+\c@section@level=\count147
 )
-LaTeX Info: Redefining \ref on input line 13.
-LaTeX Info: Redefining \pageref on input line 13.
-LaTeX Info: Redefining \nameref on input line 13.
+LaTeX Info: Redefining \ref on input line 9.
+LaTeX Info: Redefining \pageref on input line 9.
+LaTeX Info: Redefining \nameref on input line 9.
 
-(./Implementing-Stacks-and-Trees.out) (./Implementing-Stacks-and-Trees.out)
+(./Interviews.out) (./Interviews.out)
 \@outlinefile=\write3
-\openout3 = `Implementing-Stacks-and-Trees.out'.
+\openout3 = `Interviews.out'.
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 15.
+ ABD: EverySelectfont initializing macros
+LaTeX Info: Redefining \selectfont on input line 9.
 
+Chapter 1.
+LaTeX Font Info:    Try loading font information for U+msa on input line 10.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 15.
+LaTeX Font Info:    Try loading font information for U+msb on input line 10.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-File: diagrams/stack.1 Graphic file (type mps)
- [MP to PDF]
-(./diagrams/stack.1)
-File: diagrams/tree.1 Graphic file (type mps)
- [MP to PDF] (./diagrams/tree.1) [1
+) [1
+
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 58.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 58.
- (./Implementing-Stacks-and-Trees.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 58.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 58.
-Package rerunfilecheck Info: File `Implementing-Stacks-and-Trees.out' has not c
-hanged.
-(rerunfilecheck)             Checksum: C8958BC02A50F35536ED9B3EFA0629B7;76.
+(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 70.
+ [2]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 70.
+ (./Interviews.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 70.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 70.
+
+Package rerunfilecheck Warning: File `Interviews.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `Interviews.out':
+(rerunfilecheck)             Before: 6FB72AEC73CC2043D321C702031E8FB0;227
+(rerunfilecheck)             After:  E723A9A5A8C78DBF8EFE05C40683381F;171.
  ) 
 Here is how much of TeX's memory you used:
- 10296 strings out of 494945
- 152879 string characters out of 6181032
- 260640 words of memory out of 5000000
- 13409 multiletter control sequences out of 15000+600000
- 9520 words of font info for 33 fonts, out of 8000000 for 9000
+ 10448 strings out of 494945
+ 155379 string characters out of 6181032
+ 267353 words of memory out of 5000000
+ 13562 multiletter control sequences out of 15000+600000
+ 9957 words of font info for 39 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 45i,16n,40p,702b,499s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/tim
-es/utmr8a.pfb>
-Output written on Implementing-Stacks-and-Trees.pdf (1 page, 77823 bytes).
+ 45i,16n,40p,433b,409s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{section.1.3} has been referenced but does not exist
+, replaced by a fixed one
+
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on Interviews.pdf (2 pages, 60660 bytes).
 PDF statistics:
- 67 PDF objects out of 1000 (max. 8388607)
- 57 compressed objects within 1 object stream
- 23 named destinations out of 1000 (max. 500000)
- 9 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 62 PDF objects out of 1000 (max. 8388607)
+ 50 compressed objects within 1 object stream
+ 10 named destinations out of 1000 (max. 500000)
+ 33 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,6 +1,14 @@
 \documentclass[../../../../../main.tex]{subfiles}
 
-\graphicspath{{diagrams/}{subfiles/Prototype-I/Design/Function-Class/Implementing-Stacks-and-Tree/diagrams/}}
+\makeatletter
+\let\org@subfile\subfile
+\renewcommand*{\subfile}[1]{%
+  \filename@parse{#1}% LaTeX's file name parser
+  \expandafter
+  \graphicspath\expandafter{\expandafter{\filename@area}}%
+  \org@subfile{#1}%
+}
+\makeatother
 
 \begin{document}
 
