@@ -1,0 +1,15 @@
+\documentclass[../../../main.tex]{subfiles}
+\begin{document}
+\chapter{Computational Methods}
+Firstly, is this problem solvable by computation? This question can be split up into two parts, the input of an expression and drawing this function onto the Screen. 
+
+Let us start with the latter part. Most APIs, such as OpenGL and Vulkan, only allow the drawing of primitives, which are points, lines and triangles. This means that our curve cannot be drawn explicitly onto the screen.
+\footnote{Strictly this isn't true, but most other things we can draw usually consist of multiple triangles combined.} 
+There are two ways we can approximate the curve:
+\begin{itemize} 
+\item Let $x$ be our starting value and $f(x)$ our function. Let $dx$ be a small value. Now draw a line between the points $(x,f(x))$ and $(x+dx,f(x+dx))$, $(x+dx,f(x+dx))$ and $(x+2dx,f(x+2dx))$, ... , $(x+n\cdot dx,f(x+n\cdot dx))$ $(x+(n+1)\cdot dx,f(x+(n+1)\cdot dx))$. Here we are effectively creating line segments and joining them together to approximate the curve. As $n$
+\end{itemize} 
+
+We must therefore approximate our curve by creating many of lines, joined together, to create the illusion that we have a curve. If we let
+
+\end{document}

@@ -62,7 +62,17 @@
  
 \lstset{style=mystyle}
 
+\usepackage{ragged2e}  % for '\RaggedRight' macro (allows hyphenation)
+
+\usepackage{footnote}
+
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
 \usepackage{hyperref}
+
+
 
 
 
@@ -126,6 +136,12 @@
 \tableofcontents
 \newpage
 
+\subfile{subfiles/Analysis/Analysis}
+	\subfile{subfiles/Analysis/Computational-Methods/Computational-Methods}
+	\subfile{subfiles/Analysis/Stakeholders/Stakeholders}
+	\subfile{subfiles/Analysis/Requirements/Requirements}
+	\subfile{subfiles/Analysis/Similar-Programs/Similar-Programs}
+
 \subfile{subfiles/Prototype-I/Prototype-I}
 	\subfile{subfiles/Prototype-I/Design/Design}
 		\subfile{subfiles/Prototype-I/Design/Function-Class/Function-Class}
@@ -134,6 +150,7 @@
 			\subfile{subfiles/Prototype-I/Design/Function-Class/Analysis-of-the-two-Methods/Analysis-of-the-two-Methods}
 			\subfile{subfiles/Prototype-I/Design/Function-Class/Implementing-Stacks-and-Trees/Implementing-Stacks-and-Trees}
 			\subfile{subfiles/Prototype-I/Design/Function-Class/Parsing-Algorithm/Parsing-Algorithm}
+
 
 
 \begin{thebibliography}{9}
