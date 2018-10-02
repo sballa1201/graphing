@@ -1,0 +1,5 @@
+\contentsline {chapter}{\numberline {1}Computational Methods}{2}{chapter.1}
+\contentsline {section}{\numberline {1.1}Abstraction, Heuristics and Computability}{2}{section.1.1}
+\contentsline {section}{\numberline {1.2}Logical Approach}{3}{section.1.2}
+\contentsline {section}{\numberline {1.3}Decomposition}{3}{section.1.3}
+\contentsline {section}{\numberline {1.4}Divide and Conquer and Concurrent Processing}{3}{section.1.4}
