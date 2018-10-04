@@ -47,11 +47,11 @@ public class PlotPaneController implements Initializable {
 		canvas.widthProperty().bind(plotPane.widthProperty());
 		try {
 			//Function f = new Function("x^2");
-			Function g = new Function("x^(1/2)");
+			Function g = new Function("1/(x-2) + -2");
 			Function h = new Function("x^(1/3)");
 			//this.functions.add(f);
 			MainController.functions.add(g);
-			MainController.functions.add(h);
+			//MainController.functions.add(h);
 			
 		} catch (StackOverflowException | StackUnderflowException | UnequalBracketsException e) {
 			e.printStackTrace();
