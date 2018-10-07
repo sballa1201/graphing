@@ -1,7 +1,8 @@
-\documentclass[main.tex]{subfiles}
+\documentclass[../../../../../main.tex]{subfiles}
 \begin{document}
 
 \subsection{Parsing Algorithm}
+\subsubsection{Least Significant Operator}
 An important part of the parsing stage, is the ability to find the least significant operator within an expression.
 \begin{algorithm}[H]
 \caption{Least Significant Operator Position}
@@ -32,10 +33,16 @@ An important part of the parsing stage, is the ability to find the least signifi
 	\KwRet leastSigOperatorPos\;
 }
 \end{algorithm}
-The function above assumes that there is no whitespace and that there are no brackets enclosing the entire expression (e.g.\ $(x-4)$). We can deal with our whitespace issue in our constructor\footnote{In our function class we will store the original input so we can show the user, therefore we do not need to remove whitespace here} however we need to make another function check for and remove any brackets surrounding an expression. 
-\begin{algorithm}[H]
+\subsubsection{Removing Brackets}
+The function above assumes that there is no whitespace and that there are no brackets enclosing the entire expression (e.g.\ $(x-4)$). We can deal with our whitespace issue in our constructor\footnote{In our function class we will store the original input so we can show the user, therefore we do not need to remove whitespace here} however we need to make another function check for and remove any brackets surrounding an expression.
+
+However algorithm \ref{alg:checkBracket1} has some issues. For example if we have the expression $\frac{x+1}{x+2}$, this would be input as, $(x+1)/(x+2)$. Now if we apply algorithm \ref{alg:checkBracket1} which removes enclosing brackets we get $x+1)/(x+2$. This is completely wrong, as in this case we do not want to any remove brackets at all. The significant issue here is that we only want to remove the enclosing brackets, if they are \textit{\textbf{matching}}.
+
+To do this the algorithm \ref{alg:checkBracket2} is more suited. This algorithm is based on \ref{alg:checkBracket1} but checks for matching brackets. This algorithm will also throw an exception if there are unequal number of opening and closing brackets. This is so that we can inform the user later of the error that they have made and so that we can kill the process instantly rather than letting this error have consequences later on (probably during the evaluation of a value).
+\begin{algorithm}
 \DontPrintSemicolon
 \caption{Check for and remove any Brackets surrounding an input}
+\label{alg:checkBracket1}
 \Fn{checkBracket(String input)}{
 	Boolean done = False \;
 	\While{!done}{
@@ -48,16 +55,16 @@ The function above assumes that there is no whitespace and that there are no bra
 	\KwRet input\;
 }
 \end{algorithm}
-\newpage
-However the above algorithm has some issues. For example if we have the expression $\frac{x+1}{x+2}$, this would be input as, $(x+1)/(x+2)$. Now if we apply our current algorithm which removes enclosing brackets we get $x+1)/(x+2$. This is completely wrong, as in this case we do not want to any remove brackets at all. The significant issue here is that we only want to remove the enclosing brackets, if they are \textit{\textbf{matching}}. To do this the following algorithm is more suited. This algorithm will also throw an exception if there are unequal number of opening and closing brackets. This is so that we can inform the user later of the error that they have made and so that we can kill the process instantly rather than letting this error have consequences later on (probably during the evaluation of a value).\\
+
 \begin{algorithm}[H]
 \DontPrintSemicolon
 \caption{Check for and remove any Matching Brackets surrounding an input}
+\label{alg:checkBracket2}
 \Fn{checkBracket(String input)}{
 	Boolean done = False \;
 	\While{!done}{
 		done = True \;
-		\eIf{input[0] == `(' \KwAnd input[input.size - 1] == `)'}{
+		\uIf{input[0] == `(' \KwAnd input[input.size - 1] == `)'}{
 			int countMatching = 1\;
 			\For{i=1 \KwTo (input.size - 2) \KwBy 1}{
 				\uIf(\tcc*[h]{if countMatching is 0, then the matching closing bracket has been found before the end therefore we return the input without modification}){countMatching == 0}{
@@ -68,11 +75,12 @@ However the above algorithm has some issues. For example if we have the expressi
 					countMatching--\;	{If there is an closing bracket then we decrement}
 				}
 			}
-			\uIf(\tcc*[h]{we haven't looped til the last character which is `)' , and therefore at this point countMatching would be 1 for a standard expression}){countMatching == 1}{
+			\eIf(\tcc*[h]{we haven't looped til the last character which is `)' , and therefore at this point countMatching would be 1 for a standard expression}){countMatching == 1}{
 				done = False\;
 				input = input.subString(1, input.size - 2)\;
-			}(\tcc*[h]{otherwise it is not a standard expression and there is something wrong}){
-				throw ``There is an unequal number of opening and closing brackets''\;
+			}{
+				\tcc*[h]{if not it is not an accepted expression, unequal brackets}\;
+				\KwThrow ``There is an unequal number of opening and closing brackets''\;
 			}
 		
 		} 
@@ -83,6 +91,7 @@ However the above algorithm has some issues. For example if we have the expressi
 }
 \end{algorithm}
 \newpage
+\subsubsection{RegEx}
 Another important part of the parsing stage is to standardize the input. This is where we convert any inconsistencies discussed in section \ref{funcClass}, page \pageref{funcClass}. The easiest way to do this is to use RegEx. RegEx stands for regular expression and is a standardized form of pattern recognition in strings, usually used during syntax analysis during compilation of software. Many languages support regex in some form or another and Java is no exception. These were our 5 inconsistencies that we needed to fix:
 \begin{enumerate}
 	\item Any instance of $ax$ where $a \in  \mathbb{R} : a \neq 0$ is to be converted to $a*x$.
@@ -93,20 +102,22 @@ Another important part of the parsing stage is to standardize the input. This is
 \end{enumerate}
 For the first and second examples, we look around every instance of $x$, $($ or $)$ and if the adjacent characters are not operators or brackets then we replace with $*x$ or $x*$. Therefore we can combine the first and second examples to use two separate RegEx expressions to deal with the case where we have $x$ after and where we have $x$ before.\par
 The RegEx expression for the first case is
-``([$\wedge$\textbackslash+\textbackslash-\textbackslash*\textbackslash/\textbackslash(\textbackslash)\textbackslash$\wedge$])([\textbackslash(x])''
-with the replacement expression being ``\$1*\$2''. If we take the ReGex expression, it creates two capture groups, ``\$1'' and ``\$2'', which are ``([$\wedge$\textbackslash+\textbackslash-\textbackslash*\textbackslash/\textbackslash(\textbackslash)\textbackslash$\wedge$])'' and ``([\textbackslash(x])'' respectively. A capture group stores a set of characters for each match that is made, so that we can perform actions on it later. The first capture group checks if the first character, in the substring that is currently being checked, is not any of the operators or brackets\footnote{the reason there are so many backslashes is because a lot of the operators are actually key characters in RegEx and a blackslash is an escape character which means that it signifies to treat the next character as a pure character}. The not is signified by the first $\wedge$. The second capture group checks if the second character, in the substring that is currently being checked, is an $x$ or a (. If both capture groups return true then a match is found and the match is replaced with ``\$1*\$2'' where ``\$1'' is the first capture group, ``\$2'' is the second capture group and the * asterisk between them signifying the multiply.\par
+\textbf{\underline{``([$\wedge$\textbackslash+\textbackslash-\textbackslash*\textbackslash/\textbackslash(\textbackslash)\textbackslash$\wedge$])([\textbackslash(x])''}}
+with the replacement expression being \textbf{\underline{``\$1*\$2''}}. If we take the ReGex expression, it creates two capture groups, \textit{``\$1''} and \textit{``\$2''}, which are \textit{``([$\wedge$\textbackslash+\textbackslash-\textbackslash*\textbackslash/\textbackslash(\textbackslash)\textbackslash$\wedge$])''} and \textit{``([\textbackslash(x])''} respectively. A capture group stores a set of characters for each match that is made, so that we can perform actions on it later. The first capture group checks if the first character, in the substring that is currently being checked, is not any of the operators or brackets\footnote{the reason there are so many backslashes is because a lot of the operators are actually key characters in RegEx and a blackslash is an escape character which means that it signifies to treat the next character as a pure character}. The not is signified by the first $\wedge$. The second capture group checks if the second character, in the substring that is currently being checked, is an $x$ or a (. If both capture groups return true then a match is found and the match is replaced with \textit{``\$1*\$2''} where \textit{``\$1''} is the first capture group, \textit{``\$2''} is the second capture group and the * asterisk between them signifying the multiply.\par
 The RegEx expression for the second case is
-``([\textbackslash)x])([$\wedge$\textbackslash+\textbackslash-\textbackslash*\textbackslash/\textbackslash(\textbackslash)\textbackslash$\wedge$])''
-with the replacement expression being ``\$1*\$2'' again. This expression does the same as the first but checks for the reverse order i.e.\ $xa$ and instead checks for a ) instead of ( as we are checking the back of a substring instead of the start.\\ \\
+\textbf{\underline{``([\textbackslash)x])([$\wedge$\textbackslash+\textbackslash-\textbackslash*\textbackslash/\textbackslash(\textbackslash)\textbackslash$\wedge$])''}}
+with the replacement expression being \textbf{\underline{``\$1*\$2''}} again. This expression does the same as the first but checks for the reverse order i.e.\ $xa$ and instead checks for a ) instead of ( as we are checking the back of a substring instead of the start.\\ \\
 For the third inconsistency, the RegEx expression is
-``\textbackslash)\textbackslash(''
-with the replacement expression being ``)*(''. This expression The expression returns a match if it finds a ) folllowed by a (. If it finds a match it then replaces the entire match with ``)*(''.\\ \\
+\textbf{\underline{``\textbackslash)\textbackslash(''}}
+with the replacement expression being \textbf{\underline{``)*(''}}. This expression The expression returns a match if it finds a ) folllowed by a (. If it finds a match it then replaces the entire match with \textit{``)*(''}.\\ \\
 For the fourth inconsistency, the RegEx expression is
-``([\textbackslash+\textbackslash-\textbackslash*\textbackslash/\textbackslash$\wedge$])-([$\wedge$\textbackslash+\textbackslash-\textbackslash*\textbackslash/\textbackslash(\textbackslash)\textbackslash$\wedge$]*)''
-with the replacement expression being ``\$1(-\$2)''. The RegEx expression returns a match when there is an operator followed by a minus sign followed by any number of characters that are not operators or brackets. There are two capture groups. The first is ``([\textbackslash+\textbackslash-\textbackslash*\textbackslash/\textbackslash$\wedge$])'' and this captures the operator. The second is ``([$\wedge$\textbackslash+\textbackslash-\textbackslash*\textbackslash/\textbackslash(\textbackslash)\textbackslash$\wedge$]*)'' and this captures the expression after the minus sign. The match is then replaced by the first capture group, followed by an opening bracket, a minus sign, the second capture group, then a closing bracket.\\ \\
+\textbf{\underline{``([\textbackslash+\textbackslash-\textbackslash*\textbackslash/\textbackslash$\wedge$])-([$\wedge$\textbackslash+\textbackslash-\textbackslash*\textbackslash/\textbackslash(\textbackslash)\textbackslash$\wedge$]*)''}}
+with the replacement expression being \textbf{\underline{``\$1(-\$2)''}}. The RegEx expression returns a match when there is an operator followed by a minus sign followed by any number of characters that are not operators or brackets. There are two capture groups. The first is \textit{``([\textbackslash+\textbackslash-\textbackslash*\textbackslash/\textbackslash$\wedge$])''} and this captures the operator. The second is \textit{``([$\wedge$\textbackslash+\textbackslash-\textbackslash*\textbackslash/\textbackslash(\textbackslash)\textbackslash$\wedge$]*)''} and this captures the expression after the minus sign. The match is then replaced by the first capture group, followed by an opening bracket, a minus sign, the second capture group, then a closing bracket.\\ \\
 For the fifth inconsistency, the RegEx expression is
-``($\wedge$$|$\textbackslash()-'' 
-with the replacement expression being ``\$10-''. The RegEx expression returns a match when it is either the start of a line, signified by the $\wedge$, or\footnote{the or is signified by $|$} a ( followed by a minus sign. The start of the line of bracket is captured and is used in the replacement expression, when the match is replaced with a 0- preceeded by either a bracket or nothing depending on if the start of a line or an opening bracket was captured.
+\textbf{\underline{``($\wedge$$|$\textbackslash()-''}}
+with the replacement expression being \textbf{\underline{``\$10-''}}. The RegEx expression returns a match when it is either the start of a line, signified by the $\wedge$, or\footnote{the or keyword in RegEx is signified by $|$} a ( followed by a minus sign. The start of the line of bracket is captured and is used in the replacement expression, when the match is replaced with a 0- preceeded by either a bracket or nothing depending on if the start of a line or an opening bracket was captured.
 \newpage
+
+
 
 \end{document}
