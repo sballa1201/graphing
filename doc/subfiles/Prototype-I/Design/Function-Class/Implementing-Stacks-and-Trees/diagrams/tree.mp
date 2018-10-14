@@ -1,6 +1,14 @@
+prologues:=3;
+outputformat:="mps";
+outputtemplate:=("%j" & "." & outputformat);
+verbatimtex
+%&latex
+\documentclass{minimal}
+\begin{document}
+etex
 input metauml;
-beginfig(1);
-    Class.A("Tree")
+beginfig(0);
+Class.A("Tree")
 	("+Tree(String value)",
 	"+String getValue()",	
 	"+void setValue(String value)",
@@ -11,6 +19,6 @@ beginfig(1);
 	"-String value",
 	);
     drawObject(A);
-	draw A.sw+(13,4.5) -- A.se+(-4,4.5);
+draw A.sw+(13,37.5) -- A.se+(-4,37.5);
 endfig;
 end

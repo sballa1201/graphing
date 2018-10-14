@@ -1,6 +1,14 @@
+prologues:=3;
+outputformat:="mps";
+outputtemplate:=("%j" & "." & outputformat);
+verbatimtex
+%&latex
+\documentclass{minimal}
+\begin{document}
+etex
 input metauml;
-beginfig(1);
-    Class.A("Stack")
+beginfig(0);
+Class.A("Stack")
 	("+Stack(int maxSize)",
 	"+double pop()",
 	"+void push(double n)",
