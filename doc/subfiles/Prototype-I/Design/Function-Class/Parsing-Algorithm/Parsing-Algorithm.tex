@@ -3,17 +3,17 @@
 
 \subsection{Parsing Algorithm}
 \subsubsection{Least Significant Operator}
-An important part of the parsing stage, is the ability to find the least significant operator within an expression. If there are no operators $-1$ will be returned.
+An important part of the parsing stage, is the ability to find the least significant operator within an expression. If there are no operators $-1$ will be returned. If an operator is inbetween within a pair of brackets it is automatically discounted. We do this by respectively incrementing or decrementing a variable when we reach an opening or closing bracket to monitor when we are within a pair of brackets.
 \begin{algorithm}
 \caption{Least Significant Operator Position}
 \DontPrintSemicolon
-\Fn{leastSigOperatorPos(String input)}{
-	int parenthesis = 0 \;
-	int leastSigOperatorPos = -1 \tcc{stores the position of the least significant operator so far}
-	int leastSigOpcode = 1000\;
-	char[] operators = [``+'',' ``-'', ``/'', `` * '', `` \^ ''] \tcc{stores each operator in order of incresing significance}
-	int currentOpcode \tcc{the current index of the operator in the array operators}
-	char currentChar\;
+\Fn{leastSigOperatorPos(\KwString input)}{
+	\KwInt parenthesis = 0 \;
+	\KwInt leastSigOperatorPos = -1 \tcc{stores the position of the least significant operator so far}
+	\KwInt leastSigOpcode = 1000\;
+	\KwCharA operators = [``+'',' ``-'', ``/'', `` * '', `` \^ ''] \tcc{stores each operator in order of incresing significance}
+	\KwInt currentOpcode \tcc{the current index of the operator in the array operators}
+	\KwChar currentChar\;
 	\For{i=0 \KwTo (input.size - 1) \KwBy 1}{
 		currentChar = input[i]\;
 		\uIf {currentChar \KwIn operators} {
@@ -44,13 +44,13 @@ This algorithm will also throw an exception if there are unequal number of openi
 \DontPrintSemicolon
 \caption{Check for and remove any Brackets surrounding an input}
 \label{alg:checkBracket1}
-\Fn{checkBracket(String input)}{
-	Boolean done = False \;
+\Fn{checkBracket(\KwString input)}{
+	\KwBool done = \textit{\textbf{False}} \;
 	\While{!done}{
-		done = True \;
+		done = \textit{\textbf{True}} \;
 		\If{(input[0] == `(') \KwAnd (input[input.size - 1] == `)')}{
-			done = False \;
-			input = input.subString(1, input.size - 2)\;
+			done = \textit{\textbf{False}} \;
+			input = input.substring(1, input.size - 2)\;
 		}
 	}
 	\KwRet input\;
@@ -61,26 +61,25 @@ This algorithm will also throw an exception if there are unequal number of openi
 \DontPrintSemicolon
 \caption{Check for and remove any Matching Brackets surrounding an input}
 \label{alg:checkBracket2}
-\Fn{checkBracket(String input)}{
-	Boolean done = False \;
+\Fn{checkBracket(\KwString input)}{
+	\KwBool done = \textit{\textbf{False}} \;
 	\While{!done}{
-		done = True \;
+		done = \textit{\textbf{True}} \;
 		\uIf{input[0] == `(' \KwAnd input[input.size - 1] == `)'}{
-			int countMatching = 1\;
+			\KwInt countMatching = 1\;
 			\For{i=1 \KwTo (input.size - 2) \KwBy 1}{
-				\uIf(\tcc*[h]{if countMatching is 0, then the matching closing bracket has been found before the end therefore we return the input without modification}){countMatching == 0}{
+				\uIf{countMatching == 0}{
 					\KwRet input\;
 				} \uElseIf{input[i] == `(' }{
-					countMatching++\tcc{If there is an opening bracket then we increment}
+					countMatching++
 				} \ElseIf{input[i] == `)'} {
-					countMatching--\;	{If there is an closing bracket then we decrement}
+					countMatching--\;
 				}
 			}
-			\eIf(\tcc*[h]{we haven't looped til the last character which is `)' , and therefore at this point countMatching would be 1 for a standard expression}){countMatching == 1}{
-				done = False\;
-				input = input.subString(1, input.size - 2)\;
+			\eIf{countMatching == 1}{
+				done = \textit{\textbf{False}}\;
+				input = input.substring(1, input.size - 2)\;
 			}{
-				\tcc*[h]{if not it is not an accepted expression, unequal brackets}\;
 				\KwThrow ``There is an unequal number of opening and closing brackets''\;
 			}
 		
@@ -119,20 +118,47 @@ For the fifth inconsistency, the RegEx expression is
 with the replacement expression being \textbf{\underline{``\$10-''}}. The RegEx expression returns a match when it is either the start of a line, signified by the $\wedge$, or\footnote{the or keyword in RegEx is signified by $|$} a ( followed by a minus sign. The start of the line of bracket is captured and is used in the replacement expression, when the match is replaced with a 0- preceeded by either a bracket or nothing depending on if the start of a line or an opening bracket was captured.
 \newpage
 \subsubsection{Creating the Tree}
-Using the functions above we can create a syntax tree from our expression. We will do this using the Divide and Conquer methodology by recursively splitting the original expression until it becomes a single constant or variable. We can know if we should split the expression and if so where we should split the function by using our Least Significant Operator function. Our recursive case will return a tree where the left and right nodes are made up of the trees of the two sub-expressions and the root node will be the operator that we split our original expression with. Our base case will return a tree containing the constant or variable that is remaining. For example if we have the expression ``$x^2 + 4$'', we will first split this expression by the least significant operator which is the ``$+$''. We then make this our root node and our left and right trees will be what is left and right of that operator.
-\par
-\Tree[.+ 
-		$x^2$
-		$4$
-]  
-\bigskip \\
-Now the left side has the operator $\wedge$ so we can create another tree for this sub-expression.
-\par
-\Tree[.$\wedge$ 
-		$x$
-		$2$
-]  
-\bigskip \\
-Now the left and right nodes of this tree have no operators so we create a tree of consisting of these variables and constants as the root node with no child nodes.
+Using the functions above we can create a syntax tree from our expression. We will do this using the Divide and Conquer methodology by recursively splitting the original expression until it becomes a single constant or variable. We can know if we should split the expression and if so where we should split the function by using our Least Significant Operator function. Our recursive case will return a tree where the left and right nodes are made up of the trees of the two sub-expressions and the root node will be the operator that we split our original expression with. Our base case will return a tree containing the constant or variable that is remaining. For example if we have the expression ``$x^2 + 4$'', we will first split this expression by the least significant operator which is the ``$+$''. We then make this our root node and our left and right trees will be what is left and right of that operator. This will be repeated for each sub-tree until only no operators remain. So our bottom nodes will be $x$, 2 and 4.
 
+\begin{algorithm}
+\DontPrintSemicolon
+\caption{Create a Binary Tree for an Algebraic Expression}
+\label{alg:createTree1}
+\Fn{createTree(\KwString expression)}{
+	expression = checkBracket(expression)\;
+		\KwInt leastSigOperatorPos = leastSigOperatorPos(expression)\;
+		\eIf{leastSigOperatorPos == -1} {
+			\KwRet \KwNew Tree(expression)\;
+		}{
+			\KwString operator = expression[leastSigOperatorPos]\;
+			\KwString a = expression.substring(0, leastSigOperatorPos)\;
+			\KwString b = expression.substring(leastSigOperatorPos+1,expression.length - 1)\;
+			\KwRet \KwNew \KwTree (operator,createTree(a),createTree(b))\;
+		}		
+}
+\end{algorithm}
+Within this algorithm I can use concurrent processing to process each sub-expression individually. To do this I will create 2 threads to create the 2 individual sub-trees. I will then start these threads and on the root thread wait for these threads to finish (usually done using a method called ``join''), and then return the new tree made up of the 2 individual sub-trees.
+
+\begin{algorithm}
+\DontPrintSemicolon
+\caption{Create a Binary Tree for an Algebraic Expression (Using Concurrent Processing)}
+\label{alg:createTree2}
+\Fn{createTree(\KwString expression)}{
+	expression = checkBracket(expression)\;
+		\KwInt leastSigOperatorPos = leastSigOperatorPos(expression)\;
+		\eIf{leastSigOperatorPos == -1} {
+			\KwRet \KwNew Tree(expression)\;
+		}{
+			\KwString operator = expression[leastSigOperatorPos]\;
+			\KwString a = expression.substring(0, leastSigOperatorPos)\;
+			\KwString b = expression.substring(leastSigOperatorPos+1,expression.length - 1)\;
+			\KwThread threadA = \KwNew \KwThread(createTree(a))\;
+			\KwThread threadB = \KwNew \KwThread(createTree(b))\;
+			threadA.join()\;
+			threadB.join()\;
+			\KwRet \KwNew \KwTree (operator,createTree(a),createTree(b))\;
+		}
+}
+\end{algorithm}
+\newpage
 \end{document}
