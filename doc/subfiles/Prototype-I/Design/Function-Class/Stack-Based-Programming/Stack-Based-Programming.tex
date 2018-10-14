@@ -41,9 +41,10 @@ Take $2$ and $10$ off the stack, push $10/2 = 5$ onto the stack.
 \[\begin{bmatrix} 5 \end{bmatrix} \quad
 \begin{bmatrix} 1 \\ 5 \end{bmatrix}\]
 Finally Take $1$ and $5$ off the stack, push $5 + 1 = 6$ onto the stack. We are left with 6 and have now got our answer. Just like with the binary trees, if we have an unknown $x$, we can simply replace the x with a value when we want. The algorithm to evaluate post-fix notation is shown below,\\
-\begin{algorithm}[H]
+\begin{algorithm}
 \DontPrintSemicolon
 \caption{Evaluate: Stack Based Version}
+\label{alg:evaluateStack}
 \Fn{evaluate(list)}{
 	Stack stack\;
 	Array temp\;
