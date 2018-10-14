@@ -3,8 +3,8 @@
 
 \subsection{Parsing Algorithm}
 \subsubsection{Least Significant Operator}
-An important part of the parsing stage, is the ability to find the least significant operator within an expression.
-\begin{algorithm}[H]
+An important part of the parsing stage, is the ability to find the least significant operator within an expression. If there are no operators $-1$ will be returned.
+\begin{algorithm}
 \caption{Least Significant Operator Position}
 \DontPrintSemicolon
 \Fn{leastSigOperatorPos(String input)}{
@@ -38,7 +38,8 @@ The function above assumes that there is no whitespace and that there are no bra
 
 However algorithm \ref{alg:checkBracket1} has some issues. For example if we have the expression $\frac{x+1}{x+2}$, this would be input as, $(x+1)/(x+2)$. Now if we apply algorithm \ref{alg:checkBracket1} which removes enclosing brackets we get $x+1)/(x+2$. This is completely wrong, as in this case we do not want to any remove brackets at all. The significant issue here is that we only want to remove the enclosing brackets, if they are \textit{\textbf{matching}}.
 
-To do this the algorithm \ref{alg:checkBracket2} is more suited. This algorithm is based on \ref{alg:checkBracket1} but checks for matching brackets. This algorithm will also throw an exception if there are unequal number of opening and closing brackets. This is so that we can inform the user later of the error that they have made and so that we can kill the process instantly rather than letting this error have consequences later on (probably during the evaluation of a value).
+To do this the algorithm \ref{alg:checkBracket2} is more suited. This algorithm is based on \ref{alg:checkBracket1} but checks for matching brackets. It does this by using a variable that increments everytime there is a opening bracket and decrements every time there is a closing bracket. When the variable becomes 0 the matching bracket has been found. If this happens at the end the opening and closing brackets are removed, else nothing happens. 
+This algorithm will also throw an exception if there are unequal number of opening and closing brackets. This is so that we can inform the user later of the error that they have made and so that we can kill the process instantly rather than letting this error have consequences later on (probably during the evaluation of a value).
 \begin{algorithm}
 \DontPrintSemicolon
 \caption{Check for and remove any Brackets surrounding an input}
@@ -117,7 +118,21 @@ For the fifth inconsistency, the RegEx expression is
 \textbf{\underline{``($\wedge$$|$\textbackslash()-''}}
 with the replacement expression being \textbf{\underline{``\$10-''}}. The RegEx expression returns a match when it is either the start of a line, signified by the $\wedge$, or\footnote{the or keyword in RegEx is signified by $|$} a ( followed by a minus sign. The start of the line of bracket is captured and is used in the replacement expression, when the match is replaced with a 0- preceeded by either a bracket or nothing depending on if the start of a line or an opening bracket was captured.
 \newpage
-
-
+\subsubsection{Creating the Tree}
+Using the functions above we can create a syntax tree from our expression. We will do this using the Divide and Conquer methodology by recursively splitting the original expression until it becomes a single constant or variable. We can know if we should split the expression and if so where we should split the function by using our Least Significant Operator function. Our recursive case will return a tree where the left and right nodes are made up of the trees of the two sub-expressions and the root node will be the operator that we split our original expression with. Our base case will return a tree containing the constant or variable that is remaining. For example if we have the expression ``$x^2 + 4$'', we will first split this expression by the least significant operator which is the ``$+$''. We then make this our root node and our left and right trees will be what is left and right of that operator.
+\par
+\Tree[.+ 
+		$x^2$
+		$4$
+]  
+\bigskip \\
+Now the left side has the operator $\wedge$ so we can create another tree for this sub-expression.
+\par
+\Tree[.$\wedge$ 
+		$x$
+		$2$
+]  
+\bigskip \\
+Now the left and right nodes of this tree have no operators so we create a tree of consisting of these variables and constants as the root node with no child nodes.
 
 \end{document}

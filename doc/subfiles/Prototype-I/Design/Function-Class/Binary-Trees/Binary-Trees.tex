@@ -4,16 +4,16 @@
 \subsection{Binary Trees}
 The second stage that a compiler goes through is called Syntax Analysis and this is where the code is transformed into an Abstract Syntax Tree.  What we are trying to achieve is very similar to that (albeit on a smaller scale). If we take a function $f(x) = x + 4$, this would be transformed into the binary tree:\\
 \par
-\Tree[.+ 4 x ]
+\Tree[.+ 4 $x$ ]
 \bigskip \\If we take something more complicated such as $f(x) = (x+4)(x-3)$, we need to first remove consistencies as discussed at the start of this section. Therefore the function would become $f(x) = (x+4)*(x-3)$. Now when we convert this into a syntax tree, we find the least significant operator (the operation we would do last), make it our root node and split the parameters that it is operating and make those parameters the child nodes of the root node. Here $*$ is the least significant operator and $x+4$ and $x-3$ become the child nodes.\\
 \par
-\Tree[.* (x+4) (x-3) ]
+\Tree[.* $(x+4)$ $(x-3)$ ]
 \bigskip \\
 We can then repeat what we did above on the child nodes. In $x+4$, $+$ is the least significant operator and in  In $x-3$, $-$ is the least significant operator. Therefore we now get:\\
 \par
 \Tree[.* 
-		[.+ x 4 ]
-		[.- x 3 ] 
+		[.+ $x$ 4 ]
+		[.- $x$ 3 ] 
 ]
 \bigskip \\
 We now stop as we cannot split this down any further. What we notice here is that only the bottommost nodes are actually values, the rest are operators. This is significant, because what we just did was a recursive algorithm, where we split each node down, until a node does not contain any operators.\\

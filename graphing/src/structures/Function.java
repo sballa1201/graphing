@@ -19,7 +19,7 @@ public class Function {
 		BinaryTree tree = createTree(this.expression);
 		this.postFixStack = tree.traverse();
 		//dont reverse stack at the start
-		this.postFixStack.reverse();
+		//this.postFixStack.reverse();
 				
 	}
 	
@@ -75,7 +75,7 @@ public class Function {
 			} 
 			subStack.push(pop);
 		}
-		subStack.reverse();
+		//subStack.reverse();
 		return subStack;
 	}
 	

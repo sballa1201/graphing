@@ -22,3 +22,7 @@
 \contentsline {subsection}{\numberline {6.1.3}Analysis of the two Methods}{19}{subsection.6.1.3}
 \contentsline {subsection}{\numberline {6.1.4}Implementing Stacks and Trees}{20}{subsection.6.1.4}
 \contentsline {subsection}{\numberline {6.1.5}Parsing Algorithm}{21}{subsection.6.1.5}
+\contentsline {subsubsection}{\numberline {6.1.5.1}Least Significant Operator}{21}{subsubsection.6.1.5.1}
+\contentsline {subsubsection}{\numberline {6.1.5.2}Removing Brackets}{21}{subsubsection.6.1.5.2}
+\contentsline {subsubsection}{\numberline {6.1.5.3}RegEx}{23}{subsubsection.6.1.5.3}
+\contentsline {subsubsection}{\numberline {6.1.5.4}Creating the Tree}{24}{subsubsection.6.1.5.4}
