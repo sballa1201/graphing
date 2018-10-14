@@ -1,0 +1,29 @@
+\documentclass[../../../../../main.tex]{subfiles}
+\begin{document}
+
+\subsection{Constructor and the Class as a whole}
+The constructor for the Function class will be quite simple. We take an expression as an input and:
+\begin{enumerate}
+	\item Remove Whitespace from the expression
+	\item Standardize the expression (using the RegEx rules)
+	\item Create the Binary Tree
+	\item Create the Post-Fix Stack from the Binary Tree
+\end{enumerate}
+\begin{algorithm}
+\DontPrintSemicolon
+\caption{Function Class Constructor}
+\Fn{Function(\KwString expression)}{
+	expression = expression.strip()\;
+	expression = standardize(expression)\;
+	this.expression = expression
+	this.binaryTree = createTree(this.expression)\;
+	this.postFixStack = this.binaryTree.traverse()\;
+}
+\end{algorithm}
+The class as a whole will look something like the diagram below. The evaluateStack method is the same as the Stack-Based Evaluate Algorithm (Algorithm \ref{alg:evaluateStack}).
+\begin{figure}[H]
+	\centering
+	\includegraphics{diagrams/function.mps}
+	\caption{Function Class}
+\end{figure}
+\end{document}
