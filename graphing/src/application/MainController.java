@@ -5,18 +5,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import exceptions.StackOverflowException;
-import exceptions.StackUnderflowException;
-import exceptions.UnequalBracketsException;
-import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import structures.Function;
 
 public class MainController implements Initializable {
@@ -27,17 +21,7 @@ public class MainController implements Initializable {
 	@FXML
 	private Canvas canvas;
 	
-	private GraphicsContext gc;
 	public static ArrayList<Function> functions = new ArrayList<Function>();
-	
-	private int steps = 1000;
-	private double minX = -10;
-	private double maxX = 10;
-	private double minY = -10;
-	private double maxY = 10;
-	private double pixelWorthX;
-	private double pixelWorthY;
-	
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

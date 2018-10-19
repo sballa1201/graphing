@@ -21,8 +21,9 @@ Our binary tree will be quite simple, containing only the bare minimum of what o
 \caption{Class Diagrams}
 \end{figure}
 \\
-\begin{algorithm}[H]
+\begin{algorithm}
 \caption{Post-Order Depth-First Traversal Helper}
+\label{alg:traverseHelper}
 \DontPrintSemicolon
 \Fn{traverseHelper(Tree tree,List \&order)}{
 	\eIf{tree == \KwNull}{
@@ -35,8 +36,9 @@ Our binary tree will be quite simple, containing only the bare minimum of what o
 	\KwRet list\;
 }
 \end{algorithm}
-\begin{algorithm}[H]
+\begin{algorithm}
 \caption{Post-Order Depth-First Traversal}
+\label{alg:traverse}
 \DontPrintSemicolon
 \Fn{traverse()}{
 	List order\;

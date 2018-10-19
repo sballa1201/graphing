@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2018.9.25)  14 OCT 2018 14:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2018.9.25)  19 OCT 2018 20:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -670,12 +670,9 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 4.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-
-LaTeX Warning: Reference `alg:evaluateStack' on page 1 undefined on input line 
-23.
-
 File: diagrams/function.mps Graphic file (type mps)
-[MP to PDF] (./diagrams/function.mps)
+ [MP to PDF]
+(./diagrams/function.mps)
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 29.
  [1
 
@@ -686,19 +683,15 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 29.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 29.
 Package rerunfilecheck Info: File `Constructor.out' has not changed.
 (rerunfilecheck)             Checksum: 91EA20AF945AE9187E270F25C956C2BB;78.
-
-
-LaTeX Warning: There were undefined references.
-
  ) 
 Here is how much of TeX's memory you used:
- 10573 strings out of 494945
- 156449 string characters out of 6181032
- 263049 words of memory out of 5000000
- 13679 multiletter control sequences out of 15000+600000
+ 10576 strings out of 494945
+ 156466 string characters out of 6181032
+ 261969 words of memory out of 5000000
+ 13682 multiletter control sequences out of 15000+600000
  10125 words of font info for 35 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 45i,13n,45p,478b,551s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 45i,13n,45p,500b,551s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist
@@ -706,7 +699,7 @@ f-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist
 type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
 ublic/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/tim
 es/utmr8a.pfb>
-Output written on Constructor.pdf (1 page, 74683 bytes).
+Output written on Constructor.pdf (1 page, 73410 bytes).
 PDF statistics:
  60 PDF objects out of 1000 (max. 8388607)
  50 compressed objects within 1 object stream

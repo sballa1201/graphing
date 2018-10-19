@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2018.9.25)  14 OCT 2018 14:58
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2018.9.25)  19 OCT 2018 20:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -581,20 +581,20 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 157.
-LaTeX Font Info:    ... okay on input line 157.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 157.
-LaTeX Font Info:    ... okay on input line 157.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 157.
-LaTeX Font Info:    ... okay on input line 157.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 157.
-LaTeX Font Info:    ... okay on input line 157.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 157.
-LaTeX Font Info:    ... okay on input line 157.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 157.
-LaTeX Font Info:    ... okay on input line 157.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 157.
-LaTeX Font Info:    ... okay on input line 157.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 159.
+LaTeX Font Info:    ... okay on input line 159.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 159.
+LaTeX Font Info:    ... okay on input line 159.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 159.
+LaTeX Font Info:    ... okay on input line 159.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 159.
+LaTeX Font Info:    ... okay on input line 159.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 159.
+LaTeX Font Info:    ... okay on input line 159.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 159.
+LaTeX Font Info:    ... okay on input line 159.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 159.
+LaTeX Font Info:    ... okay on input line 159.
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count135
@@ -632,9 +632,9 @@ Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count141
 
 ABD: EverySelectfont initializing macros
-LaTeX Info: Redefining \selectfont on input line 157.
+LaTeX Info: Redefining \selectfont on input line 159.
 \AtBeginShipoutBox=\box67
-Package hyperref Info: Link coloring OFF on input line 157.
+Package hyperref Info: Link coloring OFF on input line 159.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -644,20 +644,20 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count142
 )
-LaTeX Info: Redefining \ref on input line 157.
-LaTeX Info: Redefining \pageref on input line 157.
-LaTeX Info: Redefining \nameref on input line 157.
+LaTeX Info: Redefining \ref on input line 159.
+LaTeX Info: Redefining \pageref on input line 159.
+LaTeX Info: Redefining \nameref on input line 159.
 
 (./main.out) (./main.out)
 \@outlinefile=\write3
 \openout3 = `main.out'.
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 159.
+LaTeX Font Info:    Try loading font information for U+msa on input line 161.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 159.
+LaTeX Font Info:    Try loading font information for U+msb on input line 161.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -671,14 +671,14 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.161 \newpage
+l.163 \newpage
                [1
 
 ] (./subfiles/Analysis/Analysis.tex [2
 
 ]
 Chapter 1.
-<subfiles/Analysis/geogebraEx.png, id=173, 903.375pt x 652.4375pt>
+<subfiles/Analysis/geogebraEx.png, id=178, 903.375pt x 652.4375pt>
 File: subfiles/Analysis/geogebraEx.png Graphic file (type png)
 
 <use subfiles/Analysis/geogebraEx.png>
@@ -686,7 +686,7 @@ Package pdftex.def Info: subfiles/Analysis/geogebraEx.png used on input line 8.
 
 (pdftex.def)             Requested size: 187.89914pt x 135.7018pt.
 
-<subfiles/Analysis/desmosEx.jpg, id=175, 1284.8pt x 722.7pt>
+<subfiles/Analysis/desmosEx.jpg, id=180, 1284.8pt x 722.7pt>
 File: subfiles/Analysis/desmosEx.jpg Graphic file (type jpg)
 
 <use subfiles/Analysis/desmosEx.jpg>
@@ -725,7 +725,7 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (./subfiles/Analysis/Similar-Programs/Similar-Programs.tex [5]
 Chapter 3.
 
-<subfiles/Analysis/Similar-Programs/images/desmosDemo.jpg, id=203, 1283.79625pt
+<subfiles/Analysis/Similar-Programs/images/desmosDemo.jpg, id=208, 1283.79625pt
  x 529.98pt>
 File: subfiles/Analysis/Similar-Programs/images/desmosDemo.jpg Graphic file (ty
 pe jpg)
@@ -734,7 +734,7 @@ Package pdftex.def Info: subfiles/Analysis/Similar-Programs/images/desmosDemo.j
 pg used on input line 18.
 (pdftex.def)             Requested size: 469.75502pt x 193.92224pt.
 
-<subfiles/Analysis/Similar-Programs/images/desmosMobile.jpg, id=204, 722.7pt x 
+<subfiles/Analysis/Similar-Programs/images/desmosMobile.jpg, id=209, 722.7pt x 
 304.13625pt>
 File: subfiles/Analysis/Similar-Programs/images/desmosMobile.jpg Graphic file (
 type jpg)
@@ -746,7 +746,7 @@ Package pdftex.def Info: subfiles/Analysis/Similar-Programs/images/desmosMobile
 [6
 
  <./subfiles/Analysis/Similar-Programs/images/desmosDemo.jpg>]
-<subfiles/Analysis/Similar-Programs/images/geogebraFunc.png, id=214, 1284.8pt x
+<subfiles/Analysis/Similar-Programs/images/geogebraFunc.png, id=219, 1284.8pt x
  659.46375pt>
 File: subfiles/Analysis/Similar-Programs/images/geogebraFunc.png Graphic file (
 type png)
@@ -762,7 +762,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 52--54
  []
 
 
-<subfiles/Analysis/Similar-Programs/images/octavePlot.png, id=223, 416.55624pt 
+<subfiles/Analysis/Similar-Programs/images/octavePlot.png, id=228, 416.55624pt 
 x 525.965pt>
 File: subfiles/Analysis/Similar-Programs/images/octavePlot.png Graphic file (ty
 pe png)
@@ -771,7 +771,7 @@ Package pdftex.def Info: subfiles/Analysis/Similar-Programs/images/octavePlot.p
 ng used on input line 69.
 (pdftex.def)             Requested size: 98.64912pt x 124.55682pt.
 
-<subfiles/Analysis/Similar-Programs/images/matlabMesh.png, id=224, 513.92pt x 5
+<subfiles/Analysis/Similar-Programs/images/matlabMesh.png, id=229, 513.92pt x 5
 13.92pt>
 File: subfiles/Analysis/Similar-Programs/images/matlabMesh.png Graphic file (ty
 pe png)
@@ -903,31 +903,33 @@ Underfull \hbox (badness 10000) in paragraph at lines 107--119
 [23] [24])
 (./subfiles/Prototype-I/Design/Function-Class/Substitute-Algorithm/Substitute-A
 lgorithm.tex [25])
+(./subfiles/Prototype-I/Design/Function-Class/Evaluate-Algorithm/Evaluate-Algor
+ithm.tex [26])
 (./subfiles/Prototype-I/Design/Function-Class/Constructor/Constructor.tex
 File: subfiles/Prototype-I/Design/Function-Class/Constructor/diagrams/function.
 mps Graphic file (type mps)
 
 [MP to PDF]
 (./subfiles/Prototype-I/Design/Function-Class/Constructor/diagrams/function.mps
-)) [26]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 193.
- [27
+)) (./subfiles/Bibliography/Bibliography.tex [27])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 186.
+ [28
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 193.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 186.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 193.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 193.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 186.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 186.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: CB24558347413D59C4AF5BFE5AC8136A;1990.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 193.
+(rerunfilecheck)             Checksum: 196204286FF76B8BDAEA8B703EF197CD;2062.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 186.
  ) 
 Here is how much of TeX's memory you used:
- 11046 strings out of 494945
- 166181 string characters out of 6181032
- 309306 words of memory out of 5000000
- 13805 multiletter control sequences out of 15000+600000
- 17769 words of font info for 63 fonts, out of 8000000 for 9000
+ 11082 strings out of 494945
+ 166903 string characters out of 6181032
+ 309507 words of memory out of 5000000
+ 13813 multiletter control sequences out of 15000+600000
+ 18078 words of font info for 64 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  45i,25n,43p,1432b,812s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
@@ -935,27 +937,28 @@ e/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dis
 t/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/font
 s/type1/public/amsfonts/cm/cmbx7.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmbxti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmm
-i7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb>
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-ti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.p
-fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pf
-b></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on main.pdf (28 pages, 947323 bytes).
+/public/amsfonts/cm/cmbx8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmbxti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmm
+i6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+sy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
+Output written on main.pdf (29 pages, 964299 bytes).
 PDF statistics:
- 673 PDF objects out of 1000 (max. 8388607)
- 603 compressed objects within 7 object streams
- 269 named destinations out of 1000 (max. 500000)
- 276 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 709 PDF objects out of 1000 (max. 8388607)
+ 637 compressed objects within 7 object streams
+ 288 named destinations out of 1000 (max. 500000)
+ 284 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -27,4 +27,5 @@
 \contentsline {subsubsection}{\numberline {6.1.5.3}RegEx}{23}{subsubsection.6.1.5.3}
 \contentsline {subsubsection}{\numberline {6.1.5.4}Creating the Tree}{24}{subsubsection.6.1.5.4}
 \contentsline {subsection}{\numberline {6.1.6}Substitute Algorithm}{25}{subsection.6.1.6}
-\contentsline {subsection}{\numberline {6.1.7}Constructor and the Class as a whole}{26}{subsection.6.1.7}
+\contentsline {subsection}{\numberline {6.1.7}Evaluate Algorithm}{26}{subsection.6.1.7}
+\contentsline {subsection}{\numberline {6.1.8}Constructor and the Class as a whole}{27}{subsection.6.1.8}
