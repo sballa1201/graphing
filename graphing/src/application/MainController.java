@@ -11,7 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import structures.Function;
+import structures.Expression;
 
 public class MainController implements Initializable {
 	
@@ -20,8 +20,6 @@ public class MainController implements Initializable {
 	
 	@FXML
 	private Canvas canvas;
-	
-	public static ArrayList<Function> functions = new ArrayList<Function>();
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
