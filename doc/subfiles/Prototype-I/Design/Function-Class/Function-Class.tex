@@ -7,20 +7,30 @@ Our basic Function class will contain two main methods:
 	\item Parse - This method will convert the user's input into a data structure that we can use to evaluate. This data structure will be stored as a private attribute.
 	\item Evaluate - This method will take a value of $x$ and input it into our function and return the value $f(x)$.
 \end{itemize}
-Our class will contain more methods and attributes later (colour of the line, roots, turning points etc.) but these can be considered later as these are quite small parts.
-There are two ways to parse an mathematical input and convert it into a structure that we can then manipulate and use. These are:
+Our class will contain more methods and attributes later (colour of the line, roots, turning points etc.) but these can be considered later as these are quite small parts. There are two distinct methods to parse a function:
+\begin{itemize}
+	\item We can convert the input into a data structure, which we can then use to evaluate a value $x$.
+	\item We can convert the input into its equivalant in a scripting language, such as \textit{\textbf{Lua}}, and then use the scripting language to evaluate a value $x$.
+\end{itemize}
+An example of the second is shown below:
+\begin{minted}{java}
+import org.luaj.vm2.*;
+import org.luaj.vm2.lib.jme.*;
+public double evaluate(double x) {
+	ScriptEngineManager mgr = new ScriptEngineManager();
+	ScriptEngine e = mgr.getEngineByName("luaj");
+	e.put("x", x);
+	e.eval("y = math.sqrt(x)");
+	return e.get("y");	
+}
+\end{minted}
+The problem with using scripts is that they are take a huge hit on performance as you are effectively creating a virtual machine during your program. Especially in Java where a VM is used to run your programs, creating a VM inside a VM is not very effiecient. Also we may make upto 10000 evaluate calls to render multiple lines, and therefore we will need to be as effiecient as possible. While the first method is harder to implement, it will have better performance, and it will be easier to debug as we are not using external tools. Therefore we will use the first method.\\
+There are two main structures we can convert a mathematical input into:
 \begin{itemize}
 	\item Binary Trees
 	\item Stack Based Programming
 \end{itemize}
-As a side note, there are some nuances when we write functions that make it difficult for a computer to process and we have to remember when we implement this. For example, if we have $3x$, we actually mean $3*x$. Similarly if we have $(x-2)(2-x)$ we actually mean $(x-2)*(2-x)$. It is important that we remove these inconsistencies before we properly convert our input into a structure. It is also important that we strip away all whitespace before we start as this will allow our input to be more consistent. Here is a list of all these inconsistencies that we need to remove:
-\begin{itemize}
-	\item Any instance of $ax$ where $a \in  \mathbb{R} : a \neq 0$ is to be converted to $a*x$.\footnote{For example $4x$ is to be converted to $4*x$}
-	\item Any instance of $a($ and $)a$ where $a$ is not an operator, is to be converted to $a*($ and $)*a$ respectively..\footnote{For example $4(x+1)$ is to be converted to $4*(x+!)$}
-	\item Any instance of $(f(x))(g(x))$ is to be converted to $(f(x))*(g(x))$.\footnote{For example $(x+4)(x-3)$ is to be converted to $(x+4)*(x-3)$}
-	\item Any instance of $!-f(x)$ where $!$ is to be any operator (e.g. $*$ or $/$) is to be converted to $! (-f(x))$.\footnote{If there is a negate symbol next to another operator, we need to make sure that the negate symbol is not treated as an operator (even though we treat it like an operator in certain situations in the next step)}
-	\item Any instance of $-f(x)$ at the start or next to an opening bracket is to be converted to $0 - f(x)$.\footnote{Both these expressions are equivalent but the second allows us to reduce ambiguity if there is a negate symbol at the start of an expression e.g.\ $-x + 4$ would be treated as $0 - x + 4$ and $(-x)$ is $0-x$.}.
-\end{itemize}
+both of which we will analysis in detail.
 \newpage
 
 \end{document}
