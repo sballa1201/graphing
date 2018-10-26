@@ -3,6 +3,12 @@ package application;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import exceptions.StackOverflowException;
 import exceptions.StackUnderflowException;
@@ -26,18 +32,20 @@ public class PlotPaneController implements Initializable {
 	
 	private ArrayList<Layer> layers = new ArrayList<Layer>();
 	
-	private GraphicsContext gc;
+	private ExecutorService threadPool =
+		    new ThreadPoolExecutor(1 , 10 , 60 ,  TimeUnit.SECONDS,
+		    		new LinkedBlockingQueue<Runnable>(50));
 	
+	private InputLayer inputLayer;
 	
-	
-	
-	private int steps = 1000000;
+	private int steps = 1000;
 	private double minX = -10;
 	private double maxX = 10;
 	private double minY = -10;
 	private double maxY = 10;
 	private double pixelWorthX;
 	private double pixelWorthY;
+	
 	
 	public PlotPaneController() {
 		
@@ -48,21 +56,20 @@ public class PlotPaneController implements Initializable {
 		plotPane.setStyle("-fx-background-color: white");
 		//Function f = new Function("x^2");
 		String sE = Double.toString(Math.E);
-		Layer g = new Layer(sE+"^x");
-		Layer h = new Layer("(1/50)((1/(2.718281828^x -1)) - (x^7 +5x^6 + 9x^5 +(7/x)))");
-		Layer i = new Layer("1/x^2");
-		Layer j = new Layer("(-x+5)^(0.5)");
-		Layer x = new Layer("1/("+sE+"^x-1)");
-		//this.functions.add(f);
-		//this.addLayer(g);
-		//this.addLayer(h);
-		//this.addLayer(i);
-		//this.addLayer(j);
+		ExplicitFunctionLayer g = new ExplicitFunctionLayer("x");
+		ExplicitFunctionLayer h = new ExplicitFunctionLayer("x^2");
+		ExplicitFunctionLayer i = new ExplicitFunctionLayer("x^3");
+		ExplicitFunctionLayer j = new ExplicitFunctionLayer("x^4");
+		ExplicitFunctionLayer k = new ExplicitFunctionLayer("x^5");
+		this.addLayer(g);
 		this.addLayer(h);
+		this.addLayer(i);
+		this.addLayer(j);
+		this.addLayer(k);
 		ChangeListener<Number> redrawListener = (observable, oldValue, newValue) -> {
 			try {
 				draw();
-			} catch (StackOverflowException | StackUnderflowException | UnequalBracketsException e) {
+			} catch (StackOverflowException | StackUnderflowException | UnequalBracketsException | InterruptedException e) {
 				e.printStackTrace();
 			}
 		};
@@ -71,13 +78,54 @@ public class PlotPaneController implements Initializable {
 
 	}
 	
-	private void draw() throws StackOverflowException, StackUnderflowException, UnequalBracketsException { 
+	private void draw() throws StackOverflowException, StackUnderflowException, UnequalBracketsException, InterruptedException { 
 		this.updatePixelWorth();
 		this.updateAttrib();
 		
-		for(Layer l : layers) {
-			l.drawFunction();
+		/*
+		Thread[] threads = new Thread[layers.size()];
+		
+		for(int i=0; i< layers.size(); i++) {
+			
+			Layer l = layers.get(i);
+			
+			Runnable r = () -> {
+				try {
+					l.drawFunction();
+				} catch (StackUnderflowException | StackOverflowException e) {
+					e.printStackTrace();
+				}
+			};
+			
+			Thread t = new Thread(r);
+			
+			threads[i] = t;
 		}
+		
+		for(Thread t : threads) {
+			t.start();
+		}
+		
+		for(Thread t : threads) {
+			t.join();
+		}
+		*/
+		
+		
+		
+		CountDownLatch latch = new CountDownLatch(layers.size());
+		
+		for(Layer l: layers) {
+			threadPool.execute(() -> {
+				l.drawFunction();
+				latch.countDown();
+			});
+		}
+		
+		
+		latch.await();
+		
+		//threadPool.shutdown();
 		
 		plotPane.getChildren().clear();
 		

@@ -4,15 +4,14 @@ import exceptions.StackOverflowException;
 import exceptions.StackUnderflowException;
 import exceptions.UnequalBracketsException;
 
-public class ExplicitFunction implements Function {
+public class ExplicitFunction {
 	
-	Expression f;
+	private Expression f;
 	
 	public ExplicitFunction(String expression) throws StackOverflowException, StackUnderflowException, UnequalBracketsException {
 		this.f = new Expression(expression);
 	}
-
-	@Override
+	
 	public double evaluate(double x) {
 		try {
 			return f.evaluate(x);

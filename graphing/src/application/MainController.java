@@ -50,7 +50,7 @@ public class MainController implements Initializable {
 		*/
 		Pane plotPane = null;
 		try {
-			plotPane = FXMLLoader.load(getClass().getResource("/PlotPane.fxml"));
+			plotPane = FXMLLoader.load(getClass().getResource("PlotPane.fxml"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
