@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -13,14 +12,15 @@ import java.util.concurrent.TimeUnit;
 import exceptions.StackOverflowException;
 import exceptions.StackUnderflowException;
 import exceptions.UnequalBracketsException;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import structures.Expression;
 
 public class PlotPaneController implements Initializable {
 	
@@ -38,13 +38,18 @@ public class PlotPaneController implements Initializable {
 	
 	private InputLayer inputLayer;
 	
-	private int steps = 1000;
-	private double minX = -10;
-	private double maxX = 10;
-	private double minY = -10;
-	private double maxY = 10;
-	private double pixelWorthX;
-	private double pixelWorthY;
+	private IntegerProperty steps = new SimpleIntegerProperty(1000);
+	
+	private DoubleProperty changeViewport = new SimpleDoubleProperty(0);
+	
+	private DoubleProperty minX = new SimpleDoubleProperty(-10);
+	private DoubleProperty maxX = new SimpleDoubleProperty(10);
+	private DoubleProperty minY = new SimpleDoubleProperty(-10);
+	private DoubleProperty maxY = new SimpleDoubleProperty(10);
+	
+	
+	private DoubleProperty pixelWorthX = new SimpleDoubleProperty();
+	private DoubleProperty pixelWorthY = new SimpleDoubleProperty();
 	
 	
 	public PlotPaneController() {
@@ -53,7 +58,7 @@ public class PlotPaneController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		plotPane.setStyle("-fx-background-color: white");
+		plotPane.setStyle("-fx-background-color: black");
 		//Function f = new Function("x^2");
 		String sE = Double.toString(Math.E);
 		ExplicitFunctionLayer g = new ExplicitFunctionLayer("x");
@@ -73,15 +78,20 @@ public class PlotPaneController implements Initializable {
 				e.printStackTrace();
 			}
 		};
+		
 		plotPane.heightProperty().addListener(redrawListener);
 		plotPane.widthProperty().addListener(redrawListener);
+		
+		this.changeViewport.addListener(redrawListener);		//this.minX.addListener(redrawListener); USED TO DO THIS BUT THEN MINX LAGGED BEHIND
+		
+		this.inputLayer = new InputLayer();
 
+		this.addLayer(inputLayer);
 	}
 	
 	private void draw() throws StackOverflowException, StackUnderflowException, UnequalBracketsException, InterruptedException { 
 		this.updatePixelWorth();
-		this.updateAttrib();
-		
+
 		/*
 		Thread[] threads = new Thread[layers.size()];
 		
@@ -136,10 +146,10 @@ public class PlotPaneController implements Initializable {
 	}
 	
 	private void addLayer(Layer l) {
-		l.bindProperties(plotPane);
+		l.bindProperties(this);
 		this.layers.add(l);
 	}
-	
+	/*
 	private void updateAttrib() {
 		for(Layer l : layers) {
 			l.setMaxX(maxX);
@@ -150,12 +160,49 @@ public class PlotPaneController implements Initializable {
 			l.setPixelWorthY(pixelWorthY);
 			l.setSteps(steps);
 		}
-	}
+	}*/
 	
 	private void updatePixelWorth() {
-		this.pixelWorthX = Math.abs((this.maxX - this.minX)/plotPane.getWidth());
-		this.pixelWorthY = Math.abs((this.maxY - this.minY)/plotPane.getHeight());
+		this.pixelWorthX.set(Math.abs((this.maxX.doubleValue() - this.minX.doubleValue())/plotPane.getWidth()));
+		this.pixelWorthY.set(Math.abs((this.maxY.doubleValue() - this.minY.doubleValue())/plotPane.getHeight()));
 	}
+
+	public Pane getPlotPane() {
+		return plotPane;
+	}
+
+	public IntegerProperty getSteps() {
+		return steps;
+	}
+
+	public DoubleProperty getMinX() {
+		return minX;
+	}
+
+	public DoubleProperty getMaxX() {
+		return maxX;
+	}
+
+	public DoubleProperty getMinY() {
+		return minY;
+	}
+
+	public DoubleProperty getMaxY() {
+		return maxY;
+	}
+
+	public DoubleProperty getPixelWorthX() {
+		return pixelWorthX;
+	}
+
+	public DoubleProperty getPixelWorthY() {
+		return pixelWorthY;
+	}
+
+	public DoubleProperty getChangeViewport() {
+		return changeViewport;
+	}
+	
 	
 
 

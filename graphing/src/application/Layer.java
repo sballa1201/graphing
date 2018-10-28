@@ -1,5 +1,9 @@
 package application;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
@@ -9,21 +13,28 @@ public abstract class Layer {
 	
 	protected Canvas canvas;
 	protected GraphicsContext gc;
-	protected Color color = Color.BLACK;
+	protected Color color = Color.WHITE;
 	
-	protected int steps = 1000;
-	protected double minX = -10;
-	protected double maxX = 10;
-	protected double minY = -10;
-	protected double maxY = 10;
-	protected double pixelWorthX;
-	protected double pixelWorthY;
+	protected IntegerProperty steps = new SimpleIntegerProperty(1000);
+	protected DoubleProperty minX = new SimpleDoubleProperty(-10);
+	protected DoubleProperty maxX = new SimpleDoubleProperty(10);
+	protected DoubleProperty minY = new SimpleDoubleProperty(-10);
+	protected DoubleProperty maxY = new SimpleDoubleProperty(10);
+	protected DoubleProperty pixelWorthX = new SimpleDoubleProperty();
+	protected DoubleProperty pixelWorthY = new SimpleDoubleProperty();
 	
 	public abstract void drawFunction();
 	
-	public void bindProperties(Pane plotPane) {
-		canvas.heightProperty().bind(plotPane.heightProperty());
-		canvas.widthProperty().bind(plotPane.widthProperty());
+	public void bindProperties(PlotPaneController controller) {
+		canvas.heightProperty().bind(controller.getPlotPane().heightProperty());
+		canvas.widthProperty().bind(controller.getPlotPane().widthProperty());
+		this.steps.bind(controller.getSteps());
+		this.minX.bind(controller.getMinX());
+		this.maxX.bind(controller.getMaxX());
+		this.minY.bind(controller.getMinY());
+		this.maxX.bind(controller.getMaxY());
+		this.pixelWorthX.bind(controller.getPixelWorthX());
+		this.pixelWorthY.bind(controller.getPixelWorthY());
 	}
 	
 	protected void clearCanvas() {
@@ -31,18 +42,18 @@ public abstract class Layer {
 	}
 	
 	protected double convertX(double x) {
-		x = x - this.minX;
-		x = x /this.pixelWorthX;
+		x = x - this.minX.doubleValue();
+		x = x /this.pixelWorthX.doubleValue();
 		return x;
 	}
 	
 	protected double convertY(double y) {
-		y = this.maxY - y;
-		y = y/this.pixelWorthY;
+		y = this.maxY.doubleValue() - y;
+		y = y/this.pixelWorthY.doubleValue();
 		return y;
 	}
 	
-	public void setSteps(int steps) {
+/*	public void setSteps(int steps) {
 		this.steps = steps;
 	}
 
@@ -74,7 +85,7 @@ public abstract class Layer {
 
 	public void setPixelWorthY(double pixelWorthY) {
 		this.pixelWorthY = pixelWorthY;
-	}
+	}*/
 
 	public Canvas getCanvas() {
 		return canvas;

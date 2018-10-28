@@ -37,12 +37,12 @@ public class ExplicitFunctionLayer extends Layer {
 		gc.setLineWidth(1.5);
 		gc.setStroke(color);
 		double x1, x2, y1, y2;
-		x1 = this.minX;
+		x1 = this.minX.doubleValue();
 		y1 = f.evaluate(x1);
 		
-		double step = (this.maxX - this.minX)/this.steps;
+		double step = (this.maxX.doubleValue() - this.minX.doubleValue())/this.steps.doubleValue();
 
-		for(x2=this.minX+step; x2<this.maxX;x2=x2+step) {
+		for(x2=this.minX.doubleValue()+step; x2<this.maxX.doubleValue();x2=x2+step) {
 			try {
 				y2 = f.evaluate(x2);
 				gc.strokeLine(this.convertX(x1), this.convertY(y1), this.convertX(x2), this.convertY(y2));
@@ -56,7 +56,7 @@ public class ExplicitFunctionLayer extends Layer {
 			
 		}
 		
-		x2 = this.maxX;
+		x2 = this.maxX.doubleValue();
 		y2 = f.evaluate(x2);
 		gc.strokeLine(this.convertX(x1), this.convertY(y1), this.convertX(x2), this.convertY(y2));
 	}

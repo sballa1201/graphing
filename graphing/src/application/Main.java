@@ -15,10 +15,17 @@ public class Main extends Application {
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
+			
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Override
+	public void stop(){
+	    System.out.println("Program is Closing");
+	    System.exit(0);
 	}
 	
 	public static void main(String[] args) {
