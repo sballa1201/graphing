@@ -58,7 +58,7 @@ public class PlotPaneController implements Initializable {
 		
 		this.setupInputLayer();
 		
-		plotPane.setStyle("-fx-background-color: black");
+		plotPane.setStyle("-fx-background-color: white");
 		
 		
 		
@@ -88,7 +88,7 @@ public class PlotPaneController implements Initializable {
 		
 		this.changeViewport.addListener(redrawListener);		//this.minX.addListener(redrawListener); USED TO DO THIS BUT THEN MINX LAGGED BEHIND
 		
-		this.minX.addListener(redrawListener);
+		//this.minX.addListener(redrawListener);
 		
 		AxesLayer axes = new AxesLayer();
 		

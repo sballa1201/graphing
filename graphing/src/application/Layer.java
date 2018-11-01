@@ -12,7 +12,7 @@ public abstract class Layer {
 	
 	protected Canvas canvas;
 	protected GraphicsContext gc;
-	protected Color color = Color.WHITE;
+	protected Color color = Color.BLACK;
 
 	protected IntegerProperty steps = new SimpleIntegerProperty(0);
 	protected DoubleProperty minX = new SimpleDoubleProperty(0);
