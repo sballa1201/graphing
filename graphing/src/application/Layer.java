@@ -6,7 +6,6 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 public abstract class Layer {
@@ -14,27 +13,42 @@ public abstract class Layer {
 	protected Canvas canvas;
 	protected GraphicsContext gc;
 	protected Color color = Color.WHITE;
+
+	protected IntegerProperty steps = new SimpleIntegerProperty(0);
+	protected DoubleProperty minX = new SimpleDoubleProperty(0);
+	protected DoubleProperty maxX = new SimpleDoubleProperty(0);
+	protected DoubleProperty minY = new SimpleDoubleProperty(0);
+	protected DoubleProperty maxY = new SimpleDoubleProperty(0);
+	protected DoubleProperty pixelWorthX = new SimpleDoubleProperty(0);
+	protected DoubleProperty pixelWorthY = new SimpleDoubleProperty(0);
 	
-	protected IntegerProperty steps = new SimpleIntegerProperty(1000);
-	protected DoubleProperty minX = new SimpleDoubleProperty(-10);
-	protected DoubleProperty maxX = new SimpleDoubleProperty(10);
-	protected DoubleProperty minY = new SimpleDoubleProperty(-10);
-	protected DoubleProperty maxY = new SimpleDoubleProperty(10);
-	protected DoubleProperty pixelWorthX = new SimpleDoubleProperty();
-	protected DoubleProperty pixelWorthY = new SimpleDoubleProperty();
 	
 	public abstract void drawFunction();
 	
 	public void bindProperties(PlotPaneController controller) {
+		this.steps = new SimpleIntegerProperty(controller.getSteps().intValue());
+		this.minX = new SimpleDoubleProperty(controller.getInputLayer().getMinX().doubleValue());
+		this.maxX = new SimpleDoubleProperty(controller.getInputLayer().getMaxX().doubleValue());
+		this.minY = new SimpleDoubleProperty(controller.getInputLayer().getMinY().doubleValue());
+		this.maxY = new SimpleDoubleProperty(controller.getInputLayer().getMaxY().doubleValue());
+		this.pixelWorthX = new SimpleDoubleProperty(controller.getPixelWorthX().doubleValue());
+		this.pixelWorthY = new SimpleDoubleProperty(controller.getPixelWorthY().doubleValue());
+		
+		
 		canvas.heightProperty().bind(controller.getPlotPane().heightProperty());
 		canvas.widthProperty().bind(controller.getPlotPane().widthProperty());
+		
+	
+		
 		this.steps.bind(controller.getSteps());
-		this.minX.bind(controller.getMinX());
-		this.maxX.bind(controller.getMaxX());
-		this.minY.bind(controller.getMinY());
-		this.maxX.bind(controller.getMaxY());
+		this.minX.bind(controller.getInputLayer().getMinX());
+		this.maxX.bind(controller.getInputLayer().getMaxX());
+		this.minY.bind(controller.getInputLayer().getMinY());
+		this.maxY.bind(controller.getInputLayer().getMaxY());
 		this.pixelWorthX.bind(controller.getPixelWorthX());
 		this.pixelWorthY.bind(controller.getPixelWorthY());
+		
+		System.out.println("BOUND");
 	}
 	
 	protected void clearCanvas() {

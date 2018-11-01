@@ -19,7 +19,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.Pane;
 
 public class PlotPaneController implements Initializable {
@@ -27,8 +26,6 @@ public class PlotPaneController implements Initializable {
 	
 	@FXML
 	private Pane plotPane;
-	
-	private ArrayList<Canvas> canvi = new ArrayList<Canvas>();
 	
 	private ArrayList<Layer> layers = new ArrayList<Layer>();
 	
@@ -40,7 +37,7 @@ public class PlotPaneController implements Initializable {
 	
 	private IntegerProperty steps = new SimpleIntegerProperty(1000);
 	
-	private DoubleProperty changeViewport = new SimpleDoubleProperty(0);
+	private IntegerProperty changeViewport = new SimpleIntegerProperty(1);
 	
 	private DoubleProperty minX = new SimpleDoubleProperty(-10);
 	private DoubleProperty maxX = new SimpleDoubleProperty(10);
@@ -58,10 +55,16 @@ public class PlotPaneController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
+		this.setupInputLayer();
+		
 		plotPane.setStyle("-fx-background-color: black");
+		
+		
+		
 		//Function f = new Function("x^2");
 		String sE = Double.toString(Math.E);
-		ExplicitFunctionLayer g = new ExplicitFunctionLayer("x");
+		ExplicitFunctionLayer g = new ExplicitFunctionLayer(sE+"^x");
 		ExplicitFunctionLayer h = new ExplicitFunctionLayer("x^2");
 		ExplicitFunctionLayer i = new ExplicitFunctionLayer("x^3");
 		ExplicitFunctionLayer j = new ExplicitFunctionLayer("x^4");
@@ -71,6 +74,7 @@ public class PlotPaneController implements Initializable {
 		this.addLayer(i);
 		this.addLayer(j);
 		this.addLayer(k);
+
 		ChangeListener<Number> redrawListener = (observable, oldValue, newValue) -> {
 			try {
 				draw();
@@ -84,9 +88,13 @@ public class PlotPaneController implements Initializable {
 		
 		this.changeViewport.addListener(redrawListener);		//this.minX.addListener(redrawListener); USED TO DO THIS BUT THEN MINX LAGGED BEHIND
 		
-		this.inputLayer = new InputLayer();
-
-		this.addLayer(inputLayer);
+		this.minX.addListener(redrawListener);
+		
+		AxesLayer axes = new AxesLayer();
+		
+		this.addLayer(axes);
+		
+		
 	}
 	
 	private void draw() throws StackOverflowException, StackUnderflowException, UnequalBracketsException, InterruptedException { 
@@ -142,7 +150,20 @@ public class PlotPaneController implements Initializable {
 		for(Layer l : layers) {
 			plotPane.getChildren().add(l.getCanvas());
 		}
+		plotPane.getChildren().add(inputLayer.getCanvas());
 		
+	}
+	
+	private void setupInputLayer() {
+		this.inputLayer = new InputLayer();
+		this.inputLayer.bindProperties(this);
+		
+		this.minX.bind(inputLayer.getMinX());
+		this.maxX.bind(inputLayer.getMaxX());
+		this.minY.bind(inputLayer.getMinY());
+		this.maxY.bind(inputLayer.getMaxY());
+		
+		this.changeViewport.bind(inputLayer.getChangeViewport());
 	}
 	
 	private void addLayer(Layer l) {
@@ -199,8 +220,12 @@ public class PlotPaneController implements Initializable {
 		return pixelWorthY;
 	}
 
-	public DoubleProperty getChangeViewport() {
+	public IntegerProperty getChangeViewport() {
 		return changeViewport;
+	}
+
+	public InputLayer getInputLayer() {
+		return inputLayer;
 	}
 	
 	
