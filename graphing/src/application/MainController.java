@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
@@ -55,6 +56,15 @@ public class MainController implements Initializable {
 		}
 		
 		rootPane.setCenter(plotPane);
+		
+		ScrollPane inputPane = null;
+		try {
+			inputPane = FXMLLoader.load(getClass().getResource("InputPane.fxml"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		rootPane.setLeft(inputPane);
 	}
 	
 	
