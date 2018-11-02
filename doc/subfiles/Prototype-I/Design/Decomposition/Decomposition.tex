@@ -1,0 +1,11 @@
+\documentclass[../../../../main.tex]{subfiles}
+\begin{document}
+\section{Decomposition}
+My program will be decomposed into two main parts the GUI and the parsing of functions. The GUI will consist of the input of functions and the drawing of the functions. Many parts of this project can be achieved in a cleaner fashion using an OOP approach rather than a procedural approach.
+\subsection{OOP vs Procedural Approach Justification}
+An Object Oriented approach for my program is better than a procedural approach due to its complexity. An OOP approach allows parts of a program to be independent, and this means that these parts can be tested individually, allowing for simple debugging. 
+
+Specific to my project, Java is wholly based around the OOP approach and hence it makes more sense to use an OOP approach rather than a procedural one. Also many parts of my program can use the OOP concepts of inheritance and polymorphism. An example of this is the layer system I will be using later on to draw functions onto the screen. There are many different types of functions (again which can use inheritance), and each of these will have a coresponding layer. Each type of layer will draw, have very simlar attributes and other similar features which will be very slightly different for each type of function. By making all these different layers inherit a base layer class, it means that all of them can be accessed generally, especially when drawing. They can also all be stored in an array of the type of the superclass, and accessed (outside of the class) in a standard way making the solution cleaner and easier to test.
+\newpage
+
+\end{document}

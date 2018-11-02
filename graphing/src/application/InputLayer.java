@@ -34,48 +34,50 @@ public class InputLayer extends Layer {
 	
 	private void dragEntered(MouseEvent event) {
 		
-		previousX = event.getX();
-		previousY = event.getY();
-		
-		//System.out.println("entered drag");
-		
-		
-		
-		event.setDragDetect(true);
-		
-		this.canvas.startFullDrag();
-		
-		event.consume();
-		
-		//System.out.println("mouse pressed at - (" + pressedX + "," + pressedY + ")");    
-        
+		if(event.isPrimaryButtonDown()) {
+			previousX = event.getX();
+			previousY = event.getY();
+			
+			//System.out.println("entered drag");
+			
+			
+			
+			event.setDragDetect(true);
+			
+			this.canvas.startFullDrag();
+			
+			event.consume();
+			
+			//System.out.println("mouse pressed at - (" + pressedX + "," + pressedY + ")");    
+		}
 	}
 	
 	private void pan(MouseEvent event) {
 		
-		double panFactor = 1;
-		
-		pressedX = event.getX();
-		pressedY = event.getY();
-		
-		double xTrans = (previousX - pressedX);
-		double yTrans = (previousY - pressedY);
-		
-		previousX = pressedX;
-		previousY = pressedY;
-		
-		//System.out.println("dragged by vector - (" + xTrans + "," + yTrans + ")");
-		//System.out.println(this.minX.doubleValue() + " - " + this.minY.doubleValue());
-		
-		this.maxX.set((this.pixelWorthX.doubleValue() * xTrans/panFactor) + this.maxX.doubleValue());
-		this.minX.set((this.pixelWorthX.doubleValue() * xTrans/panFactor) + this.minX.doubleValue());
-		this.maxY.set(-(this.pixelWorthY.doubleValue() * yTrans/panFactor) + this.maxY.doubleValue());
-		this.minY.set(-(this.pixelWorthY.doubleValue() * yTrans/panFactor) + this.minY.doubleValue());
-		this.changeViewport.set(-this.changeViewport.intValue());
-		
-		
-		event.consume();
-		
+		if(event.isPrimaryButtonDown()) {
+			double panFactor = 1;
+			
+			pressedX = event.getX();
+			pressedY = event.getY();
+			
+			double xTrans = (previousX - pressedX);
+			double yTrans = (previousY - pressedY);
+			
+			previousX = pressedX;
+			previousY = pressedY;
+			
+			//System.out.println("dragged by vector - (" + xTrans + "," + yTrans + ")");
+			//System.out.println(this.minX.doubleValue() + " - " + this.minY.doubleValue());
+			
+			this.maxX.set((this.pixelWorthX.doubleValue() * xTrans/panFactor) + this.maxX.doubleValue());
+			this.minX.set((this.pixelWorthX.doubleValue() * xTrans/panFactor) + this.minX.doubleValue());
+			this.maxY.set(-(this.pixelWorthY.doubleValue() * yTrans/panFactor) + this.maxY.doubleValue());
+			this.minY.set(-(this.pixelWorthY.doubleValue() * yTrans/panFactor) + this.minY.doubleValue());
+			this.changeViewport.set(-this.changeViewport.intValue());
+			
+			
+			event.consume();
+		}
 	}
 	
 	private void zoom(ScrollEvent event) {
