@@ -55,6 +55,8 @@ public class MainController implements Initializable {
 			e.printStackTrace();
 		}
 		
+		
+		
 		rootPane.setCenter(plotPane);
 		
 		ScrollPane inputPane = null;
