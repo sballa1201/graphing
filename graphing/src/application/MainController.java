@@ -17,31 +17,49 @@ public class MainController implements Initializable {
 	@FXML
 	private BorderPane rootPane;
 	
+	private ShareLayers shareLayerStore;
+	
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
+		this.shareLayerStore = new ShareLayers();
+		
+		System.out.println(shareLayerStore);
+		
+		
 		Pane plotPane = null;
+		FXMLLoader loader = null;
 		try {
-			plotPane = FXMLLoader.load(getClass().getResource("PlotPane.fxml"));
+			loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("PlotPane.fxml"));
+            plotPane = loader.load();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		PlotPaneController plotPaneController = (PlotPaneController) loader.getController();
 		
+		plotPaneController.setShareLayerStore(shareLayerStore);
 		
 		rootPane.setCenter(plotPane);
 		
 		ScrollPane inputPane = null;
 		try {
-			inputPane = FXMLLoader.load(getClass().getResource("InputPane.fxml"));
+			loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("InputPane.fxml"));
+            inputPane = loader.load();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		//rootPane.setLeft(inputPane);
+		InputPaneController inputPaneController = (InputPaneController) loader.getController();
+		
+		inputPaneController.setShareLayerStore(shareLayerStore);
+		
+		rootPane.setLeft(inputPane);
 	}
 	
 	

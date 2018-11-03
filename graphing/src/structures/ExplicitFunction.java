@@ -25,4 +25,10 @@ public class ExplicitFunction {
 		}
 		return Double.NaN;
 	}
+	
+	@Override
+	public String toString() {
+		return this.f.toString();
+	}
+	
 }

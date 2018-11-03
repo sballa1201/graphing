@@ -22,6 +22,8 @@ public class ExplicitFunctionLayer extends Layer {
 		} catch (UnequalBracketsException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (StringIndexOutOfBoundsException e) {
+			e.printStackTrace();
 		}
 		this.canvas = new Canvas();
 		this.gc = canvas.getGraphicsContext2D();
@@ -35,7 +37,12 @@ public class ExplicitFunctionLayer extends Layer {
 		gc.setStroke(color);
 		double x1, x2, y1, y2;
 		x1 = this.minX.doubleValue();
-		y1 = f.evaluate(x1);
+		try {
+			y1 = f.evaluate(x1);
+		} catch(Exception e) {
+			return;
+		}
+		
 		
 		double step = (this.maxX.doubleValue() - this.minX.doubleValue())/this.steps.doubleValue();
 		
@@ -59,6 +66,10 @@ public class ExplicitFunctionLayer extends Layer {
 		gc.strokeLine(this.convertX(x1), this.convertY(y1), this.convertX(x2), this.convertY(y2));
 	}
 	
+	@Override
+	public String toString() {
+		return this.f.toString();
+	}
 	
 
 }

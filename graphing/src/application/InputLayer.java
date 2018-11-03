@@ -1,7 +1,9 @@
 package application;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.canvas.Canvas;
@@ -10,7 +12,7 @@ import javafx.scene.input.ScrollEvent;
 
 public class InputLayer extends Layer {
 	
-	private IntegerProperty changeViewport = new SimpleIntegerProperty();
+	private BooleanProperty changeViewport = new SimpleBooleanProperty();
 	private double pressedX;
 	private double pressedY;
 	private double previousX;
@@ -73,7 +75,7 @@ public class InputLayer extends Layer {
 			this.minX.set((this.pixelWorthX.doubleValue() * xTrans/panFactor) + this.minX.doubleValue());
 			this.maxY.set(-(this.pixelWorthY.doubleValue() * yTrans/panFactor) + this.maxY.doubleValue());
 			this.minY.set(-(this.pixelWorthY.doubleValue() * yTrans/panFactor) + this.minY.doubleValue());
-			this.changeViewport.set(-this.changeViewport.intValue());
+			this.changeViewport.set(!this.changeViewport.get());
 			
 			
 			event.consume();
@@ -99,7 +101,7 @@ public class InputLayer extends Layer {
         this.minY.set(minYVal);
         this.maxY.set(maxYVal);
         
-        this.changeViewport.set(-this.changeViewport.intValue());
+        this.changeViewport.set(!this.changeViewport.get());
         
         event.consume();
         
@@ -137,7 +139,7 @@ public class InputLayer extends Layer {
 		canvas.heightProperty().bind(controller.getPlotPane().heightProperty());
 		canvas.widthProperty().bind(controller.getPlotPane().widthProperty());
 		
-		changeViewport = new SimpleIntegerProperty(controller.getChangeViewport().intValue());
+		changeViewport = new SimpleBooleanProperty(controller.getChangeViewport().get());
 		
 	}
 	
@@ -158,7 +160,7 @@ public class InputLayer extends Layer {
 		return maxY;
 	}
 
-	public IntegerProperty getChangeViewport() {
+	public BooleanProperty getChangeViewport() {
 		return changeViewport;
 	}
 	

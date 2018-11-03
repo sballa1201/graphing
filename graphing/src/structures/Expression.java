@@ -57,7 +57,12 @@ public class Expression {
 				numStack.push(Math.pow(a,b));
 				break;
 			default:
-				numStack.push(Double.valueOf(pop));
+				try {
+					numStack.push(Double.valueOf(pop));
+				} catch(NumberFormatException e) {
+					throw e;
+				}
+				
 				break;
 			}
 		}
@@ -121,7 +126,7 @@ public class Expression {
 	
 
 	
-	private static String checkBracket(String input) throws UnequalBracketsException {
+private static String checkBracket(String input) throws UnequalBracketsException, StringIndexOutOfBoundsException {
 		boolean done = false;
 		while(!done) {
 			done = true;

@@ -12,8 +12,10 @@ import java.util.concurrent.TimeUnit;
 import exceptions.StackOverflowException;
 import exceptions.StackUnderflowException;
 import exceptions.UnequalBracketsException;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
@@ -34,10 +36,11 @@ public class PlotPaneController implements Initializable {
 		    		new LinkedBlockingQueue<Runnable>(50));
 	
 	private InputLayer inputLayer;
+	private AxesLayer axes;
 	
 	private IntegerProperty steps = new SimpleIntegerProperty(1000);
 	
-	private IntegerProperty changeViewport = new SimpleIntegerProperty(1);
+	private BooleanProperty changeViewport = new SimpleBooleanProperty(true);
 	
 	private DoubleProperty minX = new SimpleDoubleProperty(-10);
 	private DoubleProperty maxX = new SimpleDoubleProperty(10);
@@ -48,6 +51,9 @@ public class PlotPaneController implements Initializable {
 	private DoubleProperty pixelWorthX = new SimpleDoubleProperty();
 	private DoubleProperty pixelWorthY = new SimpleDoubleProperty();
 	
+	private ShareLayers shareLayerStore;
+	
+	private BooleanProperty changeLayers = new SimpleBooleanProperty(true);
 	
 	public PlotPaneController() {
 		
@@ -58,7 +64,7 @@ public class PlotPaneController implements Initializable {
 		
 		this.setupInputLayer();
 		
-		plotPane.setStyle("-fx-background-color: white");
+		plotPane.setStyle("-fx-background-color: rgb(255,255,255)");
 		
 		
 		
@@ -69,13 +75,13 @@ public class PlotPaneController implements Initializable {
 		ExplicitFunctionLayer i = new ExplicitFunctionLayer("x^3");
 		ExplicitFunctionLayer j = new ExplicitFunctionLayer("x^4");
 		ExplicitFunctionLayer k = new ExplicitFunctionLayer("x^5");
-		this.addLayer(g);
-		this.addLayer(h);
-		this.addLayer(i);
-		this.addLayer(j);
-		this.addLayer(k);
+		//this.addLayer(g);
+		//this.addLayer(h);
+		//this.addLayer(i);
+		//this.addLayer(j);
+		//this.addLayer(k);
 
-		ChangeListener<Number> redrawListener = (observable, oldValue, newValue) -> {
+		ChangeListener<Object> redrawListener = (observable, oldValue, newValue) -> {
 			try {
 				draw();
 			} catch (StackOverflowException | StackUnderflowException | UnequalBracketsException | InterruptedException e) {
@@ -88,14 +94,15 @@ public class PlotPaneController implements Initializable {
 		
 		this.changeViewport.addListener(redrawListener);		//this.minX.addListener(redrawListener); USED TO DO THIS BUT THEN MINX LAGGED BEHIND
 		
+		
+		
 		//this.minX.addListener(redrawListener);
 		
-		AxesLayer axes = new AxesLayer();
-		
-		this.addLayer(axes);
-		
+		this.axes = new AxesLayer();
+		axes.bindProperties(this);
 		
 	}
+	
 	
 	private void draw() throws StackOverflowException, StackUnderflowException, UnequalBracketsException, InterruptedException { 
 		this.updatePixelWorth();
@@ -145,11 +152,14 @@ public class PlotPaneController implements Initializable {
 		
 		//threadPool.shutdown();
 		
+		axes.drawFunction();
+		
 		plotPane.getChildren().clear();
 		
 		for(Layer l : layers) {
 			plotPane.getChildren().add(l.getCanvas());
 		}
+		plotPane.getChildren().add(axes.getCanvas());
 		plotPane.getChildren().add(inputLayer.getCanvas());
 		
 	}
@@ -220,15 +230,49 @@ public class PlotPaneController implements Initializable {
 		return pixelWorthY;
 	}
 
-	public IntegerProperty getChangeViewport() {
+	public BooleanProperty getChangeViewport() {
 		return changeViewport;
 	}
 
 	public InputLayer getInputLayer() {
 		return inputLayer;
 	}
-	
-	
 
-
+	public void setShareLayerStore(ShareLayers shareLayerStore) {
+		this.shareLayerStore = shareLayerStore;
+		this.changeLayers.set(this.shareLayerStore.getChangeLayers().get());
+		this.changeLayers.bind(this.shareLayerStore.getChangeLayers());
+		
+		ChangeListener<Object> redrawListener = (observable, oldValue, newValue) -> {
+			ArrayList<Layer> tempLayers = shareLayerStore.getLayers();
+			
+			System.out.println("update");
+			
+			layers = new ArrayList<Layer>();
+			
+			for(Layer l : tempLayers) {
+				this.addLayer(l);
+			}
+			
+			System.out.println(layers);
+			try {
+				draw();
+			} catch (StackOverflowException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (StackUnderflowException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (UnequalBracketsException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		};
+		
+		this.changeLayers.addListener(redrawListener);
+	}
+	
 }

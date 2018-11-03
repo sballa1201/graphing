@@ -10,13 +10,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
@@ -27,6 +30,8 @@ public class InputPaneController implements Initializable {
 	
 	@FXML
 	private VBox expressionBox;
+	
+	public ShareLayers shareLayerStore;
 	
 	private int IDMaxCount = 0;
 	
@@ -39,7 +44,7 @@ public class InputPaneController implements Initializable {
 		
 		this.setupNewButton();
 		
-		addExpression();
+		this.addExpression();
 		
 	}
 	
@@ -61,12 +66,13 @@ public class InputPaneController implements Initializable {
 		}
 		
 		ExpressionBox box = new ExpressionBox(ID,this);
-		this.expressionBox.getChildren().add(insert,box);
 		
-		
+		this.expressionBox.getChildren().add(insert,box);		
 	}
 	
 	public void removeExpression(int ID) {
+		
+		this.removeLayer(ID);
 		
 		for(int i=0; i < this.expressionBox.getChildren().size() - 1; i++) {
 			ExpressionBox box = (ExpressionBox) this.expressionBox.getChildren().get(i);
@@ -87,19 +93,49 @@ public class InputPaneController implements Initializable {
 		
 	}
 	
+	public void putLayer(int ID, Layer layer) {
+		System.out.println("putting layer");
+		shareLayerStore.putLayer(ID, layer);
+	}
+	
+	public void removeLayer(int ID) {
+		shareLayerStore.removeLayer(ID);
+	}
+	
 	private void setupNewButton() {
 		Button newExpression = new Button("New Expression");
 		
 		newExpression.setOnAction(event -> addExpression());
 		
 		
-		//newExpression.setPrefWidth(8000);		
-		GridPane buttonHolder = new GridPane();
 		
-		buttonHolder.add(newExpression, 0, 0);
+		HBox buttonHolder = new HBox();
+		
+		
+		
+		Region fillerSpace1 = new Region();
+		Region fillerSpace2 = new Region();	
+		
+		buttonHolder.getChildren().addAll(fillerSpace1, newExpression, fillerSpace2);
+		
+		HBox.setHgrow(fillerSpace1, Priority.ALWAYS);
+		HBox.setHgrow(fillerSpace2, Priority.ALWAYS);
 			
 		
 		this.expressionBox.getChildren().add(buttonHolder);
 	}
+
+
+	public ShareLayers getShareLayerStore() {
+		return shareLayerStore;
+	}
+
+
+	public void setShareLayerStore(ShareLayers shareLayerStore) {
+		this.shareLayerStore = shareLayerStore;
+		System.out.println(this.shareLayerStore);
+	}
+	
+	
 	
 }

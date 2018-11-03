@@ -48,7 +48,7 @@ public abstract class Layer {
 		this.pixelWorthX.bind(controller.getPixelWorthX());
 		this.pixelWorthY.bind(controller.getPixelWorthY());
 		
-		System.out.println("BOUND");
+		//System.out.println("BOUND");
 	}
 	
 	protected void clearCanvas() {
@@ -67,40 +67,6 @@ public abstract class Layer {
 		return y;
 	}
 	
-/*	public void setSteps(int steps) {
-		this.steps = steps;
-	}
-
-
-	public void setMinX(double minX) {
-		this.minX = minX;
-	}
-
-
-	public void setMaxX(double maxX) {
-		this.maxX = maxX;
-	}
-
-
-	public void setMinY(double minY) {
-		this.minY = minY;
-	}
-
-
-	public void setMaxY(double maxY) {
-		this.maxY = maxY;
-	}
-
-
-	public void setPixelWorthX(double pixelWorthX) {
-		this.pixelWorthX = pixelWorthX;
-	}
-
-
-	public void setPixelWorthY(double pixelWorthY) {
-		this.pixelWorthY = pixelWorthY;
-	}*/
-
 	public Canvas getCanvas() {
 		return canvas;
 	}	
