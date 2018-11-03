@@ -59,6 +59,9 @@ public class PlotPaneController implements Initializable {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
@@ -67,7 +70,7 @@ public class PlotPaneController implements Initializable {
 		plotPane.setStyle("-fx-background-color: rgb(255,255,255)");
 		
 		
-		
+/*		
 		//Function f = new Function("x^2");
 		String sE = Double.toString(Math.E);
 		ExplicitFunctionLayer g = new ExplicitFunctionLayer(sE+"^x");
@@ -80,7 +83,7 @@ public class PlotPaneController implements Initializable {
 		//this.addLayer(i);
 		//this.addLayer(j);
 		//this.addLayer(k);
-
+*/
 		ChangeListener<Object> redrawListener = (observable, oldValue, newValue) -> {
 			try {
 				draw();

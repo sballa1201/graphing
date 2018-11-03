@@ -32,3 +32,4 @@
 \contentsline {subsection}{\numberline {6.2.7}Substitute Algorithm}{28}{subsection.6.2.7}
 \contentsline {subsection}{\numberline {6.2.8}Evaluate Algorithm}{29}{subsection.6.2.8}
 \contentsline {subsection}{\numberline {6.2.9}Constructor and the Class as a whole}{30}{subsection.6.2.9}
+\contentsline {section}{\numberline {6.3}Graphical User Interface}{31}{section.6.3}

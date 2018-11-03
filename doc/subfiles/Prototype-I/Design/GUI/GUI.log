@@ -1,10 +1,13 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350) (preloaded format=pdflatex 2018.1.31)  3 NOV 2018 23:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350) (preloaded format=pdflatex 2018.1.31)  3 NOV 2018 22:42
 entering extended mode
-**./main.tex
-(main.tex
+**./GUI.tex
+(GUI.tex
 LaTeX2e <2017-04-15>
 Babel <3.10> and hyphenation patterns for 1 language(s) loaded.
-(G:\LaTex\MikTek\texmfs\install\tex\latex\base\report.cls
+(G:\LaTex\MikTek\texmfs\install\tex\latex\subfiles\subfiles.cls
+Document Class: subfiles 2018/07/31 Federico Garcia, Gernot Salzer
+Preamble taken from file `../../../../main.tex'
+(../../../../main.tex (G:\LaTex\MikTek\texmfs\install\tex\latex\base\report.cls
 Document Class: report 2014/09/29 v1.4h Standard LaTeX document class
 (G:\LaTex\MikTek\texmfs\install\tex\latex\base\size10.clo
 File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
@@ -1173,7 +1176,7 @@ Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
 \@float@every@listing=\toks63
 \c@listing=\count348
 )
-runsystem(if not exist _minted-main mkdir _minted-main)...executed.
+runsystem(if not exist _minted-GUI mkdir _minted-GUI)...executed.
 
 
 (G:\LaTex\MikTek\texmfs\install\tex\latex\graphics\lscape.sty
@@ -1286,12 +1289,16 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
 (G:\LaTex\MikTek\texmfs\install\tex\latex\oberdiek\auxhook.sty
 Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
+
+
+Package auxhook Warning: Cannot patch \document,
+(auxhook)                using \AtBeginDocument instead.
+
 )
 \@linkdim=\dimen304
 \Hy@linkcounter=\count358
 \Hy@pagecounter=\count359
-
-(G:\LaTex\MikTek\texmfs\install\tex\latex\hyperref\pd1enc.def
+ (G:\LaTex\MikTek\texmfs\install\tex\latex\hyperref\pd1enc.def
 File: pd1enc.def 2017/03/14 v6.85a Hyperref: PDFDocEncoding definition (HO)
 )
 \Hy@SavedSpaceFactor=\count360
@@ -1345,29 +1352,29 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip178
 )
-runsystem(for ^%i in (pygmentize.exe pygmentize.bat pygmentize.cmd) do set > ma
-in.aex <nul: /p x=^%~$PATH:i>> main.aex)...executed.
+runsystem(for ^%i in (pygmentize.exe pygmentize.bat pygmentize.cmd) do set > GU
+I.aex <nul: /p x=^%~$PATH:i>> GUI.aex)...executed.
 
-runsystem(del main.aex)...executed.
+runsystem(del GUI.aex)...executed.
 
+))
+(GUI.aux)
+\openout1 = `GUI.aux'.
 
-(main.aux)
-\openout1 = `main.aux'.
-
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 164.
-LaTeX Font Info:    ... okay on input line 164.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 164.
-LaTeX Font Info:    ... okay on input line 164.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 164.
-LaTeX Font Info:    ... okay on input line 164.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 164.
-LaTeX Font Info:    ... okay on input line 164.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 164.
-LaTeX Font Info:    ... okay on input line 164.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 164.
-LaTeX Font Info:    ... okay on input line 164.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 164.
-LaTeX Font Info:    ... okay on input line 164.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
  (G:\LaTex\MikTek\texmfs\install\tex\context\base\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count368
@@ -1485,9 +1492,9 @@ Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 409.
 \c@lstlisting=\count374
 
 ABD: EverySelectfont initializing macros
-LaTeX Info: Redefining \selectfont on input line 164.
+LaTeX Info: Redefining \selectfont on input line 2.
 \AtBeginShipoutBox=\box121
-Package hyperref Info: Link coloring OFF on input line 164.
+Package hyperref Info: Link coloring OFF on input line 2.
 
 (G:\LaTex\MikTek\texmfs\install\tex\latex\hyperref\nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -1497,336 +1504,49 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count375
 )
-LaTeX Info: Redefining \ref on input line 164.
-LaTeX Info: Redefining \pageref on input line 164.
-LaTeX Info: Redefining \nameref on input line 164.
+LaTeX Info: Redefining \ref on input line 2.
+LaTeX Info: Redefining \pageref on input line 2.
+LaTeX Info: Redefining \nameref on input line 2.
 
-(main.out) (main.out)
+(GUI.out) (GUI.out)
 \@outlinefile=\write8
-\openout8 = `main.out'.
+\openout8 = `GUI.out'.
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 166.
-
-(G:\LaTex\MikTek\texmfs\install\tex\latex\amsfonts\umsa.fd
+LaTeX Font Info:    Try loading font information for U+msa on input line 4.
+ (G:\LaTex\MikTek\texmfs\install\tex\latex\amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 166.
-
+LaTeX Font Info:    Try loading font information for U+msb on input line 4.
 (G:\LaTex\MikTek\texmfs\install\tex\latex\amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-{G:/LaTex/MikTek/texmfs/data/pdftex/config/pdftex.map}] (main.tocpdfTeX warning
- (ext4): destination with the same identifier (name{page.1}) has been already u
-sed, duplicate ignored
-<to be read again> 
-                   \relax 
-l.35 ...Graphical User Interface}{30}{section.6.3}
-                                                   [1
-
-])
-\tf@toc=\write9
-\openout9 = `main.toc'.
-
- [2]
-(subfiles/Analysis/Analysis.tex [3
-
-]
-Chapter 1.
-<subfiles/Analysis/geogebraEx.png, id=203, 903.375pt x 652.4375pt>
-File: subfiles/Analysis/geogebraEx.png Graphic file (type png)
-
-<use subfiles/Analysis/geogebraEx.png>
-Package pdftex.def Info: subfiles/Analysis/geogebraEx.png used on input line 8.
-
-(pdftex.def)             Requested size: 187.89914pt x 135.7018pt.
-
-<subfiles/Analysis/desmosEx.jpg, id=205, 1284.8pt x 722.7pt>
-File: subfiles/Analysis/desmosEx.jpg Graphic file (type jpg)
-
-<use subfiles/Analysis/desmosEx.jpg>
-Package pdftex.def Info: subfiles/Analysis/desmosEx.jpg used on input line 13.
-(pdftex.def)             Requested size: 187.89914pt x 105.68755pt.
-)
-(subfiles/Analysis/Stakeholders/Stakeholders.tex [4
-
- <./subfiles/Analysis/geogebraEx.png> <./subfiles/Analysis/desmosEx.jpg>]
-Chapter 2.
-
-Underfull \hbox (badness 5475) in paragraph at lines 20--20
-\OT1/cmr/m/n/10 ware are ob-vi-ous-ly the
- []
-
-
-Underfull \hbox (badness 3229) in paragraph at lines 20--20
-\OT1/cmr/m/n/10 most im-por-tan-t part of
- []
-
-[5
-
-]
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 45.
- (G:\LaTex\MikTek\texmfs\install\tex\latex\base\ts1cmr.fd
-File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-))
-(subfiles/Analysis/Similar-Programs/Similar-Programs.tex [6]
-Chapter 3.
-
-<subfiles/Analysis/Similar-Programs/images/desmosDemo.jpg, id=235, 1283.79625pt
- x 529.98pt>
-File: subfiles/Analysis/Similar-Programs/images/desmosDemo.jpg Graphic file (ty
-pe jpg)
- <use subfiles/Analysis/Similar-Programs/images/desmosDemo.jpg>
-Package pdftex.def Info: subfiles/Analysis/Similar-Programs/images/desmosDemo.j
-pg used on input line 18.
-(pdftex.def)             Requested size: 469.75502pt x 193.92224pt.
-
-<subfiles/Analysis/Similar-Programs/images/desmosMobile.jpg, id=236, 722.7pt x 
-304.13625pt>
-File: subfiles/Analysis/Similar-Programs/images/desmosMobile.jpg Graphic file (
-type jpg)
- <use subfiles/Analysis/Similar-Programs/images/desmosMobile.jpg>
-Package pdftex.def Info: subfiles/Analysis/Similar-Programs/images/desmosMobile
-.jpg used on input line 22.
-(pdftex.def)             Requested size: 164.41711pt x 69.18878pt.
-
-[7
-
- <./subfiles/Analysis/Similar-Programs/images/desmosDemo.jpg>]
-<subfiles/Analysis/Similar-Programs/images/geogebraFunc.png, id=245, 1284.8pt x
- 659.46375pt>
-File: subfiles/Analysis/Similar-Programs/images/geogebraFunc.png Graphic file (
-type png)
- <use subfiles/Analysis/Similar-Programs/images/geogebraFunc.png>
-Package pdftex.def Info: subfiles/Analysis/Similar-Programs/images/geogebraFunc
-.png used on input line 43.
-(pdftex.def)             Requested size: 361.71336pt x 185.65485pt.
-
-[8 <./subfiles/Analysis/Similar-Programs/images/desmosMobile.jpg> <./subfiles/A
-nalysis/Similar-Programs/images/geogebraFunc.png (PNG copy)>]
-Underfull \hbox (badness 10000) in paragraph at lines 52--54
-
- []
-
-
-<subfiles/Analysis/Similar-Programs/images/octavePlot.png, id=254, 416.55624pt 
-x 525.965pt>
-File: subfiles/Analysis/Similar-Programs/images/octavePlot.png Graphic file (ty
-pe png)
- <use subfiles/Analysis/Similar-Programs/images/octavePlot.png>
-Package pdftex.def Info: subfiles/Analysis/Similar-Programs/images/octavePlot.p
-ng used on input line 69.
-(pdftex.def)             Requested size: 98.64912pt x 124.55682pt.
-
-<subfiles/Analysis/Similar-Programs/images/matlabMesh.png, id=255, 513.92pt x 5
-13.92pt>
-File: subfiles/Analysis/Similar-Programs/images/matlabMesh.png Graphic file (ty
-pe png)
- <use subfiles/Analysis/Similar-Programs/images/matlabMesh.png>
-Package pdftex.def Info: subfiles/Analysis/Similar-Programs/images/matlabMesh.p
-ng used on input line 75.
-(pdftex.def)             Requested size: 91.6023pt x 91.5998pt.
-
-[9 <./subfiles/Analysis/Similar-Programs/images/octavePlot.png> <./subfiles/Ana
-lysis/Similar-Programs/images/matlabMesh.png>]
-File: subfiles/Analysis/Similar-Programs/diagrams/UI.mps Graphic file (type mps
-)
- [MP to PDF]
-(subfiles/Analysis/Similar-Programs/diagrams/UI.mps))
-(subfiles/Analysis/Computational-Methods/Computational-Methods.tex [10]
-Chapter 4.
-[11
-
-]) (subfiles/Analysis/Requirements/Requirements.tex [12]
-Chapter 5.
-) (subfiles/Prototype-I/Prototype-I.tex [13
-
-] [14
-
-])
-(subfiles/Prototype-I/Design/Design.tex
-Chapter 6.
-) (subfiles/Prototype-I/Design/Decomposition/Decomposition.tex [15
-
-])
-(subfiles/Prototype-I/Design/Function-Class/Function-Class.tex
-\openout5 = `main.pyg'.
-
-
-(_minted-main/default-pyg-prefix.pygstyle) (_minted-main/colorful.pygstyle)
-(_minted-main/333761E9B730F8A9A053AC55B5D2029096F4A172713D9CAFDFB180198F2E831C.
-pygtex
-LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 2.
-) [16])
-(subfiles/Prototype-I/Design/Function-Class/Anaylsis-of-Algebraic-Expressions/A
-naylsis-of-Algebraic-Expressions.tex [17])
-(subfiles/Prototype-I/Design/Function-Class/Binary-Trees/Binary-Trees.tex
-Underfull \hbox (badness 10000) in paragraph at lines 5--6
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 7--9
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 10--13
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 30--33
-
- []
-
-[18]
-Underfull \hbox (badness 10000) in paragraph at lines 34--35
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 36--42
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 43--46
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 47--50
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--57
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 58--62
-
- []
-
-[19])
-(subfiles/Prototype-I/Design/Function-Class/Stack-Based-Programming/Stack-Based
--Programming.tex
-Underfull \hbox (badness 10000) in paragraph at lines 8--10
-
- []
-
-[20] [21])
-(subfiles/Prototype-I/Design/Function-Class/Analysis-of-the-two-Methods/Analysi
-s-of-the-two-Methods.tex
-Underfull \hbox (badness 10000) in paragraph at lines 5--8
-
- []
-
-[22])
-(subfiles/Prototype-I/Design/Function-Class/Implementing-Stacks-and-Trees/Imple
-menting-Stacks-and-Trees.tex
-File: subfiles/Prototype-I/Design/Function-Class/Implementing-Stacks-and-Trees/
-diagrams/stack.mps Graphic file (type mps)
- [MP to PDF]
-(subfiles/Prototype-I/Design/Function-Class/Implementing-Stacks-and-Trees/diagr
-ams/stack.mps)
-File: subfiles/Prototype-I/Design/Function-Class/Implementing-Stacks-and-Trees/
-diagrams/tree.mps Graphic file (type mps)
- [MP to PDF]
-(subfiles/Prototype-I/Design/Function-Class/Implementing-Stacks-and-Trees/diagr
-ams/tree.mps) [23])
-(subfiles/Prototype-I/Design/Function-Class/Parsing-Algorithm/Parsing-Algorithm
-.tex [24] [25]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 105.
-
- (G:\LaTex\MikTek\texmfs\install\tex\latex\base\omscmr.fd
-File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/bx/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/b/n' tried instead on input line 105.
-LaTeX Font Info:    Font shape `OMS/cmr/m/it' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 106.
-
-Underfull \hbox (badness 10000) in paragraph at lines 107--119
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 107--119
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 107--119
-
- []
-
-[26] [27])
-(subfiles/Prototype-I/Design/Function-Class/Substitute-Algorithm/Substitute-Alg
-orithm.tex [28])
-(subfiles/Prototype-I/Design/Function-Class/Evaluate-Algorithm/Evaluate-Algorit
-hm.tex [29])
-(subfiles/Prototype-I/Design/Function-Class/Constructor/Constructor.tex
-File: subfiles/Prototype-I/Design/Function-Class/Constructor/diagrams/function.
-mps Graphic file (type mps)
-
-[MP to PDF]
-(subfiles/Prototype-I/Design/Function-Class/Constructor/diagrams/function.mps)
-[30]) (subfiles/Prototype-I/Design/GUI/GUI.tex [31])
-(subfiles/Bibliography/Bibliography.tex) [32
-
-]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 194.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 194.
- (main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 194.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 194.
-Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 589EE84C00B2DC52F143301AD72CF9C0;2409.
-runsystem(del main.pyg)...executed.
-
+{G:/LaTex/MikTek/texmfs/data/pdftex/config/pdftex.map}]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 62.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 62.
+ (GUI.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 62.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 62.
+Package rerunfilecheck Info: File `GUI.out' has not changed.
+(rerunfilecheck)             Checksum: 792FD3B07183506253AA88474B6ED6C4;62.
  ) 
 Here is how much of TeX's memory you used:
- 44995 strings out of 495222
- 948431 string characters out of 3181687
- 1073319 words of memory out of 3000000
- 47305 multiletter control sequences out of 15000+200000
- 548074 words of font info for 78 fonts, out of 3000000 for 9000
+ 44143 strings out of 495222
+ 932206 string characters out of 3181687
+ 1034574 words of memory out of 3000000
+ 46892 multiletter control sequences out of 15000+200000
+ 535895 words of font info for 38 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 156i,25n,186p,1610b,2230s stack positions out of 5000i,500n,10000p,200000b,50000s
- <G:\LaTex\MikTek\texmfs/data\fonts\pk\ljfour\jknappen\ec\dpi600\tcti1000.pk>
- <G:\LaTex\MikTek\texmfs/data\fonts\pk\ljfour\jknappen\ec\dpi600\tcbx1000.pk>{G
-:/LaTex/MikTek/texmfs/install/fonts/enc/dvips/base/8r.enc} <G:\LaTex\MikTek\tex
-mfs/data\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1000.pk><G:/LaTex/MikTek/texmfs
-/install/fonts/type1/public/amsfonts/cm/cmbsy10.pfb><G:/LaTex/MikTek/texmfs/ins
-tall/fonts/type1/public/amsfonts/cm/cmbx10.pfb><G:/LaTex/MikTek/texmfs/install/
-fonts/type1/public/amsfonts/cm/cmbx12.pfb><G:/LaTex/MikTek/texmfs/install/fonts
-/type1/public/amsfonts/cm/cmbx7.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1
-/public/amsfonts/cm/cmbx8.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/publi
-c/amsfonts/cm/cmbxti10.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/public/a
-msfonts/cm/cmex10.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/public/amsfon
-ts/cm/cmmi10.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/public/amsfonts/cm
-/cmmi6.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi7
-.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi8.pfb><
-G:/LaTex/MikTek/texmfs/install/fonts/type1/public/amsfonts/cm/cmr10.pfb><G:/LaT
-ex/MikTek/texmfs/install/fonts/type1/public/amsfonts/cm/cmr12.pfb><G:/LaTex/Mik
-Tek/texmfs/install/fonts/type1/public/amsfonts/cm/cmr17.pfb><G:/LaTex/MikTek/te
-xmfs/install/fonts/type1/public/amsfonts/cm/cmr6.pfb><G:/LaTex/MikTek/texmfs/in
-stall/fonts/type1/public/amsfonts/cm/cmr7.pfb><G:/LaTex/MikTek/texmfs/install/f
-onts/type1/public/amsfonts/cm/cmr8.pfb><G:/LaTex/MikTek/texmfs/install/fonts/ty
-pe1/public/amsfonts/cm/cmss10.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/p
-ublic/amsfonts/cm/cmssbx10.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/publ
-ic/amsfonts/cm/cmsy10.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/public/am
-sfonts/cm/cmsy8.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/public/amsfonts
-/cm/cmti10.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/public/amsfonts/cm/c
-mtt10.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/public/amsfonts/symbols/m
-sbm10.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/urw/times/utmr8a.pfb>
-Output written on main.pdf (33 pages, 1065923 bytes).
+ 153i,13n,185p,1649b,2130s stack positions out of 5000i,500n,10000p,200000b,50000s
+<G:/LaTex/MikTek/texmfs/install/fonts/type1/public/amsfonts/cm/cmbx10.pfb><G:
+/LaTex/MikTek/texmfs/install/fonts/type1/public/amsfonts/cm/cmbx12.pfb><G:/LaTe
+x/MikTek/texmfs/install/fonts/type1/public/amsfonts/cm/cmr10.pfb><G:/LaTex/MikT
+ek/texmfs/install/fonts/type1/public/amsfonts/cm/cmss10.pfb><G:/LaTex/MikTek/te
+xmfs/install/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><G:/LaTex/MikTek/texmf
+s/install/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on GUI.pdf (1 page, 77577 bytes).
 PDF statistics:
- 766 PDF objects out of 1000 (max. 8388607)
- 299 named destinations out of 1000 (max. 500000)
- 328 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 46 PDF objects out of 1000 (max. 8388607)
+ 6 named destinations out of 1000 (max. 500000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
