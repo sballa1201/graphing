@@ -10,8 +10,8 @@ Your browser does not support the video tag. Here is a link to the video: <a hre
 </video>
 </center>
 
-Here is the documentation for the project (<a href="https://github.com/Leafy1201/graphing/raw/master/doc/main.pdf">Download</a>.):
+Here is the documentation for the project (<a href="https://github.com/Leafy1201/graphing/raw/master/doc/main.pdf">Download</a>):
 
 <center>
-    <embed src="https://drive.google.com/viewerng/viewer?embedded=true&url=https://github.com/Leafy1201/graphing/raw/master/doc/main.pdf" width="700" height="700"> 
+<embed src="https://drive.google.com/viewerng/viewer?embedded=true&url=https://github.com/Leafy1201/graphing/raw/master/doc/main.pdf" width="700" height="700"> 
 </center>
