@@ -4,3 +4,7 @@ This project aims to create a graphing tool that is responsive, fluid, and inter
 Here is an example video of what it can currently do
 
 <a href="http://htmlpreview.github.com/?https://github.com/Leafy1201/graphing/blob/master/html/video.html" target="_blank">Graphing Tool in Action</a>
+
+Here is the documentation for the project:
+
+<a href="https://github.com/Leafy1201/graphing/blob/master/doc/main.pdf" target="_blank">Documentation</a>
