@@ -1,5 +1,5 @@
 # Graphing Project
-This project aims to create a graphing tool that is responsive, fluid, and interacts simply to the user.
+This project aims to create a graphing tool that is responsive, fluid, and interacts simply with the user.
 
 Here is an example video of what it can currently do
 
