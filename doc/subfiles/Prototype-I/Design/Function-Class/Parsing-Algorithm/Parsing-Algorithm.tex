@@ -92,7 +92,7 @@ This algorithm will also throw an exception if there are unequal number of openi
 \end{algorithm}
 \newpage
 \subsubsection{RegEx}
-Another important part of the parsing stage is to standardize the input. This is where we convert any inconsistencies discussed in section \ref{funcClass}, page \pageref{funcClass}. The easiest way to do this is to use RegEx. RegEx stands for regular expression and is a standardized form of pattern recognition in strings, usually used during syntax analysis during compilation of software. Many languages support regex in some form or another and Java is no exception. These were our 5 inconsistencies that we needed to fix:
+Another important part of the parsing stage is to standardize the input. This is where we convert any inconsistencies discussed in section \ref{funcClass}, page \pageref{funcClass}. The easiest way to do this is to use RegEx\cite{regex}. RegEx stands for regular expression and is a standardized form of pattern recognition in strings, usually used during syntax analysis during compilation of software. Many languages support RegEx in some form or another and Java is no exception. These were our 5 inconsistencies that we needed to fix:
 \begin{enumerate}
 	\item Any instance of $ax$ where $a \in  \mathbb{R} : a \neq 0$ is to be converted to $a*x$.
 	\item Any instance of $a($ and $)a$ where $a$ is not an operator, is to be converted to $a*($ and $)*a$ respectively.
