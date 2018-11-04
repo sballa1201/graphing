@@ -3,16 +3,12 @@ This project aims to create a graphing tool that is responsive, fluid, and inter
 
 Here is an example video of what it can currently do
 
-<a href="http://htmlpreview.github.com/?https://github.com/Leafy1201/graphing/blob/master/html/video.html" target="_blank">Graphing Tool in Action</a>
-
 <video width="800" height="600" preload controls autoplay>
-  <source src="https://github.com/Leafy1201/graphing/raw/master/html/video.html" type="video/mp4">
-Your browser does not support the video tag.
+  <source src="https://github.com/Leafy1201/graphing/raw/master/html/prototype2.mp4" type="video/mp4">
+Your browser does not support the video tag. Here is a link to the video: <a href="http://htmlpreview.github.com/?https://github.com/Leafy1201/graphing/blob/master/html/video.html" target="_blank">Graphing Tool in Action</a>
 </video>
 
 Here is the documentation for the project:
-
-<a href="https://github.com/Leafy1201/graphing/blob/master/doc/main.pdf" target="_blank">Documentation</a>
 
 <object data="https://github.com/Leafy1201/graphing/raw/master/doc/main.pdf" type="application/pdf" width="700px" height="700px">
     <embed src="https://github.com/Leafy1201/graphing/raw/master/doc/main.pdf">
