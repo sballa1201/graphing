@@ -1,4 +1,4 @@
-package application;
+package layer;
 
 import exceptions.StackOverflowException;
 import exceptions.StackUnderflowException;
@@ -31,7 +31,7 @@ public class ExplicitFunctionLayer extends Layer {
 		
 	}
 	
-	public void drawFunction() {
+	public void draw() {
 		this.clearCanvas();
 		gc.setLineWidth(2);
 		gc.setStroke(color);

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import layer.Layer;
 
 public class ShareLayers {
 	

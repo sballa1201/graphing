@@ -22,6 +22,9 @@ import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
+import layer.AxesLayer;
+import layer.InputLayer;
+import layer.Layer;
 
 public class PlotPaneController implements Initializable {
 	
@@ -86,7 +89,7 @@ public class PlotPaneController implements Initializable {
 */
 		ChangeListener<Object> redrawListener = (observable, oldValue, newValue) -> {
 			try {
-				draw();
+				drawAll();
 			} catch (StackOverflowException | StackUnderflowException | UnequalBracketsException | InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -107,7 +110,7 @@ public class PlotPaneController implements Initializable {
 	}
 	
 	
-	private void draw() throws StackOverflowException, StackUnderflowException, UnequalBracketsException, InterruptedException { 
+	private void drawAll() throws StackOverflowException, StackUnderflowException, UnequalBracketsException, InterruptedException { 
 		this.updatePixelWorth();
 
 		/*
@@ -145,7 +148,7 @@ public class PlotPaneController implements Initializable {
 		
 		for(Layer l: layers) {
 			threadPool.execute(() -> {
-				l.drawFunction();
+				l.draw();
 				latch.countDown();
 			});
 		}
@@ -155,7 +158,7 @@ public class PlotPaneController implements Initializable {
 		
 		//threadPool.shutdown();
 		
-		axes.drawFunction();
+		axes.draw();
 		
 		plotPane.getChildren().clear();
 		
@@ -259,7 +262,7 @@ public class PlotPaneController implements Initializable {
 			
 			System.out.println(layers);
 			try {
-				draw();
+				drawAll();
 			} catch (StackOverflowException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

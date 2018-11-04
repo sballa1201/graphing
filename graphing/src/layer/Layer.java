@@ -1,5 +1,6 @@
-package application;
+package layer;
 
+import application.PlotPaneController;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -23,7 +24,7 @@ public abstract class Layer {
 	protected DoubleProperty pixelWorthY = new SimpleDoubleProperty(0);
 	
 	
-	public abstract void drawFunction();
+	public abstract void draw();
 	
 	public void bindProperties(PlotPaneController controller) {
 		this.steps = new SimpleIntegerProperty(controller.getSteps().intValue());

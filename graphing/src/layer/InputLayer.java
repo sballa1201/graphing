@@ -1,5 +1,6 @@
-package application;
+package layer;
 
+import application.PlotPaneController;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -117,7 +118,7 @@ public class InputLayer extends Layer {
 
 
 	@Override
-	public void drawFunction() {}
+	public void draw() {}
 	
 	@Override
 	public void bindProperties(PlotPaneController controller) {
