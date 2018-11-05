@@ -32,8 +32,6 @@ public class ExpressionBox extends HBox {
 		
 		this.rootController = rootController;
 		
-		
-		
 		label = new Label("Label");
 		
 		label.setAlignment(Pos.CENTER_LEFT);
@@ -79,7 +77,7 @@ public class ExpressionBox extends HBox {
 	
 	private void changeLayer() {
 		
-		String f = this.functionText.getValueSafe();;
+		String f = this.functionText.getValueSafe();
 		
 		
 		if(f.length() == 0) {

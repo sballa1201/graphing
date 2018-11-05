@@ -1,5 +1,7 @@
 package layer;
 
+import java.text.DecimalFormat;
+
 import application.PlotPaneController;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -20,7 +22,7 @@ public class InputLayer extends Layer {
 	
 	public InputLayer() {
 		this.canvas = new Canvas();
-		
+		this.gc = this.canvas.getGraphicsContext2D();
 		
 		//this.canvas.setOnMousePressed(event -> mousePressed(event));
 		//this.canvas.setOnMouseDragged(event -> pan(event));
@@ -31,9 +33,36 @@ public class InputLayer extends Layer {
 		this.canvas.setOnMouseDragged(event -> pan(event));
 		
 		
-		this.canvas.setOnScroll(event -> zoom(event));		
+		this.canvas.setOnScroll(event -> zoom(event));
+		
+		this.canvas.setOnMouseMoved(event -> drawCoords(event));
 	}
 	
+	private void drawCoords(MouseEvent event) {
+		clearCanvas();
+		
+		double x = (event.getX()*this.pixelWorthX.doubleValue()) + this.minX.doubleValue();
+		double y = this.maxY.doubleValue() - (event.getY()*this.pixelWorthY.doubleValue());
+		
+		//double y = ((event.getY()*this.pixelWorthY.doubleValue()) + this.minY.doubleValue());
+		
+		//System.out.println(x+","+y);
+		
+		//String sX = Double.toString(x);
+		String sY = new DecimalFormat("#.##").format(y);
+		
+		String sX = new DecimalFormat("#.##").format(x);
+		
+		String out = "(" + sX + "," + sY + ")";
+		
+		//sX = dX.format(X);
+		
+		gc.setLineWidth(1);
+		
+		gc.strokeText(out, 0, 10);
+		
+	}
+
 	private void dragEntered(MouseEvent event) {
 		
 		if(event.isPrimaryButtonDown()) {

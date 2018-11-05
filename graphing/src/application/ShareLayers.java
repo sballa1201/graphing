@@ -30,6 +30,7 @@ public class ShareLayers {
 	public void removeLayer(int ID) {
 		this.layers.remove(ID);
 		this.changeLayers.set(!this.changeLayers.get());
+		//System.gc();
 		//System.out.println(layers.values().toString());
 	}
 

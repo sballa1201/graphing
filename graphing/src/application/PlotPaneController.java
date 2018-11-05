@@ -106,7 +106,6 @@ public class PlotPaneController implements Initializable {
 		
 		this.axes = new AxesLayer();
 		axes.bindProperties(this);
-		
 	}
 	
 	
@@ -200,8 +199,10 @@ public class PlotPaneController implements Initializable {
 	}*/
 	
 	private void updatePixelWorth() {
-		this.pixelWorthX.set(Math.abs((this.maxX.doubleValue() - this.minX.doubleValue())/plotPane.getWidth()));
-		this.pixelWorthY.set(Math.abs((this.maxY.doubleValue() - this.minY.doubleValue())/plotPane.getHeight()));
+		//this.pixelWorthX.set(Math.abs((this.maxX.doubleValue() - this.minX.doubleValue())/plotPane.getWidth()));
+		//this.pixelWorthY.set(Math.abs((this.maxY.doubleValue() - this.minY.doubleValue())/plotPane.getHeight()));
+		this.pixelWorthX.set((this.maxX.doubleValue() - this.minX.doubleValue())/plotPane.getWidth());
+		this.pixelWorthY.set((this.maxY.doubleValue() - this.minY.doubleValue())/plotPane.getHeight());
 	}
 
 	public Pane getPlotPane() {
