@@ -1,10 +1,44 @@
-\documentclass[../../../../../../main.tex]{subfiles}
+\documentclass[../../../../../../../main.tex]{subfiles}
 \begin{document}
 
 \subsubsection{Coordinate Systems}
-The coordinate system that we are familiar with is the Cartesian Coordinate System. Cartesian Coordinates take a fixed point as reference, usually called the origin (symbolized by $O$), and specify a point by taking the distance from the origin in $n$ directions, where $n$ is the dimension of the system. The directions are vectors, that are all perpendicular to each other, and have magnitude 1, i.e.\ magnitude vectors.
+The coordinate system that we are familiar with is the Cartesian Coordinate System. Cartesian Coordinates take a fixed point as reference, usually called the origin (symbolized by $O$), and specify a point by taking the distance from the origin in $n$ directions, where $n$ is the dimension of the system. The directions are vectors, that are all perpendicular to each other, and have magnitude 1, i.e.\ unit vectors. This graphing software will be dealing with a 2-Dimensional Cartesian Coordinate System and in this system, up and down are defined as the $y$ direction, with up being positive and down being negative; whereas right and left are defined as the $x$ direction, with right being positive and left being negative. Within our graphing program we will only show a section of the \xyplane. This is because:
+\begin{enumerate}
+\item It is intractable to show the entire \xyplane since the plane goes on for an infinite distance in both the $x$ and $y$ directions.
+\item It is not helpful to the user to see the entire plane even if they could. A graphing tool should enable the user to highlight parts of the graph that is important to them.
+\end{enumerate}
+However JavaFX Canvasses don't exactly use a Cartesian Coordinate System. They specify a position on itself taking the top-left corner as the origin, right as the positive $x$ direction and down as the positive $y$ direction. It is important to realize that negative coordinates do not exist in this system. The maximum $x$ and $y$ values are the width and height, respectively, in pixels.
 
-However canvasses dont have 
+We must therefore find a way to convert between these two coordinate systems. Since our viewport is predefined, let us label what the maximum and minimum $x$ and $y$ values in our viewport (with respect to our original Cartesian Coordinate System). Let these values be \textit{``minX''}, \textit{``maxX''}, \textit{``minY''} and \textit{``maxY''}.\\
+Now let us define how much the width and height of each pixel on the canvas is \textit{``worth''}. This \textit{``worth''} specifies how much going across or down a pixel width or height, is in terms of our original Cartesian Coordinate System. This is best demonstrated with an example. If our canvas shows the \xyplane in the $x$ direction from 0 to 10, and our canvas is 1000 pixels wide, then our pixel worth is the amount we have traversed in the $x$ direction, divided by the number of pixels, in this case $\frac{(10-0)}{1000} = 0.01$. The algorithm for this is shown below:
 
+\begin{algorithm}[H]
+\DontPrintSemicolon
+\caption{Calculate the \textit{``Worth''} of each Pixel}
+\Fn{updatePixelWorth()}{
+	pixelWorthX = (maxX - minX)/canvas.getWidth()\;
+	pixelWorthY = (maxY - minY)/canvas.getHeight()\;
+}
+\end{algorithm}
+Now that we have the pixel worth, we can convert between our coordinate systems. The following algorithms convert between $x$ and $y$ coordinate\footnote{Here we assume the coordinate is inside the viewport, we can make checks for this later on} repectively:
+
+\begin{algorithm}[H]
+\DontPrintSemicolon
+\caption{Convert the $x$ value}
+\Fn{convertX(\KwDouble x)}{
+	x = x - minX \tcc{Calculate the absolute distance between the coord and origin}
+	x = x / pixelWorthX \tcc{Calculate the number of pixel ``worths'' this is}
+	\KwRet x\;
+}
+\end{algorithm}
+\begin{algorithm}[H]
+\DontPrintSemicolon
+\caption{Convert the $y$ value}
+\Fn{convertX(\KwDouble y)}{
+	y = maxY - y \tcc{Calculate the absolute distance between the coord and origin}
+	y = y / pixelWorthY \tcc{Calculate the number of pixel ``worths'' this is}
+	\KwRet y\;
+}
+\end{algorithm}
 \newpage 
 \end{document}
