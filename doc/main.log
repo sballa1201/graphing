@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350) (preloaded format=pdflatex 2018.1.31)  5 NOV 2018 22:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350) (preloaded format=pdflatex 2018.1.31)  6 NOV 2018 19:29
 entering extended mode
 **./main.tex
 (main.tex
@@ -1769,7 +1769,7 @@ File: subfiles/Prototype-I/Design/GUI/Overview-GUI/diagrams/UI.mps Graphic file
  [MP to PDF]
 (subfiles/Prototype-I/Design/GUI/Overview-GUI/diagrams/UI.mps)
 <subfiles/Prototype-I/Design/GUI/Overview-GUI/images/borderpaneArchitecture.png
-, id=649, 321.2pt x 247.92625pt>
+, id=648, 321.2pt x 247.92625pt>
 File: subfiles/Prototype-I/Design/GUI/Overview-GUI/images/borderpaneArchitectur
 e.png Graphic file (type png)
 
@@ -1780,10 +1780,9 @@ rderpaneArchitecture.png used on input line 48.
 (pdftex.def)             Requested size: 187.89914pt x 145.03816pt.
  [32 <./subfiles/Prototype-I/Design/GUI/Overview-GUI/images/borderpaneArchitect
 ure.png>])
-(subfiles/Prototype-I/Design/GUI/Drawing-Functions/Drawing-Functions.tex
-[33])
+(subfiles/Prototype-I/Design/GUI/Drawing-Functions/Drawing-Functions.tex)
 (subfiles/Prototype-I/Design/GUI/Drawing-Functions/Layer/Coord-System/Coord-Sys
-tem.tex [34]) (subfiles/Bibliography/Bibliography.tex [35
+tem.tex [33] [34]) (subfiles/Bibliography/Bibliography.tex [35
 
 ]) [36]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 189.
@@ -1792,15 +1791,15 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 189.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 189.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 189.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 50E24B39B89E37AC6DFDA3105DFC79AE;2659.
+(rerunfilecheck)             Checksum: 1724683AB52EB9340576B5B3885FB84D;2673.
 runsystem(del main.pyg)...executed.
 
  ) 
 Here is how much of TeX's memory you used:
- 44982 strings out of 495222
- 949684 string characters out of 3181687
- 1077215 words of memory out of 3000000
- 47228 multiletter control sequences out of 15000+200000
+ 44983 strings out of 495222
+ 949697 string characters out of 3181687
+ 1077305 words of memory out of 3000000
+ 47229 multiletter control sequences out of 15000+200000
  548074 words of font info for 78 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
  156i,25n,186p,1610b,2231s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1816,25 +1815,26 @@ fonts/type1/public/amsfonts/cm/cmbx12.pfb><G:/LaTex/MikTek/texmfs/install/fonts
 c/amsfonts/cm/cmbxti10.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/public/a
 msfonts/cm/cmex10.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/public/amsfon
 ts/cm/cmmi10.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/public/amsfonts/cm
-/cmmi6.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi7
-.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi8.pfb><
-G:/LaTex/MikTek/texmfs/install/fonts/type1/public/amsfonts/cm/cmr10.pfb><G:/LaT
-ex/MikTek/texmfs/install/fonts/type1/public/amsfonts/cm/cmr12.pfb><G:/LaTex/Mik
-Tek/texmfs/install/fonts/type1/public/amsfonts/cm/cmr17.pfb><G:/LaTex/MikTek/te
-xmfs/install/fonts/type1/public/amsfonts/cm/cmr6.pfb><G:/LaTex/MikTek/texmfs/in
-stall/fonts/type1/public/amsfonts/cm/cmr7.pfb><G:/LaTex/MikTek/texmfs/install/f
-onts/type1/public/amsfonts/cm/cmr8.pfb><G:/LaTex/MikTek/texmfs/install/fonts/ty
-pe1/public/amsfonts/cm/cmss10.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/p
-ublic/amsfonts/cm/cmssbx10.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/publ
-ic/amsfonts/cm/cmsy10.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/public/am
-sfonts/cm/cmsy7.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/public/amsfonts
-/cm/cmsy8.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/public/amsfonts/cm/cm
-ti10.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/public/amsfonts/cm/cmtt10.
-pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/public/amsfonts/symbols/msbm10.
-pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/urw/times/utmr8a.pfb>
-Output written on main.pdf (37 pages, 1129433 bytes).
+/cmmi5.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi6
+.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi7.pfb><
+G:/LaTex/MikTek/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi8.pfb><G:/LaT
+ex/MikTek/texmfs/install/fonts/type1/public/amsfonts/cm/cmr10.pfb><G:/LaTex/Mik
+Tek/texmfs/install/fonts/type1/public/amsfonts/cm/cmr12.pfb><G:/LaTex/MikTek/te
+xmfs/install/fonts/type1/public/amsfonts/cm/cmr17.pfb><G:/LaTex/MikTek/texmfs/i
+nstall/fonts/type1/public/amsfonts/cm/cmr6.pfb><G:/LaTex/MikTek/texmfs/install/
+fonts/type1/public/amsfonts/cm/cmr7.pfb><G:/LaTex/MikTek/texmfs/install/fonts/t
+ype1/public/amsfonts/cm/cmr8.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/pu
+blic/amsfonts/cm/cmss10.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/public/
+amsfonts/cm/cmssbx10.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/public/ams
+fonts/cm/cmsy10.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/public/amsfonts
+/cm/cmsy7.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/public/amsfonts/cm/cm
+sy8.pfb><G:/LaTex/MikTek/texmfs/install/fonts/type1/public/amsfonts/cm/cmti10.p
+fb><G:/LaTex/MikTek/texmfs/install/fonts/type1/public/amsfonts/cm/cmtt10.pfb><G
+:/LaTex/MikTek/texmfs/install/fonts/type1/public/amsfonts/symbols/msbm10.pfb><G
+:/LaTex/MikTek/texmfs/install/fonts/type1/urw/times/utmr8a.pfb>
+Output written on main.pdf (37 pages, 1143996 bytes).
 PDF statistics:
- 879 PDF objects out of 1000 (max. 8388607)
+ 884 PDF objects out of 1000 (max. 8388607)
  350 named destinations out of 1000 (max. 500000)
  357 words of extra memory for PDF output out of 10000 (max. 10000000)
 

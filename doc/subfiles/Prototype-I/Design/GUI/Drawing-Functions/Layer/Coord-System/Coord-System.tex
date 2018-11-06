@@ -20,22 +20,38 @@ Now let us define how much the width and height of each pixel on the canvas is \
 	pixelWorthY = (maxY - minY)/canvas.getHeight()\;
 }
 \end{algorithm}
-Now that we have the pixel worth, we can convert between our coordinate systems. The following algorithms convert between $x$ and $y$ coordinate\footnote{Here we assume the coordinate is inside the viewport, we can make checks for this later on} repectively:
+Now that we have the pixel worth, we can convert between our coordinate systems. To do this we take the vector from the origin, $O=(x_{min},y_{max})$, to the point, $P=(x,y)$ in the $x$ or $y$ direction. We then calculate how many pixel \textit{``worths''} this is and this gives us the pixel on the canvas that this coordinate is at.
+It is important to realize that going down in a JavaFX canvas is actually positive, relative to the canvas, hence our two algorithms are slightly different. This means our vector is actually 
+\[\vec{d} = 
+\begin{bmatrix}
+(x-x_{min}) \\
+(y_{max}-y)
+\end{bmatrix}\]
+Hence our position within the canvas is:
+\[\vec{p} =
+\begin{bmatrix}
+\left(\frac{x-x_{min}}{x_{worth}}\right) \\
+\left(\frac{y_{max}-y}{y_{worth}}\right)
+\end{bmatrix} 
+\]
+The algorithms below convert between $x$ and $y$ coordinates
+\footnote{Here we assume the coordinate is inside the viewport. Realistically we should check if the coordinates are in the viewport, i.e.\ bigger than the width or height of the canvas, or in some cases negative. However it does not matter since we can make this check later. Even then a JavaFX canvas will check if the coordinates are in the canvas viewport anyway, so it does not matter to us since this detail is abstracted away from us.}
+ repectively. 
 
-\begin{algorithm}[H]
+\begin{algorithm}
 \DontPrintSemicolon
-\caption{Convert the $x$ value}
+\caption{Convert the $x$ Coordinate}
 \Fn{convertX(\KwDouble x)}{
-	x = x - minX \tcc{Calculate the absolute distance between the coord and origin}
+	x = x - minX \tcc{Calculate the distance between the coord and origin}
 	x = x / pixelWorthX \tcc{Calculate the number of pixel ``worths'' this is}
 	\KwRet x\;
 }
 \end{algorithm}
-\begin{algorithm}[H]
+\begin{algorithm}
 \DontPrintSemicolon
-\caption{Convert the $y$ value}
+\caption{Convert the $y$ Coordinate}
 \Fn{convertX(\KwDouble y)}{
-	y = maxY - y \tcc{Calculate the absolute distance between the coord and origin}
+	y = maxY - y \tcc{Calculate the distance between the coord and origin}
 	y = y / pixelWorthY \tcc{Calculate the number of pixel ``worths'' this is}
 	\KwRet y\;
 }

@@ -28,7 +28,7 @@
 \BOOKMARK [3][-]{subsubsection.6.2.6.1}{Least Significant Operator}{subsection.6.2.6}% 28
 \BOOKMARK [3][-]{subsubsection.6.2.6.2}{Removing Brackets}{subsection.6.2.6}% 29
 \BOOKMARK [3][-]{subsubsection.6.2.6.3}{RegEx}{subsection.6.2.6}% 30
-\BOOKMARK [3][-]{subsubsection.6.2.6.4}{Creating the Tree}{subsection.6.2.6}% 31
+\BOOKMARK [3][-]{subsubsection.6.2.6.4}{Creating the Tree and the Stack}{subsection.6.2.6}% 31
 \BOOKMARK [2][-]{subsection.6.2.7}{Substitute Algorithm}{section.6.2}% 32
 \BOOKMARK [2][-]{subsection.6.2.8}{Evaluate Algorithm}{section.6.2}% 33
 \BOOKMARK [2][-]{subsection.6.2.9}{Constructor and the Class as a whole}{section.6.2}% 34

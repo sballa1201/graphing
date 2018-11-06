@@ -12,5 +12,4 @@ The advantage of the first is that it is simple to implement. However if there a
 Although the second is harder to implement, it is by far the superior. A canvas is essentially an abstracted OpenGL view, and hence it is almost impossible\cite{openglMultithread} to draw multiple things on the same canvas at once. However it is possible to draw onto multiple canvasses at once, which boosts performance on multicore system. This also means that we can create a class for each type of function making this system more modular. It is important to realize that only the topmost canvas receives input (keyboard and mouse events) and hence we can create a layer solely to handle input.
 
 However before we handle the canvasses themselves, we must concern ourselves with how we can draw a line at a specific place.
-\newpage 
 \end{document}

@@ -117,10 +117,10 @@ For the fifth inconsistency, the RegEx expression is
 \textbf{\underline{``($\wedge$$|$\textbackslash()-''}}
 with the replacement expression being \textbf{\underline{``\$10-''}}. The RegEx expression returns a match when it is either the start of a line, signified by the $\wedge$, or\footnote{the or keyword in RegEx is signified by $|$} a ( followed by a minus sign. The start of the line of bracket is captured and is used in the replacement expression, when the match is replaced with a 0- preceeded by either a bracket or nothing depending on if the start of a line or an opening bracket was captured.
 \newpage
-\subsubsection{Creating the Tree}
-Using the functions above we can create a syntax tree from our expression. We will do this using the Divide and Conquer methodology by recursively splitting the original expression until it becomes a single constant or variable. We can know if we should split the expression and if so where we should split the function by using our Least Significant Operator function. Our recursive case will return a tree where the left and right nodes are made up of the trees of the two sub-expressions and the root node will be the operator that we split our original expression with. Our base case will return a tree containing the constant or variable that is remaining. For example if we have the expression ``$x^2 + 4$'', we will first split this expression by the least significant operator which is the ``$+$''. We then make this our root node and our left and right trees will be what is left and right of that operator. This will be repeated for each sub-tree until only no operators remain. So our bottom nodes will be $x$, 2 and 4.
+\subsubsection{Creating the Tree and the Stack}
+Using the functions above we can create a syntax tree from our expression. Before we dive into this, remember that we will convert this into a Stack later to process, since it is more effiecient (section \ref{stackBetter}). To create the tree we will use the Divide and Conquer methodology by recursively splitting the original expression until it becomes a single constant or variable. We can know if we should split the expression and if so where we should split the function by using our Least Significant Operator function. Our recursive case will return a tree where the left and right nodes are made up of the trees of the two sub-expressions and the root node will be the operator that we split our original expression with. Our base case will return a tree containing the constant or variable that is remaining. For example if we have the expression ``$x^2 + 4$'', we will first split this expression by the least significant operator which is the ``$+$''. We then make this our root node and our left and right trees will be what is left and right of that operator. This will be repeated for each sub-tree until only no operators remain. So our bottom nodes will be $x$, 2 and 4.
 
-\begin{algorithm}
+\begin{algorithm}[H]
 \DontPrintSemicolon
 \caption{Create a Binary Tree for an Algebraic Expression}
 \label{alg:createTree1}
@@ -139,7 +139,7 @@ Using the functions above we can create a syntax tree from our expression. We wi
 \end{algorithm}
 Within this algorithm I can use concurrent processing to process each sub-expression individually. To do this I will create 2 threads to create the 2 individual sub-trees. I will then start these threads and on the root thread wait for these threads to finish (usually done using a method called ``join''), and then return the new tree made up of the 2 individual sub-trees.
 
-\begin{algorithm}
+\begin{algorithm}[H]
 \DontPrintSemicolon
 \caption{Create a Binary Tree for an Algebraic Expression (Using Concurrent Processing)}
 \label{alg:createTree2}
