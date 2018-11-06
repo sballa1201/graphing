@@ -1,9 +1,63 @@
 \documentclass[../../../../../main.tex]{subfiles}
+
+
+
 \begin{document}
 
 \subsection{Evaluate Algorithm}	
+The evaluate algorithm is very similar to algorithm \ref{evaluateStack}, the stack-based evaluate algorithm. However we will pass in the inputs as parameters and use the substitute algorithm within our evaluate algorithm to replace our variables with the actual values. We will also hardcode the selection and verification of which operator to use instead of assuming that an operator is an object we can manipulate. A precondition of this algorithm is that we are assuming that the original expression is valid, otherwise this algorithm may not behave as intended.
 
-
+\begin{algorithm}[H]
+\DontPrintSemicolon
+\caption{Evaluate the Expression}
+\Fn{evaluate(\KwDouble x)}{
+	\KwStack substituteStack = substitute(x)\;
+	\KwStack evaluateStack = \KwNew	\KwStack(postFixStack.getHeight())\;
+	\For{\ i=0 \KwTo substituteStack.getHeight()}{
+		\KwString pop = subStack.pop()\;
+		\KwDouble a,b\;
+		\Switch{pop} {
+			\uCase{``$+$''}{
+				b = evaluateStack.pop()\;
+				a = evaluateStack.pop()\;
+				evaluateStack.push($a+b$)\;
+				\KwBreak\;
+			}
+			\uCase{``$-$''}{
+				b = evaluateStack.pop()\;
+				a = evaluateStack.pop()\;
+				evaluateStack.push($a-b$)\;
+				\KwBreak\;
+			}		
+			\uCase{``$*$''}{
+				b = evaluateStack.pop()\;
+				a = evaluateStack.pop()\;
+				evaluateStack.push($a*b$)\;
+				\KwBreak\;
+			}
+			\uCase{``$/$''}{
+				b = evaluateStack.pop()\;
+				a = evaluateStack.pop()\;
+				evaluateStack.push($a/b$)\;
+				\KwBreak\;
+			}
+			\uCase{``$\wedge$''}{
+				b = evaluateStack.pop()\;
+				a = evaluateStack.pop()\;
+				evaluateStack.push($a^b$))\;
+				\KwBreak\;
+			}
+			\Default{
+				evaluateStack.push(\KwDouble(pop))\;
+				\KwBreak\;
+			}
+		}
+	}
+	\KwRet evaluateStack.pop()\;
+}
+\end{algorithm}
 \newpage
+
+
 
 \end{document}
