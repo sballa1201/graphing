@@ -3,7 +3,7 @@
 
 \subsection{Substitute Algorithm}
 To actually plot the functions we need to be able to substitute values into the actual functions to know where to draw our points. Eventually we should be able to substitute multiple variables/constants into our function, but for now we will only substitute an $x$ value into our function. This can be an extension for my next iteration.\\
-Now algorithms \ref{alg:traverseHelper} and \ref{alg:traverse} on page \pageref{alg:traverseHelper} traverse a tree and output a list (we will implement this using a stack during the actual coding). However the most significant operations and values, i.e.\ the actions we would do first according to \textbf{BIDMAS}
+Now algorithms \ref{alg:traverseHelper} and \ref{alg:traverse} on page \pageref{alg:traverseHelper} traverse a tree and output a list (we will implement this using a stack, within the constructor). However the most significant operations and values, i.e.\ the actions we would do first according to \textbf{BIDMAS}
 \footnote{\textbf{BIDMAS} stands for \textbf{Brackets}, \textbf{Indices}, \textbf{Division}, \textbf{Multiplication}, \textbf{Addition} and \textbf{Subtraction}. It signifies the order that we must do operations on an expression. It is sometimes called \textbf{BODMAS} where the \textbf{O} stands for \textbf{Orders}.}
 , are at the front of the list. This means that in a stack they would be at the bottom, which means they would be popped off last which is not what we want when we evaluate a function. While we can reverse the stack, this is ineffiecient and also defeats the purpose of using a stack.
 

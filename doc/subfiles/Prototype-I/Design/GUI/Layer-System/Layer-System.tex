@@ -1,7 +1,7 @@
 \documentclass[../../../../../main.tex]{subfiles}
 \begin{document}
 
-\subsection{Drawing Functions}
+\subsection{Layer System}
 Drawing onto the screen using JavaFX can be achieved using the Canvas\cite{canvas} object. This is a node, which allows us to draw shapes, lines, arcs, on to the screen. As discussed in the analysis, we can approximate a curve by drawing many lines however one of our requirements was to draw multiple functions. From the article cited above, there are two ways to achieve this:
 \begin{enumerate}
 	\item Draw every function onto one canvas and add this to the root pane.
@@ -11,6 +11,5 @@ The advantage of the first is that it is simple to implement. However if there a
 
 Although the second is harder to implement, it is by far the superior. A canvas is essentially an abstracted OpenGL view, and hence it is almost impossible\cite{openglMultithread} to draw multiple things on the same canvas at once. However it is possible to draw onto multiple canvasses at once, which boosts performance on multicore system. This also means that we can create a class for each type of function making this system more modular. It is important to realize that only the topmost canvas receives input (keyboard and mouse events) and hence we can create a layer solely to handle input.
 
-However before we handle the canvasses themselves, we must concern ourselves with the node above it, in this case a simple pane.
-\newpage 
+However before we handle the canvasses themselves, we must concern ourselves with how we can draw a line at a specific place.
 \end{document}
