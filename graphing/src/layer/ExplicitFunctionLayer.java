@@ -3,7 +3,6 @@ package layer;
 import exceptions.StackOverflowException;
 import exceptions.StackUnderflowException;
 import exceptions.UnequalBracketsException;
-import javafx.scene.canvas.Canvas;
 import structures.ExplicitFunction;
 
 public class ExplicitFunctionLayer extends Layer {
@@ -11,6 +10,8 @@ public class ExplicitFunctionLayer extends Layer {
 	private ExplicitFunction f;	
 	
 	public ExplicitFunctionLayer(String expression) {
+		super();
+		
 		try {
 			this.f = new ExplicitFunction(expression);
 		} catch (StackOverflowException e) {
@@ -24,11 +25,7 @@ public class ExplicitFunctionLayer extends Layer {
 			e.printStackTrace();
 		} catch (StringIndexOutOfBoundsException e) {
 			e.printStackTrace();
-		}
-		this.canvas = new Canvas();
-		this.gc = canvas.getGraphicsContext2D();
-		
-		
+		}		
 	}
 	
 	public void draw() {

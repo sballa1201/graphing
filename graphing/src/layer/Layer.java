@@ -24,6 +24,11 @@ public abstract class Layer {
 	protected DoubleProperty pixelWorthY = new SimpleDoubleProperty(0);
 	
 	
+	protected Layer() {
+		this.canvas = new Canvas();
+		this.gc = canvas.getGraphicsContext2D();
+	}
+	
 	public abstract void draw();
 	
 	public void bindProperties(PlotPaneController controller) {

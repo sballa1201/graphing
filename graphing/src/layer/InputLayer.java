@@ -8,7 +8,6 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 
@@ -21,8 +20,7 @@ public class InputLayer extends Layer {
 	private double previousY;
 	
 	public InputLayer() {
-		this.canvas = new Canvas();
-		this.gc = this.canvas.getGraphicsContext2D();
+		super();
 		
 		//this.canvas.setOnMousePressed(event -> mousePressed(event));
 		//this.canvas.setOnMouseDragged(event -> pan(event));

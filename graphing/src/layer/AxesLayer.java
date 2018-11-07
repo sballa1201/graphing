@@ -1,13 +1,9 @@
 package layer;
 
-import javafx.scene.canvas.Canvas;
-
 public class AxesLayer extends Layer {
 	
 	public AxesLayer() {
-		this.canvas = new Canvas();
-		this.gc = canvas.getGraphicsContext2D();
-		
+		super();		
 	}
 	
 	@Override
