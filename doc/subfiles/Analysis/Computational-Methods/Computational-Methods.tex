@@ -12,7 +12,7 @@ By analyzing both parts of these details separately, we can determine if our pro
 
 The first part of the problem is solvable by converting the expression into an abstract syntax tree or into a post-fix stack, which is easily implementable.
 
-The second part of the problem is solvable using heuristic methods. Most APIs, such as OpenGL\cite{opengl} and Vulkan, only allow the drawing of primitives, which are points, lines and triangles.
+The second part of the problem is solvable using heuristic methods. Most APIs, such as \texttt{OpenGL\cite{opengl}} and \texttt{Vulkan}, only allow the drawing of primitives, which are points, lines and triangles.
 \footnote{Strictly this isn't true, but most other things we can draw using these APIs usually consist of a combination of primitives, usually triangles.} This means that our curve cannot be drawn straight onto the screen and must be approximated by either using points or lines, hence there are two ways we can approximate the curve:
 \begin{enumerate}
 \item Let $x$ be our starting value, $f(x)$ our function and $dx$ be a small value. Now draw a line between the points $(x,f(x))$ and $(x+dx,f(x+dx))$; $(x+dx,f(x+dx))$ and $(x+2dx,f(x+2dx))$; ... ;$(x+n\cdot dx,f(x+n\cdot dx))$ and $(x+(n+1)\cdot dx,f(x+(n+1)\cdot dx))$. Here we are effectively creating line segments and joining them together to approximate the curve. As $dx\to0$ our approximation tends towards the real curve. However as $dx\to0$ the time taken tends to infinity and therefore we only need to make $dx$ small enough so that the human eye can not see individual line segments. Also as a practical note, as $dx\to0$, the pixel density required to view the curve tends to infinity, therefore $dx$ needs to be big enough so that the $dx$ is not less than the individual pixel width.
@@ -21,7 +21,7 @@ The second part of the problem is solvable using heuristic methods. Most APIs, s
 By using the first method we can model a curve to good accuracy within good time, therefore our second part of the problem is computationally possible albeit, using a heuristic method.
 \newpage
 \section{Logical Approach}
-Many parts of this problem require clear decision making, making sure that user inputs are valid and making my solution as efficient as possible. I could validate and standardize user input by using RegEx\cite{regex}. I will definitely use standard structures in my solutions, and therefore will be able to logical traverse these structures to get the required solution.
+Many parts of this problem require clear decision making, making sure that user inputs are valid and making my solution as efficient as possible. I could validate and standardize user input by using \texttt{RegEx\cite{regex}}. I will definitely use standard structures in my solutions, and therefore will be able to logical traverse these structures to get the required solution.
 \section{Decomposition}
 Decomposition is where a problem is broken down into smaller sub-problems that are manageable and are solved individually and combined to make the complete solution. As stated in the abstraction section, I can break down the problem into two main parts. These parts could then be broken down further into classes and functions such as:
 \begin{enumerate}

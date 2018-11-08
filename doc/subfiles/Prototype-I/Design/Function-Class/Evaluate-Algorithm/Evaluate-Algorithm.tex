@@ -5,11 +5,11 @@
 \begin{document}
 
 \subsection{Evaluate Algorithm}	
-The evaluate algorithm is very similar to algorithm \ref{evaluateStack}, the stack-based evaluate algorithm. However we will pass in the inputs as parameters and use the substitute algorithm within our evaluate algorithm to replace our variables with the actual values. We will also hardcode the selection and verification of which operator to use instead of assuming that an operator is an object we can manipulate. A precondition of this algorithm is that we are assuming that the original expression is valid, otherwise this algorithm may not behave as intended.
+The \texttt{evaluate} algorithm is very similar to algorithm \ref{alg:evaluateStack}, the stack-based evaluate algorithm. However we will pass in the inputs as parameters and use the \texttt{substitute} algorithm within our \texttt{evaluate} algorithm to replace our variables with the actual values. We will also hardcode the selection and verification of which operator to use instead of assuming that an operator is an object we can manipulate. A precondition of this algorithm is that we are assuming that the original expression is valid, otherwise this algorithm may not behave as intended.
 
 \begin{algorithm}[H]
 \DontPrintSemicolon
-\caption{Evaluate the Expression}
+\caption{Evaluate the Expression for a Value of $x$}
 \Fn{evaluate(\KwDouble x)}{
 	\KwStack substituteStack = substitute(x)\;
 	\KwStack evaluateStack = \KwNew	\KwStack(postFixStack.getHeight())\;

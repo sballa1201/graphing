@@ -11,7 +11,7 @@ The GUI will look something like:
 \end{figure}
 as showcased in the analysis.
 
-Within JavaFX there is a hierarchy\cite{javafxHierarchy} of a standard GUI components. This is shown below:
+Within \texttt{JavaFX} there is a hierarchy\cite{javafxHierarchy} of a standard GUI components. This is shown below:
 \begin{figure}[H]
 \begin{center}
 \begin{forest}
@@ -42,14 +42,14 @@ Within JavaFX there is a hierarchy\cite{javafxHierarchy} of a standard GUI compo
   ]
 \end{forest}
 \end{center}
-\caption{JavaFX Components Hierarchical Diagram}
+\caption{\texttt{JavaFX} Components Hierarchical Diagram}
 \end{figure}
 \begin{wrapfigure}{r}{0.4\textwidth} 
 	\includegraphics[width=0.4\textwidth]{images/borderpaneArchitecture}
-	\caption{Border Pane Architecture}
+	\caption{\texttt{BorderPane} Architecture}
 \end{wrapfigure}
-Now we can manipulate the the nodes beneath Scene. It is standard to make the first node beneath Scene some kind of Pane. For this project a Border Pane is most suited since it has regions that can hold sub-nodes. A diagram of this is shown to the right showcases how a Border Pane is arranged\cite{borderpane} and how it behaves.
+Now we can manipulate the the nodes beneath \texttt{Scene}. It is standard to make the first \texttt{Node} beneath \texttt{Scene} some kind of \texttt{Pane}. For this project a \texttt{BorderPane} is most suited since it has multiple objects of type \texttt{Region}, that can hold one \texttt{Node} each. A diagram of this is shown to the right showcases how a \texttt{BorderPane} is arranged\cite{borderpane} and way it behaves.
 
-The center area can consist of the plots themselves, and the left area can consist of the input. The top area could be used for the ribbon and other buttons to manipulate the plot.
+The center \texttt{Region} can consist of the plots themselves, and the left \texttt{Region} can consist of the input. The top \texttt{Region} could be used for the ribbon and other buttons to manipulate the plot.
 \newpage
 \end{document}
