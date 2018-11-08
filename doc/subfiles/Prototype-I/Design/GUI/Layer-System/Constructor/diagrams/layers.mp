@@ -13,7 +13,8 @@ Class.A("Layer")
 "+draw()",
 "convertX()",
 "convertY()",
-"clearCanvas()")
+"clearCanvas()",
+"bindProperties()")
 ("Canvas canvas",
 "GraphicsContext gc",
 "int steps",
