@@ -5,11 +5,11 @@ import exceptions.StackUnderflowException;
 import exceptions.UnequalBracketsException;
 import structures.ExplicitFunction;
 
-public class ExplicitFunctionLayer extends Layer {
+public class ExplicitFunctionCartesianLayer extends CartesianLayer {
 	
 	private ExplicitFunction f;	
 	
-	public ExplicitFunctionLayer(String expression) {
+	public ExplicitFunctionCartesianLayer(String expression) {
 		super();
 		
 		try {

@@ -1,8 +1,8 @@
 package layer;
 
-public class AxesLayer extends Layer {
+public class AxesCartesianLayer extends CartesianLayer {
 	
-	public AxesLayer() {
+	public AxesCartesianLayer() {
 		super();		
 	}
 	

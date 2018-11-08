@@ -22,8 +22,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
-import layer.AxesLayer;
-import layer.InputLayer;
+import layer.AxesCartesianLayer;
+import layer.InputCartesianLayer;
 import layer.Layer;
 
 public class PlotPaneController implements Initializable {
@@ -38,8 +38,8 @@ public class PlotPaneController implements Initializable {
 		    new ThreadPoolExecutor(1 , 10 , 60 ,  TimeUnit.SECONDS,
 		    		new LinkedBlockingQueue<Runnable>(50));
 	
-	private InputLayer inputLayer;
-	private AxesLayer axes;
+	private InputCartesianLayer inputLayer;
+	private AxesCartesianLayer axes;
 	
 	private IntegerProperty steps = new SimpleIntegerProperty(1000);
 	
@@ -104,7 +104,7 @@ public class PlotPaneController implements Initializable {
 		
 		//this.minX.addListener(redrawListener);
 		
-		this.axes = new AxesLayer();
+		this.axes = new AxesCartesianLayer();
 		axes.bindProperties(this);
 	}
 	
@@ -170,7 +170,7 @@ public class PlotPaneController implements Initializable {
 	}
 	
 	private void setupInputLayer() {
-		this.inputLayer = new InputLayer();
+		this.inputLayer = new InputCartesianLayer();
 		this.inputLayer.bindProperties(this);
 		
 		this.minX.bind(inputLayer.getMinX());
@@ -241,7 +241,7 @@ public class PlotPaneController implements Initializable {
 		return changeViewport;
 	}
 
-	public InputLayer getInputLayer() {
+	public InputCartesianLayer getInputLayer() {
 		return inputLayer;
 	}
 

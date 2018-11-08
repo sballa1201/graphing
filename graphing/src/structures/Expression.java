@@ -156,12 +156,28 @@ private static String checkBracket(String input) throws UnequalBracketsException
 	
 	private static String standardize(String expression) {
 		expression = expression.replace(" ", "");
+		String check = "";
+		while(check!=expression) {
+			check = expression;
+			
+			expression = expression.replaceAll("([^\\+\\-\\*\\/\\(\\)\\^])([\\(x])" , "$1*$2");
+			expression = expression.replaceAll("([\\)x])([^\\+\\-\\*\\/\\(\\)\\^])", "$1*$2");
+			expression = expression.replaceAll("\\)\\(", ")*(");
+			expression = expression.replaceAll("([\\+\\-\\*\\/\\^])-([^\\+\\-\\*\\/\\(\\)\\^]*)", "$1(-$2)");
+			expression = expression.replaceAll("(^|\\()-","$10-");
+		}
+		return expression;
+		
+		// a old one
+/*		
 		expression = expression.replaceAll("([^\\+\\-\\*\\/\\(\\)\\^])([\\(x])" , "$1*$2");
 		expression = expression.replaceAll("([\\)x])([^\\+\\-\\*\\/\\(\\)\\^])", "$1*$2");
 		expression = expression.replaceAll("\\)\\(", ")*(");
 		expression = expression.replaceAll("([\\+\\-\\*\\/\\^])-([^\\+\\-\\*\\/\\(\\)\\^]*)", "$1(-$2)");
 		expression = expression.replaceAll("(^|\\()-","$10-");
-		return expression;
+		*/
+		
+		
 	}
 	
 	
@@ -247,10 +263,15 @@ private static String checkBracket(String input) throws UnequalBracketsException
 		*/
 		
 		//System.out.println(leastSigOperatorPos("3x*4^3+"));
-		String e = "x^7 + x^3 - 1";
+		String e = "(x^(-3)-x^(0.25x^x))   (x^(5*(9x^-3)+0.5^(x-1.5^(-6x))-x^((x^(x^(x)))(5^(x^(-4.5x^2)))))((2.71^(x+2^(-2.71x)))/(x^(-1.5*2.71)*2.71^(3/(x^(-4)))))";
+		
+
+		
+		System.out.println(e);
+		
 		Expression f = new Expression(e);
-		System.out.println(f.bisection(0,2,1000));
-		System.out.println(f.falsePositive(0,2,1000));
+
+		System.out.println(f.postFixStack);
 		
 		
 	}

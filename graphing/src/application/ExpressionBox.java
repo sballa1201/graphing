@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-import layer.ExplicitFunctionLayer;
+import layer.ExplicitFunctionCartesianLayer;
 
 public class ExpressionBox extends HBox {
 
@@ -86,7 +86,7 @@ public class ExpressionBox extends HBox {
 		}
 		
 		try {
-			ExplicitFunctionLayer l = new ExplicitFunctionLayer(f);
+			ExplicitFunctionCartesianLayer l = new ExplicitFunctionCartesianLayer(f);
 			
 			rootController.putLayer(this.ID, l);
 			
