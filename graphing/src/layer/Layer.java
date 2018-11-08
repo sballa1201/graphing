@@ -1,6 +1,6 @@
 package layer;
 
-import application.PlotPaneController;
+import application.PlotPane;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -31,7 +31,7 @@ public abstract class Layer {
 	
 	public abstract void draw();
 	
-	public abstract void bindProperties(PlotPaneController controller);
+	public abstract void bindProperties(PlotPane plotPane);
 	
 	protected void clearCanvas() {
 		gc.clearRect(0, 0,canvas.getWidth(), canvas.getHeight());

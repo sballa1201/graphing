@@ -1,6 +1,6 @@
 package layer;
 
-import application.PlotPaneController;
+import application.PlotPane;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -10,28 +10,28 @@ public abstract class CartesianLayer extends Layer {
 	public abstract void draw();
 	
 	@Override
-	public void bindProperties(PlotPaneController controller) {
-		this.steps = new SimpleIntegerProperty(controller.getSteps().intValue());
-		this.minX = new SimpleDoubleProperty(controller.getInputLayer().getMinX().doubleValue());
-		this.maxX = new SimpleDoubleProperty(controller.getInputLayer().getMaxX().doubleValue());
-		this.minY = new SimpleDoubleProperty(controller.getInputLayer().getMinY().doubleValue());
-		this.maxY = new SimpleDoubleProperty(controller.getInputLayer().getMaxY().doubleValue());
-		this.pixelWorthX = new SimpleDoubleProperty(controller.getPixelWorthX().doubleValue());
-		this.pixelWorthY = new SimpleDoubleProperty(controller.getPixelWorthY().doubleValue());
+	public void bindProperties(PlotPane plotPane) {
+		this.steps = new SimpleIntegerProperty(plotPane.getSteps().intValue());
+		this.minX = new SimpleDoubleProperty(plotPane.getInputLayer().getMinX().doubleValue());
+		this.maxX = new SimpleDoubleProperty(plotPane.getInputLayer().getMaxX().doubleValue());
+		this.minY = new SimpleDoubleProperty(plotPane.getInputLayer().getMinY().doubleValue());
+		this.maxY = new SimpleDoubleProperty(plotPane.getInputLayer().getMaxY().doubleValue());
+		this.pixelWorthX = new SimpleDoubleProperty(plotPane.getPixelWorthX().doubleValue());
+		this.pixelWorthY = new SimpleDoubleProperty(plotPane.getPixelWorthY().doubleValue());
 		
 		
-		canvas.heightProperty().bind(controller.getPlotPane().heightProperty());
-		canvas.widthProperty().bind(controller.getPlotPane().widthProperty());
+		canvas.heightProperty().bind(plotPane.heightProperty());
+		canvas.widthProperty().bind(plotPane.widthProperty());
 		
 	
 		
-		this.steps.bind(controller.getSteps());
-		this.minX.bind(controller.getInputLayer().getMinX());
-		this.maxX.bind(controller.getInputLayer().getMaxX());
-		this.minY.bind(controller.getInputLayer().getMinY());
-		this.maxY.bind(controller.getInputLayer().getMaxY());
-		this.pixelWorthX.bind(controller.getPixelWorthX());
-		this.pixelWorthY.bind(controller.getPixelWorthY());
+		this.steps.bind(plotPane.getSteps());
+		this.minX.bind(plotPane.getInputLayer().getMinX());
+		this.maxX.bind(plotPane.getInputLayer().getMaxX());
+		this.minY.bind(plotPane.getInputLayer().getMinY());
+		this.maxY.bind(plotPane.getInputLayer().getMaxY());
+		this.pixelWorthX.bind(plotPane.getPixelWorthX());
+		this.pixelWorthY.bind(plotPane.getPixelWorthY());
 		
 		//System.out.println("BOUND");
 	}

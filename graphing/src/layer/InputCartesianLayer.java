@@ -2,7 +2,7 @@ package layer;
 
 import java.text.DecimalFormat;
 
-import application.PlotPaneController;
+import application.PlotPane;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -148,25 +148,25 @@ public class InputCartesianLayer extends Layer {
 	public void draw() {}
 	
 	@Override
-	public void bindProperties(PlotPaneController controller) {
+	public void bindProperties(PlotPane plotPane) {
 
 		
-		this.steps = new SimpleIntegerProperty(controller.getSteps().intValue());
-		this.minX = new SimpleDoubleProperty(controller.getMinX().doubleValue());
-		this.maxX = new SimpleDoubleProperty(controller.getMaxX().doubleValue());
-		this.minY = new SimpleDoubleProperty(controller.getMinY().doubleValue());
-		this.maxY = new SimpleDoubleProperty(controller.getMaxY().doubleValue());
-		this.pixelWorthX = new SimpleDoubleProperty(controller.getPixelWorthX().doubleValue());
-		this.pixelWorthY = new SimpleDoubleProperty(controller.getPixelWorthY().doubleValue());
+		this.steps = new SimpleIntegerProperty(plotPane.getSteps().intValue());
+		this.minX = new SimpleDoubleProperty(plotPane.getMinX().doubleValue());
+		this.maxX = new SimpleDoubleProperty(plotPane.getMaxX().doubleValue());
+		this.minY = new SimpleDoubleProperty(plotPane.getMinY().doubleValue());
+		this.maxY = new SimpleDoubleProperty(plotPane.getMaxY().doubleValue());
+		this.pixelWorthX = new SimpleDoubleProperty(plotPane.getPixelWorthX().doubleValue());
+		this.pixelWorthY = new SimpleDoubleProperty(plotPane.getPixelWorthY().doubleValue());
 		
-		this.pixelWorthX.bind(controller.getPixelWorthX());
-		this.pixelWorthY.bind(controller.getPixelWorthY());
+		this.pixelWorthX.bind(plotPane.getPixelWorthX());
+		this.pixelWorthY.bind(plotPane.getPixelWorthY());
 		
 		
-		canvas.heightProperty().bind(controller.getPlotPane().heightProperty());
-		canvas.widthProperty().bind(controller.getPlotPane().widthProperty());
+		canvas.heightProperty().bind(plotPane.heightProperty());
+		canvas.widthProperty().bind(plotPane.widthProperty());
 		
-		changeViewport = new SimpleBooleanProperty(controller.getChangeViewport().get());
+		changeViewport = new SimpleBooleanProperty(plotPane.getChangeViewport().get());
 		
 	}
 	

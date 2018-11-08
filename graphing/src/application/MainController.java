@@ -27,22 +27,18 @@ public class MainController implements Initializable {
 		System.out.println(shareLayerStore);
 		
 		
-		Pane plotPane = null;
 		FXMLLoader loader = null;
-		try {
-			loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("PlotPane.fxml"));
-            plotPane = loader.load();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
-		PlotPaneController plotPaneController = (PlotPaneController) loader.getController();
 		
-		plotPaneController.setShareLayerStore(shareLayerStore);
+		
+		PlotPane plotPane = new PlotPane();
+		
+		plotPane.setShareLayerStore(shareLayerStore);
 		
 		rootPane.setCenter(plotPane);
+		
+		
+		
 		
 		ScrollPane inputPane = null;
 		try {
