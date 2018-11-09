@@ -3,7 +3,6 @@ package layer;
 import exceptions.StackOverflowException;
 import exceptions.StackUnderflowException;
 import exceptions.UnequalBracketsException;
-import structures.ExplicitXFunction;
 import structures.ExplicitYFunction;
 
 public class ExplicitYFunctionCartesianLayer extends CartesianLayer {

@@ -26,7 +26,7 @@ public class InputPane extends ScrollPane {
 		this.setFitToHeight(true);
 		this.setFitToWidth(true);
 		this.setHbarPolicy(ScrollBarPolicy.NEVER);
-		this.setPrefWidth(292.0);
+		this.setPrefWidth(290.0);
 		
 		
 		this.expressionBox = new VBox();
