@@ -10,7 +10,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-import layer.ExplicitFunctionCartesianLayer;
+import layer.ExplicitXFunctionCartesianLayer;
+import layer.ExplicitYFunctionCartesianLayer;
 
 public class ExpressionBox extends HBox {
 
@@ -83,17 +84,41 @@ public class ExpressionBox extends HBox {
 			return;
 		}
 		
-		try {
-			ExplicitFunctionCartesianLayer l = new ExplicitFunctionCartesianLayer(f);
-			
-			inputPane.putLayer(this.ID, l);
-			
-			System.out.println("update - "+l);
-			
-		} catch(NullPointerException e) {
-			System.out.println("share doesnt exist");
-		} catch(Exception e) {
-			System.out.println("other prob");
+		int xInstances = f.length() - f.replaceAll("x","").length();
+		
+		int yInstances = f.length() - f.replaceAll("y","").length();
+		
+		
+		if(xInstances > 0 && yInstances > 0) {
+			inputPane.removeLayer(ID);
+			return;
+		} else if(yInstances > 0) {
+		
+			try {
+				ExplicitYFunctionCartesianLayer l = new ExplicitYFunctionCartesianLayer(f);
+				
+				inputPane.putLayer(this.ID, l);
+				
+				System.out.println("update - "+l);
+				
+			} catch(NullPointerException e) {
+				System.out.println("share doesnt exist");
+			} catch(Exception e) {
+				System.out.println("other prob");
+			}
+		} else {
+			try {
+				ExplicitXFunctionCartesianLayer l = new ExplicitXFunctionCartesianLayer(f);
+				
+				inputPane.putLayer(this.ID, l);
+				
+				System.out.println("update - "+l);
+				
+			} catch(NullPointerException e) {
+				System.out.println("share doesnt exist");
+			} catch(Exception e) {
+				System.out.println("other prob");
+			}
 		}
 	}
 

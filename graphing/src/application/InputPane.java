@@ -31,8 +31,6 @@ public class InputPane extends ScrollPane {
 		
 		this.expressionBox = new VBox();
 		
-		this.expressionBox.setPrefHeight(800);
-		
 		this.setContent(this.expressionBox);
 		
 		//this.setPannable(true);

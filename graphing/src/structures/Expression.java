@@ -14,13 +14,17 @@ public class Expression {
 	
 	
 	public Expression(String expression) throws StackOverflowException, StackUnderflowException, UnequalBracketsException {
-		this.expression = standardize(expression);
 		this.parameter = "x";
+		this.expression = standardize(expression);		
 		BinaryTree tree = createTree(this.expression);
-		this.postFixStack = tree.traverse();
-		//dont reverse stack at the start
-		//this.postFixStack.reverse();
-				
+		this.postFixStack = tree.traverse();				
+	}
+	
+	public Expression(String expression, String parameter) throws StackOverflowException, StackUnderflowException, UnequalBracketsException {
+		this.parameter = parameter;
+		this.expression = standardize(expression);		
+		BinaryTree tree = createTree(this.expression);
+		this.postFixStack = tree.traverse();				
 	}
 	
 	public double evaluate(double x) throws StackUnderflowException, StackOverflowException {
@@ -77,7 +81,9 @@ public class Expression {
 			String pop = copy.pop();			
 			if(pop.equals(this.parameter)) {
 				pop = Double.toString(x);
-			} 
+			} else if(pop.equals("e")) {
+				pop = Double.toString(Math.E);
+			}
 			subStack.push(pop);
 		}
 		//subStack.reverse();
@@ -126,7 +132,7 @@ public class Expression {
 	
 
 	
-private static String checkBracket(String input) throws UnequalBracketsException, StringIndexOutOfBoundsException {
+	private static String checkBracket(String input) throws UnequalBracketsException, StringIndexOutOfBoundsException {
 		boolean done = false;
 		while(!done) {
 			done = true;
@@ -154,17 +160,36 @@ private static String checkBracket(String input) throws UnequalBracketsException
 		return input;
 	}
 	
-	private static String standardize(String expression) {
+	private String standardize(String expression) {
 		expression = expression.replace(" ", "");
 		String check = "";
+		
+		String regex1 = "([^\\+\\-\\*\\/\\(\\)\\^])([\\("+this.parameter+"])";
+		
+		System.out.println(regex1);
+		
+		String replace1 = "$1*$2";
+		
+		String regex2 = "([\\)"+this.parameter+"])([^\\+\\-\\*\\/\\(\\)\\^])";
+		String replace2 = "$1*$2";
+		
+		String regex3 = "\\)\\(";
+		String replace3 = ")*(";
+		
+		String regex4 = "([\\+\\-\\*\\/\\^])-([^\\+\\-\\*\\/\\(\\)\\^]*)";
+		String replace4 = "$1(-$2)";
+		
+		String regex5 = "(^|\\()-";
+		String replace5 = "$10-";
+		
 		while(check!=expression) {
 			check = expression;
 			
-			expression = expression.replaceAll("([^\\+\\-\\*\\/\\(\\)\\^])([\\(x])" , "$1*$2");
-			expression = expression.replaceAll("([\\)x])([^\\+\\-\\*\\/\\(\\)\\^])", "$1*$2");
-			expression = expression.replaceAll("\\)\\(", ")*(");
-			expression = expression.replaceAll("([\\+\\-\\*\\/\\^])-([^\\+\\-\\*\\/\\(\\)\\^]*)", "$1(-$2)");
-			expression = expression.replaceAll("(^|\\()-","$10-");
+			expression = expression.replaceAll(regex1 , replace1);
+			expression = expression.replaceAll(regex2, replace2);
+			expression = expression.replaceAll(regex3, replace3);
+			expression = expression.replaceAll(regex4, replace4);
+			expression = expression.replaceAll(regex5, replace5);
 		}
 		return expression;
 		
@@ -195,7 +220,7 @@ private static String checkBracket(String input) throws UnequalBracketsException
 					} else {
 						a = c;
 					}
-				} else {
+				} else { 
 					if(fA > 0) {
 						a = c;
 					} else {
@@ -265,11 +290,12 @@ private static String checkBracket(String input) throws UnequalBracketsException
 		//System.out.println(leastSigOperatorPos("3x*4^3+"));
 		String e = "(x^(-3)-x^(0.25x^x))   (x^(5*(9x^-3)+0.5^(x-1.5^(-6x))-x^((x^(x^(x)))(5^(x^(-4.5x^2)))))((2.71^(x+2^(-2.71x)))/(x^(-1.5*2.71)*2.71^(3/(x^(-4)))))";
 		
+		String s = "yy";
 
 		
-		System.out.println(e);
+		System.out.println(s);
 		
-		Expression f = new Expression(e);
+		Expression f = new Expression(s,"y");
 
 		System.out.println(f.postFixStack);
 		
