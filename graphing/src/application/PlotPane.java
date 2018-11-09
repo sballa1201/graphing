@@ -1,8 +1,6 @@
 package application;
 
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -19,11 +17,8 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
 import layer.AxesCartesianLayer;
-import layer.ExplicitFunctionCartesianLayer;
 import layer.InputCartesianLayer;
 import layer.Layer;
 

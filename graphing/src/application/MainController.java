@@ -1,15 +1,11 @@
 package application;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 
 public class MainController implements Initializable {
 	
@@ -27,9 +23,6 @@ public class MainController implements Initializable {
 		System.out.println(shareLayerStore);
 		
 		
-		FXMLLoader loader = null;
-		
-		
 		
 		PlotPane plotPane = new PlotPane();
 		
@@ -40,21 +33,12 @@ public class MainController implements Initializable {
 		
 		
 		
-		ScrollPane inputPane = null;
-		try {
-			loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("InputPane.fxml"));
-            inputPane = loader.load();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		InputPaneController inputPaneController = (InputPaneController) loader.getController();
-		
-		inputPaneController.setShareLayerStore(shareLayerStore);
+		InputPane inputPane = new InputPane();
+		inputPane.setShareLayerStore(shareLayerStore);
 		
 		rootPane.setLeft(inputPane);
+		
+		//rootPane.setLeft(inputPane);
 	}
 	
 	

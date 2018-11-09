@@ -24,19 +24,17 @@ public class ExpressionBox extends HBox {
 	
 	private StringProperty functionText = new SimpleStringProperty();
 	
-	private InputPaneController rootController;
+	private InputPane inputPane;
 	
-	public ExpressionBox(int ID, InputPaneController rootController) {
+	public ExpressionBox(int ID, InputPane inputPane) {
 		
 		this.ID = ID;
 		
-		this.rootController = rootController;
+		this.inputPane = inputPane;
 		
 		label = new Label("Label");
 		
 		label.setAlignment(Pos.CENTER_LEFT);
-		
-	
 		
 		input = new TextField();
 		input.setAlignment(Pos.CENTER_LEFT);
@@ -81,14 +79,14 @@ public class ExpressionBox extends HBox {
 		
 		
 		if(f.length() == 0) {
-			rootController.removeLayer(ID);
+			inputPane.removeLayer(ID);
 			return;
 		}
 		
 		try {
 			ExplicitFunctionCartesianLayer l = new ExplicitFunctionCartesianLayer(f);
 			
-			rootController.putLayer(this.ID, l);
+			inputPane.putLayer(this.ID, l);
 			
 			System.out.println("update - "+l);
 			
@@ -102,7 +100,7 @@ public class ExpressionBox extends HBox {
 
 
 	private void remove() {
-		this.rootController.removeExpression(this.ID);
+		this.inputPane.removeExpression(this.ID);
 	}
 
 

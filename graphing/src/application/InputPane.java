@@ -1,12 +1,8 @@
 package application;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
@@ -15,13 +11,9 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import layer.Layer;
 
-public class InputPaneController implements Initializable {
+public class InputPane extends ScrollPane {
 	
-	@FXML
-	private ScrollPane inputPane;
-	
-	@FXML
-	private VBox expressionBox;
+	private VBox expressionBox  = new VBox();
 	
 	public ShareLayers shareLayerStore;
 	
@@ -29,14 +21,25 @@ public class InputPaneController implements Initializable {
 	
 	private List<Integer> freeID = new ArrayList<Integer>();
 	
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-			
+	public InputPane() {
 		
+		this.setFitToHeight(true);
+		this.setFitToWidth(true);
+		this.setHbarPolicy(ScrollBarPolicy.NEVER);
+		this.setPrefWidth(292.0);
+		
+		
+		this.expressionBox = new VBox();
+		
+		this.expressionBox.setPrefHeight(800);
+		
+		this.setContent(this.expressionBox);
+		
+		//this.setPannable(true);
 		
 		this.setupNewButton();
 		
-		this.addExpression();
+		this.addExpression();		
 		
 	}
 	
@@ -114,7 +117,11 @@ public class InputPaneController implements Initializable {
 		HBox.setHgrow(fillerSpace2, Priority.ALWAYS);
 			
 		
+		
 		this.expressionBox.getChildren().add(buttonHolder);
+		
+		//this.updateVbox();
+		
 	}
 
 
