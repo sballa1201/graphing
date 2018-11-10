@@ -1,0 +1,16 @@
+\documentclass[../../../../../main.tex]{subfiles}
+\begin{document}
+
+\section{Plot Pane}
+The purpose of the \texttt{PlotPane} is to manage the layers. The \texttt{PlotPane} will tell them when to draw and notify them when something changes through the use of properties. Our \texttt{PlotPane} will inherit the \texttt{JavaFX Pane}. While we could have used \texttt{FXML}, \texttt{FXML} is more applicable when there are complicated UI components that are hard to arrange and manage. In this situation we only need to have one \texttt{Pane} hence there is no need to use \texttt{FXML}. Inheriting \texttt{Pane} also allows it to integrate well within the \texttt{JavaFX} hierarchy.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.45\textwidth]{diagrams/plotpane.mps}
+	\caption{\texttt{PlotPane} Class}
+\end{figure}
+
+The \texttt{drawAll()} procedure will call the draw function for every \texttt{Layer}. We will start by doing this on a single thread, and then we will implement it using multiple threads.  The \texttt{addLayer()} function will add the \texttt{Layer} to the list, and bind the layers' properties to the \texttt{PlotPane.}
+\newpage
+
+\end{document}

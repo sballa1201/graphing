@@ -10,28 +10,28 @@ input metauml;
 beginfig(0);
 Class.A("Layer")
 ("+Layer()",
-"+draw()",
-"convertX()",
-"convertY()",
-"clearCanvas()",
-"bindProperties()")
+"+void draw()",
+"double convertX(double x)",
+"double convertY(double y)",
+"void clearCanvas()",
+"void bindProperties(PlotPane plotPane)")
 ("Canvas canvas",
 "GraphicsContext gc",
-"int steps",
-"double minX",
-"double maxX",
-"double minY",
-"double maxY",
-"double pixelWorthX",
-"double pixelWorthY");
+"IntegerProperty steps",
+"DoubleProperty minX",
+"DoubleProperty maxX",
+"DoubleProperty minY",
+"DoubleProperty maxY",
+"DoubleProperty pixelWorthX",
+"DoubleProperty pixelWorthY");
 
 Class.B("ExplicitFunctionLayer")
 ("+ExplicitFunctionLayer(String expression)",
-"+draw()")("-ExplicitFunction f");
+"+void draw()")("-ExplicitFunction f");
 
 Class.C("AxesLayer")
 ("+AxesLayer()",
-"+draw()")();
+"+void draw()")();
 
 B.ne = A.sw + (40, -40);
 C.nw = A.se + (20, -40);
