@@ -1,5 +1,6 @@
 package application;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -33,7 +34,14 @@ public class MainController implements Initializable {
 		
 		
 		
-		InputPane inputPane = new InputPane();
+		InputPane inputPane = null;
+		try {
+			inputPane = new InputPane();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(inputPane);
 		inputPane.setShareLayerStore(shareLayerStore);
 		
 		rootPane.setLeft(inputPane);

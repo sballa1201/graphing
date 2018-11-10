@@ -1,8 +1,10 @@
 package application;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
@@ -13,7 +15,7 @@ import layer.Layer;
 
 public class InputPane extends ScrollPane {
 	
-	private VBox expressionBox  = new VBox();
+	private VBox expressionBoxStore  = new VBox();
 	
 	public ShareLayers shareLayerStore;
 	
@@ -21,7 +23,7 @@ public class InputPane extends ScrollPane {
 	
 	private List<Integer> freeID = new ArrayList<Integer>();
 	
-	public InputPane() {
+	public InputPane() throws IOException {
 		
 		this.setFitToHeight(true);
 		this.setFitToWidth(true);
@@ -29,9 +31,9 @@ public class InputPane extends ScrollPane {
 		this.setPrefWidth(290.0);
 		
 		
-		this.expressionBox = new VBox();
+		this.expressionBoxStore = new VBox();
 		
-		this.setContent(this.expressionBox);
+		this.setContent(this.expressionBoxStore);
 		
 		//this.setPannable(true);
 		
@@ -42,9 +44,9 @@ public class InputPane extends ScrollPane {
 	}
 	
 	
-	private void addExpression() {
+	private void addExpression() throws IOException {
 		
-		int insert = this.expressionBox.getChildren().size() - 1;
+		int insert = this.expressionBoxStore.getChildren().size() - 1;
 		
 		int ID;
 		
@@ -58,19 +60,31 @@ public class InputPane extends ScrollPane {
 			
 		}
 		
-		ExpressionBox box = new ExpressionBox(ID,this);
 		
-		this.expressionBox.getChildren().add(insert,box);		
+		FXMLLoader loader = new FXMLLoader();
+		
+		loader.setLocation(Main.class.getResource("ExpressionBox.fxml"));
+		HBox expressionBox = loader.load();
+		
+		
+		expressionBox.setId(Integer.toString(ID));
+		
+		ExpressionBoxController eBoxController = (ExpressionBoxController) loader.getController();
+		
+		eBoxController.setID(ID);
+		eBoxController.setInputPane(this);
+		
+		this.expressionBoxStore.getChildren().add(insert,expressionBox);		
 	}
 	
-	public void removeExpression(int ID) {
+	public void removeExpression(int ID) throws IOException {
 		
 		this.removeLayer(ID);
 		
-		for(int i=0; i < this.expressionBox.getChildren().size() - 1; i++) {
-			ExpressionBox box = (ExpressionBox) this.expressionBox.getChildren().get(i);
-			if(box.getID() == ID) {
-				this.expressionBox.getChildren().remove(i);
+		for(int i=0; i < this.expressionBoxStore.getChildren().size() - 1; i++) {
+			HBox box = (HBox) this.expressionBoxStore.getChildren().get(i);
+			if(Integer.parseInt(box.getId()) == ID) {
+				this.expressionBoxStore.getChildren().remove(i);
 				this.freeID.add(ID);
 				break;
 			}
@@ -78,7 +92,7 @@ public class InputPane extends ScrollPane {
 		
 		
 		
-		if(this.expressionBox.getChildren().size() == 1) {
+		if(this.expressionBoxStore.getChildren().size() == 1) {
 			this.freeID = new ArrayList<Integer>();
 			this.IDMaxCount = 0;
 			this.addExpression();
@@ -98,7 +112,13 @@ public class InputPane extends ScrollPane {
 	private void setupNewButton() {
 		Button newExpression = new Button("New Expression");
 		
-		newExpression.setOnAction(event -> addExpression());
+		newExpression.setOnAction(event -> {
+			try {
+				addExpression();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
 		
 		
 		
@@ -116,7 +136,7 @@ public class InputPane extends ScrollPane {
 			
 		
 		
-		this.expressionBox.getChildren().add(buttonHolder);
+		this.expressionBoxStore.getChildren().add(buttonHolder);
 		
 		//this.updateVbox();
 		
