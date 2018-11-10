@@ -76,7 +76,7 @@ public interface ChangeScene {
 	
 	
 	public default void openNewStage(String name, boolean lock, boolean resizable) throws IOException {
-		Pane root = FXMLLoader.load(getClass().getResource("/ShowScores.fxml"));
+		Pane root = FXMLLoader.load(getClass().getResource(name));
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         if(lock) {

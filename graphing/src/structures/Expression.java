@@ -81,8 +81,6 @@ public class Expression {
 			String pop = copy.pop();			
 			if(pop.equals(this.parameter)) {
 				pop = Double.toString(x);
-			} else if(pop.equals("e")) {
-				pop = Double.toString(Math.E);
 			}
 			subStack.push(pop);
 		}
@@ -162,6 +160,9 @@ public class Expression {
 	
 	private String standardize(String expression) {
 		expression = expression.replace(" ", "");
+		
+		expression = expression.replace("e", Double.toString(Math.E));
+		
 		String check = "";
 		
 		String regex1 = "([^\\+\\-\\*\\/\\(\\)\\^])([\\("+this.parameter+"])";

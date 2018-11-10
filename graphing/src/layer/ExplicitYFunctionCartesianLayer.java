@@ -45,18 +45,8 @@ public class ExplicitYFunctionCartesianLayer extends CartesianLayer {
 		
 		for(y2=this.minY.doubleValue()+step; y2<this.maxY.doubleValue();y2=y2+step) {
 			try {
-				//System.out.println(this.convertX(x1) + " - " + this.convertY(y1));
 				x2 = f.evaluate(y2);
-				gc.strokeLine(this.convertX(x1), this.convertY(y1), this.convertX(x2), this.convertY(y2));
-				//System.out.println(Math.abs(x1-x2));
-				
-				if((Math.sqrt(Math.pow((x1-x2),2) + Math.pow((y1-y2),2))) > 1) {
-					System.out.println(x1);
-					System.out.println(x2);
-					System.out.println(y1);
-					System.out.println(y2);
-				}
-				
+				gc.strokeLine(this.convertX(x1), this.convertY(y1), this.convertX(x2), this.convertY(y2));				
 				x1 = x2;
 				y1 = y2;
 			} catch(ArithmeticException e) {
