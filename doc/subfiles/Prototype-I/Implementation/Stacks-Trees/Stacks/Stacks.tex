@@ -1,0 +1,101 @@
+\documentclass[../../../../../main.tex]{subfiles}
+\begin{document}
+
+\subsection{Stacks}
+I will be implementing Stacks using a concept called \textit{Generic Programming\cite{generics}}. This is best explained with an example.
+
+Imagine we have a data structure which will only ever contain one type of object but we will use this data structure in different scenarios, each with different types of object\footnote{Another restriction here is that we are doing operations on the structure not on the objects themselves, hence the operations (implemented as methods) must be generic, another reason for the name \textit{Generic Programming\cite{generics}}.}.
+ Now we can use an OOP approach where we have a base abstract class called \texttt{Structure} and then we create other classes that are related to a certain type of object and make it inherit this class, e.g.\ \texttt{IntegerStructure} or \texttt{StringStructure}. However this can become unreasonable to do this for every single object that we use this structure for.
+ 
+ A more elegant approach is to use \textit{Generics}. This is where we link a type of object with the structure. Let this type of object be of type \texttt{T}. Now we make our structure of type \texttt{T} and make all of its methods take or return an object of type \texttt{T}. This allows the structure to be versatile and be used for any object.
+
+Here is the implementation I have created in Java:
+
+\begin{minted}{java}
+package structures;
+
+import exceptions.StackOverflowException;
+import exceptions.StackUnderflowException;
+
+public class Stack<T> {
+	
+	//attributes
+		//pointer variables
+		private int maxHeight;
+		private int height = 0;
+		private int pointer = -1;
+		//stack
+		private T[] stack;
+	
+	//methods
+	//constructor
+	@SuppressWarnings("unchecked")
+	public Stack(int maxHeight) {
+		this.maxHeight = maxHeight;	//set this max height
+		//create an array of this size of type "T"
+		this.stack = (T[]) new Object[this.maxHeight];		
+	}
+	
+	//push an item on to the stack
+	public void push(T push) throws StackOverflowException {
+		if(height == maxHeight) {	//check that the stack isn't full
+			throw new StackOverflowException();
+		} else {
+			//make the element one above the top, the new value
+			this.stack[this.pointer+1] = push; 
+			this.pointer++;	//increment pointer variables
+			this.height++;
+		}
+	}
+	
+	//pop an item off the stack
+	public T pop() throws StackUnderflowException {
+		if(this.isEmpty()) {	//check that the stack isn't full
+			throw new StackUnderflowException();
+		} else {
+			//get the value of the top element
+			//no need to make it null, it is a waste of an instruction
+			//it also releases no memory since we are using
+			//an array to store our stack which is a static structure
+			T pop = this.stack[this.pointer];
+			this.pointer--; //decrement pointer variables
+			this.height--;
+			return pop;	//return the popped value
+		}
+	}
+	
+	//check if stack is empty, return true if so
+	public boolean isEmpty() {
+		return  this.height==0 ? true : false;
+	}
+	
+	//return the height of the stack
+	public int getHeight() {
+		return height;
+	}
+
+	//allow for a visualization of the stack by listing it
+	//with the top element being encapsulated in square brackets
+	@Override
+	public String toString() {
+		if(this.isEmpty()) {	//if empty notify the user
+			return "Stack is Empty";
+		} else {
+			//highlight the top element
+			String out = "[" + this.stack[this.pointer] + "]";
+			//loop through the rest of the stack backwards
+			//concatenating each element to a string
+			for(int i=this.pointer-1; i>=0; i--) {
+				out = out + ", " + this.stack[i].toString() ;
+			}
+			return out;	//return this string
+		}
+	}
+	
+}
+\end{minted}
+There are two custom \texttt{Exception} classes that I have created for this class, \texttt{StackOverflowException} and \texttt{StackUnderFlowException}, in a separate package. These simply output a different message to the standard \texttt{Exception} class. The code for this is at the end of the documentation.
+
+\newpage
+
+\end{document}
