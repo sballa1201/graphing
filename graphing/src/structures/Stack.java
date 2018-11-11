@@ -1,25 +1,30 @@
 package structures;
 
-
 import exceptions.StackOverflowException;
 import exceptions.StackUnderflowException;
 
 public class Stack<T> {
-
-	private int maxHeight;
-	private int height = 0;
-	private int pointer = -1;
-	private T[] stack;
 	
+	//attributes
+		//pointer variables
+		private int maxHeight;
+		private int height = 0;
+		private int pointer = -1;
+		//stack
+		private T[] stack;
+	
+	//methods
+	//constructor
 	@SuppressWarnings("unchecked")
 	public Stack(int maxHeight) {
-		this.maxHeight = maxHeight;
+		this.maxHeight = maxHeight;	//set this max height
+		//create an array of this size of type "T"
 		this.stack = (T[]) new Object[this.maxHeight];		
 	}
 	
+	//copy constructor
 	@SuppressWarnings("unchecked")
 	public Stack(Stack<T> copy){
-		
 		this.pointer = copy.pointer;
 		this.height = copy.height;
 		this.maxHeight = copy.maxHeight;
@@ -29,68 +34,66 @@ public class Stack<T> {
 		}
 	}
 	
+	//push an item on to the stack
 	public void push(T push) throws StackOverflowException {
-		if(height == maxHeight) {
+		if(height == maxHeight) {	//check that the stack isn't full
 			throw new StackOverflowException();
 		} else {
-			this.pointer++;
+			//make the element one above the top, the new value
+			this.stack[this.pointer+1] = push;
+			this.pointer++;	//increment pointer variables
 			this.height++;
-			this.stack[this.pointer] = push;
 		}
 	}
 	
+	//pop an item off the stack
 	public T pop() throws StackUnderflowException {
-		if(this.pointer < 0) {
+		if(this.isEmpty()) {	//check that the stack isn't full
 			throw new StackUnderflowException();
 		} else {
+			//get the value of the top element
+			//no need to make it null, it is a waste of an instruction
+			//it also releases no memory since we are using
+			//an array to store our stack which is a static structure
 			T pop = this.stack[this.pointer];
-			this.pointer--;
+			this.pointer--; //decrement pointer variables
 			this.height--;
-			return pop;
+			
+			return pop;	//return the popped value
 		}
 	}
 	
-	public void reverse() throws StackOverflowException, StackUnderflowException {
-		Stack<T> reverse = new Stack<T>(this.height);
-		for(int i=this.height; i>0 ;i--) {
-			reverse.push(this.pop());
-		}
-		
-		this.stack = reverse.stack;
-		this.pointer = reverse.pointer;
-		this.height = reverse.height;
-		
-		
-	}
-
+	
+	//check if stack is empty, return true if so
 	public boolean isEmpty() {
-		if(this.height == 0) {
-			return true;
-		} else {
-			return false;
-		}
+		return  this.height==0 ? true : false;
 	}
 	
+	//return the height of the stack
 	public int getHeight() {
 		return height;
 	}
 
-	
+	//allow for a visualization of the stack by listing it
+	//with the top element being encapsulated in square brackets
 	@Override
 	public String toString() {
-		if(this.isEmpty()) {
+		if(this.isEmpty()) {	//if empty notify the user
 			return "Stack is Empty";
 		} else {
+			//highlight the top element
 			String out = "[" + this.stack[this.pointer] + "]";
+			//loop through the rest of the stack backwards
+			//concatenating each element to a string
 			for(int i=this.pointer-1; i>=0; i--) {
 				out = out + ", " + this.stack[i].toString() ;
 			}
-			return out;
+			return out;	//return this string
 		}
 	}
 	
 	
-	public static void main(String[] args) throws StackOverflowException, StackUnderflowException {
+/*	public static void main(String[] args) throws StackOverflowException, StackUnderflowException {
 		Stack<String> s1 = new Stack<String>(4);
 		s1.push("1");
 		s1.push("2");
@@ -100,6 +103,11 @@ public class Stack<T> {
 		System.out.println(s1);
 		System.out.println(s2);
 		
-	}
+		Stack<String> test = new Stack<String>(10);
+		test.push("10");
+		test.pop();
+		System.out.println(test.isEmpty());
+		
+	}*/
 
 }
