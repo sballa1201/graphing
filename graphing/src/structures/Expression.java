@@ -161,17 +161,15 @@ public class Expression {
 	private String standardize(String expression) {
 		expression = expression.replace(" ", "");
 		
-		expression = expression.replace("e", Double.toString(Math.E));
+		expression = expression.replace("[","(");
+		expression = expression.replace("]", ")");
+		expression = expression.replace("{", "(");
+		expression = expression.replace("}", ")");
 		
-		String check = "";
-		
-		String regex1 = "([^\\+\\-\\*\\/\\(\\)\\^])([\\("+this.parameter+"])";
-		
-		System.out.println(regex1);
-		
+		String regex1 = "([^\\(\\)\\+\\-\\*\\/\\^])([\\(a-z])";
 		String replace1 = "$1*$2";
 		
-		String regex2 = "([\\)"+this.parameter+"])([^\\+\\-\\*\\/\\(\\)\\^])";
+		String regex2 = "([\\)a-z])([^\\(\\)\\+\\-\\*\\/\\^])";
 		String replace2 = "$1*$2";
 		
 		String regex3 = "\\)\\(";
@@ -182,16 +180,19 @@ public class Expression {
 		
 		String regex5 = "(^|\\()-";
 		String replace5 = "$10-";
-		
-		while(check!=expression) {
-			check = expression;
 			
-			expression = expression.replaceAll(regex1 , replace1);
-			expression = expression.replaceAll(regex2, replace2);
-			expression = expression.replaceAll(regex3, replace3);
-			expression = expression.replaceAll(regex4, replace4);
-			expression = expression.replaceAll(regex5, replace5);
-		}
+		expression = expression.replaceAll(regex1 , replace1);
+		expression = expression.replaceAll(regex2, replace2);
+		expression = expression.replaceAll(regex3, replace3);
+		
+		expression = expression.replaceAll(regex4, replace4);
+		expression = expression.replaceAll(regex5, replace5);
+		
+			
+		
+		expression = expression.replaceAll("e",Double.toString(Math.E));
+		
+		
 		return expression;
 		
 		// a old one
@@ -291,12 +292,12 @@ public class Expression {
 		//System.out.println(leastSigOperatorPos("3x*4^3+"));
 		//String e = "(x^(-3)-x^(0.25x^x))   (x^(5*(9x^-3)+0.5^(x-1.5^(-6x))-x^((x^(x^(x)))(5^(x^(-4.5x^2)))))((2.71^(x+2^(-2.71x)))/(x^(-1.5*2.71)*2.71^(3/(x^(-4)))))";
 		
-		String s = "yy";
+		String s = "3x3";
 
 		
 		System.out.println(s);
 		
-		Expression f = new Expression(s,"y");
+		Expression f = new Expression(s,"x");
 
 		System.out.println(f.postFixStack);
 		

@@ -24,11 +24,13 @@ public class Main extends Application {
 		}
 	}
 	
+	
 	@Override
 	public void stop(){
 	    System.out.println("Program is Closing");
 	    System.exit(0);
 	}
+	
 	
 	public static void main(String[] args) {
 		launch(args);
