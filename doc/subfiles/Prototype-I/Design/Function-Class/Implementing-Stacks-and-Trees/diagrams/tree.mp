@@ -7,13 +7,12 @@ verbatimtex
 \begin{document}
 etex
 input metauml;
-beginfig(0);
-Class.A("Tree")
+beginfig(0);Class.A("Tree")
 	("+Tree(String value)",
 	"+String getValue()",	
 	"+void setValue(String value)",
-	"+List traverse()",
-	"-List traverseHelper(Tree tree, &List order)")
+	"+Stack traverse()",
+	"-Stack traverseHelper(Tree tree, &Stack order)")
 	("+Tree right = null",
 	"+Tree left = null",
 	"-String value",

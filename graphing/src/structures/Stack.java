@@ -19,19 +19,16 @@ public class Stack<T> {
 	public Stack(int maxHeight) {
 		this.maxHeight = maxHeight;	//set this max height
 		//create an array of this size of type "T"
-		this.stack = (T[]) new Object[this.maxHeight];		
+		this.stack = (T[]) new Object[this.maxHeight];
 	}
 	
 	//copy constructor
-	@SuppressWarnings("unchecked")
 	public Stack(Stack<T> copy){
+		//assign the new stacks' attributes' values the original stacks' attributes
 		this.pointer = copy.pointer;
 		this.height = copy.height;
 		this.maxHeight = copy.maxHeight;
-		this.stack = (T[]) new Object[this.maxHeight];
-		for(int i=0; i<this.height; i++) {
-			this.stack[i] = copy.stack[i];
-		}
+		this.stack = copy.stack;
 	}
 	
 	//push an item on to the stack
@@ -58,7 +55,6 @@ public class Stack<T> {
 			T pop = this.stack[this.pointer];
 			this.pointer--; //decrement pointer variables
 			this.height--;
-			
 			return pop;	//return the popped value
 		}
 	}
@@ -91,23 +87,5 @@ public class Stack<T> {
 			return out;	//return this string
 		}
 	}
-	
-	
-/*	public static void main(String[] args) throws StackOverflowException, StackUnderflowException {
-		Stack<String> s1 = new Stack<String>(4);
-		s1.push("1");
-		s1.push("2");
-		s1.push("3");
-		Stack<String> s2 = new Stack<String>(s1);
-		s2.push("4");
-		System.out.println(s1);
-		System.out.println(s2);
-		
-		Stack<String> test = new Stack<String>(10);
-		test.push("10");
-		test.pop();
-		System.out.println(test.isEmpty());
-		
-	}*/
 
 }

@@ -5,11 +5,11 @@
 I will be implementing Stacks using a concept called \textit{Generic Programming\cite{generics}}. This is best explained with an example.
 
 Imagine we have a data structure which will only ever contain one type of object but we will use this data structure in different scenarios, each with different types of object\footnote{Another restriction here is that we are doing operations on the structure not on the objects themselves, hence the operations (implemented as methods) must be generic, another reason for the name \textit{Generic Programming\cite{generics}}.}.
- Now we can use an OOP approach where we have a base abstract class called \texttt{Structure} and then we create other classes that are related to a certain type of object and make it inherit this class, e.g.\ \texttt{IntegerStructure} or \texttt{StringStructure}. However this can become unreasonable to do this for every single object that we use this structure for.
+ Now we can use an OOP approach where we have a base abstract class called \texttt{Structure} and then we create other classes that are related to a certain type of object and make it inherit this class, e.g.\ \texttt{IntegerStructure} or \texttt{StringStructure}. However this can become unfeasible to do this for every single object that we use this structure for.
  
  A more elegant approach is to use \textit{Generics}. This is where we link a type of object with the structure. Let this type of object be of type \texttt{T}. Now we make our structure of type \texttt{T} and make all of its methods take or return an object of type \texttt{T}. This allows the structure to be versatile and be used for any object.
 
-Here is the implementation I have created in Java:
+Here is the implementation I have created in \texttt{Java} using \textit{Generics\cite{genericsJava}}:
 
 \begin{minted}{java}
 package structures;
@@ -94,8 +94,135 @@ public class Stack<T> {
 	
 }
 \end{minted}
-There are two custom \texttt{Exception} classes that I have created for this class, \texttt{StackOverflowException} and \texttt{StackUnderFlowException}, in a separate package. These simply output a different message to the standard \texttt{Exception} class. The code for this is at the end of the documentation.
-
+There are two custom \texttt{Exception} classes that I have created for this class, \texttt{StackOverflowException} and \texttt{StackUnderFlowException}, in a separate package. These simply output a different message to the standard \texttt{Exception} class. The code for this is at the end of the documentation.\\ \\
 \newpage
-
+\noindent
+To just make sure that my code is working as intended I tested 4 things:
+\begin{enumerate}
+\item Popping and pushing items
+\item Overflowing the stack
+\item Underflowing the stack
+\item Copying a stack (this is needed for the substitute algorithm)
+\end{enumerate}
+Here is the code for test 1:
+\begin{minted}{java}
+//add two items, pop one off, add another one
+Stack<String> stack = new Stack<String>(4);
+stack.push("item 1");
+System.out.println("Stack -> "+stack); //expecting item1
+stack.push("item 2");
+System.out.println("Stack -> "+stack); //expecting items 1 and 2
+String pop = stack.pop();
+System.out.println("Popped item -> "+pop); //expecting items 2
+stack.push("item 3");
+System.out.println("Stack -> "+stack); //expecting items 1 and 3
+\end{minted}
+Here was the output for test 1:
+\begin{minted}{console}
+Stack -> [item 1]
+Stack -> [item 2], item 1
+Popped item -> item 2
+Stack -> [item 3], item 1
+\end{minted}
+Which is exactly what I expected.\\ \\
+To spice things up for test 2 I made a stack of integers instead of strings just to make sure the generics part is working properly. Here is the code for test 2.
+\begin{minted}{java}
+//create a stack of max height 4
+Stack<Integer> stack = new Stack<Integer>(4);
+//push 4 items, the max amount
+stack.push(1);
+stack.push(2);
+stack.push(3);
+stack.push(4);
+//show that the stack has 4 items
+System.out.println("Stack -> "+stack);
+//push another item
+stack.push(5);
+\end{minted}
+Here was the output for test 2:
+\begin{minted}{console}
+Stack -> [4], 3, 2, 1
+Exception in thread "main" exceptions.StackOverflowException:
+Stack has reached its max height
+	at structures.Stack.push(Stack.java:40)
+	at structures.Stack.main(Stack.java:107)
+\end{minted}
+Which is exactly what I expected.
+\newpage
+\noindent
+Again for test 3 I made a stack of doubles. Here is the code for test 3.
+\begin{minted}{java}
+//create a stack
+Stack<Double> stack = new Stack<Double>(4);
+//try and pop an item off
+stack.pop();
+\end{minted}
+Here was the output for test 3:
+\begin{minted}{console}
+Exception in thread "main" exceptions.StackUnderflowException:
+Stack has no items for you to pop
+	at structures.Stack.pop(Stack.java:52)
+	at structures.Stack.main(Stack.java:100)
+\end{minted}
+Which is exactly what I expected.\\ \\
+For test 4 I made a stack of booleans. Here is the code for test 4.
+\begin{minted}{java}
+//create a stack
+Stack<Boolean> stack = new Stack<Boolean>(4);
+//pop some items
+stack.push(true);
+stack.push(false);
+//assign the value of the old stack to the copy stack 
+Stack<Boolean> copy = stack;
+//pop an item off the copy stack to test that they are independent
+copy.pop();
+//output both stacks
+System.out.println("Stack -> "+stack);
+System.out.println("Copy -> "+copy);
+\end{minted}
+Here was the output for test 4:
+\begin{minted}{console}
+Stack -> [true]
+Copy -> [true]
+\end{minted}
+This is not what I expected. I expected the original stack to have an extra item. It appears as if they are mimicking each other, like they are sharing the same memory address. When I researched this issue\cite{duplicationJava} it appears that this is true. In \texttt{Java} every variable is a reference so when you assign a variable the value of an object, you actually assign the variable a reference. The exceptions to this are when you pass variables into functions, this is done by value not reference
+\footnote{It actually cannot be done by reference in \texttt{Java}}
+, and with primitives
+\footnote{A language's base types of object that are inherently part of the language. In \texttt{Java} the primitives are \texttt{int, double, float, boolean, char, byte, short, long.}}.
+The suggested solution was to use \texttt{Serialization\cite{serialize}}. This is where an object is serialized into a \texttt{byte} array and then deserialized into an object again. This works because we are effectively converting an object into a primitive and then assigning this to a new value, which bypasses the reference issue. However this can be a hit on performance. So why don't I use the same principle in my code. Since all my attributes are primitives, if I just create a copy constructor which assigns the new stacks' attributes' values the original stacks' attributes, the problem should be solved.
+\newpage
+\noindent
+I made a constructor that takes an existing stack as a parameter to solve the issue. In many languages this is called a \textit{Copy Constructor}. The code for this is below:
+\begin{minted}{java}
+//copy constructor
+public Stack(Stack<T> copy){
+	//assign the new stacks' attributes' values the original stacks' attributes
+	this.pointer = copy.pointer;
+	this.height = copy.height;
+	this.maxHeight = copy.maxHeight;
+	this.stack = copy.stack;
+}
+\end{minted}
+For my new test I slightly modified it from the original by using the copy constructor. Here is the code for new test:
+\begin{minted}{java}
+//create a stack
+Stack<Boolean> stack = new Stack<Boolean>(4);
+//pop some items
+stack.push(true);
+stack.push(false);
+//assign the value of the old stack to the copy stack 
+Stack<Boolean> copy = new Stack<Boolean>(stack);
+//pop an item off the copy stack to test that they are independent
+copy.pop();
+//output both stacks
+System.out.println("Stack -> "+stack);
+System.out.println("Copy -> "+copy);
+\end{minted}
+Here was the output for the test:
+\begin{minted}{console}
+Stack -> [false], true
+Copy -> [true]
+\end{minted}
+This is what I expected.
+\newpage
 \end{document}
