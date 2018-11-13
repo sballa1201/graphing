@@ -11,7 +11,11 @@ Imagine we have a data structure which will only ever contain one type of object
 
 Here is the implementation I have created in \texttt{Java} using \textit{Generics\cite{genericsJava}}:
 
-\begin{minted}{java}
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+linenos
+]{java}
 package structures;
 
 import exceptions.StackOverflowException;
@@ -94,7 +98,7 @@ public class Stack<T> {
 	
 }
 \end{minted}
-There are two custom \texttt{Exception} classes that I have created for this class, \texttt{StackOverflowException} and \texttt{StackUnderFlowException}, in a separate package. These simply output a different message to the standard \texttt{Exception} class. The code for this is at the end of the documentation.\\ \\
+There are two custom \texttt{Exception} classes that I have created for this class, \texttt{StackOverflowException} and \texttt{StackUnderFlowException}, in a separate package. These simply output a different message to the standard \texttt{Exception} class. The code for this is at the end of the documentation.
 \newpage
 \noindent
 To just make sure that my code is working as intended I tested 4 things:
@@ -189,11 +193,15 @@ This is not what I expected. I expected the original stack to have an extra item
 \footnote{It actually cannot be done by reference in \texttt{Java}}
 , and with primitives
 \footnote{A language's base types of object that are inherently part of the language. In \texttt{Java} the primitives are \texttt{int, double, float, boolean, char, byte, short, long.}}.
-The suggested solution was to use \texttt{Serialization\cite{serialize}}. This is where an object is serialized into a \texttt{byte} array and then deserialized into an object again. This works because we are effectively converting an object into a primitive and then assigning this to a new value, which bypasses the reference issue. However this can be a hit on performance. So why don't I use the same principle in my code. Since all my attributes are primitives, if I just create a copy constructor which assigns the new stacks' attributes' values the original stacks' attributes, the problem should be solved.
+The suggested solution was to use \texttt{Serialization\cite{serialize}}. This is where an object is serialized into a \texttt{byte} array and then deserialized into an object again. This works because we are effectively converting an object into a primitive and then assigning this to a new value, which bypasses the reference issue. However this can be a hit on performance. So why don't I use the same principle in my code. Since all my attributes are primitives, if I just create a constructor which assigns the new stacks' attributes' values the original stacks' attributes, the problem should be solved.
 \newpage
 \noindent
 I made a constructor that takes an existing stack as a parameter to solve the issue. In many languages this is called a \textit{Copy Constructor}. The code for this is below:
-\begin{minted}{java}
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+linenos
+]{java}
 //copy constructor
 public Stack(Stack<T> copy){
 	//assign the new stacks' attributes' values the original stacks' attributes

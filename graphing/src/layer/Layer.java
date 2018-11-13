@@ -40,5 +40,10 @@ public abstract class Layer {
 	
 	public Canvas getCanvas() {
 		return canvas;
-	}	
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
+	
 }

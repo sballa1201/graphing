@@ -8,11 +8,14 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import layer.ExplicitXFunctionCartesianLayer;
 import layer.ExplicitYFunctionCartesianLayer;
+import layer.Layer;
 
 public class ExpressionBoxController implements Initializable {
 
@@ -28,7 +31,12 @@ public class ExpressionBoxController implements Initializable {
 	private Button settingsBtn;
 	
 	@FXML
-	private CheckBox visibleCBox;
+	private Canvas visibleCanvas;
+	private GraphicsContext gc;
+	
+	private boolean visible = true;
+	
+	private Color color;
 	
 	private StringProperty functionText = new SimpleStringProperty();
 	
@@ -55,15 +63,19 @@ public class ExpressionBoxController implements Initializable {
 			}
 		});
 		
-		this.visibleCBox.setOnAction(event -> changeLayer());
-		
+		this.gc = this.visibleCanvas.getGraphicsContext2D();
+		this.gc.setLineWidth(2);
+		this.visibleCanvas.setOnMouseClicked(event -> changeColor());
 	}
 
 
 
 	private void changeLayer() {
 		
-		if(visibleCBox.isSelected()) {
+		if(visible) {
+			
+			Layer l;
+			
 			String f = this.functionText.getValueSafe();
 			
 			
@@ -83,7 +95,8 @@ public class ExpressionBoxController implements Initializable {
 			} else if(yInstances > 0) {
 			
 				try {
-					ExplicitYFunctionCartesianLayer l = new ExplicitYFunctionCartesianLayer(f);
+					l = new ExplicitYFunctionCartesianLayer(f);
+					l.setColor(color);
 					
 					inputPane.putLayer(this.ID, l);
 					
@@ -96,7 +109,8 @@ public class ExpressionBoxController implements Initializable {
 				}
 			} else {
 				try {
-					ExplicitXFunctionCartesianLayer l = new ExplicitXFunctionCartesianLayer(f);
+					l = new ExplicitXFunctionCartesianLayer(f);
+					l.setColor(color);
 					
 					inputPane.putLayer(this.ID, l);
 					
@@ -112,14 +126,23 @@ public class ExpressionBoxController implements Initializable {
 			inputPane.removeLayer(ID);
 		}
 	}
-
+	
+	
+	private void changeColor() {
+		gc.clearRect(0, 0,visibleCanvas.getWidth(), visibleCanvas.getHeight());
+		if(!visible) {
+			gc.fillRect(0, 0,visibleCanvas.getWidth(), visibleCanvas.getHeight());
+		}
+		gc.strokeRect(0, 0,visibleCanvas.getWidth(), visibleCanvas.getHeight());
+		visible = !visible;
+		changeLayer();
+	}
 
 
 	private void remove() throws IOException {
 		this.inputPane.removeExpression(this.ID);
 	}
-
-
+	
 
 	public void setID(int iD) {
 		ID = iD;
@@ -134,10 +157,19 @@ public class ExpressionBoxController implements Initializable {
 	public void setInputPane(InputPane inputPane) {
 		this.inputPane = inputPane;
 	}
-
+	
 
 	public StringProperty getFunctionText() {
 		return functionText;
+	}
+
+
+
+	public void setColor(Color color) {
+		this.color = color;
+		gc.setStroke(color);
+		gc.setFill(color);
+		gc.fillRect(0, 0,visibleCanvas.getWidth(), visibleCanvas.getHeight());
 	}
 
 	

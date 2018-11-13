@@ -13,7 +13,11 @@ Our class will contain more methods and attributes later (colour of the line, ro
 	\item We can convert the input into its equivalant in a scripting language, such as \texttt{Lua\cite{lua}}, and then use the scripting language to evaluate a value $x$.
 \end{itemize}
 An example of the second is shown below:
-\begin{minted}{java}
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+linenos
+]{java}
 import org.luaj.vm2.*;
 import org.luaj.vm2.lib.jme.*;
 public double evaluate(double x) {

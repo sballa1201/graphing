@@ -11,6 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import layer.Layer;
 
 public class InputPane extends ScrollPane {
@@ -23,13 +24,17 @@ public class InputPane extends ScrollPane {
 	
 	private List<Integer> freeID = new ArrayList<Integer>();
 	
+	private Color[] colors = {Color.BLACK, Color.BLUE, Color.RED, Color.DARKGREEN, Color.MAGENTA, Color.GOLDENROD};
+	
 	public InputPane() throws IOException {
 		
 		this.setFitToHeight(true);
 		this.setFitToWidth(true);
 		this.setHbarPolicy(ScrollBarPolicy.NEVER);
 		this.setPrefWidth(290.0);
+
 		
+		System.out.println(colors[1]);
 		
 		this.expressionBoxStore = new VBox();
 		
@@ -39,7 +44,11 @@ public class InputPane extends ScrollPane {
 		
 		this.setupNewButton();
 		
-		this.addExpression();		
+		this.addExpression();
+		
+		
+		
+		
 		
 	}
 	
@@ -73,6 +82,8 @@ public class InputPane extends ScrollPane {
 		
 		eBoxController.setID(ID);
 		eBoxController.setInputPane(this);
+		
+		eBoxController.setColor(this.getColor(ID % this.colors.length));
 		
 		this.expressionBoxStore.getChildren().add(insert,expressionBox);		
 	}
@@ -153,6 +164,11 @@ public class InputPane extends ScrollPane {
 		System.out.println(this.shareLayerStore);
 	}
 	
-	
+	public Color getColor(int ID) {
+		
+		System.out.println(ID % colors.length);
+		
+		return colors[ID % colors.length];
+	}
 	
 }
