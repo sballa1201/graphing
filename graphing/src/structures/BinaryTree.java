@@ -5,9 +5,11 @@ import exceptions.StackOverflowException;
 public class BinaryTree {
 	
 	//attributes
-	public BinaryTree left;
-	public BinaryTree right;
-	private String value;
+		//children
+		public BinaryTree left;
+		public BinaryTree right;
+		//node value
+		private String value;
 	
 	//methods
 	//constructor - create a null tree
@@ -43,30 +45,45 @@ public class BinaryTree {
 	
 	//count the number of nodes beneath this tree + this tree
 	public int countNodes() {
-		int number = 0; 
+		//set the number of nodes counted to 0
+		int count = 0;
+		
+		//recursive case, counts the number of nodes in its children
+		//if they are not null
 		if(this.left != null) {
-			number = number + this.left.countNodes();
+			count = count + this.left.countNodes();
 		}
 		if(this.right != null) {
-			number = number + this.right.countNodes();
+			count = count + this.right.countNodes();
 		}
-		return number + 1;
+		//return the count of the children
+		//but increment it to count it self
+		return count + 1;
 	}
 	
-	//perform post-order depth-first traversal
+	//post-order depth-first traversal wrapper function
 	public Stack<String> traverse() throws StackOverflowException {
+		//create a stack of max height
+		//which is the number of nodes in the entire tree
+		//this is to save memory
 		Stack<String> order = new Stack<String>(this.countNodes());
+		//traverse the tree
 		order = traverseHelper(this,order);
 		return order;
 	}
 	
-	//the actual recursive traversal algorithm
+	//the actual recursive traversal function
 	private static Stack<String> traverseHelper(BinaryTree tree, Stack<String> order) throws StackOverflowException {
+		//base case, if the tree is null just return the unmodified stack
 		if(tree == null) {
 			return order;
-		} else {
+		} else {	//recursive case search its children if not null
+			//since this is post-order, the order is left, right then root
+			//traverse left
 			order = traverseHelper(tree.left, order);
+			//traverse right
 			order = traverseHelper(tree.right, order);
+			//finally push the root value into the stack
 			order.push(tree.value);
 			return order;
 		}

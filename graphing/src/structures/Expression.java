@@ -166,10 +166,12 @@ public class Expression {
 		expression = expression.replace("{", "(");
 		expression = expression.replace("}", ")");
 		
-		String regex1 = "([^\\(\\)\\+\\-\\*\\/\\^])([\\(a-z])";
+		expression = expression.replace("pi", "π");
+		
+		String regex1 = "([^\\(\\)\\+\\-\\*\\/\\^])([\\(a-zπ])";
 		String replace1 = "$1*$2";
 		
-		String regex2 = "([\\)a-z])([^\\(\\)\\+\\-\\*\\/\\^])";
+		String regex2 = "([\\)a-zπ])([^\\(\\)\\+\\-\\*\\/\\^])";
 		String replace2 = "$1*$2";
 		
 		String regex3 = "\\)\\(";
@@ -191,18 +193,50 @@ public class Expression {
 			
 		
 		expression = expression.replaceAll("e",Double.toString(Math.E));
+		expression = expression.replaceAll("π",Double.toString(Math.PI));
 		
 		
 		return expression;
 		
-		// a old one
-/*		
-		expression = expression.replaceAll("([^\\+\\-\\*\\/\\(\\)\\^])([\\(x])" , "$1*$2");
-		expression = expression.replaceAll("([\\)x])([^\\+\\-\\*\\/\\(\\)\\^])", "$1*$2");
-		expression = expression.replaceAll("\\)\\(", ")*(");
-		expression = expression.replaceAll("([\\+\\-\\*\\/\\^])-([^\\+\\-\\*\\/\\(\\)\\^]*)", "$1(-$2)");
-		expression = expression.replaceAll("(^|\\()-","$10-");
-		*/
+		
+		
+		//old code
+//		expression = expression.replace(" ", "");
+//		
+//		expression = expression.replace("[","(");
+//		expression = expression.replace("]", ")");
+//		expression = expression.replace("{", "(");
+//		expression = expression.replace("}", ")");
+//		
+//		String regex1 = "([^\\(\\)\\+\\-\\*\\/\\^])([\\(a-z])";
+//		String replace1 = "$1*$2";
+//		
+//		String regex2 = "([\\)a-z])([^\\(\\)\\+\\-\\*\\/\\^])";
+//		String replace2 = "$1*$2";
+//		
+//		String regex3 = "\\)\\(";
+//		String replace3 = ")*(";
+//		
+//		String regex4 = "([\\+\\-\\*\\/\\^])-([^\\+\\-\\*\\/\\(\\)\\^]*)";
+//		String replace4 = "$1(-$2)";
+//		
+//		String regex5 = "(^|\\()-";
+//		String replace5 = "$10-";
+//			
+//		expression = expression.replaceAll(regex1 , replace1);
+//		expression = expression.replaceAll(regex2, replace2);
+//		expression = expression.replaceAll(regex3, replace3);
+//		
+//		expression = expression.replaceAll(regex4, replace4);
+//		expression = expression.replaceAll(regex5, replace5);
+//		
+//			
+//		
+//		expression = expression.replaceAll("e",Double.toString(Math.E));
+//		
+//		
+//		return expression;
+		
 		
 		
 	}
@@ -292,7 +326,7 @@ public class Expression {
 		//System.out.println(leastSigOperatorPos("3x*4^3+"));
 		//String e = "(x^(-3)-x^(0.25x^x))   (x^(5*(9x^-3)+0.5^(x-1.5^(-6x))-x^((x^(x^(x)))(5^(x^(-4.5x^2)))))((2.71^(x+2^(-2.71x)))/(x^(-1.5*2.71)*2.71^(3/(x^(-4)))))";
 		
-		String s = "3x3";
+		String s = "pi";
 
 		
 		System.out.println(s);
