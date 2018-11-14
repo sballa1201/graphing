@@ -6,20 +6,14 @@ import exceptions.UnequalBracketsException;
 
 public class Expression {
 	
+	//attributes
 	private Stack<String> postFixStack;
-	private char parameter;
+	private char parameter;	//this allows us to adapt our explicit function
+							//for something that isn't in x
 	private String expression;
 	
-	
-	
-	
-	public Expression(String expression) throws StackOverflowException, StackUnderflowException, UnequalBracketsException {
-		this.parameter = 'x';
-		this.expression = standardize(expression);		
-		BinaryTree tree = createTree(this.expression);
-		this.postFixStack = tree.traverse();				
-	}
-	
+	//methods
+	//constructor
 	public Expression(String expression, char parameter) throws StackOverflowException, StackUnderflowException, UnequalBracketsException {
 		this.parameter = parameter;
 		this.expression = standardize(expression);		
@@ -27,9 +21,9 @@ public class Expression {
 		this.postFixStack = tree.traverse();				
 	}
 	
+	//evaluate the expression for a value of the parameter
 	public double evaluate(double x) throws StackUnderflowException, StackOverflowException {
 		Stack<String> subStack = substitute(x);
-		//System.out.println(subStack);
 		Stack<Double> numStack = new Stack<Double>(this.postFixStack.getHeight());
 		for(int i=subStack.getHeight(); i>0 ;i--) {
 			String pop = subStack.pop();
@@ -66,7 +60,6 @@ public class Expression {
 				} catch(NumberFormatException e) {
 					throw e;
 				}
-				
 				break;
 			}
 		}
@@ -74,6 +67,7 @@ public class Expression {
 		
 	}
 	
+	//substitute a value of the parameter into the expression
 	private Stack<String> substitute(double x) throws StackUnderflowException, StackOverflowException {
 		Stack<String> copy = new Stack<String>(this.postFixStack);
 		Stack<String> subStack = new Stack<String>(this.postFixStack.getHeight());
@@ -84,10 +78,10 @@ public class Expression {
 			}
 			subStack.push(pop);
 		}
-		//subStack.reverse();
 		return subStack;
 	}
 	
+	//create the abstract syntax tree for the expression
 	private static BinaryTree createTree(String expression) throws UnequalBracketsException {
 		expression = checkBracket(expression);
 		int leastSigOperatorPos = leastSigOperatorPos(expression);
@@ -103,11 +97,15 @@ public class Expression {
 			return new BinaryTree(operator,createTree(a),createTree(b));
 		}
 	}
-		private static int leastSigOperatorPos(String input) {
+	
+	//find the least significant operator in an expression
+	private static int leastSigOperatorPos(String input) {
 		int parenthesis = 0;
 		int leastSigOperatorPos = -1;
 		int leastSigOpcode = 1000;
-		//used a string to store the operators, as it is essentially a char array but with added utility, such as finding elements
+		//used a string to store the operators
+		//as it is essentially a char array but with added utility
+		//such as finding elements
 		final String operators = "+-*/^";
 		int currentOpcode;
 		
@@ -128,7 +126,6 @@ public class Expression {
 		return leastSigOperatorPos;
 	}
 	
-
 	
 	private static String checkBracket(String input) throws UnequalBracketsException, StringIndexOutOfBoundsException {
 		boolean done = false;
@@ -158,13 +155,10 @@ public class Expression {
 		return input;
 	}
 	
-	private String standardize(String expression) {
+	
+	//standardize an expression to remove ambiguity
+	private static String standardize(String expression) {
 		expression = expression.replace(" ", "");
-		
-		expression = expression.replace("[","(");
-		expression = expression.replace("]", ")");
-		expression = expression.replace("{", "(");
-		expression = expression.replace("}", ")");
 		
 		expression = expression.replace("pi", "π");
 		
@@ -189,8 +183,6 @@ public class Expression {
 		
 		expression = expression.replaceAll(regex4, replace4);
 		expression = expression.replaceAll(regex5, replace5);
-		
-			
 		
 		expression = expression.replaceAll("e",Double.toString(Math.E));
 		expression = expression.replaceAll("π",Double.toString(Math.PI));
@@ -304,30 +296,15 @@ public class Expression {
 	
 	@Override
 	public String toString() {
-		return this.expression;
+		return this.expression + " -> " + this.postFixStack.toString();
 	}
 	
 	public static void main(String[] args) throws StackOverflowException, StackUnderflowException, UnequalBracketsException {
-		/*
-		Function f = new Function("4 + 3x");
-		Stack<String> s = new Stack<String>(6);
-		s.push("-");
-		s.push("*");
-		s.push("3");
-		s.push("x");
-		s.push("4");
-		System.out.println(s);
-		f.postFixStack = s;
-		for(int i=0; i<10; i++) {
-			System.out.println(i+" - "+f.evaluate(i));
-		}
-		*/
-		
-		//System.out.println(leastSigOperatorPos("3x*4^3+"));
 		//String e = "(x^(-3)-x^(0.25x^x))   (x^(5*(9x^-3)+0.5^(x-1.5^(-6x))-x^((x^(x^(x)))(5^(x^(-4.5x^2)))))((2.71^(x+2^(-2.71x)))/(x^(-1.5*2.71)*2.71^(3/(x^(-4)))))";
 		
 		String s = "x^x";
 
+		
 		
 		System.out.println(s);
 		
