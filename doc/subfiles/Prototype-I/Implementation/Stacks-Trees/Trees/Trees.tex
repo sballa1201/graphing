@@ -2,7 +2,7 @@
 \begin{document}
 
 \subsection{Trees}
-Our trees will be simpler to implement than our stacks. This is because we do not need to use generics with our trees since we will only be storing strings within them. The only hard part of this implementation was the fact that you cannot pass by reference in \texttt{Java}. I got around this issue by simply passing this list in, and returning it each time.
+Our trees will be simpler to implement than our stacks. This is because we do not need to use generics with our trees since we will only be storing strings within them. The only hard part of this implementation was the fact that you cannot pass by reference\cite{byRefJava} in \texttt{Java}. I got around this issue by simply passing this list in, and returning it each time.
 
 Here is the implementation I have created in \texttt{Java
 }:
@@ -101,12 +101,37 @@ public class BinaryTree {
 			order.push(tree.value);
 			return order;
 		}
-		
 	}
 	
 }
 \end{minted}
 \newpage
 \noindent
-
+Just to test my binary tree implementation I tried to recreate the tree below:\\
+\par
+\Tree[.G 
+		[.C A B ]
+		[.F D E ] 
+]
+\bigskip \\
+If this graph has post-order, depth first traversal performed on it then the output should be:
+\[
+\begin{bmatrix}
+A & B & C & D & E & F & G
+\end{bmatrix}
+\]
+Here is the test code:
+\begin{minted}{java}
+BinaryTree root;
+BinaryTree left = new BinaryTree("C", new BinaryTree("A"), new BinaryTree("B"));
+BinaryTree right = new BinaryTree("F", new BinaryTree("D"), new BinaryTree("E"));
+root = new BinaryTree("G",left,right);
+//print the traversal stack
+System.out.println(root.traverse());
+\end{minted}
+Here is the output:
+\begin{minted}{console}
+[G], F, E, D, C, B, A
+\end{minted}
+While this appears to be different to our expected stack it isn't. If we look closely the items are actually reversed, which makes sense since a stack is FILO (First In Last Out) structure and we made the visual representation reflect this property. This means that \textit{A} was pushed into the stack first, which means our tree implementation is working as intended.
 \end{document}

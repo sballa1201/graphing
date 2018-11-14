@@ -190,7 +190,7 @@ Stack -> [true]
 Copy -> [true]
 \end{minted}
 This is not what I expected. I expected the original stack to have an extra item. It appears as if they are mimicking each other, like they are sharing the same memory address. When I researched this issue\cite{duplicationJava} it appears that this is true. In \texttt{Java} every variable is a reference so when you assign a variable the value of an object, you actually assign the variable a reference. The exceptions to this are when you pass variables into functions, this is done by value not reference
-\footnote{A function cannot have parameters passed by reference in \texttt{Java}}
+\footnote{A function cannot have parameters passed by reference\cite{byRefJava} in \texttt{Java}}
 , and with primitives
 \footnote{A language's base types of object that are inherently part of the language. In \texttt{Java} the primitives are \texttt{int, double, float, boolean, char, byte, short, long.}}.
 The suggested solution was to use \texttt{Serialization\cite{serialize}}. This is where an object is serialized into a \texttt{byte} array and then deserialized into an object again. This works because we are effectively converting an object into a primitive and then assigning this to a new value, which bypasses the reference issue. However this can be a hit on performance. So why don't I use the same principle in my code. Since all my attributes are primitives, if I just create a constructor which assigns the new stacks' attributes' values the original stacks' attributes, the problem should be solved.
