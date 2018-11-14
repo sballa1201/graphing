@@ -3,17 +3,17 @@ package layer;
 import exceptions.StackOverflowException;
 import exceptions.StackUnderflowException;
 import exceptions.UnequalBracketsException;
-import structures.ExplicitXFunction;
+import structures.ExplicitFunction;
 
 public class ExplicitXFunctionCartesianLayer extends CartesianLayer {
 	
-	private ExplicitXFunction f;	
+	private ExplicitFunction f;	
 	
 	public ExplicitXFunctionCartesianLayer(String expression) {
 		super();
 		
 		try {
-			this.f = new ExplicitXFunction(expression);
+			this.f = new ExplicitFunction(expression, 'x');
 		} catch (StackOverflowException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

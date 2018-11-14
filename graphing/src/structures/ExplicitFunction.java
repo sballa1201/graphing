@@ -4,12 +4,12 @@ import exceptions.StackOverflowException;
 import exceptions.StackUnderflowException;
 import exceptions.UnequalBracketsException;
 
-public class ExplicitXFunction {
+public class ExplicitFunction {
 	
 	private Expression f;
 	
-	public ExplicitXFunction(String expression) throws StackOverflowException, StackUnderflowException, UnequalBracketsException {
-		this.f = new Expression(expression, "x");
+	public ExplicitFunction(String expression, char parameter) throws StackOverflowException, StackUnderflowException, UnequalBracketsException {
+		this.f = new Expression(expression, parameter);
 	}
 	
 	public double evaluate(double x) {

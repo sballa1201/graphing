@@ -7,20 +7,20 @@ import exceptions.UnequalBracketsException;
 public class Expression {
 	
 	private Stack<String> postFixStack;
-	private String parameter;
+	private char parameter;
 	private String expression;
 	
 	
 	
 	
 	public Expression(String expression) throws StackOverflowException, StackUnderflowException, UnequalBracketsException {
-		this.parameter = "x";
+		this.parameter = 'x';
 		this.expression = standardize(expression);		
 		BinaryTree tree = createTree(this.expression);
 		this.postFixStack = tree.traverse();				
 	}
 	
-	public Expression(String expression, String parameter) throws StackOverflowException, StackUnderflowException, UnequalBracketsException {
+	public Expression(String expression, char parameter) throws StackOverflowException, StackUnderflowException, UnequalBracketsException {
 		this.parameter = parameter;
 		this.expression = standardize(expression);		
 		BinaryTree tree = createTree(this.expression);
@@ -79,7 +79,7 @@ public class Expression {
 		Stack<String> subStack = new Stack<String>(this.postFixStack.getHeight());
 		for(int i=copy.getHeight(); i>0 ;i--) {
 			String pop = copy.pop();			
-			if(pop.equals(this.parameter)) {
+			if(pop.equals(String.valueOf(this.parameter))) {
 				pop = Double.toString(x);
 			}
 			subStack.push(pop);
@@ -326,12 +326,12 @@ public class Expression {
 		//System.out.println(leastSigOperatorPos("3x*4^3+"));
 		//String e = "(x^(-3)-x^(0.25x^x))   (x^(5*(9x^-3)+0.5^(x-1.5^(-6x))-x^((x^(x^(x)))(5^(x^(-4.5x^2)))))((2.71^(x+2^(-2.71x)))/(x^(-1.5*2.71)*2.71^(3/(x^(-4)))))";
 		
-		String s = "pi";
+		String s = "x^x";
 
 		
 		System.out.println(s);
 		
-		Expression f = new Expression(s,"x");
+		Expression f = new Expression(s,'x');
 
 		System.out.println(f.postFixStack);
 		
