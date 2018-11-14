@@ -1,11 +1,8 @@
-\documentclass[../../../../../main.tex]{subfiles}
+\documentclass[../../../../main.tex]{subfiles}
 \begin{document}
 
-\subsection{Trees}
-Our trees will be simpler to implement than our stacks. This is because we do not need to use generics with our trees since we will only be storing strings within them. The only hard part of this implementation was the fact that you cannot pass by reference\cite{byRefJava} in \texttt{Java}. I got around this issue by simply passing this list in, and returning it each time.
-
-Here is the implementation I have created in \texttt{Java
-}:
+\section{Trees}
+Our trees will be simpler to implement than our stacks. This is because we do not need to use generics with our trees since we will only be storing strings within them. The only hard part of this implementation was the fact that you cannot pass by reference\cite{byRefJava} in \texttt{Java}. I got around this issue by simply passing this list in, and returning it each time. Here is the implementation I have created in \texttt{Java}:
 \begin{minted}[
 frame=lines,
 framesep=2mm,
@@ -55,7 +52,6 @@ public class BinaryTree {
 	public void setValue(String value) {
 		this.value = value;
 	}
-	
 	//count the number of nodes beneath this tree + this tree
 	public int countNodes() {
 		//set the number of nodes counted to 0
@@ -133,5 +129,6 @@ Here is the output:
 \begin{minted}{console}
 [G], F, E, D, C, B, A
 \end{minted}
-While this appears to be different to our expected stack it isn't. If we look closely the items are actually reversed, which makes sense since a stack is FILO (First In Last Out) structure and we made the visual representation reflect this property. This means that \textit{A} was pushed into the stack first, which means our tree implementation is working as intended.
+While this appears to be different to our expected stack it isn't. If we look closely the items are actually reversed, which makes sense since a stack is FILO (First In Last Out) structure and we made the visual representation of our stack implementation reflect this property. This means that \textit{A} was pushed into the stack first, which means our tree implementation is working as intended.
+\newpage
 \end{document}
