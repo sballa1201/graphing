@@ -13,6 +13,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
+import layer.ExplicitPolarLayer;
 import layer.ExplicitXFunctionCartesianLayer;
 import layer.ExplicitYFunctionCartesianLayer;
 import layer.Layer;
@@ -88,10 +89,18 @@ public class ExpressionBoxController implements Initializable {
 			
 			int yInstances = f.length() - f.replaceAll("y","").length();
 			
+			int tInstances = f.length() - f.replaceAll("t","").length();
 			
 			if(xInstances > 0 && yInstances > 0) {
 				inputPane.removeLayer(ID);
 				return;
+			} else if(tInstances > 0) {
+				l = new ExplicitPolarLayer(f);
+				l.setColor(color);
+				
+				inputPane.putLayer(this.ID, l);
+				
+				System.out.println("update - "+l);
 			} else if(yInstances > 0) {
 			
 				try {

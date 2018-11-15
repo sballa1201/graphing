@@ -16,11 +16,11 @@ public class Expression {
 	//constructor
 	public Expression(String expression, char parameter) throws StackOverflowException, StackUnderflowException, UnequalBracketsException {
 		this.parameter = parameter;
-		this.expression = standardize(expression);		
+		this.expression = standardize(expression);
 		BinaryTree tree = createTree(this.expression);
-		this.postFixStack = tree.traverse();				
+		this.postFixStack = tree.traverse();
 	}
-	
+
 	//evaluate the expression for a value of the parameter
 	public double evaluate(double x) throws StackUnderflowException, StackOverflowException {
 		Stack<String> subStack = substitute(x);
@@ -176,18 +176,19 @@ public class Expression {
 		
 		String regex5 = "(^|\\()-";
 		String replace5 = "$10-";
-			
-		expression = expression.replaceAll(regex1 , replace1);
-		expression = expression.replaceAll(regex2, replace2);
-		expression = expression.replaceAll(regex3, replace3);
 		
-		expression = expression.replaceAll(regex4, replace4);
-		expression = expression.replaceAll(regex5, replace5);
+		String check = "";
 		
+		while(!expression.equals(check)) {
+			check = expression;
+			expression = expression.replaceAll(regex1, replace1);
+			expression = expression.replaceAll(regex2, replace2);
+			expression = expression.replaceAll(regex3, replace3);
+			expression = expression.replaceAll(regex4, replace4);
+			expression = expression.replaceAll(regex5, replace5);			
+		}
 		expression = expression.replaceAll("e",Double.toString(Math.E));
 		expression = expression.replaceAll("π",Double.toString(Math.PI));
-		
-		
 		return expression;
 		
 		
@@ -195,15 +196,12 @@ public class Expression {
 		//old code
 //		expression = expression.replace(" ", "");
 //		
-//		expression = expression.replace("[","(");
-//		expression = expression.replace("]", ")");
-//		expression = expression.replace("{", "(");
-//		expression = expression.replace("}", ")");
+//		expression = expression.replace("pi", "π");
 //		
-//		String regex1 = "([^\\(\\)\\+\\-\\*\\/\\^])([\\(a-z])";
+//		String regex1 = "([^\\(\\)\\+\\-\\*\\/\\^])([\\(a-zπ])";
 //		String replace1 = "$1*$2";
 //		
-//		String regex2 = "([\\)a-z])([^\\(\\)\\+\\-\\*\\/\\^])";
+//		String regex2 = "([\\)a-zπ])([^\\(\\)\\+\\-\\*\\/\\^])";
 //		String replace2 = "$1*$2";
 //		
 //		String regex3 = "\\)\\(";
@@ -214,7 +212,8 @@ public class Expression {
 //		
 //		String regex5 = "(^|\\()-";
 //		String replace5 = "$10-";
-//			
+//		
+//		
 //		expression = expression.replaceAll(regex1 , replace1);
 //		expression = expression.replaceAll(regex2, replace2);
 //		expression = expression.replaceAll(regex3, replace3);
@@ -222,9 +221,8 @@ public class Expression {
 //		expression = expression.replaceAll(regex4, replace4);
 //		expression = expression.replaceAll(regex5, replace5);
 //		
-//			
-//		
 //		expression = expression.replaceAll("e",Double.toString(Math.E));
+//		expression = expression.replaceAll("π",Double.toString(Math.PI));
 //		
 //		
 //		return expression;
@@ -299,18 +297,15 @@ public class Expression {
 		return this.expression + " -> " + this.postFixStack.toString();
 	}
 	
-	public static void main(String[] args) throws StackOverflowException, StackUnderflowException, UnequalBracketsException {
-		//String e = "(x^(-3)-x^(0.25x^x))   (x^(5*(9x^-3)+0.5^(x-1.5^(-6x))-x^((x^(x^(x)))(5^(x^(-4.5x^2)))))((2.71^(x+2^(-2.71x)))/(x^(-1.5*2.71)*2.71^(3/(x^(-4)))))";
+	public static void main(String[] args) throws StackOverflowException, StackUnderflowException, UnequalBracketsException {		
+		String s = "(-x)3x(x^2)(-x+2)";
 		
-		String s = "x^x";
-
-		
-		
-		System.out.println(s);
+		System.out.println(standardize(s));
 		
 		Expression f = new Expression(s,'x');
 
 		System.out.println(f.postFixStack);
+		System.out.println(f.evaluate(1));
 		
 		
 	}

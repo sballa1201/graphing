@@ -89,12 +89,4 @@ public class BinaryTree {
 		}
 	}
 	
-	public static void main(String[] args) throws StackOverflowException {
-		BinaryTree root;
-		BinaryTree left = new BinaryTree("C", new BinaryTree("A"), new BinaryTree("B"));
-		BinaryTree right = new BinaryTree("F", new BinaryTree("D"), new BinaryTree("E"));
-		root = new BinaryTree("G",left,right);
-		System.out.println(root.traverse());
-	}
-	
 }

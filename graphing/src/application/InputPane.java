@@ -31,7 +31,7 @@ public class InputPane extends ScrollPane {
 		this.setFitToHeight(true);
 		this.setFitToWidth(true);
 		this.setHbarPolicy(ScrollBarPolicy.NEVER);
-		this.setPrefWidth(290.0);
+		this.setPrefWidth(300.0);
 
 		
 		System.out.println(colors[1]);
