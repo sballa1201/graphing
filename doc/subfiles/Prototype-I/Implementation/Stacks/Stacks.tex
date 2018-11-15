@@ -15,7 +15,8 @@ Here is the implementation I have created in \texttt{Java} using \textit{Generic
 \begin{minted}[
 frame=lines,
 framesep=2mm,
-linenos
+linenos,
+breaklines
 ]{java}
 package structures;
 
@@ -109,7 +110,7 @@ To just make sure that my code is working as intended I tested 4 things:
 \item Copying a stack (this is needed for the substitute algorithm)
 \end{enumerate}
 Here is the code for test 1:
-\begin{minted}{java}
+\begin{minted}[breaklines]{java}
 //add two items, pop one off, add another one
 Stack<String> stack = new Stack<String>(4);
 stack.push("item 1");
@@ -122,7 +123,7 @@ stack.push("item 3");
 System.out.println("Stack -> "+stack); //expecting items 1 and 3
 \end{minted}
 Here was the output for test 1:
-\begin{minted}{console}
+\begin{minted}[breaklines]{console}
 Stack -> [item 1]
 Stack -> [item 2], item 1
 Popped item -> item 2
@@ -130,7 +131,7 @@ Stack -> [item 3], item 1
 \end{minted}
 Which is exactly what I expected.\\ \\
 To spice things up for test 2 I made a stack of integers instead of strings just to make sure the generics part is working properly. Here is the code for test 2.
-\begin{minted}{java}
+\begin{minted}[breaklines]{java}
 //create a stack of max height 4
 Stack<Integer> stack = new Stack<Integer>(4);
 //push 4 items, the max amount
@@ -144,7 +145,7 @@ System.out.println("Stack -> "+stack);
 stack.push(5);
 \end{minted}
 Here was the output for test 2:
-\begin{minted}{console}
+\begin{minted}[breaklines]{console}
 Stack -> [4], 3, 2, 1
 Exception in thread "main" exceptions.StackOverflowException:
 Stack has reached its max height
@@ -155,14 +156,14 @@ Which is exactly what I expected.
 \newpage
 \noindent
 Again for test 3 I made a stack of doubles. Here is the code for test 3.
-\begin{minted}{java}
+\begin{minted}[breaklines]{java}
 //create a stack
 Stack<Double> stack = new Stack<Double>(4);
 //try and pop an item off
 stack.pop();
 \end{minted}
 Here was the output for test 3:
-\begin{minted}{console}
+\begin{minted}[breaklines]{console}
 Exception in thread "main" exceptions.StackUnderflowException:
 Stack has no items for you to pop
 	at structures.Stack.pop(Stack.java:52)
@@ -170,7 +171,7 @@ Stack has no items for you to pop
 \end{minted}
 Which is exactly what I expected.\\ \\
 For test 4 I made a stack of booleans. Here is the code for test 4.
-\begin{minted}{java}
+\begin{minted}[breaklines]{java}
 //create a stack
 Stack<Boolean> stack = new Stack<Boolean>(4);
 //pop some items
@@ -185,7 +186,7 @@ System.out.println("Stack -> "+stack);
 System.out.println("Copy -> "+copy);
 \end{minted}
 Here was the output for test 4:
-\begin{minted}{console}
+\begin{minted}[breaklines]{console}
 Stack -> [true]
 Copy -> [true]
 \end{minted}
@@ -200,7 +201,8 @@ I made a constructor that takes an existing stack as a parameter to solve the is
 \begin{minted}[
 frame=lines,
 framesep=2mm,
-linenos
+linenos,
+breaklines
 ]{java}
 //copy constructor
 public Stack(Stack<T> copy){
@@ -227,7 +229,7 @@ System.out.println("Stack -> "+stack);
 System.out.println("Copy -> "+copy);
 \end{minted}
 Here was the output for the test:
-\begin{minted}{console}
+\begin{minted}[breaklines]{console}
 Stack -> [false], true
 Copy -> [true]
 \end{minted}

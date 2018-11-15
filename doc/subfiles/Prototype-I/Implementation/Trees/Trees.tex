@@ -6,7 +6,8 @@ Our trees will be simpler to implement than our stacks. This is because we do no
 \begin{minted}[
 frame=lines,
 framesep=2mm,
-linenos
+linenos,
+breaklines
 ]{java}
 package structures;
 
@@ -82,8 +83,7 @@ public class BinaryTree {
 	}
 	
 	//the actual recursive traversal function
-	private static Stack<String> traverseHelper(BinaryTree tree, Stack<String> order)
-	throws StackOverflowException {
+	private static Stack<String> traverseHelper(BinaryTree tree, Stack<String> order) throws StackOverflowException {
 		//base case, if the tree is null just return the unmodified stack
 		if(tree == null) {
 			return order;
@@ -117,7 +117,7 @@ A & B & C & D & E & F & G
 \end{bmatrix}
 \]
 Here is the test code:
-\begin{minted}{java}
+\begin{minted}[breaklines]{java}
 BinaryTree root;
 BinaryTree left = new BinaryTree("C", new BinaryTree("A"), new BinaryTree("B"));
 BinaryTree right = new BinaryTree("F", new BinaryTree("D"), new BinaryTree("E"));
@@ -126,7 +126,7 @@ root = new BinaryTree("G",left,right);
 System.out.println(root.traverse());
 \end{minted}
 Here is the output:
-\begin{minted}{console}
+\begin{minted}[breaklines]{console}
 [G], F, E, D, C, B, A
 \end{minted}
 While this appears to be different to our expected stack it isn't. If we look closely the items are actually reversed, which makes sense since a stack is FILO (First In Last Out) structure and we made the visual representation of our stack implementation reflect this property. This means that \textit{A} was pushed into the stack first, which means our tree implementation is working as intended.

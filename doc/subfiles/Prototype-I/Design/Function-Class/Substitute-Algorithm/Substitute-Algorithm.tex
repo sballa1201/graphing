@@ -11,6 +11,7 @@ However this is fixed by the need of this \texttt{substitute} algorithm. We will
 
 To accomplish this we will create a new stack, of the same height as the original, and then pop each value of the original stack, checking if it is a variable, and if it is substituting the value required. The value will then be pushed onto the new stack. This new stack will then be returned. We also will need to create a copy of the old stack and manipulate that so that we retain the original stack for other substitution calls.
 
+In order to make my function class more generic, I will introduce a new attribute of type \texttt{character} called \texttt{parameter}. In all our examples our parameter has been $x$, but we may eventually use different parameters. Within this algorithm, instead of checking for the character $x$, I will instead check for the character \texttt{parameter}.
 \begin{algorithm}
 \caption{Substitute into a function}
 \DontPrintSemicolon
@@ -19,16 +20,15 @@ To accomplish this we will create a new stack, of the same height as the origina
 	\KwStack substituteStack = new \KwStack(this.postFixStack.getHeight()) \tcc*[r]{Create new Stack the same size to reverse it into}
 	\For{\ i=0 \KwTo copy.getHeight()}{
 		\KwString pop = copy.pop()\;			
-		\uIf{pop == ``x''} {
+		\uIf{pop == parameter} {
 			pop = $x$\;
 		} 
 		substituteStack.push(pop)\;
 	}
-	\KwRet substituteStack\;
-	
-	
+	\KwRet substituteStack\;	
 }
 \end{algorithm}
+Within this algorithm I have assumed that a \texttt{character} is equivalent to a \texttt{String} of length 1 (on line 6). This is obviously not the case, therefore during implementation I will need to cast the character to a \texttt{String} or do another method that allows me to compare the two values.
 \newpage
 
 \end{document}
