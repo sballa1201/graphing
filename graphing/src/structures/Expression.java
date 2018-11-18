@@ -83,73 +83,120 @@ public class Expression {
 	
 	//create the abstract syntax tree for the expression
 	private static BinaryTree createTree(String expression) throws UnequalBracketsException {
+		//remove enclosing matching brackets
 		expression = checkBracket(expression);
 		int leastSigOperatorPos = leastSigOperatorPos(expression);
-		if(leastSigOperatorPos == -1) {		//base case
+		if(leastSigOperatorPos == -1) {		//base case - no operators remain
 			return new BinaryTree(expression);
-		} else {
+		} else {	//recursive case - recurse on the sub-expressions
+			//locate and hold the operator
 			String operator = String.valueOf(expression.charAt(leastSigOperatorPos));
+			//split the input by the operator and recurse on them
 			String a = expression.substring(0, leastSigOperatorPos);
 			String b = expression.substring(leastSigOperatorPos+1);
-			//System.out.println(operator);
-			//System.out.println(a);
-			//System.out.println(b);
+			//return the new tree containing the trees of the sub-expressions and the operator
 			return new BinaryTree(operator,createTree(a),createTree(b));
 		}
 	}
+	
+	private static BinaryTree createTreeThread(String expression) throws UnequalBracketsException {
+		//remove enclosing matching brackets
+		expression = checkBracket(expression);
+		int leastSigOperatorPos = leastSigOperatorPos(expression);
+		if(leastSigOperatorPos == -1) {		//base case - no operators remain
+			return new BinaryTree(expression);
+		} else {	//recursive case - recurse on the sub-expressions
+			//locate and hold the operator
+			String operator = String.valueOf(expression.charAt(leastSigOperatorPos));
+			//split the input by the operator and recurse on them
+			String a = expression.substring(0, leastSigOperatorPos);
+			String b = expression.substring(leastSigOperatorPos+1);
+			BinaryTree tree0;
+			BinaryTree tree1;
+			Thread t0 = new Thread(() -> {
+				try {
+					tree0 = createTree(a);
+				} catch (UnequalBracketsException e) {
+					e.printStackTrace();
+				}
+			});
+			Thread t1 = new Thread() {
+				public void run() {
+					try {
+						tree1 = createTree(b);
+					} catch (UnequalBracketsException e) {
+						e.printStackTrace();
+					}
+				}
+			};
+			//return the new tree containing the trees of the sub-expressions and the operator
+			return new BinaryTree(operator,createTree(a),createTree(b));
+		}
+	}
+	
+	
 	
 	//find the least significant operator in an expression
 	private static int leastSigOperatorPos(String input) {
 		int parenthesis = 0;
 		int leastSigOperatorPos = -1;
-		int leastSigOpcode = 1000;
-		//used a string to store the operators
-		//as it is essentially a char array but with added utility
-		//such as finding elements
+		int leastSigOpcode = 1000;	//make the opcode super high so every operator is more significant than it
+		//used a string to store the operators as it is essentially a char array but with added utility such as finding elements
 		final String operators = "+-*/^";
 		int currentOpcode;
-		
+		//loop through the entire input
 		for(int i=0; i<input.length(); i++) {
 			char currentChar = input.charAt(i);
 			currentOpcode = operators.indexOf(currentChar);
+			//check if it is an operator
 			if(currentOpcode>=0) {
+				//check if it the same or more significant and if it is not enclosed in parenthesis
 				if((currentOpcode <= leastSigOpcode) && (parenthesis == 0)) {
+					//update the significance and the position of the operator
 					leastSigOperatorPos = i;
 					leastSigOpcode = currentOpcode;
 				}
 			} else if(currentChar == '(') {
+				//increment to signify we have entered an enclosing bracket
 				parenthesis++;
 			} else if(currentChar == ')') {
+				//decrement to signify we have exited an enclosing bracket
 				parenthesis--;
 			}
 		}
 		return leastSigOperatorPos;
 	}
 	
-	
+	//check for and remove enclosing matching brackets
 	private static String checkBracket(String input) throws UnequalBracketsException, StringIndexOutOfBoundsException {
 		boolean done = false;
-		while(!done) {
-			done = true;
+		//check if there are an equal number of opening and closing brackets
+		if((input.length() - input.replace("(", "").length())
+				!=(input.length() - input.replace(")", "").length())) {
+			throw new UnequalBracketsException(input);
+		}
+		while(!done) {	//repeat until there are no enclosing brackets
+			done = true;//assume no enclosing matching brackets until otherwise found
+			//check if there are enclosing brackets (not necessarily matching)
 			if((input.charAt(0) == '(') && (input.charAt(input.length()-1) == ')')) {
-				int countMatching = 1;
+				int countMatching = 1;	//initialize the bracket count as 1 to count for the opening bracket 
+				//loop from the second character to one before the end
 				for(int i=1; i<input.length() - 1; i++) {
-					if (countMatching == 0) {
+					if (countMatching == 0) {	//if we find the matching bracket before the end terminate and return the input
 						return input;
 					} else if(input.charAt(i) == '(') {
+						//increment if we find an opening bracket
 						countMatching++;
 					} else if(input.charAt(i) == ')') {
+						//decrement if we find an closing bracket
 						countMatching--;
-					}
-					
+					}			
 				}
-				if(countMatching == 1) {
+				//if the last character is the matching bracket keep the outer while loop going and and remove the enclosing bracket
+				if(countMatching == 1) {	
 					input = input.substring(1, input.length() - 1);
 					done = false;
-				} else {
-					throw new UnequalBracketsException(input);
 				}
-				
 			}
 		}
 		return input;
@@ -158,77 +205,42 @@ public class Expression {
 	
 	//standardize an expression to remove ambiguity
 	private static String standardize(String expression) {
+		//remove whitespace
 		expression = expression.replace(" ", "");
-		
+		//make pi one character for faster regex
 		expression = expression.replace("pi", "π");
-		
+		//inconsistency 1
 		String regex1 = "([^\\(\\)\\+\\-\\*\\/\\^])([\\(a-zπ])";
 		String replace1 = "$1*$2";
-		
+		//inconsistency 2
 		String regex2 = "([\\)a-zπ])([^\\(\\)\\+\\-\\*\\/\\^])";
 		String replace2 = "$1*$2";
-		
+		//inconsistency 3
 		String regex3 = "\\)\\(";
 		String replace3 = ")*(";
-		
+		//inconsistency 4
 		String regex4 = "([\\+\\-\\*\\/\\^])-([^\\+\\-\\*\\/\\(\\)\\^]*)";
 		String replace4 = "$1(-$2)";
-		
+		//inconsistency 5
 		String regex5 = "(^|\\()-";
 		String replace5 = "$10-";
 		
+		//loop until check and expression are equal
 		String check = "";
-		
 		while(!expression.equals(check)) {
 			check = expression;
+			//perform regex
 			expression = expression.replaceAll(regex1, replace1);
 			expression = expression.replaceAll(regex2, replace2);
 			expression = expression.replaceAll(regex3, replace3);
 			expression = expression.replaceAll(regex4, replace4);
 			expression = expression.replaceAll(regex5, replace5);			
 		}
+		
+		//replace constants with numerical values
 		expression = expression.replaceAll("e",Double.toString(Math.E));
 		expression = expression.replaceAll("π",Double.toString(Math.PI));
 		return expression;
-		
-		
-		
-		//old code
-//		expression = expression.replace(" ", "");
-//		
-//		expression = expression.replace("pi", "π");
-//		
-//		String regex1 = "([^\\(\\)\\+\\-\\*\\/\\^])([\\(a-zπ])";
-//		String replace1 = "$1*$2";
-//		
-//		String regex2 = "([\\)a-zπ])([^\\(\\)\\+\\-\\*\\/\\^])";
-//		String replace2 = "$1*$2";
-//		
-//		String regex3 = "\\)\\(";
-//		String replace3 = ")*(";
-//		
-//		String regex4 = "([\\+\\-\\*\\/\\^])-([^\\+\\-\\*\\/\\(\\)\\^]*)";
-//		String replace4 = "$1(-$2)";
-//		
-//		String regex5 = "(^|\\()-";
-//		String replace5 = "$10-";
-//		
-//		
-//		expression = expression.replaceAll(regex1 , replace1);
-//		expression = expression.replaceAll(regex2, replace2);
-//		expression = expression.replaceAll(regex3, replace3);
-//		
-//		expression = expression.replaceAll(regex4, replace4);
-//		expression = expression.replaceAll(regex5, replace5);
-//		
-//		expression = expression.replaceAll("e",Double.toString(Math.E));
-//		expression = expression.replaceAll("π",Double.toString(Math.PI));
-//		
-//		
-//		return expression;
-		
-		
-		
 	}
 	
 	
@@ -297,17 +309,10 @@ public class Expression {
 		return this.expression + " -> " + this.postFixStack.toString();
 	}
 	
-	public static void main(String[] args) throws StackOverflowException, StackUnderflowException, UnequalBracketsException {		
-		String s = "(-x)3x(x^2)(-x+2)";
-		
-		System.out.println(standardize(s));
-		
-		Expression f = new Expression(s,'x');
-
-		System.out.println(f.postFixStack);
-		System.out.println(f.evaluate(1));
-		
-		
+	public static void main(String[] args) throws StringIndexOutOfBoundsException, UnequalBracketsException {		
+		System.out.println(leastSigOperatorPos("3+x^2"));	//should return 1 for the +
+		System.out.println(leastSigOperatorPos("(x+3)"));	//should return -1 since it is enclosed in brackets
+		System.out.println(leastSigOperatorPos("x*(x+3)^3"));	//should return 1 for the *
 	}
 
 }

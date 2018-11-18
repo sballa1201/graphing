@@ -63,6 +63,9 @@ This algorithm will also throw an exception if there are unequal number of openi
 \label{alg:checkBracket2}
 \Fn{checkBracket(\KwString input)}{
 	\KwBool done = \textit{\textbf{False}} \;
+	\uIf{input.count(`(') != input.count(`)')}{
+		\KwThrow ``There is an unequal number of opening and closing brackets''\;
+	}
 	\While{!done}{
 		done = \textit{\textbf{True}} \;
 		\uIf{input[0] == `(' \KwAnd input[input.size - 1] == `)'}{
@@ -76,13 +79,10 @@ This algorithm will also throw an exception if there are unequal number of openi
 					countMatching--\;
 				}
 			}
-			\eIf{countMatching == 1}{
+			\uIf{countMatching == 1}{
 				done = \textit{\textbf{False}}\;
 				input = input.substring(1, input.size - 2)\;
-			}{
-				\KwThrow ``There is an unequal number of opening and closing brackets''\;
-			}
-		
+			}		
 		} 
 		
 		

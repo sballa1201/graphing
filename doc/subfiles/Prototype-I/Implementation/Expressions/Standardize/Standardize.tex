@@ -1,0 +1,92 @@
+\documentclass[../../../../main.tex]{subfiles}
+\begin{document}
+\subsection{Standardize Expression}
+I created a method to standardize my expression using the \texttt{RegEx} expressions that I made. This method will be \texttt{static} since it isn't related to the object, but instead to the class as a whole. I also added support for a few constants such as $e$ and $\pi$ so that we can use them later on. Here is the code:
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+linenos,
+breaklines
+]{java}
+//standardize an expression to remove ambiguity
+private static String standardize(String expression) {
+	//remove whitespace
+	expression = expression.replace(" ", "");
+	//make pi one character for faster regex
+	expression = expression.replace("pi", "π");
+	//inconsistency 1
+	String regex1 = "([^\\(\\)\\+\\-\\*\\/\\^])([\\(a-zπ])";
+	String replace1 = "$1*$2";
+	//inconsistency 2
+	String regex2 = "([\\)a-zπ])([^\\(\\)\\+\\-\\*\\/\\^])";
+	String replace2 = "$1*$2";
+	//inconsistency 3
+	String regex3 = "\\)\\(";
+	String replace3 = ")*(";
+	//inconsistency 4
+	String regex4 = "([\\+\\-\\*\\/\\^])-([^\\+\\-\\*\\/\\(\\)\\^]*)";
+	String replace4 = "$1(-$2)";
+	//inconsistency 5
+	String regex5 = "(^|\\()-";
+	String replace5 = "$10-";
+	//perform regex
+	expression = expression.replaceAll(regex1, replace1);
+	expression = expression.replaceAll(regex2, replace2);
+	expression = expression.replaceAll(regex3, replace3);
+	expression = expression.replaceAll(regex4, replace4);
+	expression = expression.replaceAll(regex5, replace5);
+	//replace constants with numerical values
+	expression = expression.replaceAll("e",Double.toString(Math.E));
+	expression = expression.replaceAll("π",Double.toString(Math.PI));
+	//return the standardized expression
+	return expression;
+}
+\end{minted}
+\newpage\noindent
+To test my module I tested each of the inconsistencies and then a complex expression just to make sure everything is working. Here is the code with comments for what I expected:
+\begin{minted}{java}
+System.out.println(standardize("2x"));	//2*x
+System.out.println(standardize("(x)3"));	//(x)*3
+System.out.println(standardize(")("));	//)*(
+System.out.println(standardize("*-x"));		//*(0-x)
+System.out.println(standardize("3x(-x+1)(x+2)"));	//3*x*(0-x+1)*(x+2)
+\end{minted}
+Here are the results:
+\begin{minted}{console}
+2*x
+(x)*3
+)*(
+*(0-x)
+3*x(0-x+1)*(x+2)
+\end{minted}
+All the tests passed except the last one. It seems as though, the \texttt{RegEx} is ignoring the second instance of the multiplication for some reason. To see if it is a one time thing I ran the same \texttt{RegEx} expression again, as in I executed the \texttt{replaceAll()} functions again. For some reason this seemed to fix it as I got the expected output of $3*x*(0-x+1)*(x+2)$. To account for this, within my \texttt{standardize()} function, I will add a loop which make the \texttt{RegEx} checks are run until my expression has not changed between two consecutive \texttt{RegEx}. Here is the code\footnote{The full code is at the end of the section} that I modified:
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+linenos,
+breaklines
+]{java}
+//loop until check and expression are equal
+String check = "";
+while(!expression.equals(check)) {
+	check = expression;
+	//perform regex
+	expression = expression.replaceAll(regex1, replace1);
+	expression = expression.replaceAll(regex2, replace2);
+	expression = expression.replaceAll(regex3, replace3);
+	expression = expression.replaceAll(regex4, replace4);
+	expression = expression.replaceAll(regex5, replace5);			
+}
+\end{minted}
+While making this modification I originally checked if the previous and current versions of the expressions by doing \mintinline{java}{check!=expression}. This caused an infinite loop. This is because the \texttt{String} object in \texttt{Java} is quite unique in the fact that they act like primitives when assigning values (as shown in line 4 in the code above), but act like references when checking for equivalency\cite{javaString}. In the example before, we were checking if they were the same reference i.e.\ the same object, not if they have the same contents, therefore it always evaluated as true (never same object hence true). Hence \mintinline{java}{!expression.equals(check)} is more suitable.\\ \\
+I tested this new function with the same arguments as before and here are the results:
+\begin{minted}{console}
+2*x
+(x)*3
+)*(
+*(0-x)
+3*x*(0-x+1)*(x+2)
+\end{minted}
+These are the results I expected.
+\newpage
+\end{document}
