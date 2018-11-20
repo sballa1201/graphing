@@ -1,5 +1,11 @@
 package structures;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 import exceptions.StackOverflowException;
 import exceptions.StackUnderflowException;
 import exceptions.UnequalBracketsException;
@@ -85,13 +91,14 @@ public class Expression {
 	private static BinaryTree createTree(String expression) throws UnequalBracketsException {
 		//remove enclosing matching brackets
 		expression = checkBracket(expression);
+		//find the least significant operator, if an operator remains
 		int leastSigOperatorPos = leastSigOperatorPos(expression);
 		if(leastSigOperatorPos == -1) {		//base case - no operators remain
 			return new BinaryTree(expression);
 		} else {	//recursive case - recurse on the sub-expressions
 			//locate and hold the operator
 			String operator = String.valueOf(expression.charAt(leastSigOperatorPos));
-			//split the input by the operator and recurse on them
+			//split the expression into sub-expressions by the operator and recurse on them
 			String a = expression.substring(0, leastSigOperatorPos);
 			String b = expression.substring(leastSigOperatorPos+1);
 			//return the new tree containing the trees of the sub-expressions and the operator
@@ -99,38 +106,39 @@ public class Expression {
 		}
 	}
 	
-	private static BinaryTree createTreeThread(String expression) throws UnequalBracketsException {
+	//create the abstract syntax tree for the expression - threaded
+	private static BinaryTree createTreeThread(String expression) throws StringIndexOutOfBoundsException, UnequalBracketsException, InterruptedException, ExecutionException {
 		//remove enclosing matching brackets
 		expression = checkBracket(expression);
+		//find the least significant operator, if an operator remains
 		int leastSigOperatorPos = leastSigOperatorPos(expression);
 		if(leastSigOperatorPos == -1) {		//base case - no operators remain
 			return new BinaryTree(expression);
 		} else {	//recursive case - recurse on the sub-expressions
 			//locate and hold the operator
 			String operator = String.valueOf(expression.charAt(leastSigOperatorPos));
-			//split the input by the operator and recurse on them
+			//split the expression into sub-expressions by the operator and recurse on them
 			String a = expression.substring(0, leastSigOperatorPos);
 			String b = expression.substring(leastSigOperatorPos+1);
 			BinaryTree tree0;
 			BinaryTree tree1;
-			Thread t0 = new Thread(() -> {
-				try {
-					tree0 = createTree(a);
-				} catch (UnequalBracketsException e) {
-					e.printStackTrace();
-				}
-			});
-			Thread t1 = new Thread() {
-				public void run() {
-					try {
-						tree1 = createTree(b);
-					} catch (UnequalBracketsException e) {
-						e.printStackTrace();
-					}
-				}
-			};
+			//create the threads and execute them
+			ExecutorService executor0 = Executors.newSingleThreadExecutor();
+	        Future<BinaryTree> future0 = executor0.submit(() -> {
+	            return createTree(a);
+	        });
+	        ExecutorService executor1 = Executors.newSingleThreadExecutor();
+	        Future<BinaryTree> future1 = executor1.submit(() -> {
+	            return createTree(b);
+	        });
+			//return the tree values from the threads
+	        tree0 = future0.get();
+	        tree1 = future1.get();
+	        //shutdown the threads
+	        executor0.shutdown();
+	        executor1.shutdown();
 			//return the new tree containing the trees of the sub-expressions and the operator
-			return new BinaryTree(operator,createTree(a),createTree(b));
+			return new BinaryTree(operator, tree0, tree1);
 		}
 	}
 	
@@ -309,10 +317,21 @@ public class Expression {
 		return this.expression + " -> " + this.postFixStack.toString();
 	}
 	
-	public static void main(String[] args) throws StringIndexOutOfBoundsException, UnequalBracketsException {		
-		System.out.println(leastSigOperatorPos("3+x^2"));	//should return 1 for the +
-		System.out.println(leastSigOperatorPos("(x+3)"));	//should return -1 since it is enclosed in brackets
-		System.out.println(leastSigOperatorPos("x*(x+3)^3"));	//should return 1 for the *
+	public static void main(String[] args) throws StringIndexOutOfBoundsException, UnequalBracketsException, StackOverflowException, InterruptedException, ExecutionException {		
+		//create the standardized expressions
+		String a = standardize("2^x");
+		String b = standardize("(x+1)(x-1)");
+		//create the trees
+//		BinaryTree treeA = createTreeThread(a);
+//		BinaryTree treeB = createTreeThread(b);
+		BinaryTree treeA = createTree(a);
+		BinaryTree treeB = createTree(b);
+		//show the conversion between the expressions and trees
+		//the traverse function uses a stack so remember the output will be reversed
+		//[2, x, ^] but it will be reversed therefore [^, x, 2]
+		System.out.println(a + " -> " + treeA.traverse());
+		//[x, 1, +, x, 1, -, *] but it will be reversed therefore [*, -, 1, x, +, 1, x]
+		System.out.println(b + " -> " + treeB.traverse());
 	}
 
 }

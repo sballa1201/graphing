@@ -1,6 +1,63 @@
 \documentclass[../../../../main.tex]{subfiles}
 \begin{document}
 \subsection{Create the Abstract Syntax Tree}
-When I designed this algorithm I wrote about how I could implement it using multiple threads. While multi-threading can be very powerful, like everything in Computer Science there is a cost. This is especially true where in \texttt{Java} the cost of instantiating a thread\cite{threadCreationJava} is incredibly expensive
+I first implemented the normal sequential function and later I will implement the multi-threaded approach. Again like the methods before it this is a static function, since it relates to the class not the object itself.
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+linenos,
+breaklines
+]{java}
+//create the abstract syntax tree for the expression
+private static BinaryTree createTree(String expression) throws UnequalBracketsException {
+	//remove enclosing matching brackets
+	expression = checkBracket(expression);
+	//find the least significant operator, if an operator remains
+	int leastSigOperatorPos = leastSigOperatorPos(expression);
+	if(leastSigOperatorPos == -1) {		//base case - no operators remain
+		return new BinaryTree(expression);
+	} else {	//recursive case - recurse on the sub-expressions
+		//locate and hold the operator
+		String operator = String.valueOf(expression.charAt(leastSigOperatorPos));
+		//split the expression into sub-expressions by the operator and recurse on them
+		String a = expression.substring(0, leastSigOperatorPos);
+		String b = expression.substring(leastSigOperatorPos+1);
+		//return the new tree containing the trees of the sub-expressions and the operator
+		return new BinaryTree(operator,createTree(a),createTree(b));
+	}
+}
+\end{minted}
+The problem with creating a tree is that I can't actually display it in a way to check if my algorithm works. To get around this issue I can just use my traversal algorithm. I have tested my traversal algorithm and know that it works hence I can just output the stack from traversing it. I will standardize my expressions before I create the trees since this is what will happen in the constructor later.
+\begin{minted}[breaklines]{java}
+//create the standardized expressions
+String a = standardize("2^x");
+String b = standardize("(x+1)(x-1)");
+//create the trees
+BinaryTree treeA = createTree(a);
+BinaryTree treeB = createTree(b);
+//show the conversion between the expressions and trees
+//the traverse function uses a stack so remember the output will be reversed
+//[2, x, ^] but it will be reversed therefore [^, x, 2]
+System.out.println(a + " -> " + treeA.traverse());
+//[x, 1, +, x, 1, -, *] but it will be reversed therefore [*, -, 1, x, +, 1, x]
+System.out.println(b + " -> " + treeB.traverse());
+\end{minted}
+Here are the results:
+\begin{minted}[breaklines]{console}
+2^x -> [^], x, 2
+(x+1)*(x-1) -> [*], -, 1, x, +, 1, x
+\end{minted}
+Which is exactly what I expected.
+\newpage
+When I designed this algorithm I wrote about how I could implement it using multiple threads. While multi-threading can be very powerful, like everything in Computer Science there is a cost. This is especially true where in \texttt{Java} the cost of instantiating a thread\cite{threadCreationJava} (on the fly at least) is incredibly expensive. In the article it talks about three main things:
+\begin{enumerate}
+\item Allocating Memory to the thread
+\item Create the call stack for the thread\cite{threadStackJava, callStack}
+\item Initialize and link the thread to the host OS
+\end{enumerate}
+This takes a lot of processing time, in this article\cite{threadCreationRate} one user manages to spawn about 10000 threads a second, which means that it takes approximately $0.1$ seconds to spawn every thread. This is to be taken with a pinch of salt however since the article is quite old (8 years in fact) and processors are better and the JVM should be more efficient nowadays than before. To test this for myself I ran their benchmark program.
+\footnote{The code for this is on the StackOverflow thread, made by a user called at the time of writing this ``Jaan''\cite{threadCreationRate}} 
+I did modify it however to make each test do the same amount of work (the same number of steps). I also ran it 3 times so I could calculate a mean to able to identify anomalous data. I did this by executing and compiling the program 3 times, to reduce the effect of cached memory affecting the results. While the test does accommodate for this issue and allows for multiple tests, I think it is best to give the JVM no chance for optimization by just destroying and recreating the JVM.
+
 \newpage
 \end{document}
