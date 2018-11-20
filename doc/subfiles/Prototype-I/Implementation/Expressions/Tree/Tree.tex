@@ -56,7 +56,7 @@ When I designed this algorithm I wrote about how I could implement it using mult
 \item Initialize and link the thread to the host OS
 \end{enumerate}
 This takes a lot of processing time, in this article\cite{threadCreationRate} one user manages to spawn about 10000 threads a second, which means that it takes approximately $0.1$ seconds to spawn every thread. This is to be taken with a pinch of salt however since the article is quite old (8 years in fact) and processors are better and the JVM should be more efficient nowadays than before. To test this for myself I ran their benchmark program.
-\footnote{The code for this is on the StackOverflow thread, made by a user called at the time of writing this ``Jaan''\cite{threadCreationRate}} 
+\footnote{The code for this is on the StackOverflow thread, made by a user called, at the time of writing this, ``Jaan''\cite{threadCreationRate}} 
 I did modify it however to make each test do the same amount of work (the same number of steps). I also ran it 3 times so I could calculate a mean to able to identify anomalous data. I did this by executing and compiling the program 3 times, to reduce the effect of cached memory affecting the results. While the test does accommodate for this issue and allows for multiple tests, I think it is best to give the JVM no chance for optimization by just destroying and recreating the JVM.
 
 \newpage
