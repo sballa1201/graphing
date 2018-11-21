@@ -1,4 +1,4 @@
-\documentclass[../../../../main.tex]{subfiles}
+\documentclass[../../../../../main.tex]{subfiles}
 \begin{document}
 \subsection{Create the Abstract Syntax Tree}
 I first implemented the normal sequential function and later I will implement the multi-threaded approach. Again like the methods before it this is a static function, since it relates to the class not the object itself.
@@ -48,7 +48,7 @@ Here are the results:
 (x+1)*(x-1) -> [*], -, 1, x, +, 1, x
 \end{minted}
 Which is exactly what I expected.
-\newpage
+\newpage \noindent
 When I designed this algorithm I wrote about how I could implement it using multiple threads. While multi-threading can be very powerful, like everything in Computer Science there is a cost. This is especially true where in \texttt{Java} the cost of instantiating a thread\cite{threadCreationJava} (on the fly at least) is incredibly expensive. In the article it talks about three main things:
 \begin{enumerate}
 \item Allocating Memory to the thread
@@ -57,7 +57,31 @@ When I designed this algorithm I wrote about how I could implement it using mult
 \end{enumerate}
 This takes a lot of processing time, in this article\cite{threadCreationRate} one user manages to spawn about 10000 threads a second, which means that it takes approximately $0.1$ seconds to spawn every thread. This is to be taken with a pinch of salt however since the article is quite old (8 years in fact) and processors are better and the JVM should be more efficient nowadays than before. To test this for myself I ran their benchmark program.
 \footnote{The code for this is on the StackOverflow thread, made by a user called, at the time of writing this, ``Jaan''\cite{threadCreationRate}} 
-I did modify it however to make each test do the same amount of work (the same number of steps). I also ran it 3 times so I could calculate a mean to able to identify anomalous data. I did this by executing and compiling the program 3 times, to reduce the effect of cached memory affecting the results. While the test does accommodate for this issue and allows for multiple tests, I think it is best to give the JVM no chance for optimization by just destroying and recreating the JVM.
+I did modify it however to make each test do the same amount of work (the same number of instructions). I also ran it 3 times so I could calculate a mean to able to identify anomalous data. I did this by compiling and executing the program 3 times, to reduce the effect of cached memory affecting the results. While the test does accommodate for this issue and allows for multiple tests, I think it is best to give the JVM no chance for optimization by just destroying and recreating the JVM. Here are the results:
+
+\[DO \cdot THE \cdot THREAD \cdot CREATION \cdot TEST\]
+\newpage\noindent
+From these results it seems that the effect of using a small number of threads seems minimal and the overhead may be outweighed by the other parts of the function. So I decided to test my 2 \texttt{createTree()} functions to identify if a purely single-threaded approach is more efficient than a multi-threaded approach. However the two approaches may change in effectiveness depending on the complexity of the expression we are parsing. To effectively measure the complexity however we need to analyze the algorithm in detail.
+
+Assuming that a single call of the \texttt{createTree()} algorithm takes the same time, $t$, to execute (exclude the recursive calls and the overhead that is need for them), then $\mathcal{O}(n) = (n+1)t$ where $n$ is the number of operators. Assuming that the expression is valid, this value comes from the fact that we can split a standardized expression into by each operator. From the nature of our approach, there will be no operators on the start or the end of a valid expression, and each variable/constant is split apart by an operator\footnote{This is an inherent property within any valid expression since otherwise without this we cannot separate each variable/constant hence we cannot define explicitly where each variable/constant starts and ends. Within human expressions this is more implicit but still exists. For example $(x+1)(y-1)$ appears not to have an operator between 1 and $y$, but recall from the design section that this expression actual means $(x+1)*(y-1)$ hence the property is still valid. This only applies to operators and becomes blurred when we talk about functions such as $\sin$ but this does not matter since our algorithm does not deal with this.}. 
+Now from this property we notice that each operator has a uniquely positioned variable/constant on the right of it, apart from the first operator which has an extra variable/constant to the left of it. Now our function recurses $k$ times where k is the number of base sub-expressions, i.e.\ variables/constants. However it can be hard to count these variables/constants since they can be of variable length (1.2 is a constant and has a length in terms of strings of 3, but $x$ is also a variable but has a length of 1). On the other hand operators are incredibly easy to spot and count since there is a finite number of types of operators, and they are all of length 1. Hence it makes sense to define the complexity of our function in terms of the number of operators. This means that one of our independent variables, the one we will change, will be the number of operators. We will also change whether we use threads or not since this is the point of our experiment.
+ 
+\begin{table}[ht] \caption{Single- vs Multi-Threaded Approach Test} % title of Table
+\centering      % used for centering table
+\begin{tabular}{| l | l | l | l | l | l | l | l | l |}
+\hline
+\multicolumn{1}{|c|}{\multirow{3}{*}{Number of Operators}} & \multicolumn{8}{c|}{Time Taken/ms}                                                                                                                                                                          \\ \cline{2-9} 
+\multicolumn{1}{|c|}{}                                     & \multicolumn{4}{c|}{With Threads}                                                                    & \multicolumn{4}{c|}{Without Threads}                                                                 \\ \cline{2-9} 
+\multicolumn{1}{|c|}{}                                     & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{2} & \multicolumn{1}{c|}{3} & \multicolumn{1}{c|}{Mean} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{2} & \multicolumn{1}{c|}{3} & \multicolumn{1}{c|}{Mean} \\ \hline
+1                                                          &                        &                        &                        &                           &                        &                        &                        &                           \\ \hline
+5                                                          &                        &                        &                        &                           &                        &                        &                        &                           \\ \hline
+20                                                         &                        &                        &                        &                           &                        &                        &                        &                           \\ \hline
+100                                                        &                        &                        &                        &                           &                        &                        &                        &                           \\ \hline
+\end{tabular}
+\label{tbl:parseAlgorithmTest}
+\end{table}
+
+
 
 \newpage
 \end{document}
