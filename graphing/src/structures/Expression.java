@@ -89,7 +89,7 @@ public class Expression {
 		return subStack;
 	}
 
-	// create the abstract syntax tree for the expression
+	// create the abstract syntax tree for the expression - single-threaded
 	private static BinaryTree createTree(String expression) throws UnequalBracketsException {
 		// remove enclosing matching brackets
 		expression = checkBracket(expression);
@@ -104,12 +104,12 @@ public class Expression {
 			String a = expression.substring(0, leastSigOperatorPos);
 			String b = expression.substring(leastSigOperatorPos + 1);
 			// return the new tree containing the trees of the sub-expressions and the
-			// operator
+			// operator as the root value
 			return new BinaryTree(operator, createTree(a), createTree(b));
 		}
 	}
 
-	// create the abstract syntax tree for the expression - threaded
+	// create the abstract syntax tree for the expression - multi-threaded
 	private static BinaryTree createTreeThread(String expression)
 			throws StringIndexOutOfBoundsException, UnequalBracketsException, InterruptedException, ExecutionException {
 		// remove enclosing matching brackets
@@ -142,7 +142,7 @@ public class Expression {
 			executor0.shutdown();
 			executor1.shutdown();
 			// return the new tree containing the trees of the sub-expressions and the
-			// operator
+			// operator as the root value
 			return new BinaryTree(operator, tree0, tree1);
 		}
 	}
@@ -325,20 +325,19 @@ public class Expression {
 	public static void main(String[] args) throws StringIndexOutOfBoundsException, UnequalBracketsException,
 			StackOverflowException, InterruptedException, ExecutionException {
 		// create the standardized expressions
-		String a = standardize("2^x");
-		String b = standardize("(x+1)(x-1)(xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx)^(xxxxxxxxxxxxxxxxxxxxxxxxxxx)");
+		String ex = new String(new char[100]).replace("\0", "x");
+		// String ex = "2x^(2x+4)";
+		String a = standardize(ex);
 		// create the trees
 		BinaryTree treeA, treeB, treeThreadA, treeThreadB;
 		Instant start, end;
 
 		start = Instant.now();
 		treeThreadA = createTreeThread(a);
-		treeThreadB = createTreeThread(b);
 		end = Instant.now();
 		System.out.println("time taken for threaded approach - " + Duration.between(start, end).toMillis() + "ms");
 		start = Instant.now();
 		treeA = createTree(a);
-		treeB = createTree(b);
 		end = Instant.now();
 		System.out.println("time taken for sequential approach - " + Duration.between(start, end).toMillis() + "ms");
 		System.out.println();

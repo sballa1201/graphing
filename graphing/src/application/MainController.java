@@ -9,31 +9,25 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 
 public class MainController implements Initializable {
-	
+
 	@FXML
 	private BorderPane rootPane;
-	
+
 	private ShareLayers shareLayerStore;
-	
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
+
 		this.shareLayerStore = new ShareLayers();
-		
+
 		System.out.println(shareLayerStore);
-		
-		
-		
+
 		PlotPane plotPane = new PlotPane();
-		
+
 		plotPane.setShareLayerStore(shareLayerStore);
-		
+
 		rootPane.setCenter(plotPane);
-		
-		
-		
-		
+
 		InputPane inputPane = null;
 		try {
 			inputPane = new InputPane();
@@ -43,11 +37,10 @@ public class MainController implements Initializable {
 		}
 		System.out.println(inputPane);
 		inputPane.setShareLayerStore(shareLayerStore);
-		
+
 		rootPane.setLeft(inputPane);
-		
-		//rootPane.setLeft(inputPane);
+
+		// rootPane.setLeft(inputPane);
 	}
-	
-	
+
 }

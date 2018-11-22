@@ -21,41 +21,38 @@ import layer.Layer;
 public class ExpressionBoxController implements Initializable {
 
 	private int ID;
-	
+
 	@FXML
 	private TextField inputTxt;
-	
+
 	@FXML
 	private Button removeBtn;
-	
+
 	@FXML
 	private Button settingsBtn;
-	
+
 	@FXML
 	private Canvas visibleCanvas;
 	private GraphicsContext gc;
-	
+
 	private boolean visible = true;
-	
+
 	private Color color;
-	
+
 	private StringProperty functionText = new SimpleStringProperty();
-	
+
 	private InputPane inputPane;
-	
+
 	public ExpressionBoxController() {
-			
+
 	}
-	
-	
-	
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		this.functionText.set(inputTxt.textProperty().getValueSafe());
 		this.functionText.bind(inputTxt.textProperty());
 		this.functionText.addListener(event -> changeLayer());
-		
-		
+
 		this.removeBtn.setOnAction(event -> {
 			try {
 				remove();
@@ -63,71 +60,68 @@ public class ExpressionBoxController implements Initializable {
 				e.printStackTrace();
 			}
 		});
-		
+
 		this.gc = this.visibleCanvas.getGraphicsContext2D();
 		this.gc.setLineWidth(2);
 		this.visibleCanvas.setOnMouseClicked(event -> changeColor());
 	}
 
-
-
 	private void changeLayer() {
-		
-		if(visible) {
-			
+
+		if (visible) {
+
 			Layer l;
-			
+
 			String f = this.functionText.getValueSafe();
-			
-			
-			if(f.length() == 0) {
+
+			if (f.length() == 0) {
 				inputPane.removeLayer(ID);
 				return;
 			}
-			
-			int xInstances = f.length() - f.replaceAll("x","").length();
-			
-			int yInstances = f.length() - f.replaceAll("y","").length();
-			
-			int tInstances = f.length() - f.replaceAll("t","").length();
-			
-			if(xInstances > 0 && yInstances > 0) {
+
+			int xInstances = f.length() - f.replaceAll("x", "").length();
+
+			int yInstances = f.length() - f.replaceAll("y", "").length();
+
+			int tInstances = f.length() - f.replaceAll("t", "").length();
+
+			if (xInstances > 0 && yInstances > 0) {
 				inputPane.removeLayer(ID);
 				return;
-			} else if(tInstances > 0) {
+			} else if (tInstances > 0) {
 				l = new ExplicitPolarLayer(f);
 				l.setColor(color);
-				
+
 				inputPane.putLayer(this.ID, l);
-				
-				System.out.println("update - "+l);
-			} else if(yInstances > 0) {
-			
+
+				System.out.println("update - " + l);
+			} else if (yInstances > 0) {
+
 				try {
 					l = new ExplicitYFunctionCartesianLayer(f);
 					l.setColor(color);
-					
+
 					inputPane.putLayer(this.ID, l);
-					
-					System.out.println("update - "+l);
-					
-				} catch(NullPointerException e) {
+
+					System.out.println("update - " + l);
+
+				} catch (NullPointerException e) {
 					System.out.println("share doesnt exist");
-				} catch(Exception e) {
+				} catch (Exception e) {
 					System.out.println("other prob");
 				}
 			} else {
 				try {
 					l = new ExplicitXFunctionCartesianLayer(f);
 					l.setColor(color);
-					
+
 					inputPane.putLayer(this.ID, l);
-					
-					System.out.println("update - "+l);
-					
-				} catch(NullPointerException e) {
+
+					System.out.println("update - " + l);
+
+				} catch (NullPointerException e) {
 					System.out.println("share doesnt exist");
-				} catch(Exception e) {
+				} catch (Exception e) {
 					System.out.println("other prob");
 				}
 			}
@@ -135,52 +129,42 @@ public class ExpressionBoxController implements Initializable {
 			inputPane.removeLayer(ID);
 		}
 	}
-	
-	
+
 	private void changeColor() {
-		gc.clearRect(0, 0,visibleCanvas.getWidth(), visibleCanvas.getHeight());
-		if(!visible) {
-			gc.fillRect(0, 0,visibleCanvas.getWidth(), visibleCanvas.getHeight());
+		gc.clearRect(0, 0, visibleCanvas.getWidth(), visibleCanvas.getHeight());
+		if (!visible) {
+			gc.fillRect(0, 0, visibleCanvas.getWidth(), visibleCanvas.getHeight());
 		}
-		gc.strokeRect(0, 0,visibleCanvas.getWidth(), visibleCanvas.getHeight());
+		gc.strokeRect(0, 0, visibleCanvas.getWidth(), visibleCanvas.getHeight());
 		visible = !visible;
 		changeLayer();
 	}
 
-
 	private void remove() throws IOException {
 		this.inputPane.removeExpression(this.ID);
 	}
-	
 
 	public void setID(int iD) {
 		ID = iD;
 	}
-	
-	
+
 	public int getID() {
 		return ID;
 	}
 
-
 	public void setInputPane(InputPane inputPane) {
 		this.inputPane = inputPane;
 	}
-	
 
 	public StringProperty getFunctionText() {
 		return functionText;
 	}
 
-
-
 	public void setColor(Color color) {
 		this.color = color;
 		gc.setStroke(color);
 		gc.setFill(color);
-		gc.fillRect(0, 0,visibleCanvas.getWidth(), visibleCanvas.getHeight());
+		gc.fillRect(0, 0, visibleCanvas.getWidth(), visibleCanvas.getHeight());
 	}
-
-	
 
 }
