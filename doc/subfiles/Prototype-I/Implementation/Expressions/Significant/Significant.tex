@@ -8,31 +8,31 @@ framesep=2mm,
 linenos,
 breaklines
 ]{java}
-//find the least significant operator in an expression
+// find the least significant operator in an expression
 private static int leastSigOperatorPos(String input) {
 	int parenthesis = 0;
 	int leastSigOperatorPos = -1;
-	int leastSigOpcode = 1000;	//make the opcode super high so every operator is more significant than it
-	//used a string to store the operators as it is essentially a char array but with added utility such as finding elements
+	int leastSigOpcode = 1000;	// make the opcode super high so every operator is more significant than it
+	// used a string to store the operators as it is essentially a char array but with added utility such as finding elements
 	final String operators = "+-*/^";
 	int currentOpcode;
-	//loop through the entire input
+	// loop through the entire input
 	for(int i=0; i<input.length(); i++) {
 		char currentChar = input.charAt(i);
 		currentOpcode = operators.indexOf(currentChar);
-		//check if it is an operator
+		// check if it is an operator
 		if(currentOpcode>=0) {
-			//check if it the same or more significant and if it is not enclosed in parenthesis
+			// check if it the same or more significant and if it is not enclosed in parenthesis
 			if((currentOpcode <= leastSigOpcode) && (parenthesis == 0)) {
-				//update the significance and the position of the operator
+				// update the significance and the position of the operator
 				leastSigOperatorPos = i;
 				leastSigOpcode = currentOpcode;
 			}
 		} else if(currentChar == '(') {
-			//increment to signify we have entered an enclosing bracket
+			// increment to signify we have entered an enclosing bracket
 			parenthesis++;
 		} else if(currentChar == ')') {
-			//decrement to signify we have exited an enclosing bracket
+			// decrement to signify we have exited an enclosing bracket
 			parenthesis--;
 		}
 	}
@@ -41,9 +41,9 @@ private static int leastSigOperatorPos(String input) {
 \end{minted}
 To test this method I used the following code with comments for what I expected:
 \begin{minted}[breaklines]{java}
-System.out.println(leastSigOperatorPos("3+x^2"));	//should return 1 for the +
-System.out.println(leastSigOperatorPos("(x+3)"));	//should return -1 since it is enclosed in brackets
-System.out.println(leastSigOperatorPos("x*(x+3)^3"));	//should return 1 for the *
+System.out.println(leastSigOperatorPos("3+x^2"));	// should return 1 for the +
+System.out.println(leastSigOperatorPos("(x+3)"));	// should return -1 since it is enclosed in brackets
+System.out.println(leastSigOperatorPos("x*(x+3)^3"));	// should return 1 for the *
 \end{minted}
 Here are the results:
 \begin{minted}[breaklines]{console}

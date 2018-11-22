@@ -8,48 +8,48 @@ framesep=2mm,
 linenos,
 breaklines
 ]{java}
-//standardize an expression to remove ambiguity
+// standardize an expression to remove ambiguity
 private static String standardize(String expression) {
-	//remove whitespace
+	// remove whitespace
 	expression = expression.replace(" ", "");
-	//make pi one character for faster regex
+	// make pi one character for faster regex
 	expression = expression.replace("pi", "π");
-	//inconsistency 1
+	// inconsistency 1
 	String regex1 = "([^\\(\\)\\+\\-\\*\\/\\^])([\\(a-zπ])";
 	String replace1 = "$1*$2";
-	//inconsistency 2
+	// inconsistency 2
 	String regex2 = "([\\)a-zπ])([^\\(\\)\\+\\-\\*\\/\\^])";
 	String replace2 = "$1*$2";
-	//inconsistency 3
+	// inconsistency 3
 	String regex3 = "\\)\\(";
 	String replace3 = ")*(";
-	//inconsistency 4
+	// inconsistency 4
 	String regex4 = "([\\+\\-\\*\\/\\^])-([^\\+\\-\\*\\/\\(\\)\\^]*)";
 	String replace4 = "$1(-$2)";
-	//inconsistency 5
+	// inconsistency 5
 	String regex5 = "(^|\\()-";
 	String replace5 = "$10-";
-	//perform regex
+	// perform regex
 	expression = expression.replaceAll(regex1, replace1);
 	expression = expression.replaceAll(regex2, replace2);
 	expression = expression.replaceAll(regex3, replace3);
 	expression = expression.replaceAll(regex4, replace4);
 	expression = expression.replaceAll(regex5, replace5);
-	//replace constants with numerical values
+	// replace constants with numerical values
 	expression = expression.replaceAll("e",Double.toString(Math.E));
 	expression = expression.replaceAll("π",Double.toString(Math.PI));
-	//return the standardized expression
+	// return the standardized expression
 	return expression;
 }
 \end{minted}
 \newpage\noindent
 To test my module I tested each of the inconsistencies and then a complex expression just to make sure everything is working. Here is the code with comments for what I expected:
 \begin{minted}{java}
-System.out.println(standardize("2x"));	//2*x
-System.out.println(standardize("(x)3"));	//(x)*3
-System.out.println(standardize(")("));	//)*(
-System.out.println(standardize("*-x"));		//*(0-x)
-System.out.println(standardize("3x(-x+1)(x+2)"));	//3*x*(0-x+1)*(x+2)
+System.out.println(standardize("2x"));	// 2*x
+System.out.println(standardize("(x)3"));	// (x)*3
+System.out.println(standardize(")("));	// )*(
+System.out.println(standardize("*-x"));		// *(0-x)
+System.out.println(standardize("3x(-x+1)(x+2)"));	// 3*x*(0-x+1)*(x+2)
 \end{minted}
 Here are the results:
 \begin{minted}{console}
@@ -66,11 +66,11 @@ framesep=2mm,
 linenos,
 breaklines
 ]{java}
-//loop until check and expression are equal
+// loop until check and expression are equal
 String check = "";
 while(!expression.equals(check)) {
 	check = expression;
-	//perform regex
+	// perform regex
 	expression = expression.replaceAll(regex1, replace1);
 	expression = expression.replaceAll(regex2, replace2);
 	expression = expression.replaceAll(regex3, replace3);

@@ -8,32 +8,32 @@ framesep=2mm,
 linenos,
 breaklines
 ]{java}
-//check for and remove enclosing matching brackets
+// check for and remove enclosing matching brackets
 private static String checkBracket(String input) throws UnequalBracketsException, StringIndexOutOfBoundsException {
 	boolean done = false;
-	//check if there are an equal number of opening and closing brackets
+	// check if there are an equal number of opening and closing brackets
 	if((input.length() - input.replace("(", "").length())
 			!=(input.length() - input.replace(")", "").length())) {
 		throw new UnequalBracketsException(input);
 	}
-	while(!done) {	//repeat until there are no enclosing brackets
-		done = true;//assume no enclosing matching brackets until otherwise found
-		//check if there are enclosing brackets (not necessarily matching)
+	while(!done) {	// repeat until there are no enclosing brackets
+		done = true;// assume no enclosing matching brackets until otherwise found
+		// check if there are enclosing brackets (not necessarily matching)
 		if((input.charAt(0) == '(') && (input.charAt(input.length()-1) == ')')) {
-			int countMatching = 1;	//initialize the bracket count as 1 to count for the opening bracket 
-			//loop from the second character to one before the end
+			int countMatching = 1;	// initialize the bracket count as 1 to count for the opening bracket 
+			// loop from the second character to one before the end
 			for(int i=1; i<input.length() - 1; i++) {
-				if (countMatching == 0) {	//if we find the matching bracket before the end terminate and return the input
+				if (countMatching == 0) {	// if we find the matching bracket before the end terminate and return the input
 					return input;
 				} else if(input.charAt(i) == '(') {
-					//increment if we find an opening bracket
+					// increment if we find an opening bracket
 					countMatching++;
 				} else if(input.charAt(i) == ')') {
-					//decrement if we find an closing bracket
+					// decrement if we find an closing bracket
 					countMatching--;
 				}			
 			}
-			//if the last character is the matching bracket keep the outer while loop going and and remove the enclosing bracket
+			// if the last character is the matching bracket keep the outer while loop going and and remove the enclosing bracket
 			if(countMatching == 1) {	
 				input = input.substring(1, input.length() - 1);
 				done = false;
@@ -47,11 +47,11 @@ While this algorithm is explained in the design section, the confusing part of t
 \newpage\noindent
 To test this method I used the following code with comments for what I expected:
 \begin{minted}[breaklines]{java}
-System.out.println(checkBracket("2x"));	//2x - nothing changes
-System.out.println(checkBracket("((x))"));	//x - nothing changes
-System.out.println(checkBracket("(x-1)(x+1)"));	//(x-1)(x+1) nothing - changes
-System.out.println(checkBracket("((x-1)(x+1))"));	//(x-1)(x+1)
-System.out.println(checkBracket("((x)"));	//throws an exception
+System.out.println(checkBracket("2x"));	// 2x - nothing changes
+System.out.println(checkBracket("((x))"));	// x - nothing changes
+System.out.println(checkBracket("(x-1)(x+1)"));	// (x-1)(x+1) nothing - changes
+System.out.println(checkBracket("((x-1)(x+1))"));	// (x-1)(x+1)
+System.out.println(checkBracket("((x)"));	// throws an exception
 \end{minted}
 Here are the results:
 \begin{minted}[breaklines]{console}
