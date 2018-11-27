@@ -16,6 +16,7 @@ Class.A("Function")
         "-String checkBracket()",
         "-String standardize(String expression)")
 	("-String expression",
+	"-String parameter",
         "-Stack postFixStack",
         "-Tree tree");
     	drawObject(A);

@@ -2,22 +2,24 @@
 \begin{document}
 
 \subsection{Constructor and the Class as a Whole}
-The constructor for the \texttt{Function} class will be quite simple. We take an expression as an input and:
+The constructor for the \texttt{Function} class will be quite simple. We take an expression and the primary parameter as inputs and:
 \begin{enumerate}
 	\item Remove Whitespace from the expression
 	\item Standardize the expression (using the RegEx rules)
 	\item Create the Binary Tree
 	\item Create the Post-Fix Stack from the Binary Tree
+	\item Set the Primary Parameter
 \end{enumerate}
 \begin{algorithm}
 \DontPrintSemicolon
 \caption{Function Class Constructor}
-\Fn{Function(\KwString expression)}{
+\Fn{Function(\KwString expression, \KwString parameter)}{
 	expression = expression.strip()\;
 	expression = standardize(expression)\;
 	this.expression = expression
-	this.binaryTree = createTree(this.expression)\;
+	this.tree = createTree(this.expression)\;
 	this.postFixStack = this.binaryTree.traverse()\;
+	this.parameter = parameter\;
 }
 \end{algorithm}
 The class as a whole will look something like the diagram below.

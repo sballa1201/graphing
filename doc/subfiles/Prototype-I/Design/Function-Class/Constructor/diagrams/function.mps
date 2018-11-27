@@ -1,8 +1,8 @@
 %!PS-Adobe-3.0 EPSF-3.0
-%%BoundingBox: -1 -117 167 1 
-%%HiResBoundingBox: -0.25 -116.26373 166.31218 0.25 
+%%BoundingBox: -1 -127 167 1 
+%%HiResBoundingBox: -0.25 -126.76373 166.31218 0.25 
 %%Creator: MetaPost 2.000
-%%CreationDate: 2018.11.10:1518
+%%CreationDate: 2018.11.27:2036
 %%Pages: 1
 %%DocumentResources: procset mpost-minimal
 %%+ encoding TeXBase1Encoding
@@ -63,21 +63,21 @@
  0.7 0.7 0.7 setrgbcolor
 newpath 1 -1 moveto
 166.31218 -1 lineto
-166.31218 -116.26373 lineto
-1 -116.26373 lineto
+166.31218 -126.76373 lineto
+1 -126.76373 lineto
  closepath fill
  0.9 0.9 0.9 setrgbcolor
 newpath 0 0 moveto
 165.31218 0 lineto
-165.31218 -115.26373 lineto
-0 -115.26373 lineto
+165.31218 -125.76373 lineto
+0 -125.76373 lineto
  closepath fill
  0 0 0 setrgbcolor 0 0.5 dtransform truncate idtransform setlinewidth pop [] 0 setdash 1 setlinejoin
  10 setmiterlimit
 newpath 0 0 moveto
 165.31218 0 lineto
-165.31218 -115.26373 lineto
-0 -115.26373 lineto
+165.31218 -125.76373 lineto
+0 -125.76373 lineto
  closepath stroke
  1 setlinecap
 newpath 0 -12.75458 moveto
@@ -101,8 +101,10 @@ newpath 0 -79.75916 moveto
 13 -90.26373 moveto
 (String\040expression) ptmr8r 9.96265 fshow
 13 -100.76373 moveto
-(Stack\040postFixStack) ptmr8r 9.96265 fshow
+(String\040parameter) ptmr8r 9.96265 fshow
 13 -111.26373 moveto
+(Stack\040postFixStack) ptmr8r 9.96265 fshow
+13 -121.76373 moveto
 (Tree\040tree) ptmr8r 9.96265 fshow
  0.4 0.4 0.4 setrgbcolor
 newpath 2 -20.5592 moveto
@@ -290,10 +292,32 @@ newpath 7.95004 -108.56378 moveto
 newpath 3.57498 -108.0388 moveto
 3.51357 -106.3163 4.02283 -104.51373 5.5 -104.51373 curveto
 6.97717 -104.51373 7.48643 -106.3163 7.42502 -108.0388 curveto stroke
+ 0.4 0.4 0.4 setrgbcolor
+newpath 2 -119.06378 moveto
+7.95004 -119.06378 lineto
+7.95004 -121.76373 lineto
+2 -121.76373 lineto
+ closepath fill
+ 0.7 0.7 0.7 setrgbcolor
+newpath 7.95004 -121.76373 moveto
+9 -120.71378 lineto
+9 -118.01382 lineto
+7.95004 -119.06378 lineto
+ closepath fill
+ 0.6 0.6 0.6 setrgbcolor
+newpath 7.95004 -119.06378 moveto
+9 -118.01382 lineto
+3.04996 -118.01382 lineto
+2 -119.06378 lineto
+ closepath fill
+ 0.3 0.3 0.3 setrgbcolor
+newpath 3.57498 -118.5388 moveto
+3.51357 -116.8163 4.02283 -115.01373 5.5 -115.01373 curveto
+6.97717 -115.01373 7.48643 -116.8163 7.42502 -118.5388 curveto stroke
  0 0 0 setrgbcolor 0 0.5 dtransform truncate idtransform setlinewidth pop
+newpath 13 -77.76373 moveto
+100.31218 -77.76373 lineto stroke
 newpath 13 -67.26373 moveto
-100.31218 -67.26373 lineto stroke
-newpath 13 -56.76373 moveto
-151.31218 -56.76373 lineto stroke
+151.31218 -67.26373 lineto stroke
 showpage
 %%EOF
