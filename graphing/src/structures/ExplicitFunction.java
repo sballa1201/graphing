@@ -8,9 +8,12 @@ public class ExplicitFunction {
 
 	private Expression f;
 
+	public ExplicitFunction() {
+	}
+
 	public ExplicitFunction(String expression, char parameter)
 			throws StackOverflowException, StackUnderflowException, UnequalBracketsException {
-		this.f = new Expression(expression, parameter);
+		this.setF(new Expression(expression, parameter));
 	}
 
 	public double evaluate(double x) {
@@ -24,6 +27,10 @@ public class ExplicitFunction {
 			e.printStackTrace();
 		}
 		return Double.NaN;
+	}
+
+	public void setF(Expression f) {
+		this.f = f;
 	}
 
 	@Override

@@ -26,7 +26,12 @@ public class ExplicitPolarLayer extends PolarLayer {
 			e.printStackTrace();
 		}
 	}
-
+	
+	public ExplicitPolarLayer(ExplicitFunction f) {
+		super();
+		this.f = f;
+	}
+	
 	@Override
 	public void draw() {
 		this.clearCanvas();

@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import exceptions.StackOverflowException;
+import exceptions.StackUnderflowException;
+import exceptions.UnequalBracketsException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
@@ -17,6 +20,8 @@ import layer.ExplicitPolarLayer;
 import layer.ExplicitXFunctionCartesianLayer;
 import layer.ExplicitYFunctionCartesianLayer;
 import layer.Layer;
+import structures.Expression;
+import structures.NormalDistribution;
 
 public class ExpressionBoxController implements Initializable {
 
@@ -76,6 +81,48 @@ public class ExpressionBoxController implements Initializable {
 
 			if (f.length() == 0) {
 				inputPane.removeLayer(ID);
+				return;
+			}
+
+			if (f.startsWith("Normal(")) {
+				f = f.replaceAll("Normal\\(", "");
+				f = f.replaceAll("\\)", "");
+				String[] variables = f.split(",");
+				// μ;
+				// σ;
+				double μ = 0;
+				double σ = 1;
+				try {
+					μ = new Expression(variables[0], 'x').evaluate(0);
+					σ = new Expression(variables[1], 'x').evaluate(0);
+				} catch (StackUnderflowException | StackOverflowException | UnequalBracketsException e1) {
+					e1.printStackTrace();
+				}
+				NormalDistribution normalDist = null;
+				try {
+					normalDist = new NormalDistribution(μ, σ);
+				} catch (StackOverflowException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (StackUnderflowException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (UnequalBracketsException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					l = new ExplicitXFunctionCartesianLayer(normalDist);
+					l.setColor(color);
+
+					inputPane.putLayer(this.ID, l);
+
+					System.out.println("update - " + l);
+				} catch (NullPointerException e) {
+					System.out.println("share doesnt exist");
+				} catch (Exception e) {
+					System.out.println("other prob");
+				}
 				return;
 			}
 

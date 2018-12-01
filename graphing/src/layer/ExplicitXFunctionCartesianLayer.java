@@ -27,6 +27,11 @@ public class ExplicitXFunctionCartesianLayer extends CartesianLayer {
 			e.printStackTrace();
 		}
 	}
+	
+	public ExplicitXFunctionCartesianLayer(ExplicitFunction f) {
+		super();
+		this.f = f;
+	}
 
 	public void draw() {
 		this.clearCanvas();
