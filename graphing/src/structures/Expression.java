@@ -23,20 +23,25 @@ public class Expression {
 	// constructor
 	public Expression(String expression, char parameter)
 			throws StackOverflowException, StackUnderflowException, UnequalBracketsException {
-		this.parameter = parameter;
-		this.expression = standardize(expression);
-		BinaryTree tree = createTree(this.expression);
-		this.postFixStack = tree.traverse();
+		this.parameter = parameter; // sets the parameter value
+		this.expression = standardize(expression); // removes whitespace + standardizes
+		BinaryTree tree = createTree(this.expression); // creates the tree
+		this.postFixStack = tree.traverse(); // creates the post-fix stack
 	}
 
 	// evaluate the expression for a value of the parameter
-	public double evaluate(double x) throws StackUnderflowException, StackOverflowException {
+	public double evaluate(double x) throws StackUnderflowException, StackOverflowException, NumberFormatException, ArithmeticException {
+		// create a stack to store the numerical values
+		// and the substitute stack
 		Stack<String> subStack = substitute(x);
 		Stack<Double> numStack = new Stack<Double>(this.postFixStack.getHeight());
 		for (int i = subStack.getHeight(); i > 0; i--) {
-			String pop = subStack.pop();
-			double a, b;
-			switch (pop) {
+			String pop = subStack.pop(); // pop a value of the substitute stack and store it
+			double a, b; // initialize two double variables for potential calculation
+			switch (pop) { // check if the popped value is a number or operator
+			// if it is an operator
+			// do the operation on the two numbers at the top of the number stack
+			// and replace them both with the result
 			case "+":
 				b = numStack.pop();
 				a = numStack.pop();
@@ -62,31 +67,36 @@ public class Expression {
 				a = numStack.pop();
 				numStack.push(Math.pow(a, b));
 				break;
+			// if it is a number push it onto the number stack
 			default:
-				try {
-					numStack.push(Double.valueOf(pop));
-				} catch (NumberFormatException e) {
-					throw e;
-				}
+				// try to cast the popped value, it is of type String, to double
+				// this may fail so the function throws NumberFormatException
+				// this will fail if there are multiple parameters e.g. "xy"
+				// since it will treat the y as a number which it is not
+				numStack.push(Double.valueOf(pop));
 				break;
 			}
 		}
+		// pop and return the remaining value in the number stack, this is the evaluated value
 		return numStack.pop();
-
 	}
 
 	// substitute a value of the parameter into the expression
-	private Stack<String> substitute(double x) throws StackUnderflowException, StackOverflowException {
-		Stack<String> copy = new Stack<String>(this.postFixStack);
-		Stack<String> subStack = new Stack<String>(this.postFixStack.getHeight());
-		for (int i = copy.getHeight(); i > 0; i--) {
-			String pop = copy.pop();
-			if (pop.equals(String.valueOf(this.parameter))) {
+	private Stack<String> substitute(double x)
+			throws StackUnderflowException, StackOverflowException {
+		Stack<String> copy = new Stack<String>(this.postFixStack); // copy the post fix stack so we don't edit it
+		Stack<String> subStack = new Stack<String>(this.postFixStack.getHeight()); // create a stack to store the
+																					// substituted value of the same
+																					// size as the post-fix stack
+		for (int i = copy.getHeight(); i > 0; i--) { // loop through the copied stack
+			String pop = copy.pop(); // pop an item off and store it in a variable
+			if (pop.equals(String.valueOf(this.parameter))) { // check if it is a variable if so replace it with the
+																// value
 				pop = Double.toString(x);
 			}
-			subStack.push(pop);
+			subStack.push(pop); // push the value onto the new stack
 		}
-		return subStack;
+		return subStack; // return the new stack
 	}
 
 	// create the abstract syntax tree for the expression - single-threaded
@@ -256,91 +266,47 @@ public class Expression {
 		return expression;
 	}
 
-	public double bisection(double a, double b, int iterations) throws StackUnderflowException, StackOverflowException {
-		if ((this.evaluate(a) > 0 && this.evaluate(b) < 0) || (this.evaluate(b) > 0 && this.evaluate(a) < 0)) {
-			double c = 0;
-			for (int i = 0; i < iterations; i++) {
-				c = (a + b) / 2;
-				double fA = this.evaluate(a);
-				double fC = this.evaluate(c);
-
-				if (fC < 0) {
-					if (fA > 0) {
-						b = c;
-					} else {
-						a = c;
-					}
-				} else {
-					if (fA > 0) {
-						a = c;
-					} else {
-						b = c;
-					}
-				}
-
-			}
-			return c;
-		} else {
-			return Double.NaN;
-		}
-	}
-
-	public double falsePositive(double a, double b, int iterations)
-			throws StackUnderflowException, StackOverflowException {
-		if ((this.evaluate(a) > 0 && this.evaluate(b) < 0) || (this.evaluate(b) > 0 && this.evaluate(a) < 0)) {
-			double c = 0;
-			for (int i = 0; i < iterations; i++) {
-
-				double fA = this.evaluate(a);
-				double fB = this.evaluate(b);
-				double fC = this.evaluate(c);
-
-				c = (a * fB - b * fA) / (fB - fA);
-				if (fC < 0) {
-					if (fA > 0) {
-						b = c;
-					} else {
-						a = c;
-					}
-				} else {
-					if (fA > 0) {
-						a = c;
-					} else {
-						b = c;
-					}
-				}
-			}
-			return c;
-		} else {
-			return Double.NaN;
-		}
-	}
-
 	@Override
+	// output the stack and the expression this object represents
 	public String toString() {
 		return this.expression + " -> " + this.postFixStack.toString();
 	}
 
 	@SuppressWarnings("unused")
-	public static void main(String[] args) throws StringIndexOutOfBoundsException, UnequalBracketsException,
-			StackOverflowException, InterruptedException, ExecutionException {
-		// create the standardized expressions
-		String ex = new String(new char[100]).replace("\0", "x");
-		// String ex = "2x^(2x+4)";
-		String a = standardize(ex);
-		// create the trees
-		BinaryTree treeA, treeB, treeThreadA, treeThreadB;
-		Instant start, end;
+	public static void main(String[] args) throws Exception {
+		/*
+		 * // create the standardized expressions String ex = new String(new
+		 * char[100]).replace("\0", "x"); // String ex = "2x^(2x+4)"; String a =
+		 * standardize(ex); // create the trees BinaryTree treeA, treeB, treeThreadA,
+		 * treeThreadB; Instant start, end;
+		 * 
+		 * start = Instant.now(); treeThreadA = createTreeThread(a); end =
+		 * Instant.now(); System.out.println("time taken for threaded approach - " +
+		 * Duration.between(start, end).toMillis() + "ms"); start = Instant.now(); treeA
+		 * = createTree(a); end = Instant.now();
+		 * System.out.println("time taken for sequential approach - " +
+		 * Duration.between(start, end).toMillis() + "ms"); System.out.println();
+		 */
 
-		start = Instant.now();
-		treeThreadA = createTreeThread(a);
-		end = Instant.now();
-		System.out.println("time taken for threaded approach - " + Duration.between(start, end).toMillis() + "ms");
-		start = Instant.now();
-		treeA = createTree(a);
-		end = Instant.now();
-		System.out.println("time taken for sequential approach - " + Duration.between(start, end).toMillis() + "ms");
-		System.out.println();
+//		Expression ex1 = new Expression("2x + 4", 'x');
+//		System.out.println(ex1.evaluate(3));	//expected value: 10
+//		
+//		Expression ex2 = new Expression("e^a", 'a');
+//		System.out.println(ex2.evaluate(0));	//expected value: 1
+//		
+//		Expression ex3 = new Expression("1/b", 'b');
+//		System.out.println(ex3.evaluate(2));	//expected value: 0.5
+//		System.out.println(ex3.evaluate(0));	//will output infinity, since we are dividing by 0
+//		
+//		Expression ex4 = new Expression("b/b", 'b');
+//		System.out.println(ex4.evaluate(1));	//expected value: 1
+//		System.out.println(ex4.evaluate(0));	//will output NaN - not a number, since we are dividing 0 by 0
+//		
+//		Expression ex5 = new Expression("xy", 'x');
+//		System.out.println(ex5.evaluate(2));	//will throw an exception since since multiple parameters
+		
+		ExplicitFunction f = new NormalDistribution(0,1);
+		System.out.println(f.evaluate(1));	//expected value: 0.24197 to 5 s.f.
 	}
 
 }

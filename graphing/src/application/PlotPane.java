@@ -26,9 +26,6 @@ public class PlotPane extends Pane {
 
 	private ArrayList<Layer> layers = new ArrayList<Layer>();
 
-	private ExecutorService threadPool = new ThreadPoolExecutor(1, 10, 60, TimeUnit.SECONDS,
-			new LinkedBlockingQueue<Runnable>(50));
-
 	private InputCartesianLayer inputLayer;
 	private AxesCartesianLayer axes;
 
@@ -93,37 +90,9 @@ public class PlotPane extends Pane {
 			throws StackOverflowException, StackUnderflowException, UnequalBracketsException, InterruptedException {
 		this.updatePixelWorth();
 
-		/*
-		 * Thread[] threads = new Thread[layers.size()];
-		 * 
-		 * for(int i=0; i< layers.size(); i++) {
-		 * 
-		 * Layer l = layers.get(i);
-		 * 
-		 * Runnable r = () -> { try { l.drawFunction(); } catch (StackUnderflowException
-		 * | StackOverflowException e) { e.printStackTrace(); } };
-		 * 
-		 * Thread t = new Thread(r);
-		 * 
-		 * threads[i] = t; }
-		 * 
-		 * for(Thread t : threads) { t.start(); }
-		 * 
-		 * for(Thread t : threads) { t.join(); }
-		 */
-
-		CountDownLatch latch = new CountDownLatch(layers.size());
-
 		for (Layer l : layers) {
-			threadPool.execute(() -> {
-				l.draw();
-				latch.countDown();
-			});
+			l.draw();
 		}
-
-		latch.await();
-
-		// threadPool.shutdown();
 
 		axes.draw();
 
