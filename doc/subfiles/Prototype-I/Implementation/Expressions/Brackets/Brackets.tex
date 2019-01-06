@@ -48,9 +48,9 @@ While this algorithm is explained in the design section, the confusing part of t
 To test this method I used the following code with comments for what I expected:
 \begin{minted}[breaklines]{java}
 System.out.println(checkBracket("2x"));	// 2x - nothing changes
-System.out.println(checkBracket("((x))"));	// x - nothing changes
-System.out.println(checkBracket("(x-1)(x+1)"));	// (x-1)(x+1) nothing - changes
-System.out.println(checkBracket("((x-1)(x+1))"));	// (x-1)(x+1)
+System.out.println(checkBracket("((x))"));	// x - 2 sets of brackets removed
+System.out.println(checkBracket("(x-1)(x+1)"));	// (x-1)(x+1) - nothing changes
+System.out.println(checkBracket("((x-1)(x+1))")); // (x-1)(x+1) - outer set of bracket removed
 System.out.println(checkBracket("((x)"));	// throws an exception
 \end{minted}
 Here are the results:

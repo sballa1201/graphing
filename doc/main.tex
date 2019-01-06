@@ -11,8 +11,14 @@
 \usepackage{subfiles}
 
 \usepackage{dcolumn}
-\usepackage{siunitx}
+\usepackage[separate-uncertainty=true, multi-part-units=single]{siunitx}
+\sisetup{separate-uncertainty=true}
 \newcolumntype{d}[1]{D{.}{.}{#1}}
+
+\makeatletter
+\newcommand{\pmnum}[1]{\@pmnum #1+}
+\def\@pmnum#1+-#2+{#1&#2}
+\makeatother
 
 \usepackage{amssymb}
 \usepackage{tensor}

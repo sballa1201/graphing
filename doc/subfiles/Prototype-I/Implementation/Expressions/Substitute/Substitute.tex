@@ -1,6 +1,39 @@
 \documentclass[../../../../main.tex]{subfiles}
 \begin{document}
 \subsection{Substitute}
-
+This function is linked to the class so it will not be \texttt{static}, however it will only be used within the class, specifically within the \texttt{evaluate()} function, so it will be \texttt{private}.
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+linenos,
+breaklines
+]{java}
+// substitute a value of the parameter into the expression
+private Stack<String> substitute(double x) throws StackUnderflowException, StackOverflowException {
+	Stack<String> copy = new Stack<String>(this.postFixStack);	//copy the post fix stack so we don't edit it
+	Stack<String> subStack = new Stack<String>(this.postFixStack.getHeight());	//create a stack to store the substituted value of the same size as the post-fix stack
+	for (int i = copy.getHeight(); i > 0; i--) {	//loop through the copied stack
+		String pop = copy.pop();	//pop an item off and store it in a variable
+		if (pop.equals(String.valueOf(this.parameter))) {	//check if it is a variable if so replace it with the value
+			pop = Double.toString(x);
+		}
+		subStack.push(pop);	//push the value onto the new stack 
+	}
+	return subStack;	//return the new stack
+}
+\end{minted}
+To test these methods I used the following code with comments for what I expected:
+\begin{minted}[breaklines]{java}
+Expression ex = new Expression("2x", 'x');
+System.out.println(ex.substitute(2));	// expected result: [2], 2.0, *
+ex = new Expression("2x^x", 'x');
+System.out.println(ex.substitute(10));	// expected result: [2], 10.0, 10.0, ^, *
+\end{minted}
+Here are the results:
+\begin{minted}[breaklines]{console}
+[2], 2.0, *
+[2], 10.0, 10.0, ^, *
+\end{minted}
+Which is exactly what I expected.
 \newpage
 \end{document}

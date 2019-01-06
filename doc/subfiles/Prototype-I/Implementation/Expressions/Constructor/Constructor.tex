@@ -1,6 +1,37 @@
 \documentclass[../../../../main.tex]{subfiles}
 \begin{document}
 \subsection{Constructor}
-Now that the \texttt{createTree()} function is implemented, the constructor can finally be implemented.  I will one 
+Now that the \texttt{createTree()} function is implemented, the constructor can finally be implemented. Along with the constructor, I will override the \texttt{(toString()} method so that I can view the contents of an object of this type by calling a single method. It keeps the attributes private, and removes the need to have getters and setters for those attributes just to view them. However the most important role it fulfills is avoiding the repetition of code whenever we need to view the inside of this object, which is a good programming practice that also makes our code more organized and clean.
+
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+linenos,
+breaklines
+]{java}
+// constructor
+public Expression(String expression, char parameter) throws StackOverflowException, StackUnderflowException, UnequalBracketsException {
+	this.parameter = parameter; // sets the parameter value
+	this.expression = standardize(expression); // removes whitespace + standardizes
+	BinaryTree tree = createTree(this.expression); // creates the tree
+	this.postFixStack = tree.traverse(); // creates the post-fix stack
+}
+
+@Override
+//output the stack and the expression this object represents
+public String toString() {
+	return this.expression + " -> " + this.postFixStack.toString();
+}
+\end{minted}
+To test these methods I used the following code with comments for what I expected:
+\begin{minted}[breaklines]{java}
+Expression ex = new Expression("2x", 'x');
+System.out.println(ex);	// expected result: 2*x -> [*], x, 2
+\end{minted}
+Here are the results:
+\begin{minted}[breaklines]{console}
+2*x -> [*], x, 2
+\end{minted}
+Which is exactly what I expected.
 \newpage
 \end{document}

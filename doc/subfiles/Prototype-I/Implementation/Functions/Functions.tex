@@ -2,8 +2,146 @@
 \begin{document}
 
 \section{Functions}
+At the moment we only need a class for explicit functions, however to illustrate the reason behind creating a separate class I will also create a quick Normal Distribution function that extends our class for explicit functions. This will be more useful later on when we implement layers.
+
+\subsection{Explicit Function}
+This class will essentially be a wrapper, a layer to manage the expression objects underneath. 
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+linenos,
+breaklines
+]{java}
+package structures;
+
+import exceptions.StackOverflowException;
+import exceptions.StackUnderflowException;
+import exceptions.UnequalBracketsException;
+
+public class ExplicitFunction {
+
+	// attributes
+	private Expression f; // the actual mathematical function
+
+	// methods
+	// empty constructor to allow for inheritance
+	public ExplicitFunction() {
+	}
+
+	// constructor
+	public ExplicitFunction(String expression, char parameter) throws StackOverflowException, StackUnderflowException, UnequalBracketsException {
+		this.setF(new Expression(expression, parameter));
+	}
+
+	// evaluate method calls the expression evaluate method
+	public double evaluate(double x) {
+		// try to evaluate the expression
+		//if it fails simply return NaN and the associated error
+		try {
+			return f.evaluate(x);
+		} catch (StackUnderflowException e) {
+			System.out.println("underflow");
+		} catch (StackOverflowException e) {
+			System.out.println("overflow");
+		} catch (NumberFormatException e) {
+			System.out.println("multiple parameters");
+		}
+		return Double.NaN;
+	}
 
 
+
+
+	// set the expression attribute - used for child classes
+	protected void setF(Expression f) {
+		this.f = f;
+	}
+
+	@Override
+	// output the representation of the expression object
+	public String toString() {
+		return this.f.toString();
+	}
+
+}
+\end{minted}
+To test this class I used the following code with comments for what I expected:
+\begin{minted}[breaklines]{java}
+ExplicitFunction f = new ExplicitFunction("x^2",'x');
+System.out.println(f.evaluate(2.5));	//expected result: 6.25
+\end{minted}
+Here are the results:
+\begin{minted}[breaklines]{console}
+6.25
+\end{minted}
+Which is exactly what I expected.
+\subsection{Normal Distribution Function}
+This class will inherit the Explicit Function class and will basically have its own expression that we will substitute the parameters, mean, $\mu$, and variance, $\sigma^2$, into.
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+linenos,
+breaklines
+]{java}
+package structures;
+
+import exceptions.StackOverflowException;
+import exceptions.StackUnderflowException;
+import exceptions.UnequalBracketsException;
+
+public class NormalDistribution extends ExplicitFunction {
+	
+	//attributes
+	private double μ;	//mean
+	private double σ2;	//variation
+	
+	//methods
+	//constructor
+	public NormalDistribution(double μ, double σ2) throws StackOverflowException, StackUnderflowException, UnequalBracketsException {
+		//super constructor must be called first in Java
+		super();
+		
+		//set the attributes
+		this.μ = μ;	
+		this.σ2 = σ2;
+		
+		//create the expression for the normal distribution function
+		String expression = "(1/(2*pi*σ2)^(1/2))*e^(-(x-μ)^2/(2*σ2^(1/2)))";
+		//substitute the mean and variance values
+		expression = expression.replace("σ2", Double.toString(σ2));
+		expression = expression.replace("μ", Double.toString(μ));
+		
+		//set the new expression
+		this.setF(new Expression(expression, 'x'));
+	}
+	
+	//return the mean
+	public double getΜ() {
+		return μ;
+	}
+	
+	//return the variance
+	public double getΣ2() {
+		return σ2;
+	}
+	
+	//return the standard deviation
+	public double getΣ() {
+		return Math.sqrt(σ2);
+	}
+
+}
+\end{minted}
+To test this class I used the following code with comments for what I expected:
+\begin{minted}[breaklines]{java}
+ExplicitFunction f = new NormalDistribution(0,1);
+System.out.println(f.evaluate(1));	//expected value: 0.24197 to 5 s.f.
+\end{minted}
+Here are the results:
+\begin{minted}[breaklines]{console}
+0.24197072451914337
+\end{minted}
+Which is exactly what I expected.
 \newpage
 
 \end{document}
