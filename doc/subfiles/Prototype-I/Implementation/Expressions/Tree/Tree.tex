@@ -58,16 +58,18 @@ When I designed this algorithm I wrote about how I could implement it using mult
 \end{enumerate}
 This takes a lot of processing time, in this article\cite{threadCreationRate} one user manages to spawn about 10000 threads a second, which means that it takes approximately $0.1$ seconds to spawn every thread. This is to be taken with a pinch of salt however since the article is quite old (8 years in fact) and processors are better and the JVM should be more efficient nowadays than before. To test this for myself I ran their benchmark program.
 \footnote{The code for this is on the StackOverflow thread, made by a user called, at the time of writing this, ``Jaan''\cite{threadCreationRate}} 
-I did change some of the parameters to make each test do the same amount of work (the same number of instructions) and made the number of threads spawned different as well. I also ran it 3 times so I could calculate a mean to able to identify anomalous data. This also alleviates some of the randomness of the schedulerI did this by compiling and executing the program 3 times, to reduce the effect of cached memory affecting the results. While the test does accommodate for this issue and allows for multiple tests, I think it is best to give the JVM no chance for optimization by just destroying and recreating the JVM. The results table and the corresponding graphs are on the next page.
+I did change some of the parameters to make each test do the same amount of work (the same number of instructions executed) and made the number of threads spawned different as well. I also ran it 3 times so I could calculate a mean to able to identify anomalous data. This also alleviates some of the randomness of the scheduler. I did this by compiling and executing the program 3 times, to reduce the effect of cached memory affecting the results. While the test does accommodate for this issue and allows for multiple tests, I think it is best to give the JVM no chance for optimization by just destroying and recreating the JVM. The results table and the corresponding graphs are below.
 \[DO \cdot THE \cdot THREAD \cdot CREATION \cdot TEST\]
 \[do \cdot the \cdot analysis\]
-\begin{landscape}
+
 \begin{table}[ht]
 \centering
 \caption{Thread Creation Test}
  \setlength{\tabcolsep}{0.2em}
 \sisetup{tight-spacing=true}
-\begin{tabular}{| l | S[table-format=4.2] | S[table-format=4.2] | S[table-format=4.2] | S[table-format=4.2,separate-uncertainty,table-figures-uncertainty=1] | S[table-format=4.2] | S[table-format=4.2] | S[table-format=4.2] | S[table-format=4.2,separate-uncertainty,table-figures-uncertainty=1] | S[table-format=4.2] | S[table-format=4.2] | S[table-format=4.2] | S[table-format=4.2,separate-uncertainty,table-figures-uncertainty=1] | S[table-format=4.2,separate-uncertainty,table-figures-uncertainty=1] |}
+
+\resizebox{\textwidth}{!}{
+\begin{tabular}{| l | S[table-format=2.2] | S[table-format=2.2] | S[table-format=2.2] | S[table-format=2.2,separate-uncertainty,table-figures-uncertainty=1] | S[table-format=2.2] | S[table-format=2.2] | S[table-format=2.2] | S[table-format=2.2,separate-uncertainty,table-figures-uncertainty=1] | S[table-format=2.2] | S[table-format=2.2] | S[table-format=2.2] | S[table-format=2.2,separate-uncertainty,table-figures-uncertainty=1] | S[table-format=2.2,separate-uncertainty,table-figures-uncertainty=1] |}
 \hline
 \multicolumn{1}{|c|}{\multirow{3}{*}{\parbox{1.65cm}{Number of Threads}}} & \multicolumn{13}{c|}{Time Taken/\si{\milli\second}}                                                                                                                                                                                                                                                                                                              \\ \cline{2-14} 
 \multicolumn{1}{|c|}{}                                   & \multicolumn{4}{c|}{To Create}                                                                       & \multicolumn{4}{c|}{To Complete Work}                                                                & \multicolumn{4}{c|}{To Join}                                                                         &  \multicolumn{1}{c|}{\multirow{2}{*}{Mean Total}} \\ \cline{2-13}
@@ -80,17 +82,18 @@ I did change some of the parameters to make each test do the same amount of work
 \\ \hline
 20 		& 2.81 & 2.28 & 2.38 & 2.49 \pm 0.27 &		 1.02 & 1.71 & 0.98 & 1.24 \pm 0.37 &			 3.11 & 1.03 & 1.93 & 2.02 \pm 1.04	 & 5.75 \pm 1.68
 \\ \hline
-100 	& 2.03 & 2.14 & 2.25 & 2.14 \pm 0.11 &		 3.26 & 2.77 & 2.97 & 3.00 \pm 0.25 &			 5.69 & 5.34 & 5.15 & 1.0	 & 1.0
+100 	& 2.03 & 2.14 & 2.25 & 2.14 \pm 0.11 &		 3.26 & 2.77 & 2.97 & 3.00 \pm 0.25 &			 5.69 & 5.34 & 5.15 & 5.39 \pm 0.27	 & 10.53 \pm 0.63
 \\ \hline
-1000 	& 5.87 & 4.11 & 5.66 & 1.0 &		 47.30 & 42.29 & 39.9 & 1.0 &			 15.22 & 18.61 & 32.20 & 1.0	 & 1.0
+1000 	& 5.87 & 4.11 & 5.66 & 5.21 \pm 0.88 &		 47.30 & 42.29 & 39.90 & 43.16 \pm 3.70 &			 15.22 & 18.61 & 32.20 & 22.01 \pm 8.49	 & 70.38 \pm 13.07
 \\ \hline
 \end{tabular}
+}
 \label{tbl:threadCreationTest}
 \end{table}
+
 \begin{figure}[H]
 \includegraphics[height=0.25\textheight]{graphs/i.png}
 \end{figure}
-\end{landscape}
 \noindent
 From the analysis above it seems that the effect of using a few threads seems minimal and the overhead may be outweighed by the performance gain from other parts of the function. However this may be specific to this scenario, so to test this properly I implemented the multi-threaded version which is below:
 \begin{minted}[
