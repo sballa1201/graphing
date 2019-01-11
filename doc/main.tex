@@ -10,6 +10,7 @@
 \DeclareGraphicsRule{*}{mps}{*}{}
 
 \usepackage{subfiles}
+\usepackage[nottoc,numbib]{tocbibind}
 
 \usepackage{dcolumn}
 \usepackage[separate-uncertainty=true, multi-part-units=single]{siunitx}
@@ -134,7 +135,10 @@
 
 \usepackage{pdflscape}
 
-\usepackage{hyperref}
+\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
+
+
+
 \begin{document}
 \maketitle
 

@@ -274,39 +274,23 @@ public class Expression {
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) throws Exception {
-		/*
-		 * // create the standardized expressions String ex = new String(new
-		 * char[100]).replace("\0", "x"); // String ex = "2x^(2x+4)"; String a =
-		 * standardize(ex); // create the trees BinaryTree treeA, treeB, treeThreadA,
-		 * treeThreadB; Instant start, end;
-		 * 
-		 * start = Instant.now(); treeThreadA = createTreeThread(a); end =
-		 * Instant.now(); System.out.println("time taken for threaded approach - " +
-		 * Duration.between(start, end).toMillis() + "ms"); start = Instant.now(); treeA
-		 * = createTree(a); end = Instant.now();
-		 * System.out.println("time taken for sequential approach - " +
-		 * Duration.between(start, end).toMillis() + "ms"); System.out.println();
-		 */
-
-//		Expression ex1 = new Expression("2x + 4", 'x');
-//		System.out.println(ex1.evaluate(3));	//expected value: 10
-//		
-//		Expression ex2 = new Expression("e^a", 'a');
-//		System.out.println(ex2.evaluate(0));	//expected value: 1
-//		
-//		Expression ex3 = new Expression("1/b", 'b');
-//		System.out.println(ex3.evaluate(2));	//expected value: 0.5
-//		System.out.println(ex3.evaluate(0));	//will output infinity, since we are dividing by 0
-//		
-//		Expression ex4 = new Expression("b/b", 'b');
-//		System.out.println(ex4.evaluate(1));	//expected value: 1
-//		System.out.println(ex4.evaluate(0));	//will output NaN - not a number, since we are dividing 0 by 0
-//		
-//		Expression ex5 = new Expression("xy", 'x');
-//		System.out.println(ex5.evaluate(2));	//will throw an exception since since multiple parameters
 		
-		ExplicitFunction f = new NormalDistribution(0,1);
-		System.out.println(f.evaluate(1));	//expected value: 0.24197 to 5 s.f.
+		System.out.println(new Expression("2e^x", 'x').substitute(10));
+		
+		// create the standardized expressions
+		String ex = standardize("");
+		// create the trees
+		BinaryTree treeA, treeThreadA;
+		Instant start, end;
+		start = Instant.now();
+		treeThreadA = createTreeThread(ex); 
+		end = Instant.now();
+		System.out.println("time taken for threaded approach - " + Duration.between(start, end).toMillis() + "ms");
+		start = Instant.now();
+		treeA = createTree(ex);
+		end = Instant.now();
+		System.out.println("time taken for sequential approach - " + Duration.between(start, end).toMillis() + "ms");
+		 
 	}
 
 }

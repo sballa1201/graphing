@@ -1,4 +1,4 @@
-\documentclass[../../../../main.tex]{subfiles}
+\documentclass[../../../../../main.tex]{subfiles}
 \begin{document}
 \subsection{Evaluate}
 This function is linked to the class so it will not be \texttt{static}, however it will only be used outside the class since other modules in our program will need to know the value of the expression at a specific value, so it will be \texttt{public}. There are some language specific things that I added to this method. If the current value I have popped of the stack is not an operator, the algorithm casts it to an integer. However this can cause issues, since if we have an expression $xy$, this contains two parameters but we take only one parameter. So say our parameter is $x$, then the $y$ will be treated as a number since it is not an operator, and it will not have been substituted for a value. So when we cast this value we will get an error. To remedy this, my method will be flagged as throwing the related exception \texttt{NumberFormatException}. The usual problems in arithmetic such as dividing by 0, are handled by \texttt{Java double} primitive and the IEEE standard\cite{doubleJava, doubleIEEE}.
@@ -62,30 +62,27 @@ public double evaluate(double x) throws StackUnderflowException, StackOverflowEx
 \end{minted}
 To test these methods I used the following code with comments for what I expected:
 \begin{minted}[breaklines]{java}
-	Expression ex1 = new Expression("2x + 4", 'x');
-	System.out.println(ex1.evaluate(3));	//expected value: 10
-	
-	Expression ex2 = new Expression("e^a", 'a');
-	System.out.println(ex2.evaluate(0));	//expected value: 1
-	
-	Expression ex3 = new Expression("1/b", 'b');
-	System.out.println(ex3.evaluate(2));	//expected value: 0.5
-	System.out.println(ex3.evaluate(0));	//will output infinity, since we are dividing by 0
-	
-	Expression ex4 = new Expression("c/c", 'c');
-	System.out.println(ex4.evaluate(1));	//expected value: 1
-	System.out.println(ex4.evaluate(0));	//will output NaN - not a number, since we are dividing 0 by 0
-	
-	Expression ex5 = new Expression("xy", 'x');
-	System.out.println(ex5.evaluate(2));	//will throw an exception, since there are multiple parameters
+Expression ex1 = new Expression("2x + 4", 'x');
+	// valid data
+	System.out.println(ex1.evaluate(3));	// expected value: 10
+Expression ex2 = new Expression("e^a", 'a');
+	// valid data - using constants
+	System.out.println(ex2.evaluate(0));	// expected value: 1
+Expression ex3 = new Expression("1/b", 'b');
+	// valid extreme data
+	System.out.println(ex3.evaluate(0));	// expected value: infinity
+Expression ex4 = new Expression("c/c", 'c');
+	// valid extreme data
+	System.out.println(ex4.evaluate(0));	// expected value: NaN
+Expression ex5 = new Expression("xy", 'x');
+	// invalid data
+	System.out.println(ex5.evaluate(2));	// expected value: an exception will be thrown since there are multiple variables
 \end{minted}
 Here are the results:
 \begin{minted}[breaklines]{console}
 10.0
 1.0
-0.5
 Infinity
-1.0
 NaN
 Exception in thread "main" java.lang.NumberFormatException: For input string: "y"
 	at sun.misc.FloatingDecimal.readJavaFormatString(FloatingDecimal.java:2043)

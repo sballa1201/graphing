@@ -25,14 +25,16 @@ private Stack<String> substitute(double x) throws StackUnderflowException, Stack
 To test these methods I used the following code with comments for what I expected:
 \begin{minted}[breaklines]{java}
 Expression ex = new Expression("2x", 'x');
-System.out.println(ex.substitute(2));	// expected result: [2], 2.0, *
-ex = new Expression("2x^x", 'x');
-System.out.println(ex.substitute(10));	// expected result: [2], 10.0, 10.0, ^, *
+	// valid data
+	System.out.println(ex.substitute(2));	// expected result: [2], 2.0, *
+ex = new Expression("2e^x", 'x');
+	// valid extreme data
+	System.out.println(ex.substitute(10));	// expected result: [2], (value for e approximately 2.718), 10.0, ^, *
 \end{minted}
 Here are the results:
 \begin{minted}[breaklines]{console}
 [2], 2.0, *
-[2], 10.0, 10.0, ^, *
+[2], 2.718281828459045, 10.0, ^, *
 \end{minted}
 Which is exactly what I expected.
 \newpage
