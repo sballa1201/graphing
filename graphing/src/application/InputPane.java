@@ -135,9 +135,6 @@ public class InputPane extends ScrollPane {
 
 	}
 
-	public ShareLayers getShareLayerStore() {
-		return shareLayerStore;
-	}
 
 	public void setShareLayerStore(ShareLayers shareLayerStore) {
 		this.shareLayerStore = shareLayerStore;

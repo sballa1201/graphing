@@ -39,8 +39,6 @@ public class MainController implements Initializable {
 		inputPane.setShareLayerStore(shareLayerStore);
 
 		rootPane.setLeft(inputPane);
-
-		// rootPane.setLeft(inputPane);
 	}
 
 }

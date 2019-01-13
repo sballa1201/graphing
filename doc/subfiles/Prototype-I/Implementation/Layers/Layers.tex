@@ -2,7 +2,47 @@
 \begin{document}
 
 \section{Layers}
+As described in the design section, I will create classes that inherit from one a top class that I will call \texttt{Layer}. This class will be \texttt{abstract} since we will never instantiate this class and only inherit from it. The \texttt{CartesianLayer} will be a child class to the abstract \texttt{Layer} class. Again this will be \texttt{abstract} since we will only inherit from it. While it seems redundant for the super class \texttt{Layer} to exist, it fulfills the purpose of being able to create an array of type \texttt{Layer} which can then be filled with objects that are of types which are child classes to \texttt{Layer}. Our first instantiated class will be a child class to \texttt{CartesianLayer} and will be called \texttt{ExplicitXFunctionCartesianLayer}. The \texttt{X} signifies that the parameter will be $x$. Likewise we will have a class called \texttt{ExplicitYFunctionCartesianLayer}, where this will be a function in terms of $y$. Our \texttt{AxesLayer} will inherit from the \texttt{Layer} parent class. A diagram of this inheritance is shown below:
+\begin{figure}[H]
+\begin{center}
+\begin{forest}
+  for tree={
+    align=center,
+    parent anchor=south,
+    child anchor=north,
+    font=\sffamily,
+    edge={thick, -{Stealth[]}},
+    l sep+=10pt,
+    edge path={
+      \noexpand\path [draw, \forestoption{edge}] (!u.parent anchor) -- +(0,-10pt) -| (.child anchor)\forestoption{edge label};
+    },
+    if level=0{
+      inner xsep=0pt,
+      tikz={\draw [thick] (.south east) -- (.south west);}
+    }{}
+  }
+  [Layer
+    [CartesianLayer
+      [ExplicitXFunctionCartesianLayer]
+      [ExplicitYFunctionCartesianLayer]
+      ]
+    [AxesLayer]
+    ]
+  ]
+\end{forest}
+\end{center}
+\caption{\texttt{Layer} Inheritance Diagram}
+\end{figure}
+The problem with this part of the program is that everything is interdependent on everything else. Specifically here the \texttt{PlotPane} class is used within the \texttt{Layer} classes and vice versa. Since I will implement the \texttt{Layer} classes first I will create a bare bones  \texttt{PlotPane} class that just contains its attributes for use within the \texttt{Layer} classes and implement the \texttt{PlotPane} class later.
+\subsection{Layer}
 
+\subsection{AxesLayer}
+
+\subsection{CartesianLayer}
+
+\subsection{ExplicitXFunctionCartesianLayer}
+
+\subsection{ExplicitYFunctionCartesianLayer}
 \newpage
 
 \end{document}

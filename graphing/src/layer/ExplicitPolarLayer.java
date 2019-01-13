@@ -39,28 +39,17 @@ public class ExplicitPolarLayer extends PolarLayer {
 		gc.setStroke(color);
 		double t1, t2, r1, r2;
 		t1 = 0;
-		try {
-			r1 = f.evaluate(t1);
-		} catch (Exception e) {
-			return;
-		}
+		r1 = f.evaluate(t1);
+
 
 		double step = Math.PI / 100;
 
 		for (t2 = step; t2 < this.maxT; t2 = t2 + step) {
-			try {
-				// System.out.println(this.convertX(x1) + " - " + this.convertY(y1));
 				r2 = f.evaluate(t2);
 				gc.strokeLine(this.convertX(r1, t1), this.convertY(r1, t1), this.convertX(r2, t2),
 						this.convertY(r2, t2));
 				t1 = t2;
 				r1 = r2;
-			} catch (ArithmeticException e) {
-				t1 = t2 + step;
-				t2 = t1;
-				r1 = f.evaluate(t1);
-			}
-
 		}
 	}
 

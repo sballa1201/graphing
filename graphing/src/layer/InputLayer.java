@@ -61,10 +61,12 @@ public class InputCartesianLayer extends Layer {
 			previousY = event.getY();
 
 			// System.out.println("entered drag");
-
 			event.setDragDetect(true);
-
 			this.canvas.startFullDrag();
+			
+			
+			
+			
 
 			event.consume();
 

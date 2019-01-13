@@ -56,7 +56,13 @@ public class ExpressionBoxController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		this.functionText.set(inputTxt.textProperty().getValueSafe());
 		this.functionText.bind(inputTxt.textProperty());
-		this.functionText.addListener(event -> changeLayer());
+		this.functionText.addListener(event -> {
+			try {
+				changeLayer();
+			} catch (StackOverflowException | StackUnderflowException | UnequalBracketsException e) {
+				e.printStackTrace();
+			}
+		});
 
 		this.removeBtn.setOnAction(event -> {
 			try {
@@ -68,10 +74,17 @@ public class ExpressionBoxController implements Initializable {
 
 		this.gc = this.visibleCanvas.getGraphicsContext2D();
 		this.gc.setLineWidth(2);
-		this.visibleCanvas.setOnMouseClicked(event -> changeColor());
+		this.visibleCanvas.setOnMouseClicked(event -> {
+			try {
+				changeColor();
+			} catch (StackOverflowException | StackUnderflowException | UnequalBracketsException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
 	}
 
-	private void changeLayer() {
+	private void changeLayer() throws StackOverflowException, StackUnderflowException, UnequalBracketsException {
 
 		if (visible) {
 
@@ -89,40 +102,20 @@ public class ExpressionBoxController implements Initializable {
 				f = f.replaceAll("\\)", "");
 				String[] variables = f.split(",");
 				// μ;
-				// σ;
 				double μ = 0;
-				double σ = 1;
-				try {
-					μ = new Expression(variables[0], 'x').evaluate(0);
-					σ = new Expression(variables[1], 'x').evaluate(0);
-				} catch (StackUnderflowException | StackOverflowException | UnequalBracketsException e1) {
-					e1.printStackTrace();
-				}
+				// σ2;
+				double σ2 = 1;
+				μ = new Expression(variables[0], 'x').evaluate(0);
+				σ2 = new Expression(variables[1], 'x').evaluate(0);
+
 				NormalDistribution normalDist = null;
-				try {
-					normalDist = new NormalDistribution(μ, σ);
-				} catch (StackOverflowException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (StackUnderflowException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (UnequalBracketsException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				try {
-					l = new ExplicitXFunctionCartesianLayer(normalDist);
-					l.setColor(color);
+				normalDist = new NormalDistribution(μ, σ2);
 
-					inputPane.putLayer(this.ID, l);
+				l = new ExplicitXFunctionCartesianLayer(normalDist);
+				l.setColor(color);
 
-					System.out.println("update - " + l);
-				} catch (NullPointerException e) {
-					System.out.println("share doesnt exist");
-				} catch (Exception e) {
-					System.out.println("other prob");
-				}
+				inputPane.putLayer(this.ID, l);
+				
 				return;
 			}
 
@@ -144,40 +137,28 @@ public class ExpressionBoxController implements Initializable {
 				System.out.println("update - " + l);
 			} else if (yInstances > 0) {
 
-				try {
-					l = new ExplicitYFunctionCartesianLayer(f);
-					l.setColor(color);
+				l = new ExplicitYFunctionCartesianLayer(f);
+				l.setColor(color);
 
-					inputPane.putLayer(this.ID, l);
+				inputPane.putLayer(this.ID, l);
 
-					System.out.println("update - " + l);
+				System.out.println("update - " + l);
 
-				} catch (NullPointerException e) {
-					System.out.println("share doesnt exist");
-				} catch (Exception e) {
-					System.out.println("other prob");
-				}
 			} else {
-				try {
-					l = new ExplicitXFunctionCartesianLayer(f);
-					l.setColor(color);
+				l = new ExplicitXFunctionCartesianLayer(f);
+				l.setColor(color);
 
-					inputPane.putLayer(this.ID, l);
+				inputPane.putLayer(this.ID, l);
 
-					System.out.println("update - " + l);
+				System.out.println("update - " + l);
 
-				} catch (NullPointerException e) {
-					System.out.println("share doesnt exist");
-				} catch (Exception e) {
-					System.out.println("other prob");
-				}
 			}
 		} else {
 			inputPane.removeLayer(ID);
 		}
 	}
 
-	private void changeColor() {
+	private void changeColor() throws StackOverflowException, StackUnderflowException, UnequalBracketsException {
 		gc.clearRect(0, 0, visibleCanvas.getWidth(), visibleCanvas.getHeight());
 		if (!visible) {
 			gc.fillRect(0, 0, visibleCanvas.getWidth(), visibleCanvas.getHeight());

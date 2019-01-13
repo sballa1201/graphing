@@ -1,11 +1,6 @@
 package application;
 
 import java.util.ArrayList;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 import exceptions.StackOverflowException;
 import exceptions.StackUnderflowException;
@@ -51,19 +46,19 @@ public class PlotPane extends Pane {
 
 		this.setStyle("-fx-background-color: rgb(255,255,255)");
 
-		// //Function f = new Function("x^2");
-		// String sE = Double.toString(Math.E);
-		// ExplicitFunctionCartesianLayer g = new
-		// ExplicitFunctionCartesianLayer(sE+"^x");
-		// ExplicitFunctionCartesianLayer h = new ExplicitFunctionCartesianLayer("x^2");
-		// ExplicitFunctionCartesianLayer i = new ExplicitFunctionCartesianLayer("x^3");
-		// ExplicitFunctionCartesianLayer j = new ExplicitFunctionCartesianLayer("x^4");
-		// ExplicitFunctionCartesianLayer k = new ExplicitFunctionCartesianLayer("x^5");
-		// //this.addLayer(g);
-		// //this.addLayer(h);
-		// //this.addLayer(i);
-		// //this.addLayer(j);
-		// //this.addLayer(k);
+//		 Function f = new Function("x^2");
+//		 String sE = Double.toString(Math.E);
+//		 ExplicitFunctionCartesianLayer g = new
+//		 ExplicitFunctionCartesianLayer(sE+"^x");
+//		 ExplicitFunctionCartesianLayer h = new ExplicitFunctionCartesianLayer("x^2");
+//		 ExplicitFunctionCartesianLayer i = new ExplicitFunctionCartesianLayer("x^3");
+//		 ExplicitFunctionCartesianLayer j = new ExplicitFunctionCartesianLayer("x^4");
+//		 ExplicitFunctionCartesianLayer k = new ExplicitFunctionCartesianLayer("x^5");
+//		 this.addLayer(g);
+//		 this.addLayer(h);
+//		 this.addLayer(i);
+//		 this.addLayer(j);
+//		 this.addLayer(k);
 
 		ChangeListener<Object> redrawListener = (observable, oldValue, newValue) -> {
 			try {
@@ -122,12 +117,6 @@ public class PlotPane extends Pane {
 		l.bindProperties(this);
 		this.layers.add(l);
 	}
-	/*
-	 * private void updateAttrib() { for(Layer l : layers) { l.setMaxX(maxX);
-	 * l.setMaxY(maxY); l.setMinX(minX); l.setMinY(minY);
-	 * l.setPixelWorthX(pixelWorthX); l.setPixelWorthY(pixelWorthY);
-	 * l.setSteps(steps); } }
-	 */
 
 	private void updatePixelWorth() {
 		// this.pixelWorthX.set(Math.abs((this.maxX.doubleValue() -

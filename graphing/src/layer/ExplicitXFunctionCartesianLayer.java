@@ -39,26 +39,15 @@ public class ExplicitXFunctionCartesianLayer extends CartesianLayer {
 		gc.setStroke(color);
 		double x1, x2, y1, y2;
 		x1 = this.minX.doubleValue();
-		try {
-			y1 = f.evaluate(x1);
-		} catch (Exception e) {
-			return;
-		}
+		y1 = f.evaluate(x1);
 
 		double step = (this.maxX.doubleValue() - this.minX.doubleValue()) / this.steps.doubleValue();
 
 		for (x2 = this.minX.doubleValue() + step; x2 < this.maxX.doubleValue(); x2 = x2 + step) {
-			try {
-				// System.out.println(this.convertX(x1) + " - " + this.convertY(y1));
-				y2 = f.evaluate(x2);
-				gc.strokeLine(this.convertX(x1), this.convertY(y1), this.convertX(x2), this.convertY(y2));
-				x1 = x2;
-				y1 = y2;
-			} catch (ArithmeticException e) {
-				x1 = x2 + step;
-				x2 = x1;
-				y1 = f.evaluate(x1);
-			}
+			y2 = f.evaluate(x2);
+			gc.strokeLine(this.convertX(x1), this.convertY(y1), this.convertX(x2), this.convertY(y2));
+			x1 = x2;
+			y1 = y2;
 
 		}
 

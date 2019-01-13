@@ -22,15 +22,11 @@ public class ShareLayers {
 	public void putLayer(int ID, Layer layer) {
 		this.layers.put(ID, layer);
 		this.changeLayers.set(!this.changeLayers.get());
-		System.out.println("current layers - " + layers.values().toString());
-		// System.out.println(layers.values().toString());
 	}
 
 	public void removeLayer(int ID) {
 		this.layers.remove(ID);
 		this.changeLayers.set(!this.changeLayers.get());
-		// System.gc();
-		// System.out.println(layers.values().toString());
 	}
 
 	public ArrayList<Layer> getLayers() {
