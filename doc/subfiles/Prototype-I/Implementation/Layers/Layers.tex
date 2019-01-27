@@ -2,7 +2,7 @@
 \begin{document}
 
 \section{Layers}
-As described in the design section, I will create classes that inherit from one a top class that I will call \texttt{Layer}. This class will be \texttt{abstract} since we will never instantiate this class and only inherit from it. The \texttt{CartesianLayer} will be a child class to the abstract \texttt{Layer} class. Again this will be \texttt{abstract} since we will only inherit from it. While it seems redundant for the super class \texttt{Layer} to exist, it fulfills the purpose of being able to create an array of type \texttt{Layer} which can then be filled with objects that are of types which are child classes to \texttt{Layer}. Our first instantiated class will be a child class to \texttt{CartesianLayer} and will be called \texttt{ExplicitXFunctionCartesianLayer}. The \texttt{X} signifies that the parameter will be $x$. Likewise we will have a class called \texttt{ExplicitYFunctionCartesianLayer}, where this will be a function in terms of $y$. Our \texttt{AxesLayer} will inherit from the \texttt{Layer} parent class. A diagram of this inheritance is shown below:
+As described in the design section, I will create classes that inherit from one a top class that I will call \texttt{Layer}. This class will be \texttt{abstract} since we will never instantiate this class and only inherit from it. The \texttt{CartesianLayer} will be a child class to the abstract \texttt{Layer} class. Again this will be \texttt{abstract} since we will only inherit from it. While it seems redundant for the super class \texttt{Layer} to exist, it fulfills the purpose of being able to create an array of type \texttt{Layer} which can then be filled with objects that are of types which are child classes to \texttt{Layer}. Our first instantiatable class will be a child class to \texttt{CartesianLayer} and will be called \texttt{ExplicitXFunctionCartesianLayer}. The \texttt{X} signifies that the parameter will be $x$. Likewise we will have a class called \texttt{ExplicitYFunctionCartesianLayer}, where this will be a function in terms of $y$. Our \texttt{AxesCartesianLayer} will also inherit from the \texttt{CartesianLayer} parent class. This makes actually drawing the axes easier, since we can simply draw 2 lines using the methods in the parent class, \texttt{CartesianLayer}.\\A diagram of this inheritance is shown below:
 \begin{figure}[H]
 \begin{center}
 \begin{forest}
@@ -25,23 +25,124 @@ As described in the design section, I will create classes that inherit from one 
     [CartesianLayer
       [ExplicitXFunctionCartesianLayer]
       [ExplicitYFunctionCartesianLayer]
+      [AxesCartesianLayer]
       ]
-    [AxesLayer]
     ]
   ]
 \end{forest}
 \end{center}
 \caption{\texttt{Layer} Inheritance Diagram}
 \end{figure}
-The problem with this part of the program is that everything is interdependent on everything else. Specifically here the \texttt{PlotPane} class is used within the \texttt{Layer} classes and vice versa. Since I will implement the \texttt{Layer} classes first I will create a bare bones  \texttt{PlotPane} class that just contains its attributes for use within the \texttt{Layer} classes and implement the \texttt{PlotPane} class later.
+The problem with this part of the program is that everything is interdependent on everything else. Specifically here the \texttt{PlotPane} class is used within the \texttt{Layer} classes and vice versa. Since I will implement the \texttt{Layer} classes first I will create a bare bones  \texttt{PlotPane} class that just contains its attributes for use within the \texttt{Layer} classes and implement the \texttt{PlotPane} class later. This is simply to avoid compiler errors. This also means that we cannot properly test this portion until we complete both parts. As such I will combine the mini tests that I would have carried out, as a part of the overall final testing for this prototype.
 \subsection{Layer}
+This is an abstract super class, as described in the design. Since we cannot instantiate this class, we cannot directly test this class, but by testing its child classes we can test it indirectly.
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+linenos,
+breaklines
+]{java}
+package layer;
 
-\subsection{AxesLayer}
+import application.PlotPane;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
+public abstract class Layer {
+
+	// attributes
+	// drawing tools
+	protected Canvas canvas;
+	protected GraphicsContext gc;
+	protected Color color = Color.BLACK;
+	// drawing parameters
+	protected IntegerProperty steps = new SimpleIntegerProperty(0);
+	protected DoubleProperty minX = new SimpleDoubleProperty(0);
+	protected DoubleProperty maxX = new SimpleDoubleProperty(0);
+	protected DoubleProperty minY = new SimpleDoubleProperty(0);
+	protected DoubleProperty maxY = new SimpleDoubleProperty(0);
+	protected DoubleProperty pixelWorthX = new SimpleDoubleProperty(0);
+	protected DoubleProperty pixelWorthY = new SimpleDoubleProperty(0);
+
+	// methods
+	// constructor
+	protected Layer() {
+		// instantiate the canvas and create the OpenGL context
+		this.canvas = new Canvas();
+		this.gc = canvas.getGraphicsContext2D();
+	}
+
+	// will draw onto the canvas, will be overridden
+	public abstract void draw();
+
+	// will connect this layer to a PlotPane instance, will be overridden
+	public abstract void bindProperties(PlotPane plotPane);
+
+	// clear the canvas to be redrawn
+	protected void clearCanvas() {
+		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+	}
+
+	// getter for the canvas
+	public Canvas getCanvas() {
+		return canvas;
+	}
+
+	// change the color of the function drawn
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
+}
+\end{minted}
+\newpage
 \subsection{CartesianLayer}
+This class is also abstract and hence cannot be instantiated. It will contain methods to convert Cartesian coordinates to the Canvas coordinate system and bind its properties to a \texttt{PlotPane}. The algorithms for these are on page \pageref{alg:coordConv}.
+\newpage
+\subsection{AxesCartesianLayer}
+Drawing the axes is quite simple so we will begin our implementation of non-abstract drawing classes with this one. This class will draw whenever the $x$ or $y$ coordinate is 0. This results in two lines. The $x$ axis will be drawn from the leftmost point where $y$ is 0 to the rightmost point where $y$ is 0\footnote{Rightmost and leftmost on the canvas}. This means that we draw a line from the point $(x_{min,0})$ to the point $(x_{max,0})$. These $x_min$ and $x_max$ values are values that we have stored as properties within our class. Similarly we can draw the $y$ axis by drawing a line from the point $(0,y_{min})$ to the point $(0,y_{max})$. These Cartesian coordinates must be first converted to the canvas coordinates, and this will be done in the implementation.
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+linenos,
+breaklines
+]{java}
+package layer;
 
+public class AxesCartesianLayer extends CartesianLayer {
+
+	// constructor
+	public AxesCartesianLayer() {
+		// call the super to setup the canvas
+		super();
+	}
+
+	@Override
+	// draw the pair of axes
+	public void draw() {
+		// clear the canvas before drawing
+		this.clearCanvas();
+		// make the line width thinner then usual to remove emphasis from axes
+		gc.setLineWidth(1.5);
+		gc.setStroke(color);
+		// draw the y-axis
+		gc.strokeLine(this.convertX(0), this.convertY(this.minY.doubleValue()), this.convertX(0),
+				this.convertY(this.maxY.doubleValue()));
+		// draw the x-axis
+		gc.strokeLine(this.convertX(this.minX.doubleValue()), this.convertY(0),
+				this.convertX(this.maxX.doubleValue()), this.convertY(0));
+	}
+
+}
+\end{minted}
+\newpage
 \subsection{ExplicitXFunctionCartesianLayer}
-
+\newpage
 \subsection{ExplicitYFunctionCartesianLayer}
 \newpage
 

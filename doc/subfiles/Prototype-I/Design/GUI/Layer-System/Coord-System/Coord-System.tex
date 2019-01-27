@@ -37,7 +37,7 @@ Hence our position within the canvas is:
 The algorithms below convert between $x$ and $y$ coordinates
 \footnote{Here we assume the coordinate is inside the viewport. Realistically we should check if the coordinates are in the viewport, i.e.\ bigger than the width or height of the canvas, or in some cases negative. However it does not matter since we can make this check later. Even then a \texttt{JavaFX Canvas} will check if the coordinates are in the canvas viewport anyway, so it does not matter to us since this detail is abstracted away from us.}
  respectively. 
-
+\label{alg:coordConv}
 \begin{algorithm}
 \DontPrintSemicolon
 \caption{Convert the $x$ Coordinate}

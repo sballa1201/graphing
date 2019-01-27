@@ -10,13 +10,13 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public abstract class Layer {
-	
-	//attributes
-	//drawing 
+
+	// attributes
+	// drawing tools
 	protected Canvas canvas;
 	protected GraphicsContext gc;
 	protected Color color = Color.BLACK;
-
+	// drawing parameters
 	protected IntegerProperty steps = new SimpleIntegerProperty(0);
 	protected DoubleProperty minX = new SimpleDoubleProperty(0);
 	protected DoubleProperty maxX = new SimpleDoubleProperty(0);
@@ -24,32 +24,32 @@ public abstract class Layer {
 	protected DoubleProperty maxY = new SimpleDoubleProperty(0);
 	protected DoubleProperty pixelWorthX = new SimpleDoubleProperty(0);
 	protected DoubleProperty pixelWorthY = new SimpleDoubleProperty(0);
-	
-	//methods
-	//constructor
+
+	// methods
+	// constructor
 	protected Layer() {
-		//instantiate the canvas and create the OpenGL context
+		// instantiate the canvas and create the OpenGL context
 		this.canvas = new Canvas();
 		this.gc = canvas.getGraphicsContext2D();
 	}
-	
-	//will draw onto the canvas, will be overridden
+
+	// will draw onto the canvas, will be overridden
 	public abstract void draw();
-	
-	//will connect this layer to a PlotPane instance, will be overridden
+
+	// will connect this layer to a PlotPane instance, will be overridden
 	public abstract void bindProperties(PlotPane plotPane);
-	
-	//clear the canvas to be redrawn
+
+	// clear the canvas to be redrawn
 	protected void clearCanvas() {
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 	}
-	
-	//getter for the canvas
+
+	// getter for the canvas
 	public Canvas getCanvas() {
 		return canvas;
 	}
-	
-	//change the color of the function drawn
+
+	// change the color of the function drawn
 	public void setColor(Color color) {
 		this.color = color;
 	}

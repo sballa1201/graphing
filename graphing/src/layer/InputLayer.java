@@ -11,15 +11,15 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 
-public class InputCartesianLayer extends Layer {
+public class InputLayer extends Layer {
 
 	private BooleanProperty changeViewport = new SimpleBooleanProperty();
 	private double pressedX;
 	private double pressedY;
 	private double previousX;
-	private double previousY;
-
-	public InputCartesianLayer() {
+	private double previousY;	
+	
+	public InputLayer() {
 		super();
 		
 		this.canvas.setOnMousePressed(event -> dragEntered(event));

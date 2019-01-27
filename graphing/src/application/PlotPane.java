@@ -14,17 +14,17 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.layout.Pane;
 import layer.AxesCartesianLayer;
-import layer.InputCartesianLayer;
+import layer.InputLayer;
 import layer.Layer;
 
 public class PlotPane extends Pane {
 
 	private ArrayList<Layer> layers = new ArrayList<Layer>();
 
-	private InputCartesianLayer inputLayer;
+	private InputLayer inputLayer;
 	private AxesCartesianLayer axes;
 
-	private IntegerProperty steps = new SimpleIntegerProperty(1000);
+	private IntegerProperty steps = new SimpleIntegerProperty(400);
 
 	private BooleanProperty changeViewport = new SimpleBooleanProperty(true);
 
@@ -43,23 +43,20 @@ public class PlotPane extends Pane {
 	public PlotPane() {
 
 		this.setupInputLayer();
-
 		this.setStyle("-fx-background-color: rgb(255,255,255)");
-
-//		 Function f = new Function("x^2");
-//		 String sE = Double.toString(Math.E);
-//		 ExplicitFunctionCartesianLayer g = new
-//		 ExplicitFunctionCartesianLayer(sE+"^x");
-//		 ExplicitFunctionCartesianLayer h = new ExplicitFunctionCartesianLayer("x^2");
-//		 ExplicitFunctionCartesianLayer i = new ExplicitFunctionCartesianLayer("x^3");
-//		 ExplicitFunctionCartesianLayer j = new ExplicitFunctionCartesianLayer("x^4");
-//		 ExplicitFunctionCartesianLayer k = new ExplicitFunctionCartesianLayer("x^5");
-//		 this.addLayer(g);
-//		 this.addLayer(h);
-//		 this.addLayer(i);
-//		 this.addLayer(j);
-//		 this.addLayer(k);
-
+//			 Function f = new Function("x^2");
+//			 String sE = Double.toString(Math.E);
+//			 ExplicitFunctionCartesianLayer g = new
+//			 ExplicitFunctionCartesianLayer(sE+"^x");
+//			 ExplicitFunctionCartesianLayer h = new ExplicitFunctionCartesianLayer("x^2");
+//			 ExplicitFunctionCartesianLayer i = new ExplicitFunctionCartesianLayer("x^3");
+//			 ExplicitFunctionCartesianLayer j = new ExplicitFunctionCartesianLayer("x^4");
+//			 ExplicitFunctionCartesianLayer k = new ExplicitFunctionCartesianLayer("x^5");
+//			 this.addLayer(g);
+//			 this.addLayer(h);
+//			 this.addLayer(i);
+//			 this.addLayer(j);
+//			 this.addLayer(k);
 		ChangeListener<Object> redrawListener = (observable, oldValue, newValue) -> {
 			try {
 				drawAll();
@@ -68,7 +65,6 @@ public class PlotPane extends Pane {
 				e.printStackTrace();
 			}
 		};
-
 		this.heightProperty().addListener(redrawListener);
 		this.widthProperty().addListener(redrawListener);
 
@@ -79,6 +75,7 @@ public class PlotPane extends Pane {
 
 		this.axes = new AxesCartesianLayer();
 		axes.bindProperties(this);
+
 	}
 
 	private void drawAll()
@@ -102,14 +99,12 @@ public class PlotPane extends Pane {
 	}
 
 	private void setupInputLayer() {
-		this.inputLayer = new InputCartesianLayer();
+		this.inputLayer = new InputLayer();
 		this.inputLayer.bindProperties(this);
-
 		this.minX.bind(inputLayer.getMinX());
 		this.maxX.bind(inputLayer.getMaxX());
 		this.minY.bind(inputLayer.getMinY());
 		this.maxY.bind(inputLayer.getMaxY());
-
 		this.changeViewport.bind(inputLayer.getChangeViewport());
 	}
 
@@ -159,7 +154,7 @@ public class PlotPane extends Pane {
 		return changeViewport;
 	}
 
-	public InputCartesianLayer getInputLayer() {
+	public InputLayer getInputLayer() {
 		return inputLayer;
 	}
 

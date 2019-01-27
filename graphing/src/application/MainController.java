@@ -19,12 +19,14 @@ public class MainController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
 		this.shareLayerStore = new ShareLayers();
-
-		System.out.println(shareLayerStore);
-
+		
+		
 		PlotPane plotPane = new PlotPane();
-
+		
+		
 		plotPane.setShareLayerStore(shareLayerStore);
+		
+		
 
 		rootPane.setCenter(plotPane);
 
