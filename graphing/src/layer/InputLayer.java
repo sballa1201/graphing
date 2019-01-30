@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import application.PlotPane;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -19,8 +20,26 @@ public class InputLayer extends Layer {
 	private double previousX;
 	private double previousY;	
 	
-	public InputLayer() {
+	public InputLayer(PlotPane plotPane) {
 		super();
+		
+		this.steps = new SimpleIntegerProperty(400);
+		this.minX = new SimpleDoubleProperty(-10);
+		this.maxX = new SimpleDoubleProperty(10);
+		this.minY = new SimpleDoubleProperty(-10);
+		this.maxY = new SimpleDoubleProperty(10);
+		this.pixelWorthX = new SimpleDoubleProperty(1);
+		this.pixelWorthY = new SimpleDoubleProperty(1);
+		
+		this.canvas.heightProperty().bind(plotPane.heightProperty());
+		this.canvas.widthProperty().bind(plotPane.widthProperty());
+		
+		this.canvas.heightProperty().addListener(event -> updatePixelWorth());
+		this.canvas.widthProperty().addListener(event -> updatePixelWorth());
+
+		this.changeViewport = new SimpleBooleanProperty(plotPane.getChangeViewport().get());
+		
+		
 		
 		this.canvas.setOnMousePressed(event -> dragEntered(event));
 		this.canvas.setOnMouseDragged(event -> pan(event));
@@ -30,10 +49,10 @@ public class InputLayer extends Layer {
 
 	private void drawCoords(MouseEvent event) {
 		clearCanvas();
-
+		this.updatePixelWorth();
 		double x = (event.getX() * this.pixelWorthX.doubleValue()) + this.minX.doubleValue();
 		double y = this.maxY.doubleValue() - (event.getY() * this.pixelWorthY.doubleValue());
-
+		
 		// double y = ((event.getY()*this.pixelWorthY.doubleValue()) +
 		// this.minY.doubleValue());
 
@@ -47,7 +66,7 @@ public class InputLayer extends Layer {
 		String out = "(" + sX + "," + sY + ")";
 
 		// sX = dX.format(X);
-
+		
 		gc.setLineWidth(1);
 
 		gc.strokeText(out, 0, 10);
@@ -120,43 +139,23 @@ public class InputLayer extends Layer {
 		this.maxX.set(maxXVal);
 		this.minY.set(minYVal);
 		this.maxY.set(maxYVal);
-
+		this.updatePixelWorth();
 		this.changeViewport.set(!this.changeViewport.get());
 
 		event.consume();
-
-		// this.minX.set(Math.pow(zoomFactor,this.minX.doubleValue()));
-		// this.maxX.set(Math.pow(zoomFactor,this.maxX.doubleValue()));
-		// this.minY.set(Math.pow(zoomFactor,this.minY.doubleValue()));
-		// this.maxY.set(Math.pow(zoomFactor,this.maxY.doubleValue()));
-		//
-
 	}
 
 	@Override
 	public void draw() {
 	}
+	
+	private void updatePixelWorth() {
+		this.pixelWorthX.set((this.maxX.doubleValue() - this.minX.doubleValue()) / this.canvas.getWidth());
+		this.pixelWorthY.set((this.maxY.doubleValue() - this.minY.doubleValue()) / this.canvas.getHeight());
+	}
 
 	@Override
-	public void bindProperties(PlotPane plotPane) {
-
-		this.steps = new SimpleIntegerProperty(plotPane.getSteps().intValue());
-		this.minX = new SimpleDoubleProperty(plotPane.getMinX().doubleValue());
-		this.maxX = new SimpleDoubleProperty(plotPane.getMaxX().doubleValue());
-		this.minY = new SimpleDoubleProperty(plotPane.getMinY().doubleValue());
-		this.maxY = new SimpleDoubleProperty(plotPane.getMaxY().doubleValue());
-		this.pixelWorthX = new SimpleDoubleProperty(plotPane.getPixelWorthX().doubleValue());
-		this.pixelWorthY = new SimpleDoubleProperty(plotPane.getPixelWorthY().doubleValue());
-
-		this.pixelWorthX.bind(plotPane.getPixelWorthX());
-		this.pixelWorthY.bind(plotPane.getPixelWorthY());
-
-		canvas.heightProperty().bind(plotPane.heightProperty());
-		canvas.widthProperty().bind(plotPane.widthProperty());
-
-		changeViewport = new SimpleBooleanProperty(plotPane.getChangeViewport().get());
-
-	}
+	public void bindProperties(PlotPane plotPane) {}
 
 	public DoubleProperty getMinX() {
 		return minX;
@@ -173,7 +172,19 @@ public class InputLayer extends Layer {
 	public DoubleProperty getMaxY() {
 		return maxY;
 	}
+	
+	public DoubleProperty getPixelWorthX() {
+		return pixelWorthX;
+	}
 
+	public DoubleProperty getPixelWorthY() {
+		return pixelWorthY;
+	}
+	
+	public IntegerProperty getSteps() {
+		return steps;
+	}
+	
 	public BooleanProperty getChangeViewport() {
 		return changeViewport;
 	}

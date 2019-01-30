@@ -24,25 +24,20 @@ public class PlotPane extends Pane {
 	private InputLayer inputLayer;
 	private AxesCartesianLayer axes;
 
-	private IntegerProperty steps = new SimpleIntegerProperty(400);
 
 	private BooleanProperty changeViewport = new SimpleBooleanProperty(true);
-
-	private DoubleProperty minX = new SimpleDoubleProperty(-10);
-	private DoubleProperty maxX = new SimpleDoubleProperty(10);
-	private DoubleProperty minY = new SimpleDoubleProperty(-10);
-	private DoubleProperty maxY = new SimpleDoubleProperty(10);
-
-	private DoubleProperty pixelWorthX = new SimpleDoubleProperty();
-	private DoubleProperty pixelWorthY = new SimpleDoubleProperty();
 
 	private ShareLayers shareLayerStore;
 
 	private BooleanProperty changeLayers = new SimpleBooleanProperty(true);
 
 	public PlotPane() {
-
-		this.setupInputLayer();
+		
+		this.setHeight(1);
+		this.setWidth(1);
+		this.inputLayer = new InputLayer(this);
+		this.changeViewport.bind(this.inputLayer.getChangeViewport());
+		
 		this.setStyle("-fx-background-color: rgb(255,255,255)");
 //			 Function f = new Function("x^2");
 //			 String sE = Double.toString(Math.E);
@@ -80,7 +75,6 @@ public class PlotPane extends Pane {
 
 	private void drawAll()
 			throws StackOverflowException, StackUnderflowException, UnequalBracketsException, InterruptedException {
-		this.updatePixelWorth();
 
 		for (Layer l : layers) {
 			l.draw();
@@ -98,56 +92,9 @@ public class PlotPane extends Pane {
 
 	}
 
-	private void setupInputLayer() {
-		this.inputLayer = new InputLayer();
-		this.inputLayer.bindProperties(this);
-		this.minX.bind(inputLayer.getMinX());
-		this.maxX.bind(inputLayer.getMaxX());
-		this.minY.bind(inputLayer.getMinY());
-		this.maxY.bind(inputLayer.getMaxY());
-		this.changeViewport.bind(inputLayer.getChangeViewport());
-	}
-
 	private void addLayer(Layer l) {
 		l.bindProperties(this);
 		this.layers.add(l);
-	}
-
-	private void updatePixelWorth() {
-		// this.pixelWorthX.set(Math.abs((this.maxX.doubleValue() -
-		// this.minX.doubleValue())/plotPane.getWidth()));
-		// this.pixelWorthY.set(Math.abs((this.maxY.doubleValue() -
-		// this.minY.doubleValue())/plotPane.getHeight()));
-		this.pixelWorthX.set((this.maxX.doubleValue() - this.minX.doubleValue()) / this.getWidth());
-		this.pixelWorthY.set((this.maxY.doubleValue() - this.minY.doubleValue()) / this.getHeight());
-	}
-
-	public IntegerProperty getSteps() {
-		return steps;
-	}
-
-	public DoubleProperty getMinX() {
-		return minX;
-	}
-
-	public DoubleProperty getMaxX() {
-		return maxX;
-	}
-
-	public DoubleProperty getMinY() {
-		return minY;
-	}
-
-	public DoubleProperty getMaxY() {
-		return maxY;
-	}
-
-	public DoubleProperty getPixelWorthX() {
-		return pixelWorthX;
-	}
-
-	public DoubleProperty getPixelWorthY() {
-		return pixelWorthY;
 	}
 
 	public BooleanProperty getChangeViewport() {

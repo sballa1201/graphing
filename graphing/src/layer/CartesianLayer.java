@@ -12,25 +12,25 @@ public abstract class CartesianLayer extends Layer {
 	public abstract void draw();
 
 	@Override
-	// bind the needed properties to itself
+	// bind the needed properties from the input layer to itself
 	public void bindProperties(PlotPane plotPane) {
 		// initialize the properties with the same values as their partners
-		this.steps = new SimpleIntegerProperty(plotPane.getSteps().intValue());
+		this.steps = new SimpleIntegerProperty(plotPane.getInputLayer().getSteps().intValue());
 		this.minX = new SimpleDoubleProperty(plotPane.getInputLayer().getMinX().doubleValue());
 		this.maxX = new SimpleDoubleProperty(plotPane.getInputLayer().getMaxX().doubleValue());
 		this.minY = new SimpleDoubleProperty(plotPane.getInputLayer().getMinY().doubleValue());
 		this.maxY = new SimpleDoubleProperty(plotPane.getInputLayer().getMaxY().doubleValue());
-		this.pixelWorthX = new SimpleDoubleProperty(plotPane.getPixelWorthX().doubleValue());
-		this.pixelWorthY = new SimpleDoubleProperty(plotPane.getPixelWorthY().doubleValue());
+		this.pixelWorthX = new SimpleDoubleProperty(plotPane.getInputLayer().getPixelWorthX().doubleValue());
+		this.pixelWorthY = new SimpleDoubleProperty(plotPane.getInputLayer().getPixelWorthY().doubleValue());
 		// bind the two properties together one-directionally
 		// so these attributes change when plot pane changes, not vice versa
-		this.steps.bind(plotPane.getSteps());
+		this.steps.bind(plotPane.getInputLayer().getSteps());
 		this.minX.bind(plotPane.getInputLayer().getMinX());
 		this.maxX.bind(plotPane.getInputLayer().getMaxX());
 		this.minY.bind(plotPane.getInputLayer().getMinY());
 		this.maxY.bind(plotPane.getInputLayer().getMaxY());
-		this.pixelWorthX.bind(plotPane.getPixelWorthX());
-		this.pixelWorthY.bind(plotPane.getPixelWorthY());
+		this.pixelWorthX.bind(plotPane.getInputLayer().getPixelWorthX());
+		this.pixelWorthY.bind(plotPane.getInputLayer().getPixelWorthY());
 		// make the canvas resize as its parent resizes by binding the associated properties
 		canvas.heightProperty().bind(plotPane.heightProperty());
 		canvas.widthProperty().bind(plotPane.widthProperty());
