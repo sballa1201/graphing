@@ -12,23 +12,10 @@ Class.A("PlotPane")
 ("+PlotPane()",
 "-void drawAll()",
 "-void addLayer(Layer l)",
-"-void updatePixelWorth()",
-"+DoubleProperty getMinX()",
-"+DoubleProperty getMaxX()",
-"+DoubleProperty getMinY()",
-"+DoubleProperty getMaxY()",
-"+DoubleProperty getPixelWorthX()",
-"+DoubleProperty getPixelWorthY()",
-"+IntegerProperty getSteps()")
+"+InputLayer getInputLayer()")
 ("-List layers",
-"-AxesLayer axes",
-"-DoubleProperty minX",
-"-DoubleProperty maxX",
-"-DoubleProperty minY",
-"-DoubleProperty maxY",
-"-DoubleProperty pixelWorthX",
-"-DoubleProperty pixelWorthY",
-"-IntegerProperty steps");
+"-InputLayer inputLayer",
+"-AxesLayer axesLayer");
 Class.B("Pane")
 ()
 ();

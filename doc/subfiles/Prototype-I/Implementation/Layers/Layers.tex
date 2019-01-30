@@ -34,13 +34,15 @@ As described in the design section, I will create classes that inherit from one 
 \caption{\texttt{Layer} Inheritance Diagram}
 \end{figure}
 The problem with this part of the program is that everything is interdependent on everything else. Specifically here the \texttt{PlotPane} class is used within the \texttt{Layer} classes and vice versa. Since I will implement the \texttt{Layer} classes first I will create a bare bones  \texttt{PlotPane} class that just contains its attributes for use within the \texttt{Layer} classes and implement the \texttt{PlotPane} class later. This is simply to avoid compiler errors. This also means that we cannot properly test this portion until we complete both parts. As such I will combine the mini tests that I would have carried out, as a part of the overall final testing for this prototype.
+\newpage
 \subsection{Layer}
 This is an abstract super class, as described in the design. Since we cannot instantiate this class, we cannot directly test this class, but by testing its child classes we can test it indirectly.
 \begin{minted}[
 frame=lines,
 framesep=2mm,
 linenos,
-breaklines
+breaklines,
+fontsize = \fontsize{10}{10}
 ]{java}
 package layer;
 
@@ -102,10 +104,71 @@ public abstract class Layer {
 \end{minted}
 \newpage
 \subsection{CartesianLayer}
-This class is also abstract and hence cannot be instantiated. It will contain methods to convert Cartesian coordinates to the Canvas coordinate system and bind its properties to a \texttt{PlotPane}. The algorithms for these are on page \pageref{alg:coordConv}.
+This class is also abstract and hence cannot be instantiated. It will contain methods to convert Cartesian coordinates to the Canvas coordinate system and bind its properties to a \texttt{PlotPane}. The algorithms for these are on page \pageref{alg:coordConv}. Since all the classes that inherit this class will use the same properties I will finally override the \texttt{bindProperties{}} method and bind the necessary properties to reduce the amount of redundant code and ensure consistency in how the properties are bound.
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+linenos,
+breaklines,
+fontsize = \fontsize{9}{9}
+]{java}
+package layer;
+
+import application.PlotPane;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
+public abstract class CartesianLayer extends Layer {
+
+	@Override
+	// must be overriden since the parent class made it abstract
+	// but keep it abstract so child class must override
+	public abstract void draw();
+
+	@Override
+	// bind the needed properties to itself
+	public void bindProperties(PlotPane plotPane) {
+		// initialize the properties with the same values as their partners
+		this.steps = new SimpleIntegerProperty(plotPane.getSteps().intValue());
+		this.minX = new SimpleDoubleProperty(plotPane.getMinX().doubleValue());
+		this.maxX = new SimpleDoubleProperty(plotPane.getMaxX().doubleValue());
+		this.minY = new SimpleDoubleProperty(plotPane.getMinY().doubleValue());
+		this.maxY = new SimpleDoubleProperty(plotPane.getMaxY().doubleValue());
+		this.pixelWorthX = new SimpleDoubleProperty(plotPane.getPixelWorthX().doubleValue());
+		this.pixelWorthY = new SimpleDoubleProperty(plotPane.getPixelWorthY().doubleValue());
+		// bind the two properties together one-directionally
+		// so these attributes change when plot pane changes, not vice versa
+		this.steps.bind(plotPane.getSteps());
+		this.minX.bind(plotPane.getMinX());
+		this.maxX.bind(plotPane.getMaxX());
+		this.minY.bind(plotPane.getMinY());
+		this.maxY.bind(plotPane.getMaxY());
+		this.pixelWorthX.bind(plotPane.getPixelWorthX());
+		this.pixelWorthY.bind(plotPane.getPixelWorthY());
+		// make the canvas resize as its parent resizes by binding the associated properties
+		canvas.heightProperty().bind(plotPane.heightProperty());
+		canvas.widthProperty().bind(plotPane.widthProperty());
+	}
+
+	// convert x-Cartesian coordinate to x-Canvas coordinate
+	protected double convertX(double x) {
+		x = x - this.minX.doubleValue();
+		x = x / this.pixelWorthX.doubleValue();
+		return x;
+	}
+
+	// convert y-Cartesian coordinate to y-Canvas coordinate
+	protected double convertY(double y) {
+		y = this.maxY.doubleValue() - y;
+		y = y / this.pixelWorthY.doubleValue();
+		return y;
+	}
+
+}
+\end{minted}
 \newpage
 \subsection{AxesCartesianLayer}
-Drawing the axes is quite simple so we will begin our implementation of non-abstract drawing classes with this one. This class will draw whenever the $x$ or $y$ coordinate is 0. This results in two lines. The $x$ axis will be drawn from the leftmost point where $y$ is 0 to the rightmost point where $y$ is 0\footnote{Rightmost and leftmost on the canvas}. This means that we draw a line from the point $(x_{min,0})$ to the point $(x_{max,0})$. These $x_min$ and $x_max$ values are values that we have stored as properties within our class. Similarly we can draw the $y$ axis by drawing a line from the point $(0,y_{min})$ to the point $(0,y_{max})$. These Cartesian coordinates must be first converted to the canvas coordinates, and this will be done in the implementation.
+Drawing the axes is quite simple so we will begin our implementation of non-abstract drawing classes with this one. This class will draw whenever the $x$ or $y$ coordinate is 0. This results in two lines. The $x$ axis will be drawn from the leftmost point where $y$ is 0 to the rightmost point where $y$ is (rightmost and leftmost on the canvas). This means that we draw a line from the point $(x_{min,0})$ to the point $(x_{max,0})$. These $x_min$ and $x_max$ values are values that we have stored as properties within our class. Similarly we can draw the $y$ axis by drawing a line from the point $(0,y_{min})$ to the point $(0,y_{max})$. These Cartesian coordinates must be first converted to the canvas coordinates, and this will be done in the implementation.
 \begin{minted}[
 frame=lines,
 framesep=2mm,

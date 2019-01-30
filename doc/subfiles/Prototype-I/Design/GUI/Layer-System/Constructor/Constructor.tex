@@ -2,7 +2,7 @@
 \begin{document}
 
 \subsubsection{Constructor and Class as a Whole}
-The layer class we have described in the previous sections, describe a layer for an explicit function, in terms of $x$, in a Cartesian Coordinate System. To take full advantage of an OOP approach, as described at the start of this section, we can use layers for input, drawing axes etc. Hence we will create a superclass called \texttt{Layer} and then make our other types of layers inherit this class. This superclass will never be instatiated, in OOP terms it is abstract. The superclass will have some basic methods and attributes which we have used during this design, such as \texttt{draw()}, the attributes of the viewport (\texttt{minX}, \texttt{maxX}, etc.), the functions to convert between coordinate systems, where some of the functions such as \texttt{draw()} will be overriden. Our \texttt{Explicit Function} and \texttt{Axes} classes are the only layers we will implement (apart from the superclass layer) in prototype 1. The input layer will be part of prototype 2. While we haven't talked about the axes layer, this will simply be drawing the lines $y=0$ and $x=0$. This is done just for reference so that we can verify that the functions are drawn somewhat accurately.
+The layer class we have described in the previous sections, describe a layer for an explicit function, in terms of $x$, in a Cartesian Coordinate System. To take full advantage of an OOP approach, as described at the start of this section, we can use layers for input, drawing axes etc. Hence we will create a superclass called \texttt{Layer} and then make our other types of layers inherit this class. This superclass will never be instatiated, in OOP terms it is abstract. The superclass will have some basic methods and attributes which we have used during this design, such as \texttt{draw()}, the attributes of the viewport (\texttt{minX}, \texttt{maxX}, etc.), the functions to convert between coordinate systems, where some of the functions such as \texttt{draw()} will be overriden. Our \texttt{Explicit Function} and \texttt{Axes} classes are the only layers we will implement (apart from the superclass layer) in prototype 1. The input layer will be partially implemented readying it for prototype 2. While we haven't talked about the axes layer, this will simply be drawing the lines $y=0$ and $x=0$. This is done just for reference so that we can verify that the functions are drawn somewhat accurately.
 
 The constructor for the Explicit Function Layer is shown below.
 
@@ -31,10 +31,9 @@ The class diagrams for the \texttt{Layer
  classes are shown below:
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{diagrams/layers.mps}
+	\includegraphics[width=0.85\textwidth]{diagrams/layers.mps}
 	\caption{\texttt{Layer} Classes}
 \end{figure}
-
 \newpage
 
 \end{document}
