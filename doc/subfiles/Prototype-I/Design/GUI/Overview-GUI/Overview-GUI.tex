@@ -2,15 +2,14 @@
 \begin{document}
 
 \subsection{Overview of the Graphical User Interface}
-The GUI will look something like:
+The GUI will look something like:\\
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[width=0.4\textwidth]{diagrams/UI.mps}
 	\end{center}
 	\caption{UI Design}
 \end{figure}
-as showcased in the analysis.
-
+as showcased in the analysis.\\
 Within \texttt{JavaFX} there is a hierarchy\cite{javafxHierarchy} of a standard GUI components. This is shown below:
 \begin{figure}[H]
 \begin{center}
@@ -44,8 +43,8 @@ Within \texttt{JavaFX} there is a hierarchy\cite{javafxHierarchy} of a standard 
 \end{center}
 \caption{\texttt{JavaFX} Components Hierarchical Diagram}
 \end{figure}
-\begin{wrapfigure}{r}{0.4\textwidth} 
-	\includegraphics[width=0.4\textwidth]{images/borderpaneArchitecture}
+\begin{wrapfigure}{r}{0.42\textwidth} 
+	\includegraphics[width=0.42\textwidth]{images/borderpaneArchitecture}
 	\caption{\texttt{BorderPane} Architecture}
 \end{wrapfigure}
 Now we can manipulate the the nodes beneath \texttt{Scene}. It is standard to make the first \texttt{Node} beneath \texttt{Scene} some kind of \texttt{Pane}. For this project a \texttt{BorderPane} is most suited since it has multiple objects of type \texttt{Region}, that can hold one \texttt{Node} each. A diagram of this is shown to the right showcases how a \texttt{BorderPane} is arranged\cite{borderpane} and way it behaves.

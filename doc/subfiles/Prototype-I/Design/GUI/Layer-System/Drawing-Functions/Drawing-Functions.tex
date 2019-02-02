@@ -9,6 +9,7 @@ Firstly we take the minimum value of $x$, which in the viewport is $x_{min}$. If
 \begin{algorithm}
 \DontPrintSemicolon
 \caption{Draw a Function in the Viewport}
+\label{alg:drawFunc}
 \Fn{draw()}{
 	\KwDouble x1 = minX\;
 	\KwDouble y1 = f.evaluate(x1)\;		
@@ -26,5 +27,6 @@ Firstly we take the minimum value of $x$, which in the viewport is $x_{min}$. If
 A precondition of this is that \texttt{f} is a continuous function and as such we need to make sure we do not draw an undefined part of the graph, but this can be sorted out in the implementation.
 \subsubsection{Input Layer}
 While I will not design nor implement the responsive user input in this prototype, I will implement a basic input layer class with simple attributes.  This is because it controls the other layers since if it zooms or pans around the viewport changes and this affects the properties defined in methods in the previous sections. Properties such as the minimum and maximum values of $x$ and $y$ for the canvas, and the pixel \textit{``worth''}. So we should create a basic input layer so I can bind the properties of other layers to the input layer, which means that it is easier to build on in prototype 2.\\
-This class will be quite bare, it will contain the methods to calculate pixel \textit{``worth''} and update it whenever the canvas changes size. It will be updated in other scenarios when we actually start manipulating the viewport in prototype 2, but at the moment nothing else is needed. The class diagram for this is included in the next section with all the rest of the layer classes.
+This class will be quite bare, it will contain the methods to calculate pixel \textit{``worth''} and update it whenever the canvas changes size. It will be updated in other scenarios when we actually start manipulating the viewport in prototype 2, but at the moment I will simply add a property called \texttt{changeViewport} that will eventually be connected to the \texttt{PlotPane} to notify it when any input is registered. The class diagram for this is included in the next section with all the rest of the layer classes.
+\newpage
 \end{document}

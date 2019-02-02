@@ -13,38 +13,27 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 
 public class InputLayer extends Layer {
-
+	
+	// attributes
 	private BooleanProperty changeViewport = new SimpleBooleanProperty();
 	private double pressedX;
 	private double pressedY;
 	private double previousX;
-	private double previousY;	
+	private double previousY;
 	
-	public InputLayer(PlotPane plotPane) {
+	// methods
+	// constructor
+	public InputLayer() {
+		// call the super constructor
 		super();
-		
-		this.steps = new SimpleIntegerProperty(400);
-		this.minX = new SimpleDoubleProperty(-10);
-		this.maxX = new SimpleDoubleProperty(10);
-		this.minY = new SimpleDoubleProperty(-10);
-		this.maxY = new SimpleDoubleProperty(10);
-		this.pixelWorthX = new SimpleDoubleProperty(1);
-		this.pixelWorthY = new SimpleDoubleProperty(1);
-		
-		this.canvas.heightProperty().bind(plotPane.heightProperty());
-		this.canvas.widthProperty().bind(plotPane.widthProperty());
-		
+		//update pixel worth when the canvas changes size
 		this.canvas.heightProperty().addListener(event -> updatePixelWorth());
 		this.canvas.widthProperty().addListener(event -> updatePixelWorth());
 
-		this.changeViewport = new SimpleBooleanProperty(plotPane.getChangeViewport().get());
-		
-		
-		
-		this.canvas.setOnMousePressed(event -> dragEntered(event));
-		this.canvas.setOnMouseDragged(event -> pan(event));
-		this.canvas.setOnScroll(event -> zoom(event));
-		this.canvas.setOnMouseMoved(event -> drawCoords(event));
+//		this.canvas.setOnMousePressed(event -> dragEntered(event));
+//		this.canvas.setOnMouseDragged(event -> pan(event));
+//		this.canvas.setOnScroll(event -> zoom(event));
+//		this.canvas.setOnMouseMoved(event -> drawCoords(event));
 	}
 
 	private void drawCoords(MouseEvent event) {
@@ -52,7 +41,7 @@ public class InputLayer extends Layer {
 		this.updatePixelWorth();
 		double x = (event.getX() * this.pixelWorthX.doubleValue()) + this.minX.doubleValue();
 		double y = this.maxY.doubleValue() - (event.getY() * this.pixelWorthY.doubleValue());
-		
+
 		// double y = ((event.getY()*this.pixelWorthY.doubleValue()) +
 		// this.minY.doubleValue());
 
@@ -66,7 +55,7 @@ public class InputLayer extends Layer {
 		String out = "(" + sX + "," + sY + ")";
 
 		// sX = dX.format(X);
-		
+
 		gc.setLineWidth(1);
 
 		gc.strokeText(out, 0, 10);
@@ -82,10 +71,6 @@ public class InputLayer extends Layer {
 			// System.out.println("entered drag");
 			event.setDragDetect(true);
 			this.canvas.startFullDrag();
-			
-			
-			
-			
 
 			event.consume();
 
@@ -146,45 +131,70 @@ public class InputLayer extends Layer {
 	}
 
 	@Override
-	public void draw() {
-	}
+	// this canvas will not draw anything so this method is empty
+	// it must still be implemented since the method was abstract in the parent class
+	public void draw() {}
 	
+	// update the pixelworth
 	private void updatePixelWorth() {
 		this.pixelWorthX.set((this.maxX.doubleValue() - this.minX.doubleValue()) / this.canvas.getWidth());
 		this.pixelWorthY.set((this.maxY.doubleValue() - this.minY.doubleValue()) / this.canvas.getHeight());
 	}
 
 	@Override
-	public void bindProperties(PlotPane plotPane) {}
-
+	// initialize the properties required so they can be bound later
+	public void bindProperties(PlotPane plotPane) {
+		// initialize the properties
+		this.steps = new SimpleIntegerProperty(400);
+		this.minX = new SimpleDoubleProperty(-10);
+		this.maxX = new SimpleDoubleProperty(10);
+		this.minY = new SimpleDoubleProperty(-10);
+		this.maxY = new SimpleDoubleProperty(10);
+		this.pixelWorthX = new SimpleDoubleProperty(1);
+		this.pixelWorthY = new SimpleDoubleProperty(1);
+		// make the canvas resize as its parent resizes by binding the associated properties
+		this.canvas.heightProperty().bind(plotPane.heightProperty());
+		this.canvas.widthProperty().bind(plotPane.widthProperty());
+		// initialize the viewport property with the same value as the plotpane property
+		this.changeViewport = new SimpleBooleanProperty(plotPane.getChangeViewport().get());
+	}
+	
+	//return minX
 	public DoubleProperty getMinX() {
 		return minX;
 	}
-
+	
+	//return minX
 	public DoubleProperty getMaxX() {
 		return maxX;
 	}
-
+	
+	// return minX
 	public DoubleProperty getMinY() {
 		return minY;
 	}
-
+	
+	// return minX
 	public DoubleProperty getMaxY() {
 		return maxY;
 	}
 	
+	// return the worth of each pixel in the x-direction
 	public DoubleProperty getPixelWorthX() {
 		return pixelWorthX;
 	}
-
+	
+	// return the worth of each pixel in the y-direction
 	public DoubleProperty getPixelWorthY() {
 		return pixelWorthY;
 	}
-	
+
+	// return the number of draw steps
 	public IntegerProperty getSteps() {
 		return steps;
 	}
 	
+	// return the property that notifies when it is time to redraw layers
 	public BooleanProperty getChangeViewport() {
 		return changeViewport;
 	}

@@ -2,7 +2,8 @@
 \begin{document}
 
 \subsection{Plot Pane}
-The purpose of the \texttt{PlotPane} is to manage the layers. The \texttt{PlotPane} will tell them when to draw and notify them when something changes through the use of properties. Our \texttt{PlotPane} will inherit the \texttt{JavaFX Pane}. While we could have used \texttt{FXML}, \texttt{FXML} is more applicable when there are complicated UI components that are hard to arrange and manage. In this situation we only need to have one \texttt{Pane} hence there is no need to use \texttt{FXML}. Inheriting \texttt{Pane} also allows it to integrate well within the \texttt{JavaFX} hierarchy.
+The purpose of the \texttt{PlotPane} is to manage the layers. The \texttt{PlotPane} will tell them when to draw and notify them when something changes through the use of properties. Since the \texttt{InputPane} will tell when some thing needs to be drawn, the \texttt{PlotPane} will contain a property which will be bound to the \texttt{InputPane} and we will draw whenever this property changes. This property, from the \texttt{InputPane} section, will be called \texttt{changeViewport}.\\
+Our \texttt{PlotPane} will inherit the \texttt{JavaFX Pane}. While we could have used \texttt{FXML}, \texttt{FXML} is more applicable when there are complicated UI components that are hard to arrange and manage. In this situation we only need to have one \texttt{Pane} hence there is no need to use \texttt{FXML}. Inheriting \texttt{Pane} also allows it to integrate well within the \texttt{JavaFX} hierarchy.
 
 \begin{figure}[H]
 	\centering

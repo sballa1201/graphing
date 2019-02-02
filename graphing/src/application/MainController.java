@@ -17,29 +17,24 @@ public class MainController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-
+		// initialize the shared layer store
 		this.shareLayerStore = new ShareLayers();
-		
-		
+		// initialize the plotpane
 		PlotPane plotPane = new PlotPane();
-		
-		
-		plotPane.setShareLayerStore(shareLayerStore);
-		
-		
-
-		rootPane.setCenter(plotPane);
-
+		// initialize the input pane
 		InputPane inputPane = null;
 		try {
 			inputPane = new InputPane();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// the input pane xml file does not exist
 			e.printStackTrace();
 		}
-		System.out.println(inputPane);
-		inputPane.setShareLayerStore(shareLayerStore);
 
+		// set the shared layer stores to both the panes
+		plotPane.setShareLayerStore(shareLayerStore);
+		inputPane.setShareLayerStore(shareLayerStore);
+		// add the panes to the root pane
+		rootPane.setCenter(plotPane);
 		rootPane.setLeft(inputPane);
 	}
 

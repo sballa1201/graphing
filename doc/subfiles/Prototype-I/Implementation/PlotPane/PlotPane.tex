@@ -1,0 +1,113 @@
+\documentclass[../../../../main.tex]{subfiles}
+\begin{document}
+
+\section{Plot Pane}
+The \texttt{PlotPane} was a bit difficult to implement. It required me to learn about lists in \texttt{Java}\cite{arrayListJava} and about what listeners\cite{listenersJava} were and how they are used. Lists are not primitives in \texttt{Java} but an implementation of them are in standard libraries. Listeners are bits of code which are executed when an event occurs. An example of an event would be when a property changes value or if a button is presses. Listeners can be bound to any property so that when a property changes value the listener is run. In our implementation listeners are used to redraw the layers whenever the pane changes size.\\
+When I decided whether to use a layer system or not, I mentioned how using threads to draw multiple canvases at once is an advantage. However from our tests while implementing our \texttt{Expression} class, we discovered that creating threads in \texttt{Java} is very expensive and as such it would do more harm than good to implementing a multithreaded system to draw multiple canvases at once. \\
+Again we cannot test this component individually until the very end of this prototype where we will utilize our test plan which we designed in the design section. The code for this class is shown below and is commented to explain some of the less obvious parts:
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+linenos,
+breaklines,
+fontsize = \fontsize{10}{10}
+]{java}
+package application;
+
+import java.util.ArrayList;
+
+import exceptions.StackOverflowException;
+import exceptions.StackUnderflowException;
+import exceptions.UnequalBracketsException;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.scene.layout.Pane;
+import layer.AxesCartesianLayer;
+import layer.ExplicitXFunctionCartesianLayer;
+import layer.InputLayer;
+import layer.Layer;
+
+public class PlotPane extends Pane {
+
+	// attributes
+	// layers
+	private ArrayList<Layer> layers = new ArrayList<Layer>();
+	private InputLayer inputLayer;
+	private AxesCartesianLayer axesLayer;
+	// properties
+	private BooleanProperty changeViewport = new SimpleBooleanProperty(true);
+
+	// methods
+	// constructor
+	public PlotPane() {
+		// initialize the input layer and bind its properties
+		this.inputLayer = new InputLayer();
+		this.inputLayer.bindProperties(this);
+		// bind the plotpane's properties to it
+		this.changeViewport.bind(this.inputLayer.getChangeViewport());
+		// make the background of the plotpane white
+		this.setStyle("-fx-background-color: rgb(255,255,255)");
+		// this is portion of code which can be bound to a property
+		// and will run when that property changes
+		// this listener will redraw the layers
+		ChangeListener<Object> redrawListener = (observable, oldValue, newValue) -> {
+			try {
+				drawAll();
+			} catch (StackOverflowException | StackUnderflowException | UnequalBracketsException
+					| InterruptedException e) {
+				// error when drawing functions
+				e.printStackTrace();
+			}
+		};
+		// add the redraw listener to the size properties
+		// so when the plotpane changes size the layers are redrawn
+		this.heightProperty().addListener(redrawListener);
+		this.widthProperty().addListener(redrawListener);
+		// add the redraw listener to the changeViewport property
+		// so when the input layer notifies to draw, the layers are redrawn
+		this.changeViewport.addListener(redrawListener);
+		// initialize the axes layer and bind its properties
+		this.axesLayer = new AxesCartesianLayer();
+		axesLayer.bindProperties(this);
+	}
+
+	private void drawAll()
+			throws StackOverflowException, StackUnderflowException, UnequalBracketsException, InterruptedException {
+		// loop through every layer and draw it
+		for (Layer l : layers) {
+			l.draw();
+		}
+		// draw the axes
+		axesLayer.draw();
+		// remove all the canvases in the plotpane
+		this.getChildren().clear();
+		// readd all the canvases in the plotpane
+		for (Layer l : layers) {
+			this.getChildren().add(l.getCanvas());
+		}
+		// add the input and axes canvases again
+		// with the input layer on top so that it can receive input
+		this.getChildren().add(axesLayer.getCanvas());
+		this.getChildren().add(inputLayer.getCanvas());
+	}
+
+	// add a layer
+	private void addLayer(Layer l) {
+		// bind the properties to this plotpane
+		l.bindProperties(this);
+		// add the layer to the list
+		this.layers.add(l);
+	}
+
+	// return the inputlayer to access its properties
+	public InputLayer getInputLayer() {
+		return inputLayer;
+	}
+
+}
+
+\end{minted}
+
+\newpage
+\end{document}

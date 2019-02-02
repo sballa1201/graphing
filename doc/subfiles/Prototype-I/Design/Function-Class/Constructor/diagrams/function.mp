@@ -13,8 +13,8 @@ Class.A("Function")
 	"+double evaluateStack(double x)",
 	"+Stack substitute(double x)",
         "-Tree createTree(String expression)",
-        "-String checkBracket()",
-        "-String standardize(String expression)")
+        "-String standardize(String expression)",
+        "-String checkBracket()")
 	("-String expression",
 	"-String parameter",
         "-Stack postFixStack",
@@ -22,6 +22,9 @@ Class.A("Function")
     	drawObject(A);
 
 draw A.sw+(13,48) -- A.se+(-65,48);
-draw A.sw+(13,58.5) -- A.se+(-14,58.5);
+
+draw A.sw+(13,58.5) -- A.se+(-10,58.5);
+
 endfig;
+
 end

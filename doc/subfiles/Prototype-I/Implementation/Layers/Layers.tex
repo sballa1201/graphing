@@ -2,7 +2,8 @@
 \begin{document}
 
 \section{Layers}
-As described in the design section, I will create classes that inherit from one a top class that I will call \texttt{Layer}. This class will be \texttt{abstract} since we will never instantiate this class and only inherit from it. The \texttt{CartesianLayer} will be a child class to the abstract \texttt{Layer} class. Again this will be \texttt{abstract} since we will only inherit from it. While it seems redundant for the super class \texttt{Layer} to exist, it fulfills the purpose of being able to create an array of type \texttt{Layer} which can then be filled with objects that are of types which are child classes to \texttt{Layer}. Our first instantiatable class will be a child class to \texttt{CartesianLayer} and will be called \texttt{ExplicitXFunctionCartesianLayer}. The \texttt{X} signifies that the parameter will be $x$. Likewise we will have a class called \texttt{ExplicitYFunctionCartesianLayer}, where this will be a function in terms of $y$. Our \texttt{AxesCartesianLayer} will also inherit from the \texttt{CartesianLayer} parent class. This makes actually drawing the axes easier, since we can simply draw 2 lines using the methods in the parent class, \texttt{CartesianLayer}.\\A diagram of this inheritance is shown below:
+As described in the design section, I will create classes that inherit from one a top class that I will call \texttt{Layer}. This class will be \texttt{abstract} since we will never instantiate this class and only inherit from it. The \texttt{CartesianLayer} will be a child class to the abstract \texttt{Layer} class. Again this will be \texttt{abstract} since we will only inherit from it. While it seems redundant for the super class \texttt{Layer} to exist, it fulfills the purpose of being able to create an array of type \texttt{Layer} which can then be filled with objects that are of types which are child classes to \texttt{Layer}. Our first instantiatable class will be a child class to \texttt{CartesianLayer} and will be called \texttt{ExplicitXFunctionCartesianLayer}. The \texttt{X} signifies that the parameter will be $x$. Likewise we will have a class called \texttt{ExplicitYFunctionCartesianLayer}, where this will be a function in terms of $y$. These two function classes are very similar, they both use algorithm \ref{alg:drawFunc} on page \pageref{alg:drawFunc} but one uses the primary variable $x$ and the other uses the primary variable $y$. Our \texttt{AxesCartesianLayer} will also inherit from the \texttt{CartesianLayer} parent class. This makes actually drawing the axes easier, since we can simply draw 2 lines using the methods in the parent class, \texttt{CartesianLayer}.
+\\A diagram of this inheritance is shown below:
 \begin{figure}[H]
 \begin{center}
 \begin{forest}
@@ -19,7 +20,7 @@ As described in the design section, I will create classes that inherit from one 
     if level=0{
       inner xsep=0pt,
       tikz={\draw [thick] (.south east) -- (.south west);}
-    }{}
+    }{calign=child,calign child=2}
   }
   [Layer
     [CartesianLayer
@@ -27,6 +28,7 @@ As described in the design section, I will create classes that inherit from one 
       [ExplicitYFunctionCartesianLayer]
       [AxesCartesianLayer]
       ]
+    [InputLayer]
     ]
   ]
 \end{forest}
@@ -36,13 +38,13 @@ As described in the design section, I will create classes that inherit from one 
 The problem with this part of the program is that everything is interdependent on everything else. Specifically here the \texttt{PlotPane} class is used within the \texttt{Layer} classes and vice versa. Since I will implement the \texttt{Layer} classes first I will create a bare bones  \texttt{PlotPane} class that just contains its attributes for use within the \texttt{Layer} classes and implement the \texttt{PlotPane} class later. This is simply to avoid compiler errors. This also means that we cannot properly test this portion until we complete both parts. As such I will combine the mini tests that I would have carried out, as a part of the overall final testing for this prototype.
 \newpage
 \subsection{Layer}
-This is an abstract super class, as described in the design. Since we cannot instantiate this class, we cannot directly test this class, but by testing its child classes we can test it indirectly.
+This is an abstract super class, as described in the design. Since we cannot instantiate this class, we cannot directly test this class, but by testing its child classes we can test it indirectly. I added an the attribute \texttt{Color} and setter for it, which controls what the color of anything drawn onto the canvas is.
 \begin{minted}[
 frame=lines,
 framesep=2mm,
 linenos,
 breaklines,
-fontsize = \fontsize{10}{10}
+fontsize = \fontsize{9.5}{9.5}
 ]{java}
 package layer;
 
@@ -103,7 +105,116 @@ public abstract class Layer {
 }
 \end{minted}
 \newpage
-\subsection{CartesianLayer}
+\subsection{Input Layer}
+This class unlike the previous is not an abstract class. It was quite simple to implement with the algorithms \ref{alg:pixelWorth}, \ref{alg:funcLayerConstructor}, \ref{alg:inpLayerConstructor} and \ref{alg:layerConstructor} on pages \pageref{alg:pixelWorth} and \pageref{alg:funcLayerConstructor}.
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+linenos,
+breaklines,
+fontsize = \fontsize{9}{9}
+]{java}
+package layer;
+
+import java.text.DecimalFormat;
+
+import application.PlotPane;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
+public class InputLayer extends Layer {
+	
+	// attributes
+	private BooleanProperty changeViewport = new SimpleBooleanProperty();
+	
+	// methods
+	// constructor
+	public InputLayer() {
+		// call the super constructor
+		super();
+		//update pixel worth when the canvas changes size
+		this.canvas.heightProperty().addListener(event -> updatePixelWorth());
+		this.canvas.widthProperty().addListener(event -> updatePixelWorth());
+	}
+
+
+	@Override
+	// this canvas will not draw anything so this method is empty
+	// it must still be implemented since the method was abstract in the parent class
+	public void draw() {}
+	
+	// update the pixelworth
+	private void updatePixelWorth() {
+		this.pixelWorthX.set((this.maxX.doubleValue() - this.minX.doubleValue()) / this.canvas.getWidth());
+		this.pixelWorthY.set((this.maxY.doubleValue() - this.minY.doubleValue()) / this.canvas.getHeight());
+	}
+
+	@Override
+	// initialize the properties required so they can be bound later
+	public void bindProperties(PlotPane plotPane) {
+		// initialize the properties
+		this.steps = new SimpleIntegerProperty(400);
+		this.minX = new SimpleDoubleProperty(-10);
+		this.maxX = new SimpleDoubleProperty(10);
+		this.minY = new SimpleDoubleProperty(-10);
+		this.maxY = new SimpleDoubleProperty(10);
+		this.pixelWorthX = new SimpleDoubleProperty(1);
+		this.pixelWorthY = new SimpleDoubleProperty(1);
+		// make the canvas resize as its parent resizes by binding the associated properties
+		this.canvas.heightProperty().bind(plotPane.heightProperty());
+		this.canvas.widthProperty().bind(plotPane.widthProperty());
+		// initialize the viewport property with the same value as the plotpane property
+		this.changeViewport = new SimpleBooleanProperty(plotPane.getChangeViewport().get());
+	}
+	
+	//return minX
+	public DoubleProperty getMinX() {
+		return minX;
+	}
+	
+	//return minX
+	public DoubleProperty getMaxX() {
+		return maxX;
+	}
+	
+	// return minX
+	public DoubleProperty getMinY() {
+		return minY;
+	}
+	
+	// return minX
+	public DoubleProperty getMaxY() {
+		return maxY;
+	}
+	
+	// return the worth of each pixel in the x-direction
+	public DoubleProperty getPixelWorthX() {
+		return pixelWorthX;
+	}
+	
+	// return the worth of each pixel in the y-direction
+	public DoubleProperty getPixelWorthY() {
+		return pixelWorthY;
+	}
+
+	// return the number of draw steps
+	public IntegerProperty getSteps() {
+		return steps;
+	}
+	
+	// return the property that notifies when it is time to redraw layers
+	public BooleanProperty getChangeViewport() {
+		return changeViewport;
+	}
+
+}
+\end{minted}
+\newpage
+\subsection{Cartesian Layer}
 This class is also abstract and hence cannot be instantiated. It will contain methods to convert Cartesian coordinates to the Canvas coordinate system and bind its properties to a \texttt{PlotPane}. The algorithms for these are on page \pageref{alg:coordConv}. Since all the classes that inherit this class will use the same properties I will finally override the \texttt{bindProperties{}} method and bind the necessary properties to reduce the amount of redundant code and ensure consistency in how the properties are bound.
 \begin{minted}[
 frame=lines,
@@ -126,25 +237,25 @@ public abstract class CartesianLayer extends Layer {
 	public abstract void draw();
 
 	@Override
-	// bind the needed properties to itself
+	// bind the needed properties from the input layer to itself
 	public void bindProperties(PlotPane plotPane) {
 		// initialize the properties with the same values as their partners
-		this.steps = new SimpleIntegerProperty(plotPane.getSteps().intValue());
-		this.minX = new SimpleDoubleProperty(plotPane.getMinX().doubleValue());
-		this.maxX = new SimpleDoubleProperty(plotPane.getMaxX().doubleValue());
-		this.minY = new SimpleDoubleProperty(plotPane.getMinY().doubleValue());
-		this.maxY = new SimpleDoubleProperty(plotPane.getMaxY().doubleValue());
-		this.pixelWorthX = new SimpleDoubleProperty(plotPane.getPixelWorthX().doubleValue());
-		this.pixelWorthY = new SimpleDoubleProperty(plotPane.getPixelWorthY().doubleValue());
+		this.steps = new SimpleIntegerProperty(plotPane.getInputLayer().getSteps().intValue());
+		this.minX = new SimpleDoubleProperty(plotPane.getInputLayer().getMinX().doubleValue());
+		this.maxX = new SimpleDoubleProperty(plotPane.getInputLayer().getMaxX().doubleValue());
+		this.minY = new SimpleDoubleProperty(plotPane.getInputLayer().getMinY().doubleValue());
+		this.maxY = new SimpleDoubleProperty(plotPane.getInputLayer().getMaxY().doubleValue());
+		this.pixelWorthX = new SimpleDoubleProperty(plotPane.getInputLayer().getPixelWorthX().doubleValue());
+		this.pixelWorthY = new SimpleDoubleProperty(plotPane.getInputLayer().getPixelWorthY().doubleValue());
 		// bind the two properties together one-directionally
 		// so these attributes change when plot pane changes, not vice versa
-		this.steps.bind(plotPane.getSteps());
-		this.minX.bind(plotPane.getMinX());
-		this.maxX.bind(plotPane.getMaxX());
-		this.minY.bind(plotPane.getMinY());
-		this.maxY.bind(plotPane.getMaxY());
-		this.pixelWorthX.bind(plotPane.getPixelWorthX());
-		this.pixelWorthY.bind(plotPane.getPixelWorthY());
+		this.steps.bind(plotPane.getInputLayer().getSteps());
+		this.minX.bind(plotPane.getInputLayer().getMinX());
+		this.maxX.bind(plotPane.getInputLayer().getMaxX());
+		this.minY.bind(plotPane.getInputLayer().getMinY());
+		this.maxY.bind(plotPane.getInputLayer().getMaxY());
+		this.pixelWorthX.bind(plotPane.getInputLayer().getPixelWorthX());
+		this.pixelWorthY.bind(plotPane.getInputLayer().getPixelWorthY());
 		// make the canvas resize as its parent resizes by binding the associated properties
 		canvas.heightProperty().bind(plotPane.heightProperty());
 		canvas.widthProperty().bind(plotPane.widthProperty());
@@ -167,7 +278,7 @@ public abstract class CartesianLayer extends Layer {
 }
 \end{minted}
 \newpage
-\subsection{AxesCartesianLayer}
+\subsection{Axes Cartesian Layer}
 Drawing the axes is quite simple so we will begin our implementation of non-abstract drawing classes with this one. This class will draw whenever the $x$ or $y$ coordinate is 0. This results in two lines. The $x$ axis will be drawn from the leftmost point where $y$ is 0 to the rightmost point where $y$ is (rightmost and leftmost on the canvas). This means that we draw a line from the point $(x_{min,0})$ to the point $(x_{max,0})$. These $x_min$ and $x_max$ values are values that we have stored as properties within our class. Similarly we can draw the $y$ axis by drawing a line from the point $(0,y_{min})$ to the point $(0,y_{max})$. These Cartesian coordinates must be first converted to the canvas coordinates, and this will be done in the implementation.
 \begin{minted}[
 frame=lines,
@@ -204,9 +315,156 @@ public class AxesCartesianLayer extends CartesianLayer {
 }
 \end{minted}
 \newpage
-\subsection{ExplicitXFunctionCartesianLayer}
-\newpage
-\subsection{ExplicitYFunctionCartesianLayer}
-\newpage
+\subsection{Explicit $x$-Function Cartesian Layer}
+While designing the algorithm to draw functions I talked about how the function must be continuous otherwise we would come across arithmetic errors such dividing by 0. This is no longer an issue since the \texttt{double} will handle all these errors for us. This was mentioned during the implementation of the evaluation of a function. Apart from that resolved issue there were no other issues during the implementation of this class.
 
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+linenos,
+breaklines
+]{java}
+package layer;
+
+import exceptions.StackOverflowException;
+import exceptions.StackUnderflowException;
+import exceptions.UnequalBracketsException;
+import structures.ExplicitFunction;
+
+public class ExplicitXFunctionCartesianLayer extends CartesianLayer {
+
+	// attributes
+	private ExplicitFunction f;
+
+	// methods
+	// constructor - create a layer with an expression given
+	public ExplicitXFunctionCartesianLayer(String expression) {
+		// super constructor must be invoked first
+		super();
+		// try to create the function with the given expression
+		try {
+			this.f = new ExplicitFunction(expression, 'x');
+		} catch (StackOverflowException | StackUnderflowException | UnequalBracketsException e) {
+			// output the error in parsing the function
+			e.printStackTrace();
+		}
+	}
+
+	// constructor - create a layer with a set function
+	public ExplicitXFunctionCartesianLayer(ExplicitFunction f) {
+		// super constructor must be invoked first
+		super();
+		// set the function
+		this.f = f;
+	}
+
+	// draw the function
+	public void draw() {
+		// setup the canvas by clearing it and set up the line to be drawn
+		this.clearCanvas();
+		gc.setLineWidth(2);
+		gc.setStroke(color);
+		double x1, x2, y1, y2;
+		// initialize the first value of x
+		x1 = this.minX.doubleValue();
+		// evaluate the first value of y
+		y1 = f.evaluate(x1);
+		// calculate the dx value i.e. the step value
+		double step = (this.maxX.doubleValue() - this.minX.doubleValue()) / this.steps.doubleValue();
+		// loop until we draw everything in the range, minX to minX, required
+		for (x2 = this.minX.doubleValue() + step; x2 < this.maxX.doubleValue(); x2 = x2 + step) {
+			// evaluate the next value of y
+			y2 = f.evaluate(x2);
+			// draw the line
+			gc.strokeLine(this.convertX(x1), this.convertY(y1), this.convertX(x2), this.convertY(y2));
+			// update the old values
+			x1 = x2;
+			y1 = y2;
+		}
+	}
+
+	@Override
+	// output the function that this layer is drawing
+	public String toString() {
+		return this.f.toString();
+	}
+
+}
+\end{minted}
+\subsection{Explicit $y$-Function Cartesian Layer}
+This is essentially a copy of the previous layer but we are looping over the $y$ variable instead of the $x$ variable. As such I simply replaced every instance of $X$ with a $Y$ and vice versa.
+
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+linenos,
+breaklines
+]{java}
+package layer;
+
+import exceptions.StackOverflowException;
+import exceptions.StackUnderflowException;
+import exceptions.UnequalBracketsException;
+import structures.ExplicitFunction;
+
+public class ExplicitYFunctionCartesianLayer extends CartesianLayer {
+
+	// attributes
+	private ExplicitFunction f;
+
+	// methods
+	// constructor - create a layer with an expression given
+	public ExplicitYFunctionCartesianLayer(String expression) {
+		// super constructor must be invoked first
+		super();
+		// try to create the function with the given expression
+		try {
+			this.f = new ExplicitFunction(expression, 'y');
+		} catch (StackOverflowException | StackUnderflowException | UnequalBracketsException e) {
+			// output the error in parsing the function
+			e.printStackTrace();
+		}
+	}
+
+	// constructor - create a layer with a set function
+	public ExplicitYFunctionCartesianLayer(ExplicitFunction f) {
+		// super constructor must be invoked first
+		super();
+		// set the function
+		this.f = f;
+	}
+
+	// draw the function
+	public void draw() {
+		// setup the canvas by clearing it and set up the line to be drawn
+		this.clearCanvas();
+		gc.setLineWidth(2);
+		gc.setStroke(color);
+		double x1, x2, y1, y2;
+		// initialize the first value of y
+		y1 = this.minY.doubleValue();
+		// evaluate the first value of x
+		x1 = f.evaluate(y1);
+		// calculate the dy value i.e. the step value
+		double step = (this.maxY.doubleValue() - this.minY.doubleValue()) / this.steps.doubleValue();
+		// loop until we draw everything in the range, minY to maxY, required
+		for (y2 = this.minY.doubleValue() + step; y2 < this.maxY.doubleValue(); y2 = y2 + step) {
+			// evaluate the next value of y
+			x2 = f.evaluate(y2);
+			// draw the line
+			gc.strokeLine(this.convertX(x1), this.convertY(y1), this.convertX(x2), this.convertY(y2));
+			x1 = x2;
+			y1 = y2;
+		}
+	}
+
+	@Override
+	// output the function that this layer is drawing
+	public String toString() {
+		return this.f.toString();
+	}
+
+}
+\end{minted}
+\newpage
 \end{document}

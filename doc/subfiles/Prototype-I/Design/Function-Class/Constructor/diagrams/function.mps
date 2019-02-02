@@ -2,7 +2,7 @@
 %%BoundingBox: -1 -127 167 1 
 %%HiResBoundingBox: -0.25 -126.76373 166.31218 0.25 
 %%Creator: MetaPost 2.000
-%%CreationDate: 2018.11.27:2036
+%%CreationDate: 2019.02.02:1446
 %%Pages: 1
 %%DocumentResources: procset mpost-minimal
 %%+ encoding TeXBase1Encoding
@@ -95,9 +95,9 @@ newpath 0 -79.75916 moveto
 13 -54.75916 moveto
 (Tree\040createTree\(String\040expression\)) ptmr8r 9.96265 fshow
 13 -65.25916 moveto
-(String\040checkBracket\(\)) ptmr8r 9.96265 fshow
-13 -75.75916 moveto
 (String\040standardize\(String\040expression\)) ptmr8r 9.96265 fshow
+13 -75.75916 moveto
+(String\040checkBracket\(\)) ptmr8r 9.96265 fshow
 13 -90.26373 moveto
 (String\040expression) ptmr8r 9.96265 fshow
 13 -100.76373 moveto
@@ -318,6 +318,6 @@ newpath 3.57498 -118.5388 moveto
 newpath 13 -77.76373 moveto
 100.31218 -77.76373 lineto stroke
 newpath 13 -67.26373 moveto
-151.31218 -67.26373 lineto stroke
+155.31218 -67.26373 lineto stroke
 showpage
 %%EOF

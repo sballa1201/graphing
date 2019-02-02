@@ -12,10 +12,12 @@ Class.A("PlotPane")
 ("+PlotPane()",
 "-void drawAll()",
 "-void addLayer(Layer l)",
-"+InputLayer getInputLayer()")
+"+InputLayer getInputLayer()",
+"+BooleanProperty getChangeViewport()")
 ("-List layers",
 "-InputLayer inputLayer",
-"-AxesLayer axesLayer");
+"-AxesLayer axesLayer",
+"-BooleanProperty changeViewport");
 Class.B("Pane")
 ()
 ();

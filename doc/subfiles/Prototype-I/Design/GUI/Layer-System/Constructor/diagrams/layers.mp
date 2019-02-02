@@ -13,6 +13,7 @@ Class.A("Layer")
 "+void draw()",
 "double convertX(double x)",
 "double convertY(double y)",
+"+Canvas getCanvas()",
 "void clearCanvas()",
 "void bindProperties(PlotPane plotPane)")
 ("Canvas canvas",
@@ -33,12 +34,28 @@ Class.C("AxesLayer")
 ("+AxesLayer()",
 "+void draw()")();
 
-B.ne = A.sw + (40, -40);
+Class.D("InputLayer")
+("+InputLayer()",
+"+void draw()",
+"-void updatePixelWorth()",
+"+DoubleProperty getMinX()",
+"+DoubleProperty getMaxX()",
+"+DoubleProperty getMinY()",
+"+DoubleProperty getMaxY()",
+"+DoubleProperty getPixelWorthX()",
+"+DoubleProperty getPixelWorthY()",
+"+IntegerProperty getSteps()",
+"+BooleanProperty getChangeViewport()")
+("-BooleanProperty changeViewport");
+
+B.ne = A.sw + (-20, -40);
 C.nw = A.se + (20, -40);
+D.n = A.s + (0,-40);
 
 
-drawObjects(A,B,C);
+drawObjects(A,B,C,D);
 link(inheritance)(pathStepY(B.n, A.s, 10));
 link(inheritance)(pathStepY(C.n, A.s, 10));
+link(inheritance)(pathStepY(D.n, A.s, 10));
 endfig;
 end
