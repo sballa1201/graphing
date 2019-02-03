@@ -33,8 +33,6 @@ public class InputPane extends ScrollPane {
 		this.setHbarPolicy(ScrollBarPolicy.NEVER);
 		this.setPrefWidth(300.0);
 
-		System.out.println(colors[1]);
-
 		this.expressionBoxStore = new VBox();
 
 		this.setContent(this.expressionBoxStore);
@@ -138,13 +136,9 @@ public class InputPane extends ScrollPane {
 
 	public void setShareLayerStore(ShareLayers shareLayerStore) {
 		this.shareLayerStore = shareLayerStore;
-		System.out.println(this.shareLayerStore);
 	}
 
 	public Color getColor(int ID) {
-
-		System.out.println(ID % colors.length);
-
 		return colors[ID % colors.length];
 	}
 

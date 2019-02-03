@@ -15,7 +15,7 @@ import javafx.scene.input.ScrollEvent;
 public class InputLayer extends Layer {
 	
 	// attributes
-	private BooleanProperty changeViewport = new SimpleBooleanProperty();
+	private BooleanProperty changeViewport = new SimpleBooleanProperty(true);
 	private double pressedX;
 	private double pressedY;
 	private double previousX;
@@ -155,8 +155,6 @@ public class InputLayer extends Layer {
 		// make the canvas resize as its parent resizes by binding the associated properties
 		this.canvas.heightProperty().bind(plotPane.heightProperty());
 		this.canvas.widthProperty().bind(plotPane.widthProperty());
-		// initialize the viewport property with the same value as the plotpane property
-		this.changeViewport = new SimpleBooleanProperty(plotPane.getChangeViewport().get());
 	}
 	
 	//return minX

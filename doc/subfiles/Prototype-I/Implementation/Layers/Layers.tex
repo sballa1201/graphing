@@ -106,7 +106,7 @@ public abstract class Layer {
 \end{minted}
 \newpage
 \subsection{Input Layer}
-This class unlike the previous is not an abstract class. It was quite simple to implement with the algorithms \ref{alg:pixelWorth}, \ref{alg:funcLayerConstructor}, \ref{alg:inpLayerConstructor} and \ref{alg:layerConstructor} on pages \pageref{alg:pixelWorth} and \pageref{alg:funcLayerConstructor}.
+This class, unlike the previous, is not an abstract class. It was quite simple to implement with the algorithms \ref{alg:pixelWorth}, \ref{alg:funcLayerConstructor}, \ref{alg:inpLayerConstructor} and \ref{alg:layerConstructor} on pages \pageref{alg:pixelWorth} and \pageref{alg:funcLayerConstructor}. In the \texttt{bindProperties()} method I initialized the values for the minimum and maximum values of $x$ and $y$ to go from $-10$ to $10$.
 \begin{minted}[
 frame=lines,
 framesep=2mm,
@@ -129,7 +129,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class InputLayer extends Layer {
 	
 	// attributes
-	private BooleanProperty changeViewport = new SimpleBooleanProperty();
+	private BooleanProperty changeViewport = new SimpleBooleanProperty(true);
 	
 	// methods
 	// constructor
@@ -167,8 +167,6 @@ public class InputLayer extends Layer {
 		// make the canvas resize as its parent resizes by binding the associated properties
 		this.canvas.heightProperty().bind(plotPane.heightProperty());
 		this.canvas.widthProperty().bind(plotPane.widthProperty());
-		// initialize the viewport property with the same value as the plotpane property
-		this.changeViewport = new SimpleBooleanProperty(plotPane.getChangeViewport().get());
 	}
 	
 	//return minX

@@ -58,17 +58,17 @@ public class PlotPane extends Pane {
 		// initialize the axes layer and bind its properties
 		this.axesLayer = new AxesCartesianLayer();
 		axesLayer.bindProperties(this);
-
-		ExplicitXFunctionCartesianLayer g = new ExplicitXFunctionCartesianLayer("e^x");
-		ExplicitXFunctionCartesianLayer h = new ExplicitXFunctionCartesianLayer("1/x");
-		ExplicitXFunctionCartesianLayer i = new ExplicitXFunctionCartesianLayer("x^3");
-		ExplicitXFunctionCartesianLayer j = new ExplicitXFunctionCartesianLayer("x^4");
-		ExplicitXFunctionCartesianLayer k = new ExplicitXFunctionCartesianLayer("x^5");
-		this.addLayer(g);
-		this.addLayer(h);
-		this.addLayer(i);
-		this.addLayer(j);
-		this.addLayer(k);
+//
+//		ExplicitXFunctionCartesianLayer g = new ExplicitXFunctionCartesianLayer("e^x");
+//		ExplicitXFunctionCartesianLayer h = new ExplicitXFunctionCartesianLayer("1/x");
+//		ExplicitXFunctionCartesianLayer i = new ExplicitXFunctionCartesianLayer("x^3");
+//		ExplicitXFunctionCartesianLayer j = new ExplicitXFunctionCartesianLayer("x^4");
+//		ExplicitXFunctionCartesianLayer k = new ExplicitXFunctionCartesianLayer("x^5");
+//		this.addLayer(g);
+//		this.addLayer(h);
+//		this.addLayer(i);
+//		this.addLayer(j);
+//		this.addLayer(k);
 	}
 
 	private void drawAll()
