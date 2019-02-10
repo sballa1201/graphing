@@ -273,12 +273,10 @@ public class Expression {
 	}
 
 	@SuppressWarnings("unused")
-	public static void main(String[] args) throws Exception {
-		
-		System.out.println(new Expression("2e^x", 'x').substitute(10));
-		
+	public static void main(String[] args) throws Exception {	
 		// create the standardized expressions
-		String ex = standardize("");
+		String ex = standardize(new String(new char[101]).replace('\0', 'x'));
+		//System.out.println(ex);
 		// create the trees
 		BinaryTree treeA, treeThreadA;
 		Instant start, end;

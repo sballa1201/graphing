@@ -2,7 +2,7 @@
 \begin{document}
 
 \subsubsection{Drawing the Function}
-From the analysis (Section ref{sec:computability}) I briefly described how I could approximate a curve by creating a finite number of line segments.
+From the analysis (Section \ref{sec:computability}) I briefly described how I could approximate a curve by creating a finite number of line segments.
 
 Firstly we take the minimum value of $x$, which in the viewport is $x_{min}$. If our function is defined by $f(x)$ then let the coordinate of the function at this value be $P_1 = (x_{min},f(x_{min}))$. We then take a second coordinate a small value $dx$ away, so let the coordinate be $P_2 = (x+dx,f(x+dx))$. We now draw a line between these two points. We then make $P_1 = P_2$ and make $P_2$ with $x+2\cdot dx$. We repeat this process until $x+n\cdot dx \geq x_{max}$. We obviously need to convert the $x$ and $y$ values from the Cartesian coordinates into the canvas coordinates do we can do this when drawing the line. $dx$ will also be a finite value that is very small. We will define this by taking the number of line segments we want, and working out $dx$ for that number of steps. This is simply done by finding out how much each step is \textit{''worth''} within the viewport, i.e.\ $dx = (\texttt{maxX} - \texttt{minX})/\texttt{steps}$. The algorithm for this is shown below.
 
