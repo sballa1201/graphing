@@ -193,6 +193,29 @@ I will be testing expressions upto 1000 operators so I used the following code,\
 		\caption{Plot of the Table Above}
 	\end{center}
 \end{figure}
+\newpage
+\noindent
+When representing the data I collected in a scatter graph, I chose to use a logarithmic scale for the number of threads since the number of threads I used had a very large variation in value, ranging from 1 to 1000.\\
+From analyzing the graph, it is clear that using threads took much more time than the normal sequential approach, in some cases over a 6000\% increase in time taken. However does this sort of relationship between a sequential and threaded approach continue for a larger number of operators?
+
+Looking at the graph more closely it appears as though there is some kind of linear relationship between time and the logarithm of the number of operators (obviously ignoring the anomalous data at 100 operators). From using regression tools this relationship comes out as $T = 42.118\cdot \ln{n} + 67$\footnote{This has a PMCC of $r=0.9937$ so this is very good correlation}.
+
+Similarly the relationship between the sequential version seems to be exponential on the graph so it is probably a linear relationship between time and the number of operators (not the logarithm this time). From using regression tools this relationship comes out as $T = 0.0178\cdot n + 0.1858$\footnote{This has a PMCC of $r=0.9993$ so this is very good correlation}.\\
+Since a linear function increases quicker than a logarithmic one, if we find the point of intersection, we will find the theoretic point\footnote{It is important to realize that the sample size used here is small, but still legitimate so we can make careful extrapolations.} at which the threaded version outperforms, i.e.\ takes less time than, the sequential one. By using numerical method tools this comes out to be at $n\approx 28000$. Realistically we would never have this many operators in a simple function to sketch, however from a programming point of view, this is also ridiculous. From a call stack and memory point of view, this would require about 28000 recursive calls which not only is memory intensive and quite likely cause a stack overflow error\cite{recursionCallsJava}, it will consume even more memory if using threads. Just to test if it would cause a stack overflow I tried to an example with 28000 operators and I got the following output:
+\begin{minted}[breaklines]{console}
+Exception in thread "main" java.util.concurrent.ExecutionException: java.lang.StackOverflowError
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122)
+	at java.util.concurrent.FutureTask.get(FutureTask.java:192)
+	at structures.Expression.createTreeThread(Expression.java:149)
+	at structures.Expression.main(Expression.java:284)
+Caused by: java.lang.StackOverflowError
+	at java.util.regex.Pattern.compile(Pattern.java:1054)
+	at java.lang.String.replace(String.java:2239)
+	at structures.Expression.checkBracket(Expression.java:197)
+	at structures.Expression.createTree(Expression.java:105)
+	at structures.Expression.createTree(Expression.java:118)
+\end{minted}
+It is therefore clear that using threads in this part of the program and quite possibly in other parts of the program where the number of threads required to spawn is high, is incredibly foolish and not worth the increased effort to implement.\\
 
 \newpage
 \end{document}
