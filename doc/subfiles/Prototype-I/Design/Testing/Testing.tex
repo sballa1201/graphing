@@ -1,11 +1,43 @@
 \documentclass[../../../../main.tex]{subfiles}
 \begin{document}
 
-\section{Testing}
-The testing table that I will use to black box test my first prototype is shown below. More tests may be added later if I implement other features that I have not yet designed.
+\section{Testing Strategy}
+There are two main types of tests that I will do:
+\begin{enumerate}
+ \item Unit Tests - These will be done for most functions or classes that I create. Naturally these will be white box tests since I  know how the unit works and am trying to find flaws within them. These will be based on testing the requirements that are defined in the design section. I will not create a detailed test table here since the tests are simply testing the requirements for each unit, but at the end of each unit implementation I will provide some code to test the unit, work out the expected result and compare the expected result to the actual output. If required I will modify the code to acquire the correct output. I will also define whether the data is valid, invalid or extreme.
+ \item Overall Tests - These will be done at the end of implementing the first prototype. Since I will not have defined any input mechanism to add functions in this prototype I will have to inject code, probably in a constructor somewhere, to add the functions I want to test. Naturally these will be black box tests since I am going to test them as if i were a stakeholder in the sense that I am inputting something and expecting an output without knowing the internal workings. I will create a detailed testing table to outline the tests that I will conduct and their expected results. I may add more tests as I deem necessary after I implement prototype 1. I will include very little of the stakeholders at this stage since this prototype is only a foundation for user related features in the next one. However I think it is important to keep my stakeholders up to date on my progress so I will show them the current status of the prototype after testing. Also all the tests will be for valid data we since only need to test the user cannot input anything yet. This means there is no validation of input and hence there is no need to test the nonexistent validation with invalid data. Invalid data tests will be done in prototype 2.
+\end{enumerate}
+The overall testing table is below:
+
+\begin{table}[H]
+\begin{tabular}{|c|c|l|l|}
+\hline
+Test Number        & Function being Tested                                      & \multicolumn{1}{c|}{Sub-Test Number} & Input               \\ \hline
+\multirow{2}{*}{1} & \multirow{2}{*}{Horizontal Lines}                          & a                                    & $4$                 \\ \cline{3-4} 
+                   &                                                            & b                                    & $-2$                \\ \hline
+\multirow{2}{*}{2} & \multirow{2}{*}{Linear}                                    & a                                    & $2x-5$              \\ \cline{3-4} 
+                   &                                                            & b                                    & $-0.5x$             \\ \hline
+\multirow{3}{*}{3} & \multirow{3}{*}{Positive Integer Factorised Polynomials}   & a                                    & $x(x-1)$            \\ \cline{3-4} 
+                   &                                                            & b                                    & $x\wedge 2(x\wedge 2+1)$        \\ \cline{3-4} 
+                   &                                                            & c                                    & $-x(3x+1)$          \\ \hline
+\multirow{3}{*}{4} & \multirow{3}{*}{Positive Integer Unfactorised Polynomials} & a                                    & $x\wedge 2+2x+1$          \\ \cline{3-4} 
+                   &                                                            & b                                    & $x\wedge 2-1$             \\ \cline{3-4} 
+                   &                                                            & c                                    & $x\wedge 3+4x\wedge 2+x-6$      \\ \hline
+\multirow{2}{*}{5} & \multirow{2}{*}{Non-Integer Polynomials}                   & a                                    & $x\wedge (1/2)$           \\ \cline{3-4} 
+                   &                                                            & b                                    & $x\wedge (1/3)$           \\ \hline
+\multirow{3}{*}{6} & \multirow{3}{*}{Exponentials}                              & a                                    & $e\wedge x$               \\ \cline{3-4} 
+                   &                                                            & b                                    & $2\wedge x$               \\ \cline{3-4} 
+                   &                                                            & c                                    & $x\wedge x$               \\ \hline
+\multirow{2}{*}{7} & \multirow{2}{*}{Asymptotal}                                & a                                    & $1/(x-1)$           \\ \cline{3-4} 
+                   &                                                            & b                                    & $1/(x-1) + 1/(x+1)$ \\ \hline
+10                 & Multiple and Coloured Functions                            & \multicolumn{2}{c|}{N/A}                                   \\ \hline
+\end{tabular}
+\end{table}
+
+I have not included the expected output within this table. This is because I will generate these just before doing the test. These will be in the form of an image from Desmos, another graphing software.
 
 
-
+Also you may notice how I have not included any details from the test for multiple functions. This is because I will draw all sub tests within the same test at the same time, testing the multiple functions feature at the same time. This allows me to see a function with respect to another function which makes the verification of whether the function is drawn correctly easier to do, I will also make each of the functions different colours, which allows me to test another feature and distinguish between the different functions.
 \newpage
 
 \end{document}

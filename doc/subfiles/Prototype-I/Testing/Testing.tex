@@ -2,10 +2,209 @@
 \begin{document}
 
 \chapter{Testing}
-I have not yet created a system where the user can input function so to add layers (this is the only test that I can do at the moment) to the \texttt{PlotPane} I will simply inject the code at the end of the \texttt{PlotPane} constructor to ``add'' layers artificially. Using the table created in the design section I built upon it to create a more suitable tests on the code that I have. The new and updated table is below:\\
-\[Insert Table\]
-\\
-I have laid all of the tests into separate sections and all of the important results are recorded in a completed table at the end.
+I have not yet created a system where the user can input function so to add layers (this is the only test that I can do at the moment) to the \texttt{PlotPane} I will simply inject the code at the end of the \texttt{PlotPane} constructor to ``add'' layers artificially. Using the table created in the design section I built upon it to create a more suitable tests on the code that I have. I have added tests to test the function in terms of the variable $y$ and to test the Normal Distribution function that I made. The new and updated table is below:
+
+\begin{table}[H]
+\begin{tabular}{|c|c|l|l|}
+\hline
+Test Number        & Function being Tested                                      & \multicolumn{1}{c|}{Sub-Test Number} & Input                          \\ \hline
+\multirow{2}{*}{1} & \multirow{2}{*}{Horizontal Lines}                          & a                                    & $4$                            \\ \cline{3-4} 
+                   &                                                            & b                                    & $-2$                           \\ \hline
+\multirow{2}{*}{2} & \multirow{2}{*}{Linear}                                    & a                                    & $2x-5$                         \\ \cline{3-4} 
+                   &                                                            & b                                    & $-0.5x$                        \\ \hline
+\multirow{3}{*}{3} & \multirow{3}{*}{Positive Integer Factorised Polynomials}   & a                                    & $x(x-1)$                       \\ \cline{3-4} 
+                   &                                                            & b                                    & $x\wedge 2(x\wedge 2+1)$                   \\ \cline{3-4} 
+                   &                                                            & c                                    & $-x(3x+1)$                     \\ \hline
+\multirow{3}{*}{4} & \multirow{3}{*}{Positive Integer Unfactorised Polynomials} & a                                    & $x\wedge 2+2x+1$                     \\ \cline{3-4} 
+                   &                                                            & b                                    & $x\wedge 2-1$                        \\ \cline{3-4} 
+                   &                                                            & c                                    & $x\wedge 3+4x\wedge 2+x-6$                 \\ \hline
+\multirow{2}{*}{5} & \multirow{2}{*}{Non-Integer Polynomials}                   & a                                    & $x\wedge (1/2)$                      \\ \cline{3-4} 
+                   &                                                            & b                                    & $x\wedge (1/3)$                      \\ \hline
+\multirow{3}{*}{6} & \multirow{3}{*}{Exponentials}                              & a                                    & $e\wedge x$                          \\ \cline{3-4} 
+                   &                                                            & b                                    & $2\wedge x$                          \\ \cline{3-4} 
+                   &                                                            & c                                    & $x\wedge x$                          \\ \hline
+\multirow{2}{*}{7} & \multirow{2}{*}{Asymptotal}                                & a                                    & $1/(x-1)$                      \\ \cline{3-4} 
+                   &                                                            & b                                    & $1/(x-1) + 1/(x+1)$            \\ \hline
+\multirow{2}{*}{8} & \multirow{2}{*}{Explicit Functions in terms of $y$}        & a                                    & $y\wedge 2$                          \\ \cline{3-4} 
+                   &                                                            & b                                    & $e\wedge x$                          \\ \hline
+\multirow{2}{*}{9} & \multirow{2}{*}{Normal Distribution Function}              & a                                    & $\mu = 0$ and $\sigma^ 2 = 1$   \\ \cline{3-4} 
+                   &                                                            & b                                    & $\mu = 4$ and $\sigma^ 2 = 0.5$ \\ \hline
+10                 & Multiple and Coloured Functions                            & \multicolumn{2}{c|}{N/A}                                              \\ \hline
+\end{tabular}
+\end{table}
+
+I have laid all of the tests into separate sections, with their expected outputs and relevant code, and all of the important results are recorded in a completed table at the end. For consistency, I will make every ``a'' sub test black in line colour,  every ``b'' sub test red in line colour and  every ``c'' sub test green in line colour.
+\newpage
 \section{Test 1}
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+breaklines
+]{java}
+ExplicitXFunctionCartesianLayer f = new ExplicitXFunctionCartesianLayer("4");
+ExplicitXFunctionCartesianLayer g = new ExplicitXFunctionCartesianLayer("-2");
+g.setColor(Color.RED);
+
+this.addLayer(f);
+this.addLayer(g);
+\end{minted}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{tests/expected1}
+	\caption{Expected Output}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{tests/actual1}
+	\caption{Actual Output}
+\end{figure}
+\newpage
+
+\section{Test 2}
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+breaklines
+]{java}
+ExplicitXFunctionCartesianLayer f = new ExplicitXFunctionCartesianLayer("2x-5");
+ExplicitXFunctionCartesianLayer g = new ExplicitXFunctionCartesianLayer("-0.5x");
+g.setColor(Color.RED);
+
+this.addLayer(f);
+this.addLayer(g);
+\end{minted}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{tests/expected2}
+	\caption{Expected Output}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{tests/actual2}
+	\caption{Actual Output}
+\end{figure}
+\newpage
+
+\section{Test 3}
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+breaklines
+]{java}
+ExplicitXFunctionCartesianLayer f = new ExplicitXFunctionCartesianLayer("x(x-1)");
+ExplicitXFunctionCartesianLayer g = new ExplicitXFunctionCartesianLayer("x^2(x^2+1)");
+ExplicitXFunctionCartesianLayer h = new ExplicitXFunctionCartesianLayer("-x(3x+1)");
+g.setColor(Color.RED);
+h.setColor(Color.GREEN);
+
+this.addLayer(f);
+this.addLayer(g);
+this.addLayer(h);
+\end{minted}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{tests/expected3}
+	\caption{Expected Output}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{tests/actual3}
+	\caption{Actual Output}
+\end{figure}
+\newpage
+
+\section{Test 4}
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+breaklines
+]{java}
+ExplicitXFunctionCartesianLayer f = new ExplicitXFunctionCartesianLayer("x^2+2x+1");
+ExplicitXFunctionCartesianLayer g = new ExplicitXFunctionCartesianLayer("x^2-1");
+ExplicitXFunctionCartesianLayer h = new ExplicitXFunctionCartesianLayer("x^3+4x^2+x-6");
+g.setColor(Color.RED);
+h.setColor(Color.GREEN);
+
+this.addLayer(f);
+this.addLayer(g);
+this.addLayer(h);
+\end{minted}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{tests/expected4}
+	\caption{Expected Output}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{tests/actual4}
+	\caption{Actual Output}
+\end{figure}
+\newpage
+
+\section{Test 5}
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+breaklines
+]{java}
+ExplicitXFunctionCartesianLayer f = new ExplicitXFunctionCartesianLayer("x^(1/2)");
+ExplicitXFunctionCartesianLayer g = new ExplicitXFunctionCartesianLayer("x^(1/3)");
+g.setColor(Color.RED);
+
+this.addLayer(f);
+this.addLayer(g);
+\end{minted}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{tests/expected5}
+	\caption{Expected Output}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{tests/actual5}
+	\caption{Actual Output}
+\end{figure}
+\newpage
+
+\section{Test 6}
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+breaklines
+]{java}
+ExplicitXFunctionCartesianLayer f = new ExplicitXFunctionCartesianLayer("e^x");
+ExplicitXFunctionCartesianLayer g = new ExplicitXFunctionCartesianLayer("2^x");
+ExplicitXFunctionCartesianLayer h = new ExplicitXFunctionCartesianLayer("x^x");
+g.setColor(Color.RED);
+h.setColor(Color.GREEN);
+
+this.addLayer(f);
+this.addLayer(g);
+this.addLayer(h);
+\end{minted}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{tests/expected6}
+	\caption{Expected Output}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{tests/actual6}
+	\caption{Actual Output}
+\end{figure}
+\newpage
+
 \newpage
 \end{document}
