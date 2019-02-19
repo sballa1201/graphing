@@ -1,7 +1,11 @@
 package application;
 
+import exceptions.StackOverflowException;
+import exceptions.StackUnderflowException;
+import exceptions.UnequalBracketsException;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import structures.NormalDistribution;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.fxml.FXMLLoader;

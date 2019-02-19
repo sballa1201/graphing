@@ -35,7 +35,7 @@ public class MainController implements Initializable {
 		inputPane.setShareLayerStore(shareLayerStore);
 		// add the panes to the root pane
 		rootPane.setCenter(plotPane);
-		//rootPane.setLeft(inputPane);
+		rootPane.setLeft(inputPane);
 	}
 
 }

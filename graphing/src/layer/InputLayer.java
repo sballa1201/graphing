@@ -30,10 +30,10 @@ public class InputLayer extends Layer {
 		this.canvas.heightProperty().addListener(event -> updatePixelWorth());
 		this.canvas.widthProperty().addListener(event -> updatePixelWorth());
 
-//		this.canvas.setOnMousePressed(event -> dragEntered(event));
-//		this.canvas.setOnMouseDragged(event -> pan(event));
-//		this.canvas.setOnScroll(event -> zoom(event));
-//		this.canvas.setOnMouseMoved(event -> drawCoords(event));
+		this.canvas.setOnMousePressed(event -> dragEntered(event));
+		this.canvas.setOnMouseDragged(event -> pan(event));
+		this.canvas.setOnScroll(event -> zoom(event));
+		this.canvas.setOnMouseMoved(event -> drawCoords(event));
 	}
 
 	private void drawCoords(MouseEvent event) {
@@ -91,10 +91,6 @@ public class InputLayer extends Layer {
 
 			previousX = pressedX;
 			previousY = pressedY;
-
-			// System.out.println("dragged by vector - (" + xTrans + "," + yTrans + ")");
-			// System.out.println(this.minX.doubleValue() + " - " +
-			// this.minY.doubleValue());
 
 			this.maxX.set((this.pixelWorthX.doubleValue() * xTrans / panFactor) + this.maxX.doubleValue());
 			this.minX.set((this.pixelWorthX.doubleValue() * xTrans / panFactor) + this.minX.doubleValue());

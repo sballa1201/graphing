@@ -9,9 +9,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import layer.AxesCartesianLayer;
-import layer.ExplicitXFunctionCartesianLayer;
 import layer.InputLayer;
 import layer.Layer;
 
@@ -59,13 +57,6 @@ public class PlotPane extends Pane {
 		// initialize the axes layer and bind its properties
 		this.axesLayer = new AxesCartesianLayer();
 		axesLayer.bindProperties(this);
-
-		ExplicitXFunctionCartesianLayer f = new ExplicitXFunctionCartesianLayer("x^(1/2)");
-		ExplicitXFunctionCartesianLayer g = new ExplicitXFunctionCartesianLayer("x^(1/3)");
-		g.setColor(Color.RED);
-		
-		this.addLayer(f);
-		this.addLayer(g);
 	}
 
 	private void drawAll()
