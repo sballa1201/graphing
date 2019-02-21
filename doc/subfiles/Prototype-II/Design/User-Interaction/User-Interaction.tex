@@ -1,0 +1,50 @@
+\documentclass[../../../../main.tex]{subfiles}
+\begin{document}
+\section{User Interaction}
+Almost all of the user interaction will done through the input layer except the saving the plot as a picture. Most of these interactions are essentially coordinate transformations, translations for panning, scaling for zooming etc. The pan and zoom functionality actually change the functions drawn upon the screen so the plot pane needs to be notified to draw the functions again. This will be done by changing the viewport property, by negating the value of the viewport, i.e.\ changing from true to false or vice versa.
+
+\subsection{Coordinates}
+The current coordinates will be shown in the top left of the input pane. Whenever the mouse moves over the pane, the current coordinates will change to their new value. Since the coordinates will probably be a very long and horrible decimal I will round the coordinates to 2 decimal places. I will also have to convert from coordinates from the canvas to the Cartesian coordinates. This is essentially the reverse of the conversion algorithm in prototype 1.  Here is the algorithm for showing the coordinates:
+\begin{algorithm}[H]
+\DontPrintSemicolon
+\caption{Evaluate the Expression for a Value of $x$}
+\Fn{drawCoords()}{
+	clearCanvas()\;
+	\KwDouble x = (mouseX * this.pixelWorthX) + this.minX\;
+	\KwDouble y = this.maxY - (mouseY * this.pixelWorthY)\;
+	Round x to 2 decimal places\;
+	Round y to 2 decimal places\;
+	\KwString out = "(" + x + "," + y + ")"\;
+	drawText(out,0,0)\;
+}
+\end{algorithm}
+\subsection{Pan}
+Panning is essentially a translation of the viewport. It will be a method in the input layer class. We will essentially make this occur when holding down left click and dragging across the pane. It will work by storing the current and previous values of where the cursor has been relative to the coordinate axes. These will be attributes in the input layer class. We will then work out the vector from the previous position to the new position. Then add this vector to the maximum and minimum values. Finally we need to notify the plot pane to draw again by changing the viewport attribute and updating the pixel worth.
+Here is the algorithm for panning:
+
+\begin{algorithm}[H]
+\DontPrintSemicolon
+\caption{Evaluate the Expression for a Value of $x$}
+\Fn{pan()}{
+	\uIf{mouse left click is down} {
+		currentX = event.getX()\;
+		currentY = event.getY()\;
+
+		double xTrans = (previousX - currentX)\;
+		double yTrans = (previousY - currentY)\;
+
+		previousX = currentX\;
+		previousY = currentY\;
+
+		maxX = (this.pixelWorthX * xTrans / panFactor) + this.maxX\;
+		minX = (this.pixelWorthX * xTrans / panFactor) + this.minX\;
+		maxY = -(this.pixelWorthY * yTrans / panFactor) + this.maxY\;
+		minY = -(this.pixelWorthY * yTrans / panFactor) + this.minY\;
+		this.changeViewport = ! this.changeViewport\;
+	} 
+}
+\end{algorithm}
+
+\newpage
+
+\end{document}

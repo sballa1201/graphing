@@ -34,9 +34,6 @@ public class ExpressionBoxController implements Initializable {
 	private Button removeBtn;
 
 	@FXML
-	private Button settingsBtn;
-
-	@FXML
 	private Canvas visibleCanvas;
 	private GraphicsContext gc;
 

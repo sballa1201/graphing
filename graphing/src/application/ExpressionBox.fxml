@@ -7,9 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 
-<HBox alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.141"
-	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="application.ExpressionBoxController">
+<HBox alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ExpressionBoxController">
 	<children>
 		<Canvas fx:id="visibleCanvas" height="30.0" width="30.0">
 			<HBox.margin>
@@ -22,13 +20,6 @@
 				<Insets left="5.0" right="5.0" />
 			</HBox.margin>
 		</TextField>
-		<Region />
-		<Button fx:id="settingsBtn" mnemonicParsing="false"
-			prefHeight="25.0" prefWidth="22.0" text="S">
-			<HBox.margin>
-				<Insets left="5.0" right="5.0" />
-			</HBox.margin>
-		</Button>
 		<Region />
 		<Button fx:id="removeBtn" mnemonicParsing="false" text="X">
 			<HBox.margin>

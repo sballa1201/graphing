@@ -2,11 +2,13 @@
 \begin{document}
 
 \section{Testing Strategy}
-There are two main types of tests that I will do:
-\begin{enumerate}
- \item Unit Tests - These will be done for most functions or classes that I create. Naturally these will be white box tests since I  know how the unit works and am trying to find flaws within them. These will be based on testing the requirements that are defined in the design section. I will not create a detailed test table here since the tests are simply testing the requirements for each unit, but at the end of each unit implementation I will provide some code to test the unit, work out the expected result and compare the expected result to the actual output. If required I will modify the code to acquire the correct output. I will also define whether the data is valid, invalid or extreme.
- \item Overall Tests - These will be done at the end of implementing the first prototype. Since I will not have defined any input mechanism to add functions in this prototype I will have to inject code, probably in a constructor somewhere, to add the functions I want to test. Naturally these will be black box tests since I am going to test them as if i were a stakeholder in the sense that I am inputting something and expecting an output without knowing the internal workings. I will create a detailed testing table to outline the tests that I will conduct and their expected results. I may add more tests as I deem necessary after I implement prototype 1. I will include very little of the stakeholders at this stage since this prototype is only a foundation for user related features in the next one. However I think it is important to keep my stakeholders up to date on my progress so I will show them the current status of the prototype after testing. Also all the tests will be for valid data we since only need to test the user cannot input anything yet. This means there is no validation of input and hence there is no need to test the nonexistent validation with invalid data. Invalid data tests will be done in prototype 2.
-\end{enumerate}
+There are two main types of tests that I will do Unit and Overall tests.
+
+
+Unit Tests will be done for most functions or classes that I create. Naturally these will be white box tests since I  know how the unit works and am trying to find flaws within them. These will be based on testing the requirements that are defined in the design section. I will not create a detailed test table here since the tests are simply testing the requirements for each unit, but at the end of each unit implementation I will provide some code to test the unit, work out the expected result and compare the expected result to the actual output. If required I will modify the code to acquire the correct output. I will also define whether the data is valid, invalid or extreme.
+
+
+Overall Tests will be done at the end of implementing the first prototype. Since I will not have defined any input mechanism to add functions in this prototype I will have to inject code, probably in a constructor somewhere, to add the functions I want to test. Naturally these will be black box tests since I am going to test them as if i were a stakeholder in the sense that I am inputting something and expecting an output without knowing the internal workings. I will include very little of the stakeholders at this stage since this prototype is only a foundation for user related features in the next one. Also all the tests will be for valid data we since only need to test the user cannot input anything yet. This means there will be no validation of input yet and hence there is no need to test the nonexistent validation with invalid data.\\
 The overall testing table is below:
 
 \begin{table}[H]
@@ -35,10 +37,7 @@ Test Number        & Function being Tested                                      
 \caption{Prototype 1: Testing Table}
 \end{table}
 
-I have not included the expected output within this table. This is because I will generate these just before doing the test. These will be in the form of an image from Desmos, another graphing software.
-
-
-Also you may notice how I have not included any details from the test for multiple functions. This is because I will draw all sub tests within the same test at the same time, testing the multiple functions feature at the same time. This allows me to see a function with respect to another function which makes the verification of whether the function is drawn correctly easier to do, I will also make each of the functions different colours, which allows me to test another feature and distinguish between the different functions.
+I have not included the expected output within this table. This is because I will generate these just before doing the test. These will most likely be in the form of an image from Desmos, another graphing software. Also you may notice how I have not included any details from the test for multiple functions. This is because I will draw all sub tests within the same test at the same time, testing the multiple functions feature at the same time. This allows me to see a function with respect to another function which makes the verification of whether the function is drawn correctly easier to do, I will also make each of the functions different colours, which allows me to test another feature and distinguish between the different functions.
 \newpage
 
 \end{document}

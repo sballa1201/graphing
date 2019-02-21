@@ -1,6 +1,11 @@
 package application;
 
+import java.awt.image.RenderedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import exceptions.StackOverflowException;
 import exceptions.StackUnderflowException;
@@ -8,7 +13,15 @@ import exceptions.UnequalBracketsException;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import layer.AxesCartesianLayer;
 import layer.InputLayer;
 import layer.Layer;
@@ -57,6 +70,20 @@ public class PlotPane extends Pane {
 		// initialize the axes layer and bind its properties
 		this.axesLayer = new AxesCartesianLayer();
 		axesLayer.bindProperties(this);
+		// create a right click menu
+		ContextMenu contextMenu = new ContextMenu();
+		MenuItem save = new MenuItem("Save as Picture");
+		contextMenu.getItems().addAll(save);
+		// set an action to save when clicking the save button
+		save.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				savePlot();
+			}
+		});
+		// when right clicking open the menu
+		this.setOnContextMenuRequested(
+				event -> contextMenu.show(this.getScene().getWindow(), event.getScreenX(), event.getScreenY()));
 	}
 
 	private void drawAll()
@@ -90,6 +117,27 @@ public class PlotPane extends Pane {
 	// return the inputlayer to access its properties
 	public InputLayer getInputLayer() {
 		return inputLayer;
+	}
+
+	// save picture of plot
+	private void savePlot() {
+		// open the file saver
+		FileChooser fileChooser = new FileChooser();
+		// set extension filter
+		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("png files (*.png)", "*.png"));
+		// prompt user to select a file
+		File file = fileChooser.showSaveDialog(null);
+		if (file != null) {
+			try {
+				// create the snapshot of the pane
+				WritableImage snapshot = this.snapshot(new SnapshotParameters(), null);
+				RenderedImage renderedImage = SwingFXUtils.fromFXImage(snapshot, null);
+				// write the snapshot to the chosen file
+				ImageIO.write(renderedImage, "png", file);
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
 	}
 
 	public void setShareLayerStore(ShareLayers shareLayerStore) {
