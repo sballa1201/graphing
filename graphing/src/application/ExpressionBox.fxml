@@ -9,7 +9,7 @@
 
 <HBox alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ExpressionBoxController">
 	<children>
-		<Canvas fx:id="visibleCanvas" height="30.0" width="30.0">
+		<Canvas fx:id="showFunctionColour" height="30.0" width="30.0">
 			<HBox.margin>
 				<Insets left="5.0" />
 			</HBox.margin>

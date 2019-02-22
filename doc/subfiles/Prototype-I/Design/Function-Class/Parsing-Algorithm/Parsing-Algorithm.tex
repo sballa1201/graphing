@@ -11,7 +11,7 @@ An important part of the parsing stage, is the ability to find the least signifi
 	\KwInt parenthesis = 0 \;
 	\KwInt leastSigOperatorPos = -1 \tcc{stores the position of the least significant operator so far}
 	\KwInt leastSigOpcode = 1000\;
-	\KwCharA operators = [``+'',' ``-'', ``/'', `` * '', `` \^ ''] \tcc{stores each operator in order of incresing significance}
+	\KwCharA operators = [``+'',' ``-'', ``/'', `` * '', `` \^ ''] \tcc{stores each operator in order of increasing significance}
 	\KwInt currentOpcode \tcc{the current index of the operator in the array operators}
 	\KwChar currentChar\;
 	\For{i=0 \KwTo (input.size - 1) \KwBy 1}{

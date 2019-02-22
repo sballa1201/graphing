@@ -16,7 +16,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
-import layer.ExplicitPolarLayer;
 import layer.ExplicitXFunctionCartesianLayer;
 import layer.ExplicitYFunctionCartesianLayer;
 import layer.Layer;
@@ -34,10 +33,10 @@ public class ExpressionBoxController implements Initializable {
 	private Button removeBtn;
 
 	@FXML
-	private Canvas visibleCanvas;
+	private Canvas showFunctionColour;
 	private GraphicsContext gc;
 
-	private boolean visible = true;
+	private boolean functionVisiblity = true;
 
 	private Color color;
 
@@ -69,9 +68,9 @@ public class ExpressionBoxController implements Initializable {
 			}
 		});
 
-		this.gc = this.visibleCanvas.getGraphicsContext2D();
+		this.gc = this.showFunctionColour.getGraphicsContext2D();
 		this.gc.setLineWidth(2);
-		this.visibleCanvas.setOnMouseClicked(event -> {
+		this.showFunctionColour.setOnMouseClicked(event -> {
 			try {
 				changeColor();
 			} catch (StackOverflowException | StackUnderflowException | UnequalBracketsException e) {
@@ -83,7 +82,7 @@ public class ExpressionBoxController implements Initializable {
 
 	private void changeLayer() throws StackOverflowException, StackUnderflowException, UnequalBracketsException {
 
-		if (visible) {
+		if (functionVisiblity) {
 
 			Layer l;
 
@@ -120,18 +119,9 @@ public class ExpressionBoxController implements Initializable {
 
 			int yInstances = f.length() - f.replaceAll("y", "").length();
 
-			int tInstances = f.length() - f.replaceAll("t", "").length();
-
 			if (xInstances > 0 && yInstances > 0) {
 				inputPane.removeLayer(ID);
 				return;
-			} else if (tInstances > 0) {
-				l = new ExplicitPolarLayer(f);
-				l.setColor(color);
-
-				inputPane.putLayer(this.ID, l);
-
-				System.out.println("update - " + l);
 			} else if (yInstances > 0) {
 
 				l = new ExplicitYFunctionCartesianLayer(f);
@@ -156,17 +146,17 @@ public class ExpressionBoxController implements Initializable {
 	}
 
 	private void changeColor() throws StackOverflowException, StackUnderflowException, UnequalBracketsException {
-		gc.clearRect(0, 0, visibleCanvas.getWidth(), visibleCanvas.getHeight());
-		if (!visible) {
-			gc.fillRect(0, 0, visibleCanvas.getWidth(), visibleCanvas.getHeight());
+		gc.clearRect(0, 0, showFunctionColour.getWidth(), showFunctionColour.getHeight());
+		if (!functionVisiblity) {
+			gc.fillRect(0, 0, showFunctionColour.getWidth(), showFunctionColour.getHeight());
 		}
-		gc.strokeRect(0, 0, visibleCanvas.getWidth(), visibleCanvas.getHeight());
-		visible = !visible;
+		gc.strokeRect(0, 0, showFunctionColour.getWidth(), showFunctionColour.getHeight());
+		functionVisiblity = !functionVisiblity;
 		changeLayer();
 	}
 
 	private void remove() throws IOException {
-		this.inputPane.removeExpression(this.ID);
+		this.inputPane.removeExpressionBox(this.ID);
 	}
 
 	public void setID(int iD) {
@@ -189,7 +179,7 @@ public class ExpressionBoxController implements Initializable {
 		this.color = color;
 		gc.setStroke(color);
 		gc.setFill(color);
-		gc.fillRect(0, 0, visibleCanvas.getWidth(), visibleCanvas.getHeight());
+		gc.fillRect(0, 0, showFunctionColour.getWidth(), showFunctionColour.getHeight());
 	}
 
 }

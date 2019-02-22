@@ -26,7 +26,7 @@ public class MainController implements Initializable {
 		try {
 			inputPane = new InputPane();
 		} catch (IOException e) {
-			// the input pane xml file does not exist
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

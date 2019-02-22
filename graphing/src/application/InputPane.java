@@ -1,8 +1,6 @@
 package application;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -16,18 +14,18 @@ import layer.Layer;
 
 public class InputPane extends ScrollPane {
 
-	private VBox expressionBoxStore = new VBox();
+	private VBox expressionBoxStore;
+	
+	private ShareLayers shareLayerStore;
 
-	public ShareLayers shareLayerStore;
+	private int nextID = 0;
 
-	private int IDMaxCount = 0;
-
-	private List<Integer> freeID = new ArrayList<Integer>();
-
-	private Color[] colors = { Color.BLACK, Color.BLUE, Color.RED, Color.DARKGREEN, Color.MAGENTA, Color.GOLDENROD };
+	private final Color[] colors = { Color.BLACK, Color.BLUE, Color.RED, Color.DARKGREEN, Color.MAGENTA, Color.GOLDENROD };
 
 	public InputPane() throws IOException {
-
+		
+		this.nextID = 0;
+		
 		this.setFitToHeight(true);
 		this.setFitToWidth(true);
 		this.setHbarPolicy(ScrollBarPolicy.NEVER);
@@ -41,42 +39,34 @@ public class InputPane extends ScrollPane {
 
 		this.setupNewButton();
 
-		this.addExpression();
+		this.addExpressionBox();
 
 	}
 
-	private void addExpression() throws IOException {
+	private void addExpressionBox() throws IOException {
 
 		int insert = this.expressionBoxStore.getChildren().size() - 1;
-
-		int ID;
-
-		if (this.freeID.size() == 0) {
-			ID = IDMaxCount;
-			IDMaxCount++;
-		} else {
-			ID = this.freeID.remove(0);
-
-		}
 
 		FXMLLoader loader = new FXMLLoader();
 
 		loader.setLocation(Main.class.getResource("ExpressionBox.fxml"));
 		HBox expressionBox = loader.load();
 
-		expressionBox.setId(Integer.toString(ID));
+		expressionBox.setId(Integer.toString(nextID));
 
 		ExpressionBoxController eBoxController = (ExpressionBoxController) loader.getController();
 
-		eBoxController.setID(ID);
+		eBoxController.setID(nextID);
 		eBoxController.setInputPane(this);
 
-		eBoxController.setColor(this.getColor(ID % this.colors.length));
+		eBoxController.setColor(this.getColor(nextID % this.colors.length));
 
 		this.expressionBoxStore.getChildren().add(insert, expressionBox);
+		
+		nextID = nextID + 1;
 	}
 
-	public void removeExpression(int ID) throws IOException {
+	public void removeExpressionBox(int ID) throws IOException {
 
 		this.removeLayer(ID);
 
@@ -84,15 +74,13 @@ public class InputPane extends ScrollPane {
 			HBox box = (HBox) this.expressionBoxStore.getChildren().get(i);
 			if (Integer.parseInt(box.getId()) == ID) {
 				this.expressionBoxStore.getChildren().remove(i);
-				this.freeID.add(ID);
 				break;
 			}
 		}
 
 		if (this.expressionBoxStore.getChildren().size() == 1) {
-			this.freeID = new ArrayList<Integer>();
-			this.IDMaxCount = 0;
-			this.addExpression();
+			this.nextID = 0;
+			this.addExpressionBox();
 		}
 
 	}
@@ -107,11 +95,11 @@ public class InputPane extends ScrollPane {
 	}
 
 	private void setupNewButton() {
-		Button newExpression = new Button("New Expression");
+		Button newExpression = new Button("New Function");
 
 		newExpression.setOnAction(event -> {
 			try {
-				addExpression();
+				addExpressionBox();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

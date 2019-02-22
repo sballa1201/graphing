@@ -2,12 +2,13 @@
 \begin{document}
 \section{User Interaction}
 Almost all of the user interaction will done through the input layer except the saving the plot as a picture. Most of these interactions are essentially coordinate transformations, translations for panning, scaling for zooming etc. The pan and zoom functionality actually change the functions drawn upon the screen so the plot pane needs to be notified to draw the functions again. This will be done by changing the viewport property, by negating the value of the viewport, i.e.\ changing from true to false or vice versa.
-
+\subsection{Save Picture}
+JavaFX has a feature where you can take a snapshot\cite{snapshotJava} any node. Since we want to take to take a picture of of all the functions we will take a snapshot of the plot pane. We will configure the save a picture action to be accessible through a right click menu when you click on the pane. This right click menu is called a context menu\cite{contextMenu} in JavaFX. We will create a method in the plot pane class to create a snapshot and save it to wherever the user wants.
 \subsection{Coordinates}
 The current coordinates will be shown in the top left of the input pane. Whenever the mouse moves over the pane, the current coordinates will change to their new value. Since the coordinates will probably be a very long and horrible decimal I will round the coordinates to 2 decimal places. I will also have to convert from coordinates from the canvas to the Cartesian coordinates. This is essentially the reverse of the conversion algorithm in prototype 1.  Here is the algorithm for showing the coordinates:
 \begin{algorithm}[H]
 \DontPrintSemicolon
-\caption{Evaluate the Expression for a Value of $x$}
+\caption{Show the Current Coordinates}
 \Fn{drawCoords()}{
 	clearCanvas()\;
 	\KwDouble x = (mouseX * this.pixelWorthX) + this.minX\;
@@ -19,12 +20,11 @@ The current coordinates will be shown in the top left of the input pane. Wheneve
 }
 \end{algorithm}
 \subsection{Pan}
-Panning is essentially a translation of the viewport. It will be a method in the input layer class. We will essentially make this occur when holding down left click and dragging across the pane. It will work by storing the current and previous values of where the cursor has been relative to the coordinate axes. These will be attributes in the input layer class. We will then work out the vector from the previous position to the new position. Then add this vector to the maximum and minimum values. Finally we need to notify the plot pane to draw again by changing the viewport attribute and updating the pixel worth.
+Panning is essentially a translation of the viewport. It will edit the minimum and maximum values of $x$ and $y$ (the boundaries of our viewport) to crate the illusion of panning around. It will be a method in the input layer class. We will essentially make this occur when holding down left click and dragging across the pane. It will work by storing the current and previous values of where the cursor has been relative to the coordinate axes. These will be attributes in the input layer class. We will then work out the vector from the previous position to the new position. Then add this vector to the maximum and minimum values. Finally we need to notify the plot pane to draw again by changing the viewport attribute and updating the pixel worth.
 Here is the algorithm for panning:
-
-\begin{algorithm}[H]
+\begin{algorithm}
 \DontPrintSemicolon
-\caption{Evaluate the Expression for a Value of $x$}
+\caption{Pan around the Plot}
 \Fn{pan()}{
 	\uIf{mouse left click is down} {
 		currentX = event.getX()\;
@@ -36,15 +36,52 @@ Here is the algorithm for panning:
 		previousX = currentX\;
 		previousY = currentY\;
 
-		maxX = (this.pixelWorthX * xTrans / panFactor) + this.maxX\;
-		minX = (this.pixelWorthX * xTrans / panFactor) + this.minX\;
-		maxY = -(this.pixelWorthY * yTrans / panFactor) + this.maxY\;
-		minY = -(this.pixelWorthY * yTrans / panFactor) + this.minY\;
+		maxX = (this.pixelWorthX * xTrans) + this.maxX\;
+		minX = (this.pixelWorthX * xTrans) + this.minX\;
+		maxY = -(this.pixelWorthY * yTrans) + this.maxY\;
+		minY = -(this.pixelWorthY * yTrans) + this.minY\;
 		this.changeViewport = ! this.changeViewport\;
 	} 
 }
 \end{algorithm}
-
 \newpage
+\subsection{Zoom}
+There are two ways to implement a zooming functionality. One is where we zoom around the origin. This is unintuitive since no matter where the cursor is, it always zooms around the origin. Another one is where we zoom around the cursor. This feels incredibly natural and most graphing programs like Desmos and Geogebra have this. It may be harder to implement than the first idea but it fits with the target that the program should be responsive.\\
+The zooming will occur when the scroll wheel on the mouse is scrolled. If scroll wheel is scrolled up the viewport will zoom in and if it is scrolled in the viewport will zoom out. To achieve effect of zooming into the cursor we can use some basic transformations to achieve what we need. So first we need to translate the viewport from the cursor to the origin. Then scale it up or down. Then translate it back to where the cursor was.\\
+Again we need to notify the plot pane that the plot needs to be drawn again. We also need to update the pixel worth since the how much each pixel is worth will have changed since we are effectively scaling each pixel. So we need to call the \texttt{updatePixelWorth()} method.
+\begin{algorithm}
+\DontPrintSemicolon
+\caption{Zoom into or out of the Plot}
+\Fn{pan()}{
+	\KwDouble zoomFactor = 1.05\;
+	
+	\KwDouble x = (mouseX * this.pixelWorthX) + this.minX\tcp*{get the cursor coordinates}
+	\KwDouble y = this.maxY - (mouseY * this.pixelWorthY)\;
+	\uIf (Mouse is Scrolling Down) {
+		zoomFactor = 1 / zoomFactor\;
+	}
+	
+	\KwDouble newMinX = this.minX- x\tcp*{translate viewport to origin}
+	\KwDouble newMaxX = this.maxX - x\;
+	\KwDouble newMinY = this.minY - y\;
+	\KwDouble newMaxY = this.maxY - y\;
 
+	newMinX = newMinX * zoomFactor	\tcp*{scale the viewport}
+	newMaxX = newMaxX * zoomFactor\;
+	newMinY = newMinY * zoomFactor\;
+	newMaxY = newMaxY * zoomFactor\;
+	
+	newMinX = newMinX + x\tcp*{translate back to original place}
+	newMaxX = newMaxX + x\;
+	newMinY = newMinY + y\;
+	newMaxY = newMaxY + y\;
+	this.minX = newMinX\;
+	this.maxX = newMaxX\;
+	this.minY = newMinY\;
+	this.maxY = newMaxY\;
+	this.updatePixelWorth()\;
+	this.changeViewport = ! this.changeViewport\;
+}
+\end{algorithm}
+\newpage
 \end{document}
