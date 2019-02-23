@@ -35,99 +35,6 @@ public class InputLayer extends Layer {
 		this.canvas.setOnScroll(event -> zoom(event));
 		this.canvas.setOnMouseMoved(event -> drawCoords(event));
 	}
-	
-	// draw the coordinates
-	private void drawCoords(MouseEvent event) {
-		// clear the previous coordinates
-		clearCanvas();
-		// get the coordinates
-		double x = (event.getX() * this.pixelWorthX.doubleValue()) + this.minX.doubleValue();
-		double y = this.maxY.doubleValue() - (event.getY() * this.pixelWorthY.doubleValue());
-		// round the coordinates to 2 decimal places
-		String sX = new DecimalFormat("#.##").format(x);
-		String sY = new DecimalFormat("#.##").format(y);
-		String out = "(" + sX + "," + sY + ")";
-		// draw the coordinates to the canvas
-		gc.setLineWidth(1);
-		gc.strokeText(out, 0, 10);
-
-	}
-	
-	// when drag starts initiate the full-drag sequence
-	private void dragEntered(MouseEvent event) {
-		// only initiate the drag if its the left mouse button 
-		if (event.isPrimaryButtonDown()) {
-			// somehow works with these lines
-			previousX = event.getX(); //say i used breakpoints and variable lists to fix this bug
-			previousY = event.getY();
-			// start full drag
-			event.setDragDetect(true);
-			this.canvas.startFullDrag();
-			// consume the event
-			event.consume();
-		}
-	}
-
-	private void pan(MouseEvent event) {
-
-		if (event.isPrimaryButtonDown()) {
-			// get the current mouse coordinates
-			pressedX = event.getX();
-			pressedY = event.getY();
-			// get the vector of the mouse movement
-			double xTrans = (previousX - pressedX);
-			double yTrans = (previousY - pressedY);
-			//update the previous values to be the current ones
-			previousX = pressedX;
-			previousY = pressedY;
-			// translate the viewport
-			this.maxX.set((this.pixelWorthX.doubleValue() * xTrans) + this.maxX.doubleValue());
-			this.minX.set((this.pixelWorthX.doubleValue() * xTrans) + this.minX.doubleValue());
-			this.maxY.set(-(this.pixelWorthY.doubleValue() * yTrans) + this.maxY.doubleValue());
-			this.minY.set(-(this.pixelWorthY.doubleValue() * yTrans) + this.minY.doubleValue());
-			this.changeViewport.set(!this.changeViewport.get());
-			// consume the event to end it
-			event.consume();
-		}
-	}
-
-	private void zoom(ScrollEvent event) {
-		double zoomFactor = 1.05;
-		// this is whether it is scrolling up or down
-		double deltaY = event.getDeltaY();
-		// get the coordinates
-		double x = (event.getX() * this.pixelWorthX.doubleValue()) + this.minX.doubleValue();
-		double y = this.maxY.doubleValue() - (event.getY() * this.pixelWorthY.doubleValue());
-		// if scrolling down shrink the viewport instead
-		if (deltaY > 0) {
-			zoomFactor = 1 / zoomFactor;
-		}
-		// translate the viewport to the origin
-		double newMinX = this.minX.doubleValue() - x;
-		double newMaxX = this.maxX.doubleValue() - x;
-		double newMinY = this.minY.doubleValue() - y;
-		double newMaxY = this.maxY.doubleValue() - y;
-		// scale the viewport
-		newMinX = newMinX * zoomFactor;
-		newMaxX = newMaxX * zoomFactor;
-		newMinY = newMinY * zoomFactor;
-		newMaxY = newMaxY * zoomFactor;
-		// translate the viewport back
-		newMinX = newMinX + x;
-		newMaxX = newMaxX + x;
-		newMinY = newMinY + y;
-		newMaxY = newMaxY + y;
-		// set the new values for the viewport
-		this.minX.set(newMinX);
-		this.maxX.set(newMaxX);
-		this.minY.set(newMinY);
-		this.maxY.set(newMaxY);
-		// update and notify the plotpane 
-		this.updatePixelWorth();
-		this.changeViewport.set(!this.changeViewport.get());
-		// consume the event to end it
-		event.consume();
-	}
 
 	@Override
 	// this canvas will not draw anything so this method is empty
@@ -157,6 +64,79 @@ public class InputLayer extends Layer {
 		// properties
 		this.canvas.heightProperty().bind(plotPane.heightProperty());
 		this.canvas.widthProperty().bind(plotPane.widthProperty());
+	}
+
+	// draw the coordinates
+	private void drawCoords(MouseEvent event) {
+		// clear the previous coordinates
+		clearCanvas();
+		// get the coordinates
+		double x = (event.getX() * this.pixelWorthX.doubleValue()) + this.minX.doubleValue();
+		double y = this.maxY.doubleValue() - (event.getY() * this.pixelWorthY.doubleValue());
+		// round the coordinates to 2 decimal places
+		String sX = new DecimalFormat("#.##").format(x);
+		String sY = new DecimalFormat("#.##").format(y);
+		String out = "(" + sX + "," + sY + ")";
+		// draw the coordinates to the canvas
+		gc.setLineWidth(1);
+		gc.strokeText(out, 0, 10);
+	}
+
+	// when drag starts initiate the full-drag sequence
+	private void dragEntered(MouseEvent event) {
+		// only initiate the drag if its the left mouse button
+		if (event.isPrimaryButtonDown()) {
+			// somehow works with these lines
+			previousX = event.getX(); // say i used breakpoints and variable lists to fix this bug
+			previousY = event.getY();
+			// start full drag
+			event.setDragDetect(true);
+			this.canvas.startFullDrag();
+		}
+	}
+
+	// pan around the plotpane
+	private void pan(MouseEvent event) {
+		if (event.isPrimaryButtonDown()) {
+			// get the current mouse coordinates
+			pressedX = event.getX();
+			pressedY = event.getY();
+			// get the vector of the mouse movement
+			double xTrans = (previousX - pressedX);
+			double yTrans = (previousY - pressedY);
+			// update the previous values to be the current ones
+			previousX = pressedX;
+			previousY = pressedY;
+			// translate the viewport
+			this.maxX.set((this.pixelWorthX.doubleValue() * xTrans) + this.maxX.doubleValue());
+			this.minX.set((this.pixelWorthX.doubleValue() * xTrans) + this.minX.doubleValue());
+			this.maxY.set(-(this.pixelWorthY.doubleValue() * yTrans) + this.maxY.doubleValue());
+			this.minY.set(-(this.pixelWorthY.doubleValue() * yTrans) + this.minY.doubleValue());
+			this.changeViewport.set(!this.changeViewport.get());
+		}
+	}
+
+	// zoom in and out
+	private void zoom(ScrollEvent event) {
+		double zoomFactor = 1.05;
+		// this is whether it is scrolling up or down
+		double deltaY = event.getDeltaY();
+		// get the coordinates
+		double x = (event.getX() * this.pixelWorthX.doubleValue()) + this.minX.doubleValue();
+		double y = this.maxY.doubleValue() - (event.getY() * this.pixelWorthY.doubleValue());
+		// if scrolling down shrink the viewport instead
+		if (deltaY > 0) {
+			zoomFactor = 1 / zoomFactor;
+		}
+		// translate the viewport to the origin, scale the viewport,
+		// translate the viewport back and set the new values for the viewport
+		this.minX.set((this.minX.doubleValue() - x) * zoomFactor + x);
+		this.maxX.set((this.maxX.doubleValue() - x) * zoomFactor + x);
+		this.minY.set((this.minY.doubleValue() - y) * zoomFactor + y);
+		this.maxY.set((this.maxY.doubleValue() - y) * zoomFactor + y);
+		// update and notify the plotpane
+		this.updatePixelWorth();
+		this.changeViewport.set(!this.changeViewport.get());
 	}
 
 	// return minX

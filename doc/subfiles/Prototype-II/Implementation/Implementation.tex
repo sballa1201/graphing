@@ -2,6 +2,12 @@
 \begin{document}
 
 \chapter{Implementation}
-
+When beginning to implement prototype 2 I realized that I need to change some things while implementing that I said in design:
+\begin{enumerate}
+\item The user interaction section is more complicated than I made it out to be since it requires knowledge of specific types of events in JavaFX like Mouse and Scroll events, but I will look into and explain it more at that stage.
+\item The classes that I designed will probably have more methods and attributes so that I can break down the problems into manageable chunks.
+\item The Expression Box class will actually be a controller class so it will be implemented slightly differently than what I designed. It will have many more attributes and methods related to the FXML side and will be explained more when I get to it.
+\end{enumerate}
+I will implement the user interaction elements first and then user input. This is because the user interaction is easier to unit test and the user input will need to be tested all at once since it is too interconnected, as explained in the test strategy. It also allows me to show my stakeholders something significant sooner.
 \newpage
 \end{document}

@@ -3,7 +3,8 @@
 \section{User Interaction}
 Almost all of the user interaction will done through the input layer except the saving the plot as a picture. Most of these interactions are essentially coordinate transformations, translations for panning, scaling for zooming etc. The pan and zoom functionality actually change the functions drawn upon the screen so the plot pane needs to be notified to draw the functions again. This will be done by changing the viewport property, by negating the value of the viewport, i.e.\ changing from true to false or vice versa.
 \subsection{Save Picture}
-JavaFX has a feature where you can take a snapshot\cite{snapshotJava} any node. Since we want to take to take a picture of of all the functions we will take a snapshot of the plot pane. We will configure the save a picture action to be accessible through a right click menu when you click on the pane. This right click menu is called a context menu\cite{contextMenu} in JavaFX. We will create a method in the plot pane class to create a snapshot and save it to wherever the user wants.
+JavaFX has a feature where you can take a snapshot\cite{snapshotJava} any node. Since we want to take to take a picture of of all the functions we will take a snapshot of the plot pane. We will configure the save a picture action to be accessible through a right click menu when you click on the pane. This right click menu is called a context menu\cite{contextJava} in JavaFX. The user should also be able to name the image and save it where they want. We will create a method in the plot pane class to create a snapshot and save it to wherever the user wants.
+\newpage
 \subsection{Coordinates}
 The current coordinates will be shown in the top left of the input pane. Whenever the mouse moves over the pane, the current coordinates will change to their new value. Since the coordinates will probably be a very long and horrible decimal I will round the coordinates to 2 decimal places. I will also have to convert from coordinates from the canvas to the Cartesian coordinates. This is essentially the reverse of the conversion algorithm in prototype 1.  Here is the algorithm for showing the coordinates:
 \begin{algorithm}[H]
@@ -40,7 +41,7 @@ Here is the algorithm for panning:
 		minX = (this.pixelWorthX * xTrans) + this.minX\;
 		maxY = -(this.pixelWorthY * yTrans) + this.maxY\;
 		minY = -(this.pixelWorthY * yTrans) + this.minY\;
-		this.changeViewport = ! this.changeViewport\;
+		this.changeViewport = ! this.changeViewport\tcp*{notify the plot pane}
 	} 
 }
 \end{algorithm}
@@ -57,7 +58,7 @@ Again we need to notify the plot pane that the plot needs to be drawn again. We 
 	
 	\KwDouble x = (mouseX * this.pixelWorthX) + this.minX\tcp*{get the cursor coordinates}
 	\KwDouble y = this.maxY - (mouseY * this.pixelWorthY)\;
-	\uIf (Mouse is Scrolling Down) {
+	\uIf (Mouse is Scrolling Up) {
 		zoomFactor = 1 / zoomFactor\;
 	}
 	
@@ -80,7 +81,7 @@ Again we need to notify the plot pane that the plot needs to be drawn again. We 
 	this.minY = newMinY\;
 	this.maxY = newMaxY\;
 	this.updatePixelWorth()\;
-	this.changeViewport = ! this.changeViewport\;
+	this.changeViewport = ! this.changeViewport\tcp*{notify the plot pane}
 }
 \end{algorithm}
 \newpage

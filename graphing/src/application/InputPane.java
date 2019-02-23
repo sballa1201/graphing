@@ -13,15 +13,15 @@ import javafx.scene.paint.Color;
 import layer.Layer;
 
 public class InputPane extends ScrollPane {
-
-	private VBox expressionBoxStore;
 	
+	// attributes
+	private VBox expressionBoxStore;
 	private ShareLayers shareLayerStore;
-
 	private int nextID = 0;
-
 	private final Color[] colors = { Color.BLACK, Color.BLUE, Color.RED, Color.DARKGREEN, Color.MAGENTA, Color.GOLDENROD };
 
+	// methods
+	// constructor
 	public InputPane() throws IOException {
 		
 		this.nextID = 0;
@@ -34,11 +34,9 @@ public class InputPane extends ScrollPane {
 		this.expressionBoxStore = new VBox();
 
 		this.setContent(this.expressionBoxStore);
-
-		// this.setPannable(true);
-
+		// set up the button
 		this.setupNewButton();
-
+		// add the first expression box
 		this.addExpressionBox();
 
 	}
@@ -59,7 +57,7 @@ public class InputPane extends ScrollPane {
 		eBoxController.setID(nextID);
 		eBoxController.setInputPane(this);
 
-		eBoxController.setColor(this.getColor(nextID % this.colors.length));
+		eBoxController.setColor(colors[nextID % this.colors.length]);
 
 		this.expressionBoxStore.getChildren().add(insert, expressionBox);
 		
@@ -124,10 +122,6 @@ public class InputPane extends ScrollPane {
 
 	public void setShareLayerStore(ShareLayers shareLayerStore) {
 		this.shareLayerStore = shareLayerStore;
-	}
-
-	public Color getColor(int ID) {
-		return colors[ID % colors.length];
 	}
 
 }

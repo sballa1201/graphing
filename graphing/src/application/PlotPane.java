@@ -23,6 +23,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import layer.AxesCartesianLayer;
+import layer.ExplicitXFunctionCartesianLayer;
 import layer.InputLayer;
 import layer.Layer;
 
@@ -74,7 +75,7 @@ public class PlotPane extends Pane {
 		ContextMenu contextMenu = new ContextMenu();
 		MenuItem save = new MenuItem("Save as Picture");
 		contextMenu.getItems().addAll(save);
-		// set an action to save when clicking the save button
+		// set an action to call the savePlot() method when clicking the save button
 		save.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -84,6 +85,7 @@ public class PlotPane extends Pane {
 		// when right clicking open the menu
 		this.setOnContextMenuRequested(
 				event -> contextMenu.show(this.getScene().getWindow(), event.getScreenX(), event.getScreenY()));
+		this.addLayer(new ExplicitXFunctionCartesianLayer("10((1/256)x^3-(1/8)x)"));
 	}
 
 	private void drawAll()
@@ -121,14 +123,16 @@ public class PlotPane extends Pane {
 
 	// save picture of plot
 	private void savePlot() {
-		// open the file saver
+		// create the file navigator object
 		FileChooser fileChooser = new FileChooser();
 		// set extension filter
 		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("png files (*.png)", "*.png"));
-		// prompt user to select a file
+		// set extension filter (make the image of format png)
 		File file = fileChooser.showSaveDialog(null);
-		if (file != null) {
+		if (file != null) {	//if the user chose to save then snapshot the pane
 			try {
+				// remove input layer canvas, the top node, to not show the coords
+				this.getChildren().remove(this.getChildren().size() - 1);
 				// create the snapshot of the pane
 				WritableImage snapshot = this.snapshot(new SnapshotParameters(), null);
 				RenderedImage renderedImage = SwingFXUtils.fromFXImage(snapshot, null);
@@ -136,6 +140,9 @@ public class PlotPane extends Pane {
 				ImageIO.write(renderedImage, "png", file);
 			} catch (IOException ex) {
 				ex.printStackTrace();
+			} finally {
+				// readd the input layer
+				this.getChildren().add(inputLayer.getCanvas());
 			}
 		}
 	}
