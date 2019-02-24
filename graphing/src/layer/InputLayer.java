@@ -16,8 +16,8 @@ public class InputLayer extends Layer {
 
 	// attributes
 	private BooleanProperty changeViewport = new SimpleBooleanProperty(true);
-	private double pressedX;
-	private double pressedY;
+	private double currentX;
+	private double currentY;
 	private double previousX;
 	private double previousY;
 
@@ -86,8 +86,8 @@ public class InputLayer extends Layer {
 	private void dragEntered(MouseEvent event) {
 		// only initiate the drag if its the left mouse button
 		if (event.isPrimaryButtonDown()) {
-			// somehow works with these lines
-			previousX = event.getX(); // say i used breakpoints and variable lists to fix this bug
+			// need to initialize the values of previousX and previousY
+			previousX = event.getX();
 			previousY = event.getY();
 			// start full drag
 			event.setDragDetect(true);
@@ -99,14 +99,14 @@ public class InputLayer extends Layer {
 	private void pan(MouseEvent event) {
 		if (event.isPrimaryButtonDown()) {
 			// get the current mouse coordinates
-			pressedX = event.getX();
-			pressedY = event.getY();
+			currentX = event.getX();
+			currentY = event.getY();
 			// get the vector of the mouse movement
-			double xTrans = (previousX - pressedX);
-			double yTrans = (previousY - pressedY);
+			double xTrans = (previousX - currentX);
+			double yTrans = (previousY - currentY);
 			// update the previous values to be the current ones
-			previousX = pressedX;
-			previousY = pressedY;
+			previousX = currentX;
+			previousY = currentY;
 			// translate the viewport
 			this.maxX.set((this.pixelWorthX.doubleValue() * xTrans) + this.maxX.doubleValue());
 			this.minX.set((this.pixelWorthX.doubleValue() * xTrans) + this.minX.doubleValue());

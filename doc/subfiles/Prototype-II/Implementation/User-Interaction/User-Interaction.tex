@@ -1,32 +1,16 @@
 \documentclass[../../../../main.tex]{subfiles}
 \begin{document}
 \section{User Interaction}
-All of these features require me to know about how mouse events are handled in JavaFX since all of these actions require some kind of mouse input.\\
-{\Large TODO}\\
-{\Large TODO}\\
-{\Large TODO}\\
-{\Large TODO}\\
-{\Large TODO}\\
-{\Large TODO}\\
-{\Large TODO}\\
-\newpage
+All of these features require me to know about how mouse events are handled in JavaFX since all of these actions require some kind of mouse input. I used these websites\cite{eventsJava} to get a deeper understanding of how they worked. Events are essentially objects with attributes that describe the event that just occurred. For example an attribute could tell you the position of the event. They are quite simple to use and if required I will give specifics when needed.
+
 \subsection{Coordinates}
-I used the algorithm I designed in the design section and implemented it as a method in the input layer class. I then bound this method to the \texttt{OnMouseMoved} mouse event in the input layer constructor, so the coordinates would update whenever the moused moved in the plot pane. This is what the input layer constructor is now:
+I used the algorithm I designed in the design section and implemented it as a method in the input layer class. I then bound this method to the \texttt{OnMouseMoved} mouse event in the input layer constructor, so the coordinates would update whenever the moused moved in the plot pane. So I added this to the input layer constructor:
 \begin{minted}[
 frame=lines,
 framesep=2mm,
-linenos,
 breaklines
 ]{java}
-public InputLayer() {
-	// call the super constructor
-	super();
-	// update pixel worth when the canvas changes size
-	this.canvas.heightProperty().addListener(event -> updatePixelWorth());
-	this.canvas.widthProperty().addListener(event -> updatePixelWorth());
-	// bind the mouse events to their respective actions
-	this.canvas.setOnMouseMoved(event -> drawCoords(event));
-}
+this.canvas.setOnMouseMoved(event -> drawCoords(event));
 \end{minted}
 Here is the \texttt{drawCoords()} method:
 \begin{minted}[
@@ -54,22 +38,95 @@ private void drawCoords(MouseEvent event) {
 It works perfectly and an image of what it looks like is shown below. I asked Palvinder, the stakeholder who suggested this feature, about what he thought of the implementation and he said that it was \textit{``exactly how I envisioned it to be''}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.25\textwidth]{images/coords}
+	\includegraphics[width=0.4\textwidth]{images/coords}
 	\caption{Coordinates in Action}
 \end{figure}
-
-
-
 \newpage
 \subsection{Pan}
-{\Large TODO}\\
-{\Large TODO}\\
-{\Large TODO}\\
-{\Large TODO}\\
-{\Large TODO}\\
-{\Large TODO}\\
-{\Large TODO}
+The panning feature was quite hard to implement due to the lack of clear documentation on \texttt{DragEvent}. From lots of searching I found out that I had to call \texttt{startFullDrag()} method when the drag is initiated. Using this information I added these lines to the input layer constructor:
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+breaklines
+]{java}
+this.canvas.setOnMousePressed(event -> dragEntered(event));
+this.canvas.setOnMouseDragged(event -> pan(event));
+\end{minted}
+I also added 4 new attributes of type double to the class, \texttt{previousX}, \texttt{previousY}, \texttt{currentX} and \texttt{currentY}. Here are the two methods used in the previous snippet of code \texttt{dragEntered()} and \texttt{pan()}:
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+linenos,
+breaklines
+]{java}
+// when drag starts initiate the full-drag sequence
+private void dragEntered(MouseEvent event) {
+	// only initiate the drag if its the left mouse button
+	if (event.isPrimaryButtonDown()) {
+		// start full drag
+		event.setDragDetect(true);
+		this.canvas.startFullDrag();
+	}
+}
 
+// pan around the plotpane
+private void pan(MouseEvent event) {
+	if (event.isPrimaryButtonDown()) {
+		// get the current mouse coordinates
+		currentX = event.getX();
+		currentY = event.getY();
+		// get the vector of the mouse movement
+		double xTrans = (previousX - currentX);
+		double yTrans = (previousY - currentY);
+		// update the previous values to be the current ones
+		previousX = currentX;
+		previousY = currentY;
+		// translate the viewport
+		this.maxX.set((this.pixelWorthX.doubleValue() * xTrans) + this.maxX.doubleValue());
+		this.minX.set((this.pixelWorthX.doubleValue() * xTrans) + this.minX.doubleValue());
+		this.maxY.set(-(this.pixelWorthY.doubleValue() * yTrans) + this.maxY.doubleValue());
+		this.minY.set(-(this.pixelWorthY.doubleValue() * yTrans) + this.minY.doubleValue());
+		this.changeViewport.set(!this.changeViewport.get());
+	}
+}
+\end{minted}
+\newpage
+When I tested the pan functionality, when I first held down the left mouse click button, the viewport jumped to another location and then the pan functionality worked fine. This told me that there was a problem while initiating the drag sequence. So I used breakpoints, debugging tools and the variable stack viewer in Eclipse to debug the problem:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{images/debug}
+	\caption{Coordinates in Action}
+\end{figure}
+From this I realized that the values for \texttt{previousX} and \texttt{previousY} were the last values in the previous drag which caused the viewport to jump when initiating the drag. To fix this when entering the drag I gave them the value of the current location of the cursor:
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+linenos,
+breaklines
+]{java}
+// when drag starts initiate the full-drag sequence
+private void dragEntered(MouseEvent event) {
+	// only initiate the drag if its the left mouse button
+	if (event.isPrimaryButtonDown()) {
+		// need to initialize the values of previousX and previousY
+		previousX = event.getX();
+		previousY = event.getY();
+		// start full drag
+		event.setDragDetect(true);
+		this.canvas.startFullDrag();
+	}
+}
+\end{minted}
+This fixed the issue, although an exception seems to be thrown every time the drag is initiated:
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+breaklines
+]{console}
+Exception in thread "JavaFX Application Thread" java.lang.IllegalStateException:
+Cannot start full drag outside of DRAG_DETECTED event handler
+\end{minted}
+However the panning feature works so this exception can be ignored. Evidence of it working will be shown in the testing section in video form.
 \newpage
 \subsection{Zoom}
 I used the algorithm I designed in the design section and implemented it as a method in the input layer class, with some slight changes talked about in the next paragraph. I then bound this method to the \texttt{OnScroll} scroll event in the input layer constructor, so that the it would zoom in or out when scrolling. This is what the input layer constructor is and this is the final change:
