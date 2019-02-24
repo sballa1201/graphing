@@ -26,7 +26,6 @@ public class MainController implements Initializable {
 		try {
 			inputPane = new InputPane();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -35,7 +34,7 @@ public class MainController implements Initializable {
 		inputPane.setShareLayerStore(shareLayerStore);
 		// add the panes to the root pane
 		rootPane.setCenter(plotPane);
-		//rootPane.setLeft(inputPane);
+		rootPane.setLeft(inputPane);
 	}
 
 }

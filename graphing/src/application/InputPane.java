@@ -23,16 +23,13 @@ public class InputPane extends ScrollPane {
 	// methods
 	// constructor
 	public InputPane() throws IOException {
-		
+		// set up the input pane attributes
 		this.nextID = 0;
-		
 		this.setFitToHeight(true);
 		this.setFitToWidth(true);
 		this.setHbarPolicy(ScrollBarPolicy.NEVER);
 		this.setPrefWidth(245.0);
-		
 		this.expressionBoxStore = new VBox();
-
 		this.setContent(this.expressionBoxStore);
 		// set up the button
 		this.setupNewButton();
@@ -40,7 +37,8 @@ public class InputPane extends ScrollPane {
 		this.addExpressionBox();
 
 	}
-
+	
+	// add a new expression box
 	private void addExpressionBox() throws IOException {
 
 		int insert = this.expressionBoxStore.getChildren().size() - 1;
@@ -84,7 +82,6 @@ public class InputPane extends ScrollPane {
 	}
 
 	public void putLayer(int ID, Layer layer) {
-		System.out.println("putting layer");
 		shareLayerStore.putLayer(ID, layer);
 	}
 

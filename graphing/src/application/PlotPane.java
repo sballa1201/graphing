@@ -23,7 +23,6 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import layer.AxesCartesianLayer;
-import layer.ExplicitXFunctionCartesianLayer;
 import layer.InputLayer;
 import layer.Layer;
 
@@ -85,7 +84,6 @@ public class PlotPane extends Pane {
 		// when right clicking open the menu
 		this.setOnContextMenuRequested(
 				event -> contextMenu.show(this.getScene().getWindow(), event.getScreenX(), event.getScreenY()));
-		this.addLayer(new ExplicitXFunctionCartesianLayer("10((1/256)x^3-(1/8)x)"));
 	}
 
 	private void drawAll()
@@ -147,20 +145,22 @@ public class PlotPane extends Pane {
 		}
 	}
 
+	// set up the shared layer access
 	public void setShareLayerStore(ShareLayers shareLayerStore) {
+		// set the shared layer access attribute
 		this.shareLayerStore = shareLayerStore;
+		// bind and set the value for the property
 		this.changeLayers.set(this.shareLayerStore.getChangeLayers().get());
 		this.changeLayers.bind(this.shareLayerStore.getChangeLayers());
-
+		// create a listener to execute when the plot pane needs to draw again
 		ChangeListener<Object> redrawListener = (observable, oldValue, newValue) -> {
-			ArrayList<Layer> tempLayers = shareLayerStore.getLayers();
-
-			layers = new ArrayList<Layer>();
-
-			for (Layer l : tempLayers) {
+			// remove all the old layers
+			this.layers.clear();
+			// add all the new layers
+			for (Layer l : shareLayerStore.getLayers()) {
 				this.addLayer(l);
 			}
-
+			// draw the functions again
 			try {
 				drawAll();
 			} catch (StackOverflowException | StackUnderflowException | UnequalBracketsException
@@ -168,9 +168,8 @@ public class PlotPane extends Pane {
 				// error in drawing a function
 				e.printStackTrace();
 			}
-
 		};
-
+		// bind the listener to the property
 		this.changeLayers.addListener(redrawListener);
 	}
 

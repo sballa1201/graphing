@@ -24,13 +24,17 @@ public class ShareLayers {
 
 	// add a layer
 	public void putLayer(int ID, Layer layer) {
+		// add the layer
 		this.layers.put(ID, layer);
+		// notify the plot pane to draw again
 		this.changeLayers.set(!this.changeLayers.get());
 	}
 
 	// remove a layer
 	public void removeLayer(int ID) {
+		// remove the layer
 		this.layers.remove(ID);
+		// notify the plot pane to draw again
 		this.changeLayers.set(!this.changeLayers.get());
 	}
 
