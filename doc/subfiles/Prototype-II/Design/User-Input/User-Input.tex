@@ -2,7 +2,7 @@
 \begin{document}
 
 \section{User Input}
-Back when designing prototype 1 I talked about the idea of a class that essentially stores data that different parts of the program can access. The reason for this is to remove the reason for global variables which are bad practice.
+Back when designing prototype 1 I talked about the idea of a class that essentially stores data that different parts of the program can access. The reason for this is to remove the need for global variables which are bad practice since they are incredibly hard to maintain and debug.
 \subsection{Shared Layer Access}
 The shared layer access will be a way for the input method to give layers to the plot pane to then add to its layers. It will contain an attribute that is the dictionary type data structure to hold all of the layers. This is so that a specific layer can be identified and removed (if the user wishes to remove a function). It will also contain public methods to add and remove layers from the list, and a getter for the dictionary values (the plotpane doesn't need the identifiers) in the form of a list so that the plotpane can access the list to use. It will also contain a property that is connected to the plotpane that will notify when the list has changed so that the plotpane can draw again. Here is the class diagram for the Shared Layer Access class:
 \begin{figure}[H]
@@ -27,7 +27,7 @@ From an implementation point of view I will just create a class that will inheri
 	\includegraphics[width=0.4\textwidth]{diagrams/inputPane.mps}
 	\caption{Input Pane Class}
 \end{figure}
-The input pane class will have to communicate with the plot pane to update the layers. It will do this through the shared layers access class so it will have an attribute for it. It will also have methods that the expression box can access to add, remove or edit layers.
+The input pane class will have to communicate with the plot pane, through the shared layer access, to update the layers, therefore it will have a shared layer access attribute. It will also have methods that the expression box can access to add, remove or edit layers. I will also break down some of the initial creation into methods such as the setting up of the new button, or adding an expression box.
 \newpage
 \subsubsection{Expression Box}
 I will make the expression box look similar to the one in Desmos shown below.

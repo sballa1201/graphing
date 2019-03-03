@@ -10,11 +10,13 @@ import javafx.scene.layout.BorderPane;
 
 public class MainController implements Initializable {
 
+	// attributes
 	@FXML
 	private BorderPane rootPane;
 
 	private ShareLayers shareLayerStore;
 
+	// methods
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// initialize the shared layer store
@@ -28,7 +30,6 @@ public class MainController implements Initializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		// set the shared layer stores to both the panes
 		plotPane.setShareLayerStore(shareLayerStore);
 		inputPane.setShareLayerStore(shareLayerStore);

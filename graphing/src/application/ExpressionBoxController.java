@@ -127,7 +127,7 @@ public class ExpressionBoxController implements Initializable {
 				l = new ExplicitYFunctionCartesianLayer(f);
 				l.setColor(color);
 				inputPane.putLayer(this.ID, l);
-			} else if (xInstances > 0) { // if it contains only x create a explicit function in x
+			} else { // if it contains only x create a explicit function in x
 				l = new ExplicitXFunctionCartesianLayer(f);
 				l.setColor(color);
 				inputPane.putLayer(this.ID, l);
@@ -136,7 +136,7 @@ public class ExpressionBoxController implements Initializable {
 			inputPane.removeLayer(ID);
 		}
 	}
-
+	
 	// show/hide the function and update the visual identifier
 	private void changeColor() throws StackOverflowException, StackUnderflowException, UnequalBracketsException {
 		// clear the canvas

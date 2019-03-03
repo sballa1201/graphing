@@ -290,7 +290,7 @@ public class ExpressionBoxController implements Initializable {
 				l = new ExplicitYFunctionCartesianLayer(f);
 				l.setColor(color);
 				inputPane.putLayer(this.ID, l);
-			} else if (xInstances > 0) { // if it contains only x create a explicit function in x
+			} else { // if it contains only x create a explicit function in x
 				l = new ExplicitXFunctionCartesianLayer(f);
 				l.setColor(color);
 				inputPane.putLayer(this.ID, l);
@@ -348,6 +348,194 @@ public class ExpressionBoxController implements Initializable {
 \end{minted}
 \newpage
 \subsection{Input Pane}
-I then implemented the input pane class.
+I then implemented the input pane class. There were no new attributes or methods and the implementation was quite straight forward. The code is below and the comments will explain what each bit does:
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+linenos,
+breaklines,
+fontsize = \fontsize{9}{9}
+]{java}
+package application;
+
+import java.io.IOException;
+
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import layer.Layer;
+
+public class InputPane extends ScrollPane {
+
+	// attributes
+	private VBox expressionBoxStore;
+	private ShareLayers shareLayerStore;
+	private int nextID = 0;
+	private final Color[] colors = 
+	{ Color.BLACK, Color.BLUE, Color.RED, Color.DARKGREEN, Color.MAGENTA, Color.GOLDENROD };
+
+	// methods
+	// constructor
+	public InputPane() throws IOException {
+		// set up the input pane attributes
+		this.nextID = 0;
+		this.setFitToHeight(true);
+		this.setFitToWidth(true);
+		this.setHbarPolicy(ScrollBarPolicy.NEVER);
+		this.setPrefWidth(245.0);
+		this.expressionBoxStore = new VBox();
+		this.setContent(this.expressionBoxStore);
+		// set up the button
+		this.setupNewButton();
+		// add the first expression box
+		this.addExpressionBox();
+	}
+
+	// add a new expression box
+	private void addExpressionBox() throws IOException {
+		// index at which to insert the new box, one before the button
+		int insert = this.expressionBoxStore.getChildren().size() - 1;
+		// load and initialize the expression box
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(Main.class.getResource("ExpressionBox.fxml"));
+		HBox expressionBox = loader.load();
+		// get the controller class and set the ID, input pane and color attributes
+		ExpressionBoxController eBoxController = (ExpressionBoxController) loader.getController();
+		expressionBox.setId(Integer.toString(nextID));
+		eBoxController.setID(nextID);
+		eBoxController.setInputPane(this);
+		eBoxController.setColor(colors[nextID % this.colors.length]);
+		// add the expression box to the vbox
+		this.expressionBoxStore.getChildren().add(insert, expressionBox);
+		// increment the ID so the next box has a different ID
+		nextID = nextID + 1;
+	}
+
+
+	// remove an expression box
+	public void removeExpressionBox(int ID) throws IOException {
+		// remove the layer that the expression box is linked to
+		this.removeLayer(ID);
+		// find the expression box and remove it
+		for (int i = 0; i < this.expressionBoxStore.getChildren().size() - 1; i++) {
+			HBox box = (HBox) this.expressionBoxStore.getChildren().get(i);
+			if (Integer.parseInt(box.getId()) == ID) {
+				this.expressionBoxStore.getChildren().remove(i);
+				break;
+			}
+		}
+		// if there are no expression boxes left, reset the ID counter and add a new one
+		if (this.expressionBoxStore.getChildren().size() == 1) {
+			this.nextID = 0;
+			this.addExpressionBox();
+		}
+	}
+
+	// add a layer to the plot pane through the shared layer access
+	public void putLayer(int ID, Layer layer) {
+		shareLayerStore.putLayer(ID, layer);
+	}
+
+	// remove a layer from the plot pane through the shared layer access
+	public void removeLayer(int ID) {
+		shareLayerStore.removeLayer(ID);
+	}
+
+	// set up the new box
+	private void setupNewButton() {
+		// initialize the button with the display text "New Function"
+		Button newExpression = new Button("New Function");
+		// when it is pressed call the addExpressionBox() function
+		newExpression.setOnAction(event -> {
+			try {
+				addExpressionBox();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
+		// various UI components needed to make the button fit in with the UI
+		// hbox to hold the components
+		HBox buttonHolder = new HBox();
+		// filler space to center the button horizontally
+		Region fillerSpace1 = new Region();
+		Region fillerSpace2 = new Region();
+		// add the filler space and button to the hbox
+		buttonHolder.getChildren().addAll(fillerSpace1, newExpression, fillerSpace2);
+		HBox.setHgrow(fillerSpace1, Priority.ALWAYS);
+		HBox.setHgrow(fillerSpace2, Priority.ALWAYS);
+		// add the button to the vbox
+		this.expressionBoxStore.getChildren().add(buttonHolder);
+	}
+
+	// set the shared layer access attribute
+	public void setShareLayerStore(ShareLayers shareLayerStore) {
+		this.shareLayerStore = shareLayerStore;
+	}
+
+}
+\end{minted}
+\newpage
+I now need to add this input pane to the main border pane. I also need to connect both the plot pane and the input pane to the shared layer access class. I can do both of these things within the main border pane controller class. I made the shared layer access an attribute in the main border pane controller class. Here is the code:
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+linenos,
+breaklines,
+fontsize = \fontsize{9}{9}
+]{java}
+package application;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.layout.BorderPane;
+
+public class MainController implements Initializable {
+
+	// attributes
+	@FXML
+	private BorderPane rootPane;
+
+	private ShareLayers shareLayerStore;
+
+	// methods
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// initialize the shared layer store
+		this.shareLayerStore = new ShareLayers();
+		// initialize the plotpane
+		PlotPane plotPane = new PlotPane();
+		// initialize the input pane
+		InputPane inputPane = null;
+		try {
+			inputPane = new InputPane();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		// set the shared layer stores to both the panes
+		plotPane.setShareLayerStore(shareLayerStore);
+		inputPane.setShareLayerStore(shareLayerStore);
+		// add the panes to the root pane
+		rootPane.setCenter(plotPane);
+		rootPane.setLeft(inputPane);
+	}
+
+}
+\end{minted}
+I then ran the program and used it for a while. It seemed to be working perfectly without any crashes or freezing. The testing will verify if the program is in fact working well.
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=0.3\textwidth]{images/final}
+	\end{center}
+	\caption{Running the Second Prototype}
+\end{figure}
 \newpage
 \end{document}
