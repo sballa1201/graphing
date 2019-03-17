@@ -6,6 +6,8 @@
 \usepackage{wrapfig}
 \usepackage{graphics}
 
+
+
 \usepackage[pdftex]{graphicx}
 \DeclareGraphicsRule{*}{mps}{*}{}
 
@@ -22,6 +24,7 @@
 \def\@pmnum#1+-#2+{#1&#2}
 \makeatother
 
+
 \usepackage{etoolbox}
 \usepackage{amssymb}
 \usepackage{tensor}
@@ -32,6 +35,15 @@
 \usepackage{cancel}
 \usepackage{commath}
 
+\usepackage[utf8]{inputenc}
+
+\usepackage{newunicodechar}
+\newunicodechar{μ}{$\mu$}
+\newunicodechar{σ}{$\sigma$}
+
+\newunicodechar{Μ}{M}
+\newunicodechar{Σ}{$\Sigma$}
+\newunicodechar{π}{$\pi$}
 
 \usepackage{pifont}
 \newcommand{\cmark}{\ding{51}}
@@ -138,7 +150,10 @@
 }
 \makeatother
 
+
+
 \usepackage{pdflscape}
+ \usepackage{longtable}
 
 \PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
 
@@ -208,4 +223,5 @@
 
 \subfile{subfiles/Appendices/Appendices}
 \subfile{subfiles/Bibliography/Bibliography}
+
 \end{document}

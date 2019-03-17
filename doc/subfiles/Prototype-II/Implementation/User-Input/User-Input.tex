@@ -153,13 +153,13 @@ fontsize = \fontsize{9}{9}
 </HBox>
 \end{minted}
 \newpage
-I then created the controller class. I introduced a few new methods such as the \texttt{changeColor()} method. This one is triggered when the canvas is clicked and shows/hides the function and updates the visual aid. The \texttt{changeLayer()} method is called whenever the input text changes or the user clicks on the show/hide canvas. It parses the input text determines whether or not it is a function in $x$, $y$, the Normal Distribution, or none of those. It then creates a layer for that specific function and then adds it to the shared access layer through the input pane. The code for the rest of this class was quite simple to implement and it is below:
+I then created the controller class. I introduced a few new methods such as the \texttt{changeColor()} method. This one is triggered when the canvas is clicked and shows/hides the function and updates the visual aid. The \texttt{changeLayer()} method is called whenever the input text changes or the user clicks on the show/hide canvas. It parses the input text determines whether or not it is a function in $x$, $y$, the Normal Distribution, or none of those. It then creates a layer for that specific function and then adds it to the shared access layer through the input pane. If the function is invalid it removes the layer from the shared layer access. The parsing is done by first checking if the string input starts with \texttt{``Normal''}. If so then the mean and variance are taken from the parameters given and the normal distribution layer is shown. Then the number of instances of $x$ and $y$ are counted. If there is $x$ and $y$ in the input, the layer is removed since the function is now implicit. If there is only $y$ then an explicit layer in $y$ is added with the given input expression. Finally if none of those criteria are fulfilled then an explicit function layer in $x$ is added with the given input expression. The code for the rest of this class was quite simple to implement and it is below:
 \begin{minted}[
 frame=lines,
 framesep=2mm,
 linenos,
 breaklines,
-fontsize = \fontsize{9}{9}
+fontsize = \fontsize{9}{8}
 ]{java}
 package application;
 
@@ -530,7 +530,7 @@ public class MainController implements Initializable {
 
 }
 \end{minted}
-I then ran the program and used it for a while. It seemed to be working perfectly without any crashes or freezing. The testing will verify if the program is in fact working well.
+I then ran the program and used it for a while. It seemed to be working perfectly without any crashes or freezing. The testing will verify if the program is in fact working well and acceptable for my stakeholders.
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[width=0.3\textwidth]{images/final}

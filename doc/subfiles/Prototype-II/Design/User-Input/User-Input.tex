@@ -16,9 +16,9 @@ The plotpane will have have to bind the Boolean property so the plot pane will g
 There are two parts to this input. I will have a miniature pane to input and control individual functions, which I will call an expression box, and then a scroll pane to store all these expression boxes. The reason I am using a scroll pane for this is because if you keep adding expression boxes I want the user to be able to scroll down to see all off them.
 \subsubsection{Input Pane}
 The input pane will store all the expression boxes and it will have a button to add a new box. This is how it will look like the sketch below.\\
-\begin{wrapfigure}{r}{0.5\textwidth}
+\begin{wrapfigure}{r}{0.45\textwidth}
 	\centering
-	\includegraphics[width=0.5\textwidth]{images/inputPane}
+	\includegraphics[width=0.45\textwidth]{images/inputPane}
 	\caption{Input Pane}
 \end{wrapfigure}
 From an implementation point of view I will just create a class that will inherit scroll pane. This allows it to mesh with the rest of the program, and is feasible to do without a GUI builder since it is quite a simple design. I will need some way to identify each expression box to be able to remove and update the function/layer associated with it. I will do this through an attribute of type integer called \texttt{ID}. I will simply use an attribute within the input pane class to keep track of what the next ID is to assign the next expression box. I will automatically make each function a new colour and this will be done with an array that will contain the standard colours that I will use and each new expression box will cycle through each of them. The expression boxes will be stored in a \texttt{VBox} which is a JavaFX component. It is a simple layout since it lays nodes out vertically, which is exactly how the expression will be laid out.\\
