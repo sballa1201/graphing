@@ -8,7 +8,7 @@ Abstraction is the process of creating a model of a real-life problem by separat
 \item The input of expressions, and their conversion into a form that the computer can then manipulate.
 \item The drawing of the function onto the screen.
 \end{enumerate}
-By analyzing both parts of these details separately, we can determine if our problem is intractable.
+By analysing both parts of these details separately, we can determine if our problem is intractable.
 
 The first part of the problem is solvable by converting the expression into an abstract syntax tree or into a post-fix stack, which is easily implementable.
 
@@ -18,7 +18,7 @@ The second part of the problem is solvable using heuristic methods. Most APIs, s
 \item Let $x$ be our starting value, $f(x)$ our function and $dx$ be a small value. Now draw a line between the points $(x,f(x))$ and $(x+dx,f(x+dx))$; $(x+dx,f(x+dx))$ and $(x+2dx,f(x+2dx))$; ... ;$(x+n\cdot dx,f(x+n\cdot dx))$ and $(x+(n+1)\cdot dx,f(x+(n+1)\cdot dx))$. Here we are effectively creating line segments and joining them together to approximate the curve. As $dx\to0$ our approximation tends towards the real curve. However as $dx\to0$ the time taken tends to infinity and therefore we only need to make $dx$ small enough so that the human eye can not see individual line segments. Also as a practical note, as $dx\to0$, the pixel density required to view the curve tends to infinity, therefore $dx$ needs to be big enough so that the $dx$ is not less than the individual pixel width.
 \item In the method above we approximated a curve by creating line segments, here we will approximate a curve by using individual points. Let $x$ be our starting value, $f(x)$ our function and $dx$ be a small value. Now draw a point at $(x,f(x))$; $(x+dx,f(x+dx))$; $(x+2dx,f(x+2dx))$; ... ;$(x+n\cdot dx,f(x+n\cdot dx))$. This can take a lot of time since calculate where to draw a pixel $w$ number of times, where $w$ is the pixel width. In some cases, for complicated functions, it may be intractable.
 \end{enumerate}
-By using the first method we can model a curve to good accuracy within good time, therefore our second part of the problem is computationally possible albeit, using a heuristic method.
+By using the first method we can model a curve to good accuracy within good time, therefore our second part of the problem is computationally possible with a heuristic method.
 \newpage
 \section{Logical Approach}
 Many parts of this problem require clear decision making, making sure that user inputs are valid and making my solution as efficient as possible. I could validate and standardize user input by using \texttt{RegEx\cite{regex}}. I will definitely use standard structures in my solutions, and therefore will be able to logical traverse these structures to get the required solution.
@@ -28,7 +28,7 @@ Decomposition is where a problem is broken down into smaller sub-problems that a
 	\item A function class which consists of:
 		\begin{enumerate}
 			\item Converting an expression into a form the computer can manipulate.
-			\item Evaluating the expression for a value $x$, where $x\in\mathbb{R}$.
+			\item Evaluating the expression for a value $x$.
 			\item Calculating the roots and turning points of the function.
 		\end{enumerate}
 	\item A plot class which consists of:

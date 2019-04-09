@@ -30,7 +30,7 @@ Now if we want to get $f(1)$, we simply replace every instance of $x$ with $1$ a
 This recursive algorithm has base case ``tree.height = 0'', which essentially checks if are at the bottom of our tree. We know that the bottommost nodes are actually values, therefore we can return this value as we cannot go deeper into our tree. Our recursive case is where we are not at the bottom of our tree. We know that at this point, the root node is an operator 
 \footnote{It is important to realize that tree.root.value is just an operator, and in theory we can simply just write it as shown above but in implementation this will require us to use if statements to check which operator it actually is as the operators will most likely be of data type string}. 
 Therefore we operate on the nodes below it.\\
-\newpage
+\newpage\noindent
 First let us replace every instance of $x$ with $1$.\\
 \par
 \Tree[.* 
