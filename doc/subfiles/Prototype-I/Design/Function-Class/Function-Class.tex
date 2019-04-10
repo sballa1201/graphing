@@ -10,7 +10,7 @@ Our basic \texttt{Function} class will contain two main methods:
 Our class will contain more methods and attributes later (colour of the line, roots, turning points etc.) but these can be considered later as these are quite small parts. There are two distinct methods to parse a function:
 \begin{itemize}
 	\item We can convert the input into a data structure, which we can then use to evaluate a value $x$.
-	\item We can convert the input into its equivalant in a scripting language, such as \texttt{Lua\cite{lua}}, and then use the scripting language to evaluate a value $x$.
+	\item We can convert the input into its equivalent in a scripting language, such as \texttt{Lua\cite{lua}}, and then use the scripting language to evaluate a value $x$.
 \end{itemize}
 An example of the second is shown below:
 \begin{minted}[
@@ -28,13 +28,13 @@ public double evaluate(double x) {
 	return e.get("y");	
 }
 \end{minted}
-The problem with using scripts is that they are take a huge hit on performance as you are effectively creating a virtual machine during your program. Especially in \texttt{Java} where a VM is used to run your programs, creating a VM inside a VM is not very effiecient. Also we may make upto 10000 evaluate calls to render multiple lines, and therefore we will need to be as effiecient as possible. While the first method is harder to implement, it will have better performance, and it will be easier to debug as we are not using external tools. Therefore we will use the first method.\\
+The problem with using scripts is that they are take a huge hit on performance as you are effectively creating a virtual machine during your program. Especially in \texttt{Java} where a VM is used to run your programs, creating a VM inside a VM is not very efficient. Also we may make up to 10000 evaluate calls to render multiple lines, and therefore we will need to be as efficient as possible. While the first method is harder to implement, it will have better performance, and it will be easier to debug as we are not using external tools. Therefore we will use the first method.\\
 There are two main structures we can convert a mathematical input into:
 \begin{itemize}
 	\item Binary Trees
 	\item Stack Based Programming
 \end{itemize}
-both of which we will analyze in detail.
+both of which we will analyse in detail.
 \newpage
 
 \end{document}

@@ -3,7 +3,7 @@
 
 \subsection{Parsing Algorithm}
 \subsubsection{Least Significant Operator}
-An important part of the parsing stage, is the ability to find the least significant operator within an expression. If there are no operators $-1$ will be returned. If an operator is inbetween within a pair of brackets it is automatically discounted. We do this by respectively incrementing or decrementing a variable when we reach an opening or closing bracket to monitor when we are within a pair of brackets.
+An important part of the parsing stage, is the ability to find the least significant operator within an expression. If there are no operators $-1$ will be returned. If an operator is in between within a pair of brackets it is automatically discounted. We do this by respectively incrementing or decrementing a variable when we reach an opening or closing bracket to monitor when we are within a pair of brackets.
 \begin{algorithm}
 \caption{Least Significant Operator Position}
 \DontPrintSemicolon
@@ -38,7 +38,7 @@ The function above assumes that there is no whitespace and that there are no bra
 
 However algorithm \ref{alg:checkBracket1} has some issues. For example if we have the expression $\frac{x+1}{x+2}$, this would be input as, $(x+1)/(x+2)$. Now if we apply algorithm \ref{alg:checkBracket1} which removes enclosing brackets we get $x+1)/(x+2$. This is completely wrong, as in this case we do not want to any remove brackets at all. The significant issue here is that we only want to remove the enclosing brackets, if they are \textit{\textbf{matching}}.
 
-To do this the algorithm \ref{alg:checkBracket2} is more suited. This algorithm is based on \ref{alg:checkBracket1} but checks for matching brackets. It does this by using a variable that increments everytime there is a opening bracket and decrements every time there is a closing bracket. When the variable becomes 0 the matching bracket has been found. If this happens at the end the opening and closing brackets are removed, else nothing happens. 
+To do this the algorithm \ref{alg:checkBracket2} is more suited. This algorithm is based on \ref{alg:checkBracket1} but checks for matching brackets. It does this by using a variable that increments every time there is a opening bracket and decrements every time there is a closing bracket. When the variable becomes 0 the matching bracket has been found. If this happens at the end the opening and closing brackets are removed, else nothing happens. 
 This algorithm will also throw an exception if there are unequal number of opening and closing brackets. This is so that we can inform the user later of the error that they have made and so that we can kill the process instantly rather than letting this error have consequences later on (probably during the evaluation of a value).
 \begin{algorithm}
 \DontPrintSemicolon
@@ -107,7 +107,7 @@ with the replacement expression being \textbf{\underline{``\$1*\$2''}}. If we ta
 \textit{``([$\wedge$\textbackslash(\textbackslash)\textbackslash+\textbackslash-\textbackslash*\textbackslash/\textbackslash$\wedge$])''}
  and 
  \textit{``([\textbackslash\textbackslash(a-z])''} 
- respectively. A capture group stores a set of characters for each match that is made, so that we can perform actions on it later. The first capture group checks if the first character, in the substring that is currently being checked, is not any of the operators or brackets\footnote{the reason there are so many backslashes is because a lot of the operators are actually key characters in \texttt{RegEx} and a blackslash is an escape character which means that it signifies to treat the next character as a pure character}. The not is signified by the first $\wedge$. The second capture group checks if the second character, in the substring that is currently being checked, is a constant/variable
+ respectively. A capture group stores a set of characters for each match that is made, so that we can perform actions on it later. The first capture group checks if the first character, in the substring that is currently being checked, is not any of the operators or brackets\footnote{the reason there are so many backslashes is because a lot of the operators are actually key characters in \texttt{RegEx} and a backslash is an escape character which means that it signifies to treat the next character as a pure character}. The not is signified by the first $\wedge$. The second capture group checks if the second character, in the substring that is currently being checked, is a constant/variable
  \footnote{While we are only dealing with the variable $x$ at the moment, this allows for constants to be used in the future and be dealt with correctly.}
  , signified by the \textit{``a-z''} or is an opening bracket \textit{``(''}. If both capture groups return true then a match is found and the match is replaced with \textit{``\$1*\$2''} where \textit{``\$1''} is the first capture group, \textit{``\$2''} is the second capture group and the * asterisk between them signifying the multiply.
  

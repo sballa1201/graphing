@@ -2,7 +2,7 @@
 \begin{document}
 
 \subsection{Stack Based Programming}
-Stack Based Programming\cite{stack} is all about using a stack data structure, and manipulating the items within it to get the desired result. Firstly we have to convert our \textit{Infix Notation} into \textit{Reverse Polish Notation}. Infix notation is the ``normal'' way of writing algebra, where the operator is inbetween its operands. Reverse Polish notation or Postfix notation is where the operator is after its operands. The advantage of this notation is that no brackets are required. For example $4 + 3$ in infix notation would be $4\quad 3\quad +$ in postfix notation. To evaluate this expression we push each individual operator/value, from left to right, one by one, to a stack. If the value is an operator then it pops however many inputs it would normally take off the stack, perform the operation, on the values we just popped off, and then add that new value back to the stack. For example if we take the infix expression,
+Stack Based Programming\cite{stack} is all about using a stack data structure, and manipulating the items within it to get the desired result. Firstly we have to convert our \textit{Infix Notation} into \textit{Reverse Polish Notation}. Infix notation is the ``normal'' way of writing algebra, where the operator is in between its operands. Reverse Polish notation or Postfix notation is where the operator is after its operands. The advantage of this notation is that no brackets are required. For example $4 + 3$ in infix notation would be $4\quad 3\quad +$ in postfix notation. To evaluate this expression we push each individual operator/value, from left to right, one by one, to a stack. If the value is an operator then it pops however many inputs it would normally take off the stack, perform the operation, on the values we just popped off, and then add that new value back to the stack. For example if we take the infix expression,
 \[(((6*(8-3)/3)) / 2) + 1\]
 we can convert this to the equivalent postfix expression,
 \[6\quad 8\quad 3 \quad - \quad * \quad 3 \quad / \quad 2 \quad / \quad 1 \quad +\]
@@ -23,7 +23,7 @@ We then go up to $/$ and add this to our list. We then visit its sibling $2$ and
 \[6\quad 8\quad 3 \quad - \quad * \quad 3 \quad / \quad 2\]
 We then go up to $/$ and add this to our list. We then visit its sibling $1$ and add this to our list. We then go up to the root node, $+$, and add this to our list. Finally we have,
 \[6\quad 8\quad 3 \quad - \quad * \quad 3 \quad / \quad 2 \quad / \quad 1 \quad +\]
-This is identical to our post-fix notation. This is important as later on we can use this fact to make our solution as effiecient as possible.\\
+This is identical to our post-fix notation. This is important as later on we can use this fact to make our solution as efficient as possible.\\
 Now if we start to evaluate this expression we get,
 \[
 \begin{bmatrix} 6 \end{bmatrix} \quad
@@ -68,7 +68,7 @@ Finally Take $1$ and $5$ off the stack, push $5 + 1 = 6$ onto the stack. We are 
 }
 \end{algorithm}
 
-Here we are treating the operator to be an object for simplicity. In practice, all these values will be of data type String, therefore we will probably use some sort of selection contruct, either \textit{if} or \textit{switch-case} statements, to determine if $i$ is an operator and if it is, which one is it.
+Here we are treating the operator to be an object for simplicity. In practice, all these values will be of data type String, therefore we will probably use some sort of selection construct, either \textit{if} or \textit{switch-case} statements, to determine if $i$ is an operator and if it is, which one is it.
 \newpage
 
 \end{document}

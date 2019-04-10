@@ -2,8 +2,9 @@
 \begin{document}
 
 \section{Layers}
-As described in the design section, I will create classes that inherit from one a top class that I will call \texttt{Layer}. This class will be \texttt{abstract} since we will never instantiate this class and only inherit from it. The \texttt{CartesianLayer} will be a child class to the abstract \texttt{Layer} class. Again this will be \texttt{abstract} since we will only inherit from it. While it seems redundant for the super class \texttt{Layer} to exist, it fulfills the purpose of being able to create an array of type \texttt{Layer} which can then be filled with objects that are of types which are child classes to \texttt{Layer}. Our first instantiatable class will be a child class to \texttt{CartesianLayer} and will be called \texttt{ExplicitXFunctionCartesianLayer}. The \texttt{X} signifies that the parameter will be $x$. Likewise we will have a class called \texttt{ExplicitYFunctionCartesianLayer}, where this will be a function in terms of $y$. These two function classes are very similar, they both use algorithm \ref{alg:drawFunc} on page \pageref{alg:drawFunc} but one uses the primary variable $x$ and the other uses the primary variable $y$. Our \texttt{AxesCartesianLayer} will also inherit from the \texttt{CartesianLayer} parent class. This makes actually drawing the axes easier, since we can simply draw 2 lines using the methods in the parent class, \texttt{CartesianLayer}.
+As described in the design section, I will create classes that inherit from one a top class that I will call \texttt{Layer}. This class will be \texttt{abstract} since we will never instantiate this class and only inherit from it. The \texttt{CartesianLayer} will be a child class to the abstract \texttt{Layer} class. Again this will be \texttt{abstract} since we will only inherit from it. While it seems redundant for the super class \texttt{Layer} to exist, it fulfils the purpose of being able to create an array of type \texttt{Layer} which can then be filled with objects that are of types which are child classes to \texttt{Layer}. Our first instantiable class will be a child class to \texttt{CartesianLayer} and will be called \texttt{ExplicitXFunctionCartesianLayer}. The \texttt{X} signifies that the parameter will be $x$. Likewise we will have a class called \texttt{ExplicitYFunctionCartesianLayer}, where this will be a function in terms of $y$. These two function classes are very similar, they both use algorithm \ref{alg:drawFunc} on page \pageref{alg:drawFunc} but one uses the primary variable $x$ and the other uses the primary variable $y$. Our \texttt{AxesCartesianLayer} will also inherit from the \texttt{CartesianLayer} parent class. This makes actually drawing the axes easier, since we can simply draw 2 lines using the methods in the parent class, \texttt{CartesianLayer}.
 \\A diagram of this inheritance is shown below:
+
 \begin{figure}[H]
 \begin{center}
 \begin{forest}
@@ -35,6 +36,7 @@ As described in the design section, I will create classes that inherit from one 
 \end{center}
 \caption{\texttt{Layer} Inheritance Diagram}
 \end{figure}
+
 The problem with this part of the program is that everything is interdependent on everything else. Specifically here the \texttt{PlotPane} class is used within the \texttt{Layer} classes and vice versa. Since I will implement the \texttt{Layer} classes first I will create a bare bones  \texttt{PlotPane} class that just contains its attributes for use within the \texttt{Layer} classes and implement the \texttt{PlotPane} class later. This is simply to avoid compiler errors. This also means that we cannot properly test this portion until we complete both parts. As such I will combine the mini tests that I would have carried out, as a part of the overall final testing for this prototype.
 \newpage
 \subsection{Layer}
@@ -230,7 +232,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 public abstract class CartesianLayer extends Layer {
 
 	@Override
-	// must be overriden since the parent class made it abstract
+	// must be overridden since the parent class made it abstract
 	// but keep it abstract so child class must override
 	public abstract void draw();
 

@@ -3,7 +3,7 @@
 
 \begin{document}
 \chapter{Similar Programs}
-During my interviews with my stakeholders, they mentioned several pieces of software that they have used. I will be analyzing 3 of those programs in particular (or similar in the case of MATLAB, since MATLAB is extremely expensive), which are:
+During my interviews with my stakeholders, they mentioned several pieces of software that they have used. I will be analysing 3 of those programs in particular (or similar in the case of MATLAB, since MATLAB is extremely expensive), which are:
 \begin{enumerate}
 \item Desmos \cite{desmos}
 \item GeoGebra \cite{geogebra}
@@ -44,12 +44,12 @@ As a pure graphing software, it does not automatically show the points of intere
 	\end{center}
 	\caption{GeoGebra Function Inspector Tool}
 \end{figure}
-The panning and zooming in/out in GeoGebra is very fluid, with the zoom function being centered around the cursor. This means that you zoom in towards your cursor which feels more  responsive than if it zooms in/out from the center of the graph. The only criticism is that you can accidentally move already drawn graphs when trying to pan, which can be frustrating.
+The panning and zooming in/out in GeoGebra is very fluid, with the zoom function being centred around the cursor. This means that you zoom in towards your cursor which feels more  responsive than if it zooms in/out from the centre of the graph. The only criticism is that you can accidentally move already drawn graphs when trying to pan, which can be frustrating.
 
 In terms of other features, like Desmos, you can save and print your work as well as being able to export it into other formats such as JPG, PNG or even convert it into a PSTricks or TikZ environment which can be used in \LaTeX \ documents for excellent graphs.
 
 \section{GNU Octave}
-GNU Octave is essentially an interpreter for a high level language centered around numerical calculation. GNU Octave is designed to be an open source software clone of MATLAB (MATrix LABatory).
+GNU Octave is essentially an interpreter for a high level language centred around numerical calculation. GNU Octave is designed to be an open source software clone of MATLAB (MATrix LABatory).
 \newline
 
 Octave is different from GeoGebra and Desmos in the fact that it plots points that you tell it to not lines. For example if you wanted to plot $y=x^2$, you would define an array for your range in $x$ by doing:
@@ -73,7 +73,7 @@ As a graphing tool Octave is not very impressive, it has limited support for imp
 \begin{minipage}{.3\textwidth}
 	\centering
 	\includegraphics[width=0.65\textwidth]{images/matlabMesh}
-	\caption{Wireframe 3D plot of the two-dimensional unnormalized sinc function}
+	\caption{Wireframe 3D plot of the two-dimensional unnormalised sinc function}
 \end{minipage}
 \end{figure}
 The way Octave plots (using the plot function at least) is by joining a line between consecutive points that it plots. I may use this in my program, since it seems more efficient to approximate a curve by making linear lines and joining them up than to check each pixel on the plot to check if it satisfies the given relation ship.
@@ -85,9 +85,9 @@ Octave is split into two views, the main editor view and a dockable plot view (y
 Octave, like the other programs, can save plots and additionally the scripts you have made. It also has a feature that saves the current state when you close it, and resumes this state when you open it again. This could also be a feature I implement later into the project.
 
 \section{Comparison}
-Overall I think that I will be using aspects of all three of the programs that I have analyzed in my program. I think I should try and make my program as simple to use as Desmos. As mentioned, the input is a problem, and hence I will try and implement an input system like GeoGebras'. All three of the programs analyzed have some form of saving their plots, so I think that this is a feature that I should implement within my own program.
+Overall I think that I will be using aspects of all three of the programs that I have analysed in my program. I think I should try and make my program as simple to use as Desmos. As mentioned, the input is a problem, and hence I will try and implement an input system like GeoGebras'. All three of the programs analysed have some form of saving their plots, so I think that this is a feature that I should implement within my own program.
 
-In terms of UI design, both Desmos and GeoGebra have a similar layout. They have an equation input box to the left, that can be minimized and the actual graph in the center left. I think that this layout is easy to use for the user so I will implement a similar design in my own program.
+In terms of UI design, both Desmos and GeoGebra have a similar layout. They have an equation input box to the left, that can be minimized and the actual graph in the centre left. I think that this layout is easy to use for the user so I will implement a similar design in my own program.
 
 \begin{figure}[H]
 	\begin{center}

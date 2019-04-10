@@ -3,7 +3,8 @@
 
 \chapter{Evaluation}
 
-\section{Success Criteria}
+\section{Success Criteria}%Done
+Below is a table which summarises the success criteria that I listed out in the analysis and comments on how much I have achieved those criteria:
 \begin{table}[H]
 \centering
 \begin{tabular}{|C{0.3\textwidth}|C{0.1\textwidth}|C{0.5\textwidth}|}
@@ -17,25 +18,66 @@ The software should be able to run on most hardware since at least 7 years ago. 
 \end{tabular}
 \end{table}
 
+\newpage
 \section{Success in Implementation of Features}
 
-\section{Maintenance}
+
+\newpage
+\section{Failures, Limitations}
+While the previous section outlined many of the successes of this project there have been a couple of failures and limitations that I have had to overcome.
+I would say that the biggest failure in this project was right at the start in my analysis stage when I suggested a set of features that I was going to implement. I was not aware of how difficult this project would be to implement and document and as such I listed too many features. I learned this the hard way when beginning prototype 2 but since then have stuck to a reasonable and achievable set of features.
+
+
+\section{Maintenance}%Done
 Since the start of this project I have maintained several practices to make sure that my program is easy to maintain by myself and others.
-\subsection{Comments}
+\subsection{Comments and Discipline}
+In order to make my code to read I made sure that my code is properly indented and the brackets were put in the proper position using my IDE. If any lines of code were incredibly long I split the line into multiple lines at meaningful positions so that my code was legible. I also used comments appropriately and sparingly to explain the code's functionality for myself and others who may seek to add and extend my program further. I used them before every function to describe the corresponding function and used them in places that were quite complex to clarify and simplify.
 
 \subsection{Modularity}
+A key component of modularity in a program is the idea of using procedures and functions or using Objects and Classes and following the Object Oriented Programming (OOP) paradigm. I decided to embrace the OOP paradigm and I did this by using Java as my programming language. Java forces the programmer to use classes to actually develop and as such I designed my program around it.
+
+An example of this is when I created an abstract parent class and created child classes that inherited from it for both my function and layer classes. This allowed the interaction between these classes and other parts of my program to be standardised by creating an interface, in the form of public methods, in the abstract parent class. It also means that others can create new types of functions and their associated layers by inheriting from the abstract classes to add more functionality and extend my program.
+
+Another example of this is when I used generics in Java. I used them when implementing a stack data structure. It allowed me to create a basis for a stack and instead of having redundant code for the same stack but for different data types, in my case integers and strings, I could just use generics which generalise the structure for any object.\\
+I also decomposed as much of my code into smaller methods and as many classes that were reasonable, in order to make it easier to develop my program in small manageable steps. As well as being a good programming practice, it has allowed me to take large breaks in between coding and still know what to do due to the lesser complexity of the methods.\\
 
 \subsection{Version Control}
+In order to organise and centralise my efforts while programming I used version control, specifically GIT. Version control allowed me to keep track of my progress using commits, which are essentially small changes with simple descriptions of the code. Furthermore it made me work towards a commit in mind making my progress more directed and focused. It also allowed me to work on the project in multiple locations, at school and at home, by storing it on a remote server and pulling and pushing to it. Finally if anything went wrong during implementing my program I could always revert commits to a previous stable version.
 
-\subsection{Future Extensions}
+\section{Software and Hardware Requirements}	%Done
+Here are some requirements that are needed for my program to run:
+\begin{itemize}
+    \item Software
+    \begin{itemize}
+        \item An Operating System that is supported by Java 8
+        \item The Java 8 JRE installed
+    \end{itemize}
+    \item Hardware
+    \begin{itemize}
+        \item A Keyboard
+        \item A Mouse
+        \item A Monitor
+    \end{itemize}
+\end{itemize}
 
-\section{Software \& Hardware Requirements}
-Here are some requirements 
-\subsection{Software}
+\section{Stakeholder Feedback}%Done
+Along with my videos for the tests, I asked a stakeholder to try out my program and record their experience. This video is included along with the evidence for the testing. I talked to them about their experience and here are the main points I got from them:
+\begin{itemize}
+	\item \textit{``The sketching of the functions was simplistic and everything that was needed in terms of functionality and information was there, for example the coordinates in the top left.There was no needless clutter like axes numbering.''}
+	
+	\item \textit{``Actually inputting the functions was quite confusing since normally you input $y=$ or $x=$ at the start to define explicit functions in Desmos and with your program you didn't need to do that.''}
+	
+	\item \textit{``The menu ribbon at the top was kind of useless. I understand told that it would have been used for new features in the future. I think that one useful thing it could be great for is a help page. It could highlight all the basic features of the program and show videos of these features in action. This is especially true for ''}
+	
+	\item \textit{``Some extra functions such as the logarithm or any of the trigonometric functions would have been useful to have since they are in the A Level Maths specification.''}
+	
+	\item \textit{``Overall I think that it is an excellent program and incredibly friendly for someone who is terrible with computers like me.''}
+\end{itemize}
 
-\subsection{Hardware}
+I think this feedback shows that my program has fulfilled many of the success criteria listed at the start of this project and again at the start of this evaluation. It also lets me look forward into what could have been the future of this project from the suggestions given.
 
-\section{User Feedback}
+\section{Possible Extensions}
+The extensions listed below are from my original set of features that I never was able to implement and some stakeholder ideas that I thought were reasonable to implement.
 
 \section{Conclusion}
 

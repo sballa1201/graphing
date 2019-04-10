@@ -47,7 +47,7 @@ Here is the algorithm for panning:
 \end{algorithm}
 \newpage
 \subsection{Zoom}
-There are two ways to implement a zooming functionality. One is where we zoom about the center of the viewport. This is unintuitive since no matter where the cursor is, it always zooms around the center. Another one is where we zoom around the cursor. This feels incredibly natural and most graphing programs like Desmos and Geogebra have this. It may be harder to implement than the first idea but it fits with the target that the program should be responsive and natural.\\
+There are two ways to implement a zooming functionality. One is where we zoom about the centre of the viewport. This is unintuitive since no matter where the cursor is, it always zooms around the centre. Another one is where we zoom around the cursor. This feels incredibly natural and most graphing programs like Desmos and Geogebra have this. It may be harder to implement than the first idea but it fits with the target that the program should be responsive and natural.\\
 The zooming will occur when the scroll wheel on the mouse is scrolled. If scroll wheel is scrolled up the viewport will zoom in and if it is scrolled in the viewport will zoom out. To achieve effect of zooming into the cursor we can use some basic transformations to achieve what we need. So first we need to translate the viewport from the cursor to the origin. Then scale it up or down. Then translate it back to where the cursor was.\\
 Again we need to notify the plot pane that the plot needs to be drawn again. We also need to update the pixel worth since the how much each pixel is worth will have changed since we are effectively scaling each pixel. So we need to call the \texttt{updatePixelWorth()} method.
 \begin{algorithm}

@@ -43,7 +43,7 @@ private static String checkBracket(String input) throws UnequalBracketsException
 	return input;
 }
 \end{minted}
-While this algorithm is explained in the design section, the confusing part of this is the checking if there are an equal number of opening and closing brackets. There is no builtin method for this, but we can use builtin methods to achieve the same result. To do this\cite{countInstanceStringJava} we replace all of the character that we want with empty characters and then take this away from the length of the original String.\footnote{Let $l$ be the original length of the String, $x$ the number of instances of the character and $c$ the length of the reduced String:\[l = x + c \implies x = l - c\]}
+While this algorithm is explained in the design section, the confusing part of this is the checking if there are an equal number of opening and closing brackets. There is no built-in method for this, but we can use built-in methods to achieve the same result. To do this\cite{countInstanceStringJava} we replace all of the character that we want with empty characters and then take this away from the length of the original String.\footnote{Let $l$ be the original length of the String, $x$ the number of instances of the character and $c$ the length of the reduced String:\[l = x + c \implies x = l - c\]}
 \newpage\noindent
 To test this method I used the following code with comments for what I expected:
 \begin{minted}[breaklines]{java}
