@@ -2,9 +2,9 @@
 \begin{document}
 
 \chapter{Evaluation}
-
+The sections below highlight this program's peaks, its pitfalls and my own personal experience implementing it.
 \section{Success Criteria}%Done
-Below is a table which summarises the success criteria that I listed out in the analysis and comments on how much I have achieved those criteria:
+Below is a table which lists the success criteria identified in the analysis and comments on how much I have achieved those criteria:
 \begin{table}[H]
 \centering
 \begin{tabular}{|C{0.3\textwidth}|C{0.1\textwidth}|C{0.5\textwidth}|}
@@ -19,14 +19,42 @@ The software should be able to run on most hardware since at least 7 years ago. 
 \end{table}
 
 \newpage
-\section{Success in Implementation of Features}
+\section{Success in Implementation of Features}%Done
+I took each of the modified set of features that I said that I was going to implement and accessed how well I implemented those features in the table below:
 
+\begin{table}[H]
+\centering
+\begin{tabular}{|C{0.3\textwidth}|C{0.1\textwidth}|C{0.5\textwidth}|}
+\hline
+Feature                                                                                          & Successful?             & Comments                                                                                                                                  \\ \hline
+Plot a explicit function in $x$                                           & \cmark & As tested in prototype 1 my program draws an explicit function in terms of $x$ and I have gone even further by also drawing an explicit function in terms of $y$ \\ \hline
+
+Plot multiple functions on the same plot & \cmark &  I designed the program around being able to plot multiple functions from using an OOP design. \\ \hline
+
+Let the user input functions & \cmark & Since prototype 2 the user can input multiple functions remove and add them at will.  The user could also hide and To improve this later I could let the user change the colour of the function using a colour picker.\\ \hline
+
+Zoom in/out of the graph & \cmark & Various stakeholders commented on the responsiveness and how natural it was to zoom into and out of a point. \\ \hline
+
+Pan around the graph & \cmark & This was one of the hardest features to implement due to how weird drag events were handled and even now an exception is thrown every time a drag event is initiated. However the functionality works and there is no adverse affect for the user and I would consider this a success. \\ \hline
+
+Save plots as pictures & \cmark & A stakeholder said that this feature was really nice to have but incredibly difficult to find without knowing about it first. They suggested that I put in the menu ribbon that is currently not being used for anything, which I think is a sensible suggestion. \\ \hline
+
+Show/Hide functions & \cmark & A simple but useful feature that I think adds a lot to the functionality of the program. \\ \hline
+
+Show coordinates in top left of pane & \cmark & I think the implementation of this was really clean and helped verify some aspects of my program, especially to make sure my drawing of the functions were accurate. \\ \hline
+
+\end{tabular}
+\end{table}
 
 \newpage
-\section{Failures, Limitations}
+\section{Failures, Limitations}%Done
 While the previous section outlined many of the successes of this project there have been a couple of failures and limitations that I have had to overcome.
+
 I would say that the biggest failure in this project was right at the start in my analysis stage when I suggested a set of features that I was going to implement. I was not aware of how difficult this project would be to implement and document and as such I listed too many features. I learned this the hard way when beginning prototype 2 but since then have stuck to a reasonable and achievable set of features.
 
+In terms of limitations my program sometimes draws some functions wrong. This is most notable for fractional power functions and sometimes for asymptotal functions where they either don't get drawn or draw the asymptotes as a line from infinity to negative infinity which shouldn't be drawn. This also occurs for functions that have incredible steep gradients where some parts of the function would just be missing. I could overcome this by drawing every pixel individually and by creating my own maths library for this project. However both methods are inefficient and I feel as though for my timescale and my current skill level, the methods that I used were completely acceptable.
+
+During my project I ran into the many errors, especially runtime errors. Luckily the IDE that I was using, Eclipse, was excellent and provided excellent debug tools, including breakpoints, stack view and variable view. While it was not much use in the first prototype, it really helped me overcome some problems, especially with user input in the second prototype. Furthermore I created my own exceptions to integrate within Java's existing exception handling service, to differentiate between the errors from what I created and from errors from my use of standard libraries.
 
 \section{Maintenance}%Done
 Since the start of this project I have maintained several practices to make sure that my program is easy to maintain by myself and others.
@@ -67,7 +95,7 @@ Along with my videos for the tests, I asked a stakeholder to try out my program 
 	
 	\item \textit{``Actually inputting the functions was quite confusing since normally you input $y=$ or $x=$ at the start to define explicit functions in Desmos and with your program you didn't need to do that.''}
 	
-	\item \textit{``The menu ribbon at the top was kind of useless. I understand told that it would have been used for new features in the future. I think that one useful thing it could be great for is a help page. It could highlight all the basic features of the program and show videos of these features in action. This is especially true for ''}
+	\item \textit{``The menu ribbon at the top was kind of useless. I understand told that it would have been used for new features in the future. I think that one useful thing it could be great for is a help page. It could highlight all the basic features of the program and show videos of these features in action. This is especially true for the save plot as an image feature since I would have never have found that feature if you didn't tell me about it.''}
 	
 	\item \textit{``Some extra functions such as the logarithm or any of the trigonometric functions would have been useful to have since they are in the A Level Maths specification.''}
 	
@@ -76,10 +104,26 @@ Along with my videos for the tests, I asked a stakeholder to try out my program 
 
 I think this feedback shows that my program has fulfilled many of the success criteria listed at the start of this project and again at the start of this evaluation. It also lets me look forward into what could have been the future of this project from the suggestions given.
 
-\section{Possible Extensions}
-The extensions listed below are from my original set of features that I never was able to implement and some stakeholder ideas that I thought were reasonable to implement.
-
-\section{Conclusion}
+\section{Possible Extensions}%Done
+The extensions listed below are from my original set of features that I never was able to implement and some stakeholder ideas from the previous section that I thought were reasonable to implement:
+\begin{itemize}
+	\item Plot special functions such as trigonometric functions, logarithms, modulus functions, etc.
+	\item Identify intersection with the axes
+	\item Multiple plots that you can switch between
+	\item Save workspace to resume later
+	\item Dark Theme
+	\item Identify intersections between functions
+	\item Differentiate explicit continuous functions with respect to $x$
+	\item Polar equations
+	\item Implicit equations
+	\item Parametric equations
+	\item \LaTeX \ equation support
+	\item Identify turning points 
+	\item Help page to familiarise users with the program
+	\item Make the menu ribbon have some function or remove it completely
+\end{itemize}
+\section{Conclusion}%Done
+Overall I think that this project has been a success, achieving its purpose defined in the criteria and excellent in terms of stakeholder feedback and support. Personally this project has had many hurdles, such as learning how to use generics, that I have persevered through. Fundamentally I developed my understand of numerical applications of Mathematics through the design of this program. To achieve this I built upon my knowledge about Computer Science learning more about structures, such as Binary Trees and Stack. I have felt as though I have used and applied all of the techniques I learned during my Computer Science course, such as abstraction and decomposition, and bridged the gap between Mathematics and Computer Science which has honed my understanding for both. Even though the project could be improved I am happy with how it has turned out and may eventually come back to it in the future to update and improve it.
 
 \newpage
 \end{document}
